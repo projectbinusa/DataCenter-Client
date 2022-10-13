@@ -1,0 +1,19 @@
+.sec-reg {
+    background-color: #f2f7ff;
+}
+.body-reg {
+    background-image: linear-gradient(to right, #0b409c, #10316b);
+    color: #f2f7ff;
+}
+img {
+    display: block;
+    margin: 0 auto;
+    /* border: 1px solid red; */
+}
+.img-reg {
+    /* border: 1px solid red; */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

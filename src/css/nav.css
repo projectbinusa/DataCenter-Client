@@ -1,0 +1,12 @@
+.navbar {
+    background-color: #f2f7ff;
+}
+.nav-log {
+  background-color: #0b409c;
+  color: #fff;
+}
+ .nav-log:hover, .nav-reg {
+    background-color: #f2f7ff;
+    color: #0b409c;
+ }
+

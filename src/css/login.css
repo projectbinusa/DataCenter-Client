@@ -1,0 +1,13 @@
+.sec-log {
+    background-color: #f2f7ff;
+    height: 100vh;
+}
+.body-log {
+    border-radius: 13px;
+    background-image: linear-gradient(to right, #0b409c, #10316b);
+    color: #f2f7ff;
+}
+.button-log {
+    background-color: #f2f7ff;
+    color: #000;
+}
