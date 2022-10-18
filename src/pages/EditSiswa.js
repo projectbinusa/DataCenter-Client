@@ -1,37 +1,39 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import NavComp from '../components/NavComp';
-import Swal from "sweetalert2"
-import "../style/edit.css"
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import NavComp from "../components/NavComp";
+import Swal from "sweetalert2";
+import "../style/edit.css";
 
 export default function EditSiswa() {
   const param = useParams();
-  const [namaSiswa, setNamaSiswa] = useState("")
-  const [tempatLahir, setTempatLahir] = useState("")
-  const [tanggalLahir, setTanggalLahir] = useState("")
-  const [gender, setGender] = useState("")
-  const [agama, setAgama] = useState("")
+  const [namaSiswa, setNamaSiswa] = useState("");
+  const [tempatLahir, setTempatLahir] = useState("");
+  const [tanggalLahir, setTanggalLahir] = useState("");
+  const [gender, setGender] = useState("");
+  const [agama, setAgama] = useState("");
 
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/siswa/" + param.id).then((response) => {
-      const dataSiswa = response.data;
-      setNamaSiswa(dataSiswa.namaSiswa);
-      setTempatLahir(dataSiswa.tempatLahir);
-      setTanggalLahir(dataSiswa.tanggalLahir);
-      setGender(dataSiswa.gender);
-      setAgama(dataSiswa.agama);
-    }).catch(error => {
-      alert("Terjadi kesalahan Sir! " + error);
-    });
+    axios
+      .get("http://localhost:8080/api/siswa/" + param.id)
+      .then((response) => {
+        const dataSiswa = response.data;
+        setNamaSiswa(dataSiswa.namaSiswa);
+        setTempatLahir(dataSiswa.tempatLahir);
+        setTanggalLahir(dataSiswa.tanggalLahir);
+        setGender(dataSiswa.gender);
+        setAgama(dataSiswa.agama);
+      })
+      .catch((error) => {
+        alert("Terjadi kesalahan Sir! " + error);
+      });
   }, []);
 
   const nameChangeHandler = (event) => {
     setNamaSiswa(event.target.value);
-  }
+  };
 
   const tempatChangeHandler = (event) => {
     setTempatLahir(event.target.value);
@@ -51,110 +53,114 @@ export default function EditSiswa() {
   const submitActionHandler = async (event) => {
     event.preventDefault();
 
-    await axios.put("http://localhost:8080/api/siswa/" + param.id, {
-      namaSiswa: namaSiswa,
-      tempatLahir: tempatLahir,
-      tanggalLahir: tanggalLahir,
-      gender: gender,
-      agama: agama
-    }).then(() => {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Edit Success!!',
-        showConfirmButton: false,
-        timer: 1500
+    await axios
+      .put("http://localhost:8080/api/siswa/" + param.id, {
+        namaSiswa: namaSiswa,
+        tempatLahir: tempatLahir,
+        tanggalLahir: tanggalLahir,
+        gender: gender,
+        agama: agama,
+      })
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Edit Success!!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/table");
+      })
+      .catch((error) => {
+        alert("Terjadi kesalahan: " + error);
       });
-      navigate("/table")
-    }).catch(error => {
-      alert("Terjadi kesalahan: " + error);
-    })
   };
-
-
 
   return (
     <div>
       <div className="sticky top-0">
         <NavComp />
       </div>
-      <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-lg">
-          <form onSubmit={submitActionHandler}
+      <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-lg">
+          <form
             action=""
-            className="mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
+            class="mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
+            onSubmit={submitActionHandler}
           >
-            <p className="text-2xl font-medium">Edit User</p>
+            <p class="text-3xl font-medium mb-7">Edit User</p>
 
-            <div className="relative mt-1">
+            <div class="relative mt-3">
               <label
                 for="nama"
-                className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                class="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
               >
                 <input
-                  value={namaSiswa}
-                  onChange={nameChangeHandler}
                   type="text"
                   id="nama"
                   placeholder="Nama"
-                  className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                  class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                  value={namaSiswa}
+                  onChange={nameChangeHandler}
                 />
 
-                <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
+                <span class="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
                   Nama
                 </span>
               </label>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 text-center sm:grid-cols-2">
-              <div className="relative mt-1">
+            <div className="grid grid-cols-1 gap-5 text-center sm:grid-cols-2">
+              <div class="relative mt-3">
                 <label
                   for="tempatLahir"
-                  className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                  class="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
                 >
                   <input
-                    value={tempatLahir}
-                    onChange={tempatChangeHandler}
                     type="text"
                     id="tempatLahir"
                     placeholder="Tempat Lahir"
-                    className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                    class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                    value={tempatLahir}
+                    onChange={tempatChangeHandler}
                   />
 
-                  <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
+                  <span class="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
                     Tempat Lahir
                   </span>
                 </label>
               </div>
-              <div className="relative mt-1">
+              <div class="relative mt-3">
                 <label
                   for="tanggalLahir"
-                  className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                  class="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
                 >
                   <input
-                    value={tanggalLahir}
-                    onChange={tanggalChangeHandler}
                     type="text"
                     id="tanggalLahir"
                     placeholder="Tanggal Lahir"
-                    className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                    class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                    value={tanggalLahir}
+                    onChange={tanggalChangeHandler}
                   />
 
-                  <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
+                  <span class="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
                     Tanggal Lahir
                   </span>
                 </label>
               </div>
             </div>
 
-            <div className="relative mt-1">
-              <label className="sr-only" for="agama">
+            <div class="relative mt-3">
+              <label class="sr-only" for="agama">
                 Agama
               </label>
 
               <select
-                className="relative w-full rounded-t-lg border-gray-200 p-2.5 text-sm focus:z-10"
-                aria-label='agama'
+                class="relative w-full border-gray-200 p-3 text-sm focus:z-10 block bg-white overflow-hidden rounded-md border  shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                id="agama"
+                name="agama"
+                autocomplete="agama-name"
                 onChange={agamaChangeHandler}
               >
                 <option selected disabled>
@@ -170,26 +176,26 @@ export default function EditSiswa() {
               </select>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 text-center">
-              <div className="relative">
+            <div class="grid grid-cols-2 gap-5 text-center">
+              <div class="relative mt-3">
                 <input
-                  className="group peer hidden"
+                  class="group peer hidden"
                   type="radio"
                   name="shippingOption"
-                  value="Laki-Laki"
-                  id="Laki-Laki"
+                  value="Laki"
+                  id="Laki"
                   onChange={genderChangeHandler}
                 />
 
                 <label
-                  className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                  for="Laki-Laki"
+                  class=" relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
+                  for="Laki"
                 >
                   <span> Laki-Laki </span>
                 </label>
 
                 <svg
-                  className="absolute top-3 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100"
+                  class="absolute top-3 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
@@ -202,9 +208,9 @@ export default function EditSiswa() {
                 </svg>
               </div>
 
-              <div className="relative">
+              <div class="relative mt-3">
                 <input
-                  className="group peer hidden"
+                  class="group peer hidden"
                   type="radio"
                   name="shippingOption"
                   value="Perempuan"
@@ -213,14 +219,14 @@ export default function EditSiswa() {
                 />
 
                 <label
-                  className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
+                  class=" relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
                   for="Perempuan"
                 >
                   <span> Perempuan </span>
                 </label>
 
                 <svg
-                  className="absolute top-3 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100"
+                  class="absolute top-3 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
@@ -233,38 +239,16 @@ export default function EditSiswa() {
                 </svg>
               </div>
             </div>
-            <div className="flex mt-2 justify-between">
-           
-              <a
-              className="group relative inline-block text-sm font-medium text-red-600 focus:outline-none focus:ring active:text-red-500"
-              href="/table"
+
+            <button
+              type="submit"
+              class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
             >
-              <span className="absolute inset-0 border border-current"></span>
-              <span
-                className="block border border-current bg-white px-12 py-3 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1"
-              >
-                Batal
-              </span>
-            </a>
-            <button className="button-edit" type="submit">
-                <a
-                  className="group relative inline-block text-sm font-medium text-red-600 focus:outline-none focus:ring active:text-red-500"
-                  
-                >
-                  <span className="absolute inset-0 border border-current"></span>
-                  <span
-                    className="block border border-current bg-white px-12 py-3 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1"
-                  >
-                    Simpan
-                  </span>
-                </a>
-              </button>
-            </div>
-         
+              Save
+            </button>
           </form>
         </div>
-      </div>
+      </div>{" "}
     </div>
-  )
+  );
 }
-

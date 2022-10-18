@@ -3,6 +3,7 @@ import "../css/registrasi.css";
 import logo from "../assets/dc-logo.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function Registrasi() {
 
@@ -27,7 +28,11 @@ export default function Registrasi() {
 
     try {
       await axios.post("http://localhost:8080/api/register", data);
-      alert("register berhasil ges!");
+      Swal.fire({
+        icon: 'success',
+        title: 'Sukses!',
+        text: 'Registrasi telah berhasil!',
+      })
       navigate("/login")
     } catch (error) {
       console.log(error);

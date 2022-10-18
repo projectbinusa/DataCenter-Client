@@ -31,7 +31,7 @@ export default function NavComp() {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="/"
                   >
-                    About
+                    Home
                   </a>
                 </li>
 
@@ -47,9 +47,9 @@ export default function NavComp() {
                 <li>
                   <a
                     className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
+                    href="/diagram"
                   >
-                    History
+                    Diagram
                   </a>
                 </li>
 

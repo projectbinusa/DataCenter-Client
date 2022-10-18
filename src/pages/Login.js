@@ -3,6 +3,7 @@ import "../css/login.css";
 import logo from "../assets/dc-logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const [passwordType, setPasswordType] = useState("password");
@@ -23,7 +24,11 @@ export default function Login() {
         }
       );
       if (status === 200) {
-        alert("login sukses!");
+        Swal.fire({
+          icon: 'success',
+          title: 'Sukses!',
+          text: 'Login telah berhasil!',
+        })
         localStorage.setItem("id", data.id);
         localStorage.setItem("token", data.token);
         navigate("/");
