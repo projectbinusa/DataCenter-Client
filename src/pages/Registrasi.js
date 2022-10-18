@@ -75,6 +75,7 @@ export default function Registrasi() {
                       placeholder="Nama Sekolah"
                       value={namaSekolah}
                       onChange={(e) => setNamaSekolah(e.target.value)}
+                      required
                     />
                   </div>
                 </div>
@@ -89,6 +90,7 @@ export default function Registrasi() {
                         placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        required
                       />
                     </div>
                   </div>
@@ -101,6 +103,7 @@ export default function Registrasi() {
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                       />
                     </div>
                   </div>
@@ -113,6 +116,7 @@ export default function Registrasi() {
                         placeholder="Alamat Sekolah"
                         value={alamatSekolah}
                         onChange={(e) => setAlamatSekolah(e.target.value)}
+                        required
                       />
                     </div>
                   </div>
@@ -125,6 +129,7 @@ export default function Registrasi() {
                         placeholder="No. Telp Sekolah"
                         value={teleponSekolah} 
                         onChange={(e) => setTeleponSekolah(e.target.value)}
+                        required
                       />
                     </div>
                   </div>

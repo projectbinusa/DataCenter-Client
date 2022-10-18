@@ -34,6 +34,13 @@ export default function Login() {
         navigate("/");
       }
     } catch (error) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Email atau Password yang Anda masukan salah.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       console.log(error);
     }
   };

@@ -9,11 +9,13 @@ export default function Table() {
   const [siswa, setSiswa] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setsearchTerm] = useState("");
-  const [namaSiswa, setNamaSiswa] = useState();
-  const [tempatLahir, setTempatLahir] = useState();
+  const [namaSiswa, setNamaSiswa] = useState("");
+  const [tempatLahir, setTempatLahir] = useState("");
   const [tanggalLahir, setTanggalLahir] = useState("");
   const [gender, setGender] = useState("");
+  const [excel, setExcel] = useState("");
   const [agama, setAgama] = useState();
+  const [modal, setModal] = useState(false);
   const [state, setState] = useState({
     options: {
       labels: ["Perempuan", "Laki-laki"],
@@ -39,7 +41,11 @@ export default function Table() {
 
   const data = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/siswa");
+      const response = await axios.get(
+        "http://localhost:8080/api/user/" +
+          localStorage.getItem("id") +
+          "/siswa"
+      );
       setSiswa(response.data);
       const totalPerempuan = response.data.filter(
         (x) => x.gender === "Perempuan"
@@ -55,7 +61,11 @@ export default function Table() {
 
   const dta = async () => {
     try {
-      const respon = await axios.get("http://localhost:8080/api/siswa");
+      const respon = await axios.get(
+        "http://localhost:8080/api/user/" +
+          localStorage.getItem("id") +
+          "/siswa"
+      );
       setSiswa(respon.data);
       const islam = respon.data.filter((r) => r.agama === "Islam").length;
       const kristen = respon.data.filter((r) => r.agama === "Kristen").length;
@@ -117,7 +127,11 @@ export default function Table() {
 
   const getAll = async () => {
     await axios
-      .get(`http://localhost:8080/api/user/${localStorage.getItem("id")}/siswa`)
+      .get(
+        "http://localhost:8080/api/user/" +
+          localStorage.getItem("id") +
+          "/siswa"
+      )
       .then((res) => {
         setSiswa(res.data);
         console.log(res.data);
@@ -140,6 +154,60 @@ export default function Table() {
   useEffect(() => {
     getAll();
   }, []);
+
+  const download = async () => {
+    await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, download it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios({
+          url:
+            "http://localhost:8080/api/excel/download/" +
+            localStorage.getItem("id"),
+          method: "GET",
+          responseType: "blob",
+        }).then((response) => {
+          var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+          var fileLink = document.createElement("a");
+
+          fileLink.href = fileURL;
+          fileLink.setAttribute("download", "data-siswa.xlsx");
+          document.body.appendChild(fileLink);
+
+          fileLink.click();
+        });
+        Swal.fire("Download!", "Your file has been download.", "success");
+      }
+    });
+  };
+
+  const importExcel = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("file", excel);
+
+    await axios
+      .post(
+        "http://localhost:8080/api/excel/upload/user/" +
+          localStorage.getItem("id"),
+        formData
+      )
+      .then(() => {
+        Swal.fire("Sukses!", " berhasil ditambahkan.", "success");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const male = {
     backgroundColor: "lightblue",
@@ -168,6 +236,7 @@ export default function Table() {
                       series={state.series}
                       type="pie"
                       width="380"
+                      className="text-left"
                     />
                   </div>
                 </div>
@@ -183,26 +252,21 @@ export default function Table() {
                       series={religi.series}
                       type="pie"
                       width="380"
+                      className="text-left"
                     />
                   </div>
                 </div>
               </div>
             </div>
 
+            <div className="border-2 rounded-xl shadow-md p-5 m-5">
             <div className="p-5 flex justify-between">
-              <button
-                className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-                onClick={() => setShowModal(true)}
-              >
-                Tambah Data Siswa
-              </button>
               <div className="relative">
                 <input
                   type="text"
                   id="search"
                   placeholder="Cari..."
-                  className="w-full rounded-md border-sky-300 p-3 py-2.5 pr-10 hover:shadow-lg shadow-sm light:text-white sm:text-sm"
+                  className="w-full rounded-md border-2 p-3 py-2.5 pr-10 hover:shadow-lg shadow-md light:text-white sm:text-sm"
                   onChange={(event) => {
                     setsearchTerm(event.target.value);
                   }}
@@ -222,6 +286,30 @@ export default function Table() {
                     </svg>
                   </button>
                 </span>
+              </div>
+
+              <div className="tombol">
+                <button
+                  className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={() => setModal(true)}
+                >
+                  Import Data
+                </button>
+                <button
+                  className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={download}
+                >
+                  Download Data
+                </button>
+                <button
+                  className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={() => setShowModal(true)}
+                >
+                  Tambah Data Siswa
+                </button>
               </div>
             </div>
             <div className="p-5">
@@ -514,6 +602,62 @@ export default function Table() {
                   <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
                 </>
               ) : null}
+
+              {modal ? (
+                <>
+                  <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+                    <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                      {/*content*/}
+                      <div className="border-1 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                        {/*header*/}
+                        <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                          <h3 className="text-3xl font-semibold">
+                            Import Data
+                          </h3>
+                          <button
+                            className="p-1 ml-auto bg-transparent border-0 opacity-20 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                            onClick={() => setModal(false)}
+                          >
+                            <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
+                              ×
+                            </span>
+                          </button>
+                        </div>
+                        {/*body*/}
+                        <div className="relative flex-auto">
+                          <form
+                            action=""
+                            className="space-y-4 p-3"
+                            onSubmit={importExcel}
+                          >
+                            <div>
+                              <input type="file" onChange={(e) => setExcel(e.target.files[0])} />
+                            </div>
+                            <div className="flex items-center justify-end p-3 border-t border-solid border-slate-200 rounded-b">
+                              <button
+                                className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                type="button"
+                                onClick={() => setModal(false)}
+                              >
+                                Close
+                              </button>
+                              <button
+                                className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                type="submit"
+                              >
+                                Import
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                        {/*footer*/}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                </>
+              ) : null}
+            </div>
             </div>
           </>
         )}
