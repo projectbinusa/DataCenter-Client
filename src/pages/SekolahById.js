@@ -35,7 +35,7 @@ export default function SekolahById() {
 
     const data = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/api/siswa");
+            const response = await axios.get("http://localhost:8080/api/user/" + param.id + "/siswa");
             setSiswa(response.data);
             const totalPerempuan = response.data.filter(
                 (x) => x.gender === "Perempuan"
@@ -51,7 +51,7 @@ export default function SekolahById() {
 
     const dta = async () => {
         try {
-            const respon = await axios.get("http://localhost:8080/api/siswa");
+            const respon = await axios.get("http://localhost:8080/api/user/" + param.id + "/siswa");
             setSiswa(respon.data);
             const islam = respon.data.filter((r) => r.agama === "Islam").length;
             const kristen = respon.data.filter((r) => r.agama === "Kristen").length;
@@ -70,11 +70,6 @@ export default function SekolahById() {
             console.log(error);
         }
     };
-
-    useEffect(() => {
-        data();
-        dta();
-    }, []);
     
 
     const male = {
@@ -93,7 +88,9 @@ export default function SekolahById() {
     }
 
     useEffect(() => {
-        getAllUserData()
+        data();
+        dta();
+        getAllUserData();
     }, []);
 
     return (
@@ -112,6 +109,7 @@ export default function SekolahById() {
                                     series={state.series}
                                     type="pie"
                                     width="380"
+                                    className="text-left"
                                 />
                             </div>
                         </div>
@@ -127,6 +125,7 @@ export default function SekolahById() {
                                     series={religi.series}
                                     type="pie"
                                     width="380"
+                                    className="text-left"
                                 />
                             </div>
                         </div>
