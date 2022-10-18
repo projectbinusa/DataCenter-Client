@@ -6,6 +6,7 @@ import Home from "./pages/Home"
 import Table from "./pages/TableSiswa";
 import EditSiswa from "./pages/EditSiswa";
 import Diagram from "./pages/Diagram";
+import SekolahById from "./pages/SekolahById";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/table" element={<Table />} />
           <Route path="/edit-siswa/:id" element={<EditSiswa />} />
           <Route path="/diagram" element={<Diagram />} />
+          <Route path="/sekolah/:id" element={<SekolahById />} />
         </Routes>
       </BrowserRouter>
     </div>
