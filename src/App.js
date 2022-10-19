@@ -6,6 +6,7 @@ import Home from "./pages/Home"
 import Table from "./pages/TableSiswa";
 import EditSiswa from "./pages/EditSiswa";
 import SekolahById from "./pages/SekolahById";
+import TableDinas from "./pages/TableDinas";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/registrasi" element={<Registrasi />} />
           <Route path="/table" element={<Table />} />
+          <Route path="/table-dinas" element={<TableDinas />} />
           <Route path="/edit-siswa/:id" element={<EditSiswa />} />
           <Route path="/sekolah/:id" element={<SekolahById />} />
         </Routes>

@@ -1,7 +1,7 @@
 .add-siswa {
   background-image: linear-gradient(to right, #0b409c, #10316b);
 }
-.th-add {
+.th-add, .judul-dinas {
   background-image: linear-gradient(to right, #0b409c, #10316b);
   color: #fff;
 }
@@ -51,3 +51,4 @@ input:focus + label {
   outline: 1px solid #000;
   outline: -webkit-focus-ring-color auto 2px;
 }
+

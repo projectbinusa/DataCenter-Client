@@ -13,7 +13,6 @@ export default function Home() {
     try {
       const res = await axios.get("http://localhost:8080/api/useraall")
       setSekolah(res.data);
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     }

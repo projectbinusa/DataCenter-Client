@@ -33,9 +33,10 @@ export default function Table() {
         "Katholik",
         "Hindu",
         "Buddha",
-        "Konghuchu",
-        "None",
+        "Khonghucu",
+        "Non",
       ],
+      colors: ["#00ff00", "#b50595", "#9c9c9c", "#ff1500", "#0015ff", "#fffb03", "#000000"]
     },
     series: [0, 0, 0, 0, 0, 0, 0],
   });
@@ -72,14 +73,14 @@ export default function Table() {
       const kristen = respon.data.filter((r) => r.agama === "Kristen").length;
       const katholik = respon.data.filter((r) => r.agama === "Katholik").length;
       const hindu = respon.data.filter((r) => r.agama === "Hindu").length;
-      const budha = respon.data.filter((r) => r.agama === "Buddha").length;
+      const buddha = respon.data.filter((r) => r.agama === "Buddha").length;
       const khonghucu = respon.data.filter(
-        (r) => r.agama === "Konghuchu"
+        (r) => r.agama === "Khonghucu"
       ).length;
-      const none = respon.data.filter((r) => r.agama === "Non").length;
+      const non = respon.data.filter((r) => r.agama === "Non").length;
       setReligi({
         ...religi,
-        series: [islam, kristen, katholik, hindu, budha, khonghucu, none],
+        series: [islam, kristen, katholik, hindu, buddha, khonghucu, non],
       });
     } catch (error) {
       console.log(error);
@@ -90,7 +91,6 @@ export default function Table() {
     try {
       const res = await axios.get("http://localhost:8080/api/useraall")
       setSekolah(res.data);
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -146,7 +146,6 @@ export default function Table() {
       )
       .then((res) => {
         setSiswa(res.data);
-        console.log(res.data);
       });
   };
 
@@ -236,7 +235,7 @@ export default function Table() {
           <>
           <div className="p-5">
         <div className="p-4">
-          <h1 class="text-2xl font-bold sm:text-3xl">DAFTAR SEKOLAH MENENGAH PERTAMA SEMARANG</h1>
+          <h1 className="text-2xl font-bold sm:text-3xl">DAFTAR SEKOLAH MENENGAH PERTAMA SEMARANG</h1>
           <div className="relative my-5">
             <input
               type="text"
@@ -258,7 +257,7 @@ export default function Table() {
             </span>
           </div>
         </div>
-        <div class="grid grid-cols-1 p-4 gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 p-4 gap-4 md:grid-cols-3">
           {sekolah.filter((val) => {
             if (searchTerm == "") {
               return val
@@ -269,11 +268,11 @@ export default function Table() {
             return (
               <div key={key}>
                 <div>
-                  <a href="" class="group block bg-white p-6 transition-shadow hover:shadow-sm sm:pr-12">
-                    <span class="inline-block rounded-sm bg-indigo-600 p-2 text-white">
+                  <a href="" className="group block bg-white p-6 transition-shadow hover:shadow-sm sm:pr-12">
+                    <span className="inline-block rounded-sm bg-indigo-600 p-2 text-white">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6"
+                        className="h-6 w-6"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -290,21 +289,21 @@ export default function Table() {
                         />
                       </svg>
                     </span>
-                    <h3 class="mt-3 text-lg font-bold">
+                    <h3 className="mt-3 text-lg font-bold">
                       {val.namaSekolah}
                     </h3>
-                    <p class="mt-3 text-sm text-gray-500">
+                    <p className="mt-3 text-sm text-gray-500">
                       {val.alamatSekolah}
                     </p>
-                    <p class="mt-3 text-sm text-gray-500">
+                    <p className="mt-3 text-sm text-gray-500">
                       {val.teleponSekolah}
                     </p>
 
-                    <p class="relative mt-16 inline-block text-sm font-bold text-indigo-600">
+                    <p className="relative mt-16 inline-block text-sm font-bold text-indigo-600">
                       <span
-                        class="absolute inset-x-0 bottom-0 h-2/3 transform bg-indigo-100 transition-transform group-hover:scale-110"
+                        className="absolute inset-x-0 bottom-0 h-2/3 transform bg-indigo-100 transition-transform group-hover:scale-110"
                       ></span>
-                      <a href={`/sekolah/${val.id}`} class="relative">Semua Siswa</a>
+                      <a href={`/sekolah/${val.id}`} className="relative">Semua Siswa</a>
                     </p>
                   </a>
                 </div>
@@ -318,7 +317,7 @@ export default function Table() {
         ) : (
           <>
             <div className="flex justify-center gap-x-14 my-10">
-              <div class="pie rounded-2xl p-1 shadow-xl">
+              <div className="pie rounded-2xl p-1 shadow-xl">
                 <div className="rounded-xl bg-white p-1">
                   <div className="pie rounded-xl p-1">
                     <p className="text-white text-2xl">Gender</p>
@@ -334,7 +333,7 @@ export default function Table() {
                   </div>
                 </div>
               </div>
-              <div class="pie rounded-2xl p-1 shadow-xl">
+              <div className="pie rounded-2xl p-1 shadow-xl">
                 <div className="rounded-xl bg-white p-1">
                   <div className="pie rounded-xl p-1">
                     <p className="text-white text-2xl">Agama</p>
@@ -353,7 +352,7 @@ export default function Table() {
             </div>
 
             <div className="border-2 rounded-xl shadow-md p-5 m-5">
-            <div className="p-5 flex justify-between">
+            <div className="p-5">
               <div className="relative">
                 <input
                   type="text"
@@ -381,7 +380,15 @@ export default function Table() {
                 </span>
               </div>
 
-              <div className="tombol">
+              <div className="tombol flex justify-center gap-3 mt-6">
+              <button
+                  className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={() => setShowModal(true)}
+                >
+                  Tambah Data Siswa
+                </button>
+
                 <button
                   className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                   type="button"
@@ -396,29 +403,22 @@ export default function Table() {
                 >
                   Download Data
                 </button>
-                <button
-                  className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                  type="button"
-                  onClick={() => setShowModal(true)}
-                >
-                  Tambah Data Siswa
-                </button>
               </div>
             </div>
-            <div className="p-5">
+            <div className="p-5 pt-1">
               <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200">
                 <table className="min-w-full divide-gray-200 text-center">
                   <thead className="th-add">
                     <tr>
                       {/* <th className="whitespace-nowrap px-4 py-2 text-center font-medium">ID</th> */}
                       <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Nama Siswa{" "}
+                        Nama Siswa
                       </th>
                       <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Tempat Lahir{" "}
+                        Tempat Lahir
                       </th>
                       <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Tanggal Lahir{" "}
+                        Tanggal Lahir
                       </th>
                       <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
                         Agama
@@ -428,7 +428,7 @@ export default function Table() {
                       </th>
                       <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
                         Action
-                      </th>{" "}
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="">
@@ -600,17 +600,18 @@ export default function Table() {
                                 className="relative w-full rounded-t-lg border-gray-200 p-2.5 text-sm focus:z-10"
                                 aria-label="agama"
                                 onChange={(e) => setAgama(e.target.value)}
+                                value={agama}
                               >
                                 <option selected disabled>
                                   Agama
                                 </option>
-                                <option value={agama}>Islam</option>
-                                <option value={agama}>Kristen</option>
-                                <option value={agama}>Katholik</option>
-                                <option value={agama}>Hindu</option>
-                                <option value={agama}>Buddha</option>
-                                <option value={agama}>Konghuchu</option>
-                                <option value={agama}>Non</option>
+                                <option value="Islam">Islam</option>
+                                <option value="Kristen">Kristen</option>
+                                <option value="Katholik">Katholik</option>
+                                <option value="Hindu">Hindu</option>
+                                <option value="Buddha">Buddha</option>
+                                <option value="Khonghucu">Khonghucu</option>
+                                <option value="Non">Non</option>
                               </select>
                             </div>
                             <div className="grid grid-cols-2 gap-8">
@@ -724,7 +725,7 @@ export default function Table() {
                             onSubmit={importExcel}
                           >
                             <div>
-                              <input type="file" onChange={(e) => setExcel(e.target.files[0])} />
+                              <input type="file" accept=".xlsx" onChange={(e) => setExcel(e.target.files[0])} className="border-2 p-3" />
                             </div>
                             <div className="flex items-center justify-end p-3 border-t border-solid border-slate-200 rounded-b">
                               <button
