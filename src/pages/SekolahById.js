@@ -6,9 +6,11 @@ import { useParams } from "react-router-dom";
 import "../style/table.css";
 
 export default function SekolahById() {
+    const param = useParams();
+    const [namaSekolah, setNamaSekolah] = useState([]);
     const [siswa, setSiswa] = useState([]);
     const [searchTerm, setsearchTerm] = useState("");
-    const param = useParams();
+
 
     const [state, setState] = useState({
         options: {
@@ -70,7 +72,8 @@ export default function SekolahById() {
             console.log(error);
         }
     };
-    
+
+
 
     const male = {
         backgroundColor: "lightblue",
@@ -87,20 +90,38 @@ export default function SekolahById() {
         })
     }
 
+    const getNamaSekolah = async () => {
+        try {
+            const res = await axios.get("http://localhost:8080/api/user/sekolah/" + param.id)
+            setNamaSekolah(res.data);
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
     useEffect(() => {
         data();
         dta();
         getAllUserData();
+        getNamaSekolah();
     }, []);
 
     return (
         <>
             <NavComp />
-            <div className="">
+            <div>
+                <div class="max-w p-5">
+                    <div className="border rounded-xl p-3">
+                        <p className="text-blue-500 text-2xl">{namaSekolah.namaSekolah}</p>
+                    </div>
+                </div>
+            </div>
+            <div className="m-5 border">
                 <div className="flex justify-center gap-x-14 my-10">
                     <div className="pie rounded-2xl p-1 shadow-xl">
                         <div className="rounded-xl bg-white p-1">
-                            <div className="pie rounded-xl p-1">
+                            <div className="pie rounded-xl p-3">
                                 <p className="text-white text-2xl">Gender</p>
                             </div>
                             <div className="m-5">
@@ -116,7 +137,7 @@ export default function SekolahById() {
                     </div>
                     <div className="pie rounded-2xl p-1 shadow-xl">
                         <div className="rounded-xl bg-white p-1">
-                            <div className="pie rounded-xl p-1">
+                            <div className="pie rounded-xl p-3">
                                 <p className="text-white text-2xl">Agama</p>
                             </div>
                             <div className="m-5">
@@ -131,7 +152,7 @@ export default function SekolahById() {
                         </div>
                     </div>
                 </div>
-                <div className="px-5 flex justify-between">
+                <div className="p-5 border flex justify-between">
                     <div></div>
                     <div className="relative">
                         <input
@@ -160,7 +181,7 @@ export default function SekolahById() {
                         </span>
                     </div>
                 </div>
-                <div className="px-5">
+                <div className="p-5">
                     <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200">
                         <table className="min-w-full divide-gray-200 text-center">
                             <thead className="th-add">

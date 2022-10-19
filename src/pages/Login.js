@@ -31,6 +31,7 @@ export default function Login() {
         })
         localStorage.setItem("id", data.id);
         localStorage.setItem("token", data.token);
+        localStorage.setItem("namaSekolah", data.namaSekolah)
         navigate("/");
       }
     } catch (error) {
