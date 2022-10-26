@@ -4,6 +4,9 @@ import Swal from "sweetalert2";
 import NavComp from "../components/NavComp";
 import Chart from "react-apexcharts";
 import "../style/table.css";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import $ from "jquery";
 
 export default function Table() {
   const [siswa, setSiswa] = useState([]);
@@ -23,6 +26,13 @@ export default function Table() {
       colors: ["lightpink", "lightblue"],
     },
     series: [0, 0],
+  });
+
+
+  $(document).ready(function () {
+    setTimeout(function () {
+      $("#example").DataTable();
+    }, 1000);
   });
 
   const [religi, setReligi] = useState({
@@ -353,32 +363,6 @@ export default function Table() {
 
             <div className="border-2 rounded-xl shadow-md p-5 m-5">
             <div className="p-5">
-              <div className="relative">
-                <input
-                  type="text"
-                  id="search"
-                  placeholder="Cari..."
-                  className="w-full rounded-md border-2 p-3 py-2.5 pr-10 hover:shadow-lg shadow-md light:text-white sm:text-sm"
-                  onChange={(event) => {
-                    setsearchTerm(event.target.value);
-                  }}
-                />
-                <span className="absolute border-sky-200 inset-y-0 right-0 grid w-10 place-content-center ">
-                  <button type="button" className="rounded-full p-0.5">
-                    <span className="sr-only">Submit</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      className="bi bi-search"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg>
-                  </button>
-                </span>
-              </div>
 
               <div className="tombol flex justify-center gap-3 mt-6">
               <button
@@ -407,10 +391,10 @@ export default function Table() {
             </div>
             <div className="p-5 pt-1">
               <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200">
-                <table className="min-w-full divide-gray-200 text-center">
+                <table className="min-w-full divide-gray-200 text-center" id="example">
                   <thead className="th-add">
                     <tr>
-                      {/* <th className="whitespace-nowrap px-4 py-2 text-center font-medium">ID</th> */}
+                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">No</th>
                       <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
                         Nama Siswa
                       </th>
@@ -433,21 +417,10 @@ export default function Table() {
                   </thead>
                   <tbody className="">
                     {siswa
-                      .filter((val) => {
-                        if (searchTerm === "") {
-                          return val;
-                        } else if (
-                          val.agama
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase())
-                        ) {
-                          return val;
-                        }
-                      })
-                      .map((val, key, idx) => {
+                      .map((val, idx) => {
                         return (
-                          <tr key={key}>
-                            {/* <td className="sticky border-blue-300 left-0 py-2">{}</td> */}
+                          <tr key={idx}>
+                            <td className="sticky border-blue-300 left-0 py-2">{idx + 1}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                               {val.namaSiswa}
                             </td>
