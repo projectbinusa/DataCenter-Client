@@ -241,15 +241,15 @@ export default function EditSiswa() {
             </div>
 
             <div className="flex justify-between">
-            <button
+              <button
                 type="submit"
-                className="block w-24 rounded-lg text-black outline outline-red-500 py-3 text-sm font-medium text-white"
+                className="block w-24 rounded-lg text-black outline outline-red-500 py-3 text-sm font-medium"
               >
                 Batal
               </button>
               <button
                 type="submit"
-                className="block w-24 rounded-lg text-black outline outline-blue-500 py-3 text-sm font-medium text-white"
+                className="block w-24 rounded-lg text-black outline outline-[#0b409c] py-3 text-sm font-medium"
               >
                 Simpan
               </button>

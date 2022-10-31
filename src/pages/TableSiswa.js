@@ -4,6 +4,9 @@ import Swal from "sweetalert2";
 import NavComp from "../components/NavComp";
 import Chart from "react-apexcharts";
 import "../style/table.css";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import $ from "jquery";
 
 export default function Table() {
   const [siswa, setSiswa] = useState([]);
@@ -25,6 +28,12 @@ export default function Table() {
     series: [0, 0],
   });
 
+  $(document).ready(function () {
+    setTimeout(function () {
+      $("#example").DataTable();
+    }, 1000);
+  });
+
   const [religi, setReligi] = useState({
     options: {
       labels: [
@@ -36,7 +45,15 @@ export default function Table() {
         "Khonghucu",
         "Non",
       ],
-      colors: ["#00ff00", "#b50595", "#9c9c9c", "#ff1500", "#0015ff", "#fffb03", "#000000"]
+      colors: [
+        "#00ff00",
+        "#b50595",
+        "#9c9c9c",
+        "#ff1500",
+        "#0015ff",
+        "#fffb03",
+        "#000000",
+      ],
     },
     series: [0, 0, 0, 0, 0, 0, 0],
   });
@@ -89,12 +106,12 @@ export default function Table() {
 
   const getAllSekolah = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/useraall")
+      const res = await axios.get("http://localhost:8080/api/useraall");
       setSekolah(res.data);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     data();
@@ -198,6 +215,37 @@ export default function Table() {
     });
   };
 
+  const downloadFormat = async () => {
+    await Swal.fire({
+      title: "Yakin ingin mendownload?",
+      text: "Ini adalah file format excel untuk mengimport data siswa",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0b409c",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, download!",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios({
+          url: "http://localhost:8080/api/excel/download/",
+          method: "GET",
+          responseType: "blob",
+        }).then((response) => {
+          var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+          var fileLink = document.createElement("a");
+
+          fileLink.href = fileURL;
+          fileLink.setAttribute("download", "format-excel.xlsx");
+          document.body.appendChild(fileLink);
+
+          fileLink.click();
+        });
+        Swal.fire("Download!", "File berhasil di download.", "success");
+      }
+    });
+  };
+
   const importExcel = async (e) => {
     e.preventDefault();
 
@@ -233,87 +281,104 @@ export default function Table() {
       <div className="">
         {localStorage.getItem("token") === null ? (
           <>
-          <div className="p-5">
-        <div className="p-4">
-          <h1 className="text-2xl font-bold sm:text-3xl">DAFTAR SEKOLAH MENENGAH PERTAMA SEMARANG</h1>
-          <div className="relative my-5">
-            <input
-              type="text"
-              id="search"
-              placeholder="Cari..."
-              className="w-full border-2 rounded-md p-3 py-2.5 pr-10 hover:shadow-lg shadow-md light:text-white sm:text-sm"
-              onChange={(event) => { setsearchTerm(event.target.value) }}
-            />
-            <span className="absolute border-sky-200 inset-y-0 right-0 grid w-10 place-content-center ">
-              <button
-                type="button"
-                className="rounded-full p-0.5"
-              >
-                <span className="sr-only">Submit</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                </svg>
-              </button>
-            </span>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 p-4 gap-4 md:grid-cols-3">
-          {sekolah.filter((val) => {
-            if (searchTerm == "") {
-              return val
-            } else if (val.namaSekolah.toLowerCase().includes(searchTerm.toLowerCase())) {
-              return val
-            }
-          }).map((val, key) => {
-            return (
-              <div key={key}>
-                <div>
-                  <a href="" className="group block bg-white p-6 transition-shadow hover:shadow-sm sm:pr-12">
-                    <span className="inline-block rounded-sm bg-indigo-600 p-2 text-white">
+            <div className="p-5">
+              <div className="p-4">
+                <h1 className="text-2xl font-bold sm:text-3xl">
+                  DAFTAR SEKOLAH MENENGAH PERTAMA SEMARANG
+                </h1>
+                <div className="relative my-5">
+                  <input
+                    type="text"
+                    id="search"
+                    placeholder="Cari..."
+                    className="w-full border-2 rounded-md p-3 py-2.5 pr-10 hover:shadow-lg shadow-md light:text-white sm:text-sm"
+                    onChange={(event) => {
+                      setsearchTerm(event.target.value);
+                    }}
+                  />
+                  <span className="absolute border-sky-200 inset-y-0 right-0 grid w-10 place-content-center ">
+                    <button type="button" className="rounded-full p-0.5">
+                      <span className="sr-only">Submit</span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        className="bi bi-search"
+                        viewBox="0 0 16 16"
                       >
-                        <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                        <path
-                          d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
-                        />
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                        />
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                       </svg>
-                    </span>
-                    <h3 className="mt-3 text-lg font-bold">
-                      {val.namaSekolah}
-                    </h3>
-                    <p className="mt-3 text-sm text-gray-500">
-                      {val.alamatSekolah}
-                    </p>
-                    <p className="mt-3 text-sm text-gray-500">
-                      {val.teleponSekolah}
-                    </p>
-
-                    <p className="relative mt-16 inline-block text-sm font-bold text-indigo-600">
-                      <span
-                        className="absolute inset-x-0 bottom-0 h-2/3 transform bg-indigo-100 transition-transform group-hover:scale-110"
-                      ></span>
-                      <a href={`/sekolah/${val.id}`} className="relative">Semua Siswa</a>
-                    </p>
-                  </a>
+                    </button>
+                  </span>
                 </div>
               </div>
-            )
-          })}
+              <div className="grid grid-cols-1 p-4 gap-4 md:grid-cols-3">
+                {sekolah
+                  .filter((val) => {
+                    if (searchTerm == "") {
+                      return val;
+                    } else if (
+                      val.namaSekolah
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase())
+                    ) {
+                      return val;
+                    }
+                  })
+                  .map((val, key) => {
+                    return (
+                      <div key={key}>
+                        <div>
+                          <a
+                            href=""
+                            className="group block bg-white p-6 transition-shadow hover:shadow-sm sm:pr-12"
+                          >
+                            <span className="inline-block rounded-sm bg-indigo-600 p-2 text-white">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
+                                />
+                              </svg>
+                            </span>
+                            <h3 className="mt-3 text-lg font-bold">
+                              {val.namaSekolah}
+                            </h3>
+                            <p className="mt-3 text-sm text-gray-500">
+                              {val.alamatSekolah}
+                            </p>
+                            <p className="mt-3 text-sm text-gray-500">
+                              {val.teleponSekolah}
+                            </p>
 
-        </div>
-      </div>
-</>
+                            <p className="relative mt-16 inline-block text-sm font-bold text-indigo-600">
+                              <span className="absolute inset-x-0 bottom-0 h-2/3 transform bg-indigo-100 transition-transform group-hover:scale-110"></span>
+                              <a
+                                href={`/sekolah/${val.id}`}
+                                className="relative"
+                              >
+                                Semua Siswa
+                              </a>
+                            </p>
+                          </a>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          </>
         ) : (
           <>
             <div className="flex justify-center gap-x-14 my-10">
@@ -352,102 +417,70 @@ export default function Table() {
             </div>
 
             <div className="border-2 rounded-xl shadow-md p-5 m-5">
-            <div className="p-5">
-              <div className="relative">
-                <input
-                  type="text"
-                  id="search"
-                  placeholder="Cari..."
-                  className="w-full rounded-md border-2 p-3 py-2.5 pr-10 hover:shadow-lg shadow-md light:text-white sm:text-sm"
-                  onChange={(event) => {
-                    setsearchTerm(event.target.value);
-                  }}
-                />
-                <span className="absolute border-sky-200 inset-y-0 right-0 grid w-10 place-content-center ">
-                  <button type="button" className="rounded-full p-0.5">
-                    <span className="sr-only">Submit</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      className="bi bi-search"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg>
+              <div className="p-5">
+                <div className="tombol flex justify-center gap-3 mt-6">
+                  <button
+                    className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(true)}
+                  >
+                    Tambah Data Siswa
                   </button>
-                </span>
-              </div>
 
-              <div className="tombol flex justify-center gap-3 mt-6">
-              <button
-                  className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                  type="button"
-                  onClick={() => setShowModal(true)}
-                >
-                  Tambah Data Siswa
-                </button>
-
-                <button
-                  className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                  type="button"
-                  onClick={() => setModal(true)}
-                >
-                  Import Data
-                </button>
-                <button
-                  className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                  type="button"
-                  onClick={download}
-                >
-                  Download Data
-                </button>
+                  <button
+                    className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setModal(true)}
+                  >
+                    Import Data
+                  </button>
+                  <button
+                    className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={download}
+                  >
+                    Download Data
+                  </button>
+                </div>
               </div>
-            </div>
-            <div className="p-5 pt-1">
-              <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200">
-                <table className="min-w-full divide-gray-200 text-center">
-                  <thead className="th-add">
-                    <tr>
-                      {/* <th className="whitespace-nowrap px-4 py-2 text-center font-medium">ID</th> */}
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Nama Siswa
-                      </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Tempat Lahir
-                      </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Tanggal Lahir
-                      </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Agama
-                      </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Gender
-                      </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Action
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="">
-                    {siswa
-                      .filter((val) => {
-                        if (searchTerm === "") {
-                          return val;
-                        } else if (
-                          val.agama
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase())
-                        ) {
-                          return val;
-                        }
-                      })
-                      .map((val, key, idx) => {
+              <div className="p-5 pt-1">
+                <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200">
+                  <table
+                    className="min-w-full divide-gray-200 text-center"
+                    id="example"
+                  >
+                    <thead className="th-add">
+                      <tr>
+                        <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                          No
+                        </th>
+                        <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                          Nama Siswa
+                        </th>
+                        <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                          Tempat Lahir
+                        </th>
+                        <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                          Tanggal Lahir
+                        </th>
+                        <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                          Agama
+                        </th>
+                        <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                          Gender
+                        </th>
+                        <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="">
+                      {siswa.map((val, idx) => {
                         return (
-                          <tr key={key}>
-                            {/* <td className="sticky border-blue-300 left-0 py-2">{}</td> */}
+                          <tr key={idx}>
+                            <td className="sticky border-blue-300 left-0 py-2">
+                              {idx + 1}
+                            </td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                               {val.namaSiswa}
                             </td>
@@ -520,238 +553,264 @@ export default function Table() {
                           </tr>
                         );
                       })}
-                    {/* {siswa.map((data, idx) => (
+                      {/* {siswa.map((data, idx) => (
                                 ))} */}
-                  </tbody>
-                </table>
-              </div>
-              {showModal ? (
-                <>
-                  <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                    <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                      {/*content*/}
-                      <div className="border-1 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                        {/*header*/}
-                        <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                          <h3 className="text-3xl font-semibold">
-                            Tambah Siswa
-                          </h3>
-                          <button
-                            className="p-1 ml-auto bg-transparent border-0 opacity-5 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                            onClick={() => setShowModal(false)}
-                          >
-                            <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
-                              ×
-                            </span>
-                          </button>
-                        </div>
-                        {/*body*/}
-                        <div className="relative p-6 flex-auto">
-                          <form
-                            action=""
-                            className="space-y-4"
-                            onSubmit={addSiswa}
-                          >
-                            <div>
-                              <label className="sr-only" for="name">
-                                Nama
-                              </label>
-                              <input
-                                className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                placeholder="Nama Siswa"
-                                type="text"
-                                id="name"
-                                value={namaSiswa}
-                                onChange={(e) => setNamaSiswa(e.target.value)}
-                                required
-                              />
-                            </div>
-                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    </tbody>
+                  </table>
+                </div>
+                {showModal ? (
+                  <>
+                    <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+                      <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                        {/*content*/}
+                        <div className="border-1 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                          {/*header*/}
+                          <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                            <h3 className="text-3xl font-semibold">
+                              Tambah Siswa
+                            </h3>
+                            <button
+                              className="p-1 ml-auto bg-transparent border-0 opacity-5 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                              onClick={() => setShowModal(false)}
+                            >
+                              <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                ×
+                              </span>
+                            </button>
+                          </div>
+                          {/*body*/}
+                          <div className="relative p-6 flex-auto">
+                            <form
+                              action=""
+                              className="space-y-4"
+                              onSubmit={addSiswa}
+                            >
                               <div>
-                                <label className="sr-only">Tempat Lahir</label>
+                                <label className="sr-only" for="name">
+                                  Nama
+                                </label>
                                 <input
                                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                  placeholder="Tempat Lahir"
+                                  placeholder="Nama Siswa"
                                   type="text"
+                                  id="name"
+                                  value={namaSiswa}
+                                  onChange={(e) => setNamaSiswa(e.target.value)}
                                   required
-                                  value={tempatLahir}
-                                  onChange={(e) =>
-                                    setTempatLahir(e.target.value)
-                                  }
                                 />
+                              </div>
+                              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                <div>
+                                  <label className="sr-only">
+                                    Tempat Lahir
+                                  </label>
+                                  <input
+                                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                    placeholder="Tempat Lahir"
+                                    type="text"
+                                    required
+                                    value={tempatLahir}
+                                    onChange={(e) =>
+                                      setTempatLahir(e.target.value)
+                                    }
+                                  />
+                                </div>
+                                <div>
+                                  <label className="sr-only" for="phone">
+                                    Tanggal Lahir
+                                  </label>
+                                  <input
+                                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                    type="date"
+                                    value={tanggalLahir}
+                                    onChange={(e) =>
+                                      setTanggalLahir(e.target.value)
+                                    }
+                                    required
+                                  />
+                                </div>
                               </div>
                               <div>
-                                <label className="sr-only" for="phone">
-                                  Tanggal Lahir
-                                </label>
-                                <input
-                                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                  type="date"
-                                  value={tanggalLahir}
-                                  onChange={(e) =>
-                                    setTanggalLahir(e.target.value)
-                                  }
-                                  required
-                                />
+                                <select
+                                  className="relative w-full rounded-t-lg border-gray-200 p-2.5 text-sm focus:z-10"
+                                  aria-label="agama"
+                                  onChange={(e) => setAgama(e.target.value)}
+                                  value={agama}
+                                >
+                                  <option selected disabled>
+                                    Agama
+                                  </option>
+                                  <option value="Islam">Islam</option>
+                                  <option value="Kristen">Kristen</option>
+                                  <option value="Katholik">Katholik</option>
+                                  <option value="Hindu">Hindu</option>
+                                  <option value="Buddha">Buddha</option>
+                                  <option value="Khonghucu">Khonghucu</option>
+                                  <option value="Non">Non</option>
+                                </select>
                               </div>
-                            </div>
-                            <div>
-                              <select
-                                className="relative w-full rounded-t-lg border-gray-200 p-2.5 text-sm focus:z-10"
-                                aria-label="agama"
-                                onChange={(e) => setAgama(e.target.value)}
-                                value={agama}
-                              >
-                                <option selected disabled>
-                                  Agama
-                                </option>
-                                <option value="Islam">Islam</option>
-                                <option value="Kristen">Kristen</option>
-                                <option value="Katholik">Katholik</option>
-                                <option value="Hindu">Hindu</option>
-                                <option value="Buddha">Buddha</option>
-                                <option value="Khonghucu">Khonghucu</option>
-                                <option value="Non">Non</option>
-                              </select>
-                            </div>
-                            <div className="grid grid-cols-2 gap-8">
-                              <div className="relative">
-                                <input
-                                  className="group peer hidden"
-                                  type="radio"
-                                  name="shippingOption"
-                                  id="next_day_alt"
-                                  value="Laki-Laki"
-                                  onChange={(e) => setGender(e.target.value)}
-                                />
-                                <label
-                                  className="block cursor-pointer rounded-lg bg-blue border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                                  for="next_day_alt"
-                                >
-                                  <span> Laki-Laki </span>
-                                </label>
-                                <svg
-                                  className="absolute top-4 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 20 20"
-                                  fill="currentColor"
-                                >
-                                  <path
-                                    fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                    clip-rule="evenodd"
+                              <div className="grid grid-cols-2 gap-8">
+                                <div className="relative">
+                                  <input
+                                    className="group peer hidden"
+                                    type="radio"
+                                    name="shippingOption"
+                                    id="next_day_alt"
+                                    value="Laki-Laki"
+                                    onChange={(e) => setGender(e.target.value)}
                                   />
-                                </svg>
-                              </div>
-                              <div className="relative">
-                                <input
-                                  className="group peer hidden"
-                                  type="radio"
-                                  name="shippingOption"
-                                  id="perempuan"
-                                  value="Perempuan"
-                                  onChange={(e) => setGender(e.target.value)}
-                                />
-                                <label
-                                  className="block cursor-pointer rounded-lg bg-blue border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                                  for="perempuan"
-                                >
-                                  <span> Perempuan </span>
-                                </label>
-                                <svg
-                                  className="absolute top-4 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 20 20"
-                                  fill="currentColor"
-                                >
-                                  <path
-                                    fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                    clip-rule="evenodd"
+                                  <label
+                                    className="block cursor-pointer rounded-lg bg-blue border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
+                                    for="next_day_alt"
+                                  >
+                                    <span> Laki-Laki </span>
+                                  </label>
+                                  <svg
+                                    className="absolute top-4 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                      clip-rule="evenodd"
+                                    />
+                                  </svg>
+                                </div>
+                                <div className="relative">
+                                  <input
+                                    className="group peer hidden"
+                                    type="radio"
+                                    name="shippingOption"
+                                    id="perempuan"
+                                    value="Perempuan"
+                                    onChange={(e) => setGender(e.target.value)}
                                   />
-                                </svg>
+                                  <label
+                                    className="block cursor-pointer rounded-lg bg-blue border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
+                                    for="perempuan"
+                                  >
+                                    <span> Perempuan </span>
+                                  </label>
+                                  <svg
+                                    className="absolute top-4 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                      clip-rule="evenodd"
+                                    />
+                                  </svg>
+                                </div>
                               </div>
-                            </div>
-                            <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                              <button
-                                className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                type="button"
-                                onClick={() => setShowModal(false)}
-                              >
-                                Close
-                              </button>
-                              <button
-                                className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                type="submit"
-                              >
-                                Save Changes
-                              </button>
-                            </div>
-                          </form>
+                              <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                                <button
+                                  className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                  type="button"
+                                  onClick={() => setShowModal(false)}
+                                >
+                                  Close
+                                </button>
+                                <button
+                                  className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                  type="submit"
+                                >
+                                  Save Changes
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                          {/*footer*/}
                         </div>
-                        {/*footer*/}
                       </div>
                     </div>
-                  </div>
-                  <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-                </>
-              ) : null}
+                    <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                  </>
+                ) : null}
 
-              {modal ? (
-                <>
-                  <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                    <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                      {/*content*/}
-                      <div className="border-1 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                        {/*header*/}
-                        <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                          <h3 className="text-3xl font-semibold">
-                            Import Data
-                          </h3>
-                          <button
-                            className="p-1 ml-auto bg-transparent border-0 opacity-20 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                            onClick={() => setModal(false)}
-                          >
-                            <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
-                              ×
-                            </span>
-                          </button>
+                {modal ? (
+                  <>
+                    <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+                      <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                        {/*content*/}
+                        <div className="border-1 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                          {/*header*/}
+                          <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                            <h3 className="text-3xl font-semibold">
+                              Import Data
+                            </h3>
+                            <button
+                              className="p-1 ml-auto bg-transparent border-0 opacity-20 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                              onClick={() => setModal(false)}
+                            >
+                              <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                ×
+                              </span>
+                            </button>
+                          </div>
+                          {/*body*/}
+                          <div className="relative flex-auto">
+                            <form
+                              action=""
+                              className="space-y-4 p-3"
+                              onSubmit={importExcel}
+                            >
+                              <div>
+                                <p className="m-5 text-lg font-medium">
+                                  download file dibawah untuk menginput data
+                                  siswa anda. (format sudah tertulis)
+                                </p>
+                                <button
+                                  className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                                  type="button"
+                                  onClick={downloadFormat}
+                                >
+                                  Download File
+                                </button>
+                              </div>
+                              <div className="py-3">
+                                <p className="m-5 text-lg font-medium">
+                                  jika sudah menginputkan data siswa ke dalam
+                                  file yang sudah anda download tadi,
+                                  selanjutnya bisa anda importkan dengan menekan
+                                  tombol dibawah:
+                                </p>
+                                <input
+                                  type="file"
+                                  accept=".xlsx"
+                                  onChange={(e) => setExcel(e.target.files[0])}
+                                  className="border-2 rounded-md p-3"
+                                />
+                              </div>
+                              <div className="flex items-center justify-end gap-5 p-3 border-t border-solid border-slate-200 rounded-b">
+                                <button
+                                  className="text-white bg-red-700 font-bold uppercase px-6 py-3.5 rounded-md text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                  type="button"
+                                  onClick={() => setModal(false)}
+                                >
+                                  Batal
+                                </button>
+                                <button
+                                  className="bg-gradient-to-r from-[#0b409c] to-[#10316b] text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                  type="submit"
+                                >
+                                  Import
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                          {/*footer*/}
                         </div>
-                        {/*body*/}
-                        <div className="relative flex-auto">
-                          <form
-                            action=""
-                            className="space-y-4 p-3"
-                            onSubmit={importExcel}
-                          >
-                            <div>
-                              <input type="file" accept=".xlsx" onChange={(e) => setExcel(e.target.files[0])} className="border-2 p-3" />
-                            </div>
-                            <div className="flex items-center justify-end p-3 border-t border-solid border-slate-200 rounded-b">
-                              <button
-                                className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                type="button"
-                                onClick={() => setModal(false)}
-                              >
-                                Close
-                              </button>
-                              <button
-                                className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                type="submit"
-                              >
-                                Import
-                              </button>
-                            </div>
-                          </form>
-                        </div>
-                        {/*footer*/}
                       </div>
                     </div>
-                  </div>
-                  <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-                </>
-              ) : null}
-            </div>
+                    <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                  </>
+                ) : null}
+              </div>
             </div>
           </>
         )}
