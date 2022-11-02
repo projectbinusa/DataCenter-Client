@@ -1,43 +1,37 @@
 import React, { useState } from "react";
 import "../css/registrasi.css";
 import logo from "../assets/dc-logo.png";
+import {  useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export default function Registrasi() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [namaSekolah, setNamaSekolah] = useState("")
-  const [alamatSekolah, setAlamatSekolah] = useState("")
-  const [teleponSekolah, setTeleponSekolah] = useState("")
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const register = async (e) => {
     e.preventDefault();
-    
-    const data = {
+
+    const reg = {
       email: email,
       password: password,
-      namaSekolah: namaSekolah,
-      alamatSekolah: alamatSekolah,
-      teleponSekolah: teleponSekolah
-    }    
+    };
 
     try {
-      await axios.post("http://localhost:8080/api/register", data);
+      const res = await axios.post("http://localhost:8080/api/register", reg);
       Swal.fire({
-        icon: 'success',
-        title: 'Sukses!',
-        text: 'Registrasi telah berhasil!',
-      })
-      navigate("/login")
+        icon: "success",
+        title: "Sukses!",
+        text: "Registrasi telah berhasil!",
+      });
+      localStorage.setItem("id", res.data.id);
+      navigate("/registrasi2");
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <section>
@@ -54,105 +48,73 @@ export default function Registrasi() {
               </div>
             </div>
             <div className="rounded-lg shadow-lg lg:col-span-3 lg:p-12 body-reg p-10">
-              <form
-                action=""
-                className="mt-6 mb-0 space-y-4 mx-2"
-                onSubmit={register}
-              >
-                <div className="pb-3">
-                  <p className="text-2xl font-medium pb-2">Create A New Account</p>
-                  <p className="text-sm">
-                    fill the field in the bottom to registration
-                  </p>
-                </div>
-
-                <div className="pb-1">
-                  <div className="relative text-black">
-                    <input
-                      type="text"
-                      id="nama-sekolah"
-                      className="w-full rounded-lg border-gray-200 py-4 px-3 text-sm shadow-sm"
-                      placeholder="Nama Sekolah"
-                      value={namaSekolah}
-                      onChange={(e) => setNamaSekolah(e.target.value)}
-                      required
-                    />
+              <div className="flex justify-center items-center mx-24 mb-7">
+                <div>
+                  <div className="text-2xl font-semibold">
+                    Create New Account
+                  </div>
+                  <div className="text-xs">
+                    enter your email and password to create account
                   </div>
                 </div>
+              </div>
+              <div className="flex">
+                <div className="step bg-[#f2f7ff] text-black">1</div>
+                <div className="flex items-center justify-center w-96">
+                  <div className="border-t border-gray-400 w-full h-0"></div>
+                </div>
+                <div className="step">2</div>
+              </div>
 
-                <div className="grid grid-cols-2 gap-5">
-                  <div>
-                    <div className="relative text-black">
+              <div className="border rounded-lg mt-10 mx-20 p-5">
+                <form action="" className="p-5" onSubmit={register}>
+                  <div className="mb-5">
+                    <label
+                      for="UserEmail"
+                      className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                    >
                       <input
                         type="email"
-                        id="email"
-                        className="w-full rounded-lg border-gray-200 py-4 px-3 text-sm shadow-sm"
+                        id="UserEmail"
                         placeholder="Email"
+                        className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                        required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        required
                       />
-                    </div>
+
+                      <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-white transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
+                        Email
+                      </span>
+                    </label>
                   </div>
                   <div>
-                    <div className="relative text-black">
+                    <label
+                      for="UserPassword"
+                      className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                    >
                       <input
                         type="password"
-                        id="password"
-                        className="w-full rounded-lg border-gray-200 py-4 px-3 text-sm shadow-sm"
+                        id="UserPassword"
                         placeholder="Password"
+                        className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                        required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        required
                       />
-                    </div>
+
+                      <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-white transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
+                        Password
+                      </span>
+                    </label>
                   </div>
-                  <div>
-                    <div className="relative text-black">
-                      <input
-                        type="text"
-                        id="alamat-sekolah"
-                        className="w-full rounded-lg border-gray-200 py-4 px-3 text-sm shadow-sm"
-                        placeholder="Alamat Sekolah"
-                        value={alamatSekolah}
-                        onChange={(e) => setAlamatSekolah(e.target.value)}
-                        required
-                      />
-                    </div>
+                  <div className="flex justify-end mt-5">
+                    <button type="submit" className="rounded-lg w-[30%] bg-[#f2f7ff] text-black p-3">
+                      Next
+                    </button>
                   </div>
-                  <div>
-                    <div className="relative text-black">
-                      <input
-                        type="number"
-                        id="no-sekolah"
-                        className="w-full rounded-lg border-gray-200 py-4 px-3 text-sm shadow-sm"
-                        placeholder="No. Telp Sekolah"
-                        value={teleponSekolah} 
-                        onChange={(e) => setTeleponSekolah(e.target.value)}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                </div>
-
-
-                <div className="flex justify-center p-2">
-                  <button
-                    type="submit"
-                    className="button-log block w-32 rounded-lg px-5 py-3 text-sm font-medium text-white"
-                  >
-                    Registrasi
-                  </button>
-                </div>
-
-                <p className="text-center text-sm">
-                  No account?
-                  <a className="underline mx-1" href="/login">
-                    Login
-                  </a>
-                </p>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>

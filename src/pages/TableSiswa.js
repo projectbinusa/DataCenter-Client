@@ -145,7 +145,13 @@ export default function Table() {
               gender: gender,
             }
           );
-          Swal.fire("Sukses!", " berhasil ditambahkan.", "success");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Berhasil Menambahkan!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           window.location.reload();
         }
       });
@@ -167,15 +173,28 @@ export default function Table() {
   };
 
   const deleteSiswa = async (id) => {
-    await axios.delete("http://localhost:8080/api/siswa/" + id).then(() => {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Delete Success!!",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      window.location.reload();
+    await Swal.fire({
+      title: "Anda yakin?",
+      text: "Yakin ingin menghapus data siswa ini?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete("http://localhost:8080/api/siswa/" + id).then(() => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Berhasil Menghapus!!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          window.location.reload();
+        });
+      }
     });
   };
 
@@ -444,9 +463,9 @@ export default function Table() {
                 </div>
               </div>
               <div className="p-5 pt-1">
-                <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200">
+                <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 p-5">
                   <table
-                    className="min-w-full divide-gray-200 text-center"
+                    className="min-w-full divide-gray-200 text-center p-5"
                     id="example"
                   >
                     <thead className="th-add">
@@ -590,7 +609,7 @@ export default function Table() {
                                   Nama
                                 </label>
                                 <input
-                                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                  className="w-full rounded-lg border p-3 text-sm"
                                   placeholder="Nama Siswa"
                                   type="text"
                                   id="name"
@@ -605,7 +624,7 @@ export default function Table() {
                                     Tempat Lahir
                                   </label>
                                   <input
-                                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                    className="w-full rounded-lg border p-3 text-sm"
                                     placeholder="Tempat Lahir"
                                     type="text"
                                     required
@@ -620,7 +639,7 @@ export default function Table() {
                                     Tanggal Lahir
                                   </label>
                                   <input
-                                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                    className="w-full rounded-lg border p-3 text-sm"
                                     type="date"
                                     value={tanggalLahir}
                                     onChange={(e) =>
@@ -632,7 +651,7 @@ export default function Table() {
                               </div>
                               <div>
                                 <select
-                                  className="relative w-full rounded-t-lg border-gray-200 p-2.5 text-sm focus:z-10"
+                                  className="relative w-full rounded-lg border p-2.5 text-sm focus:z-10"
                                   aria-label="agama"
                                   onChange={(e) => setAgama(e.target.value)}
                                   value={agama}
@@ -707,19 +726,19 @@ export default function Table() {
                                   </svg>
                                 </div>
                               </div>
-                              <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                              <div className="flex items-center gap-5 justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                                 <button
-                                  className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                  className="text-white bg-red-700 font-bold uppercase px-6 py-3 rounded-md text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                   type="button"
                                   onClick={() => setShowModal(false)}
                                 >
-                                  Close
+                                  Batal
                                 </button>
                                 <button
                                   className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                   type="submit"
                                 >
-                                  Save Changes
+                                  Tambahkan
                                 </button>
                               </div>
                             </form>

@@ -29,9 +29,8 @@ export default function Login() {
           title: 'Sukses!',
           text: 'Login telah berhasil!',
         })
-        localStorage.setItem("id", data.id);
+        localStorage.setItem("sekolahId", data.sekolah.id);
         localStorage.setItem("token", data.token);
-        localStorage.setItem("namaSekolah", data.namaSekolah)
         navigate("/");
       }
     } catch (error) {

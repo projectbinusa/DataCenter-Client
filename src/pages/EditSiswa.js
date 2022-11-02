@@ -182,7 +182,7 @@ export default function EditSiswa() {
                   className="group peer hidden"
                   type="radio"
                   name="shippingOption"
-                  value="Laki"
+                  value="Laki-Laki"
                   id="Laki"
                   onChange={genderChangeHandler}
                 />

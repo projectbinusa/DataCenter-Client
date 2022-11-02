@@ -4,7 +4,7 @@ import "../css/nav.css";
 
 export default function NavComp() {
   const logout = () => {
-    localStorage.removeItem("id");
+    localStorage.removeItem("sekolahId");
     localStorage.removeItem("token");
   };
 
@@ -41,42 +41,6 @@ export default function NavComp() {
                     href="/table"
                   >
                   Table
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/diagram"
-                  >
-                    Diagram
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
-                  >
-                    Services
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
-                  >
-                    Projects
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
-                  >
-                    Blog
                   </a>
                 </li>
               </ul>

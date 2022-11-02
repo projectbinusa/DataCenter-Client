@@ -1,5 +1,6 @@
 .sec-reg {
     background-color: #f2f7ff;
+    height: 100vh;
 }
 .body-reg {
     background-image: linear-gradient(to right, #0b409c, #10316b);

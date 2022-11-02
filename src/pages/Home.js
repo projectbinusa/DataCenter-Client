@@ -51,7 +51,7 @@ export default function Home() {
           </div>
           <img alt="Violin" src="https://medias-cite.coop/wp-content/uploads/2019/06/1026-scaled.jpg" className="h-full w-full object-cover sm:h-[calc(100%_-_2rem)] sm:self-end sm:rounded-tl-[30px] md:h-[calc(100%_-_4rem)] md:rounded-tl-[60px]"/>
         </section>
-        <div className="my-20 bg-sky-50 p-10">
+        <div className="my-20 bg-gray-50 p-10">
           <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">
             Data Sekolah Menengah Pertama Di Kota Semarang
             <div className="mt-4 border-t-2 border-indigo-100 pt-2">

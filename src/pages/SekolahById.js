@@ -111,7 +111,7 @@ export default function SekolahById() {
         <>
             <NavComp />
             <div>
-                <div class="max-w p-5">
+                <div className="max-w p-5">
                     <div className="border rounded-xl p-3">
                         <p className="text-blue-500 text-2xl">{namaSekolah.namaSekolah}</p>
                     </div>
