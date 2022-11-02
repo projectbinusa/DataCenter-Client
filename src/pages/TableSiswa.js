@@ -9,10 +9,8 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from "jquery";
 
 export default function Table() {
-  const [siswa, setSiswa] = useState([]);
-  const [sekolah, setSekolah] = useState([]);
+  const [siswa, setSiswa] = useState([])
   const [showModal, setShowModal] = useState(false);
-  const [searchTerm, setsearchTerm] = useState("");
   const [namaSiswa, setNamaSiswa] = useState("");
   const [tempatLahir, setTempatLahir] = useState("");
   const [tanggalLahir, setTanggalLahir] = useState("");
@@ -61,8 +59,8 @@ export default function Table() {
   const data = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/user/" +
-          localStorage.getItem("id") +
+        "http://localhost:8080/api/sekolah/" +
+          localStorage.getItem("sekolahId") +
           "/siswa"
       );
       setSiswa(response.data);
@@ -81,8 +79,8 @@ export default function Table() {
   const dta = async () => {
     try {
       const respon = await axios.get(
-        "http://localhost:8080/api/user/" +
-          localStorage.getItem("id") +
+        "http://localhost:8080/api/sekolah/" +
+          localStorage.getItem("sekolahId") +
           "/siswa"
       );
       setSiswa(respon.data);
@@ -104,19 +102,9 @@ export default function Table() {
     }
   };
 
-  const getAllSekolah = async () => {
-    try {
-      const res = await axios.get("http://localhost:8080/api/useraall");
-      setSekolah(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     data();
     dta();
-    getAllSekolah();
   }, []);
 
   const addSiswa = async (e) => {
@@ -134,9 +122,9 @@ export default function Table() {
       }).then((result) => {
         if (result.isConfirmed) {
           axios.post(
-            `http://localhost:8080/api/user/${localStorage.getItem(
-              "id"
-            )}/siswa`,
+            `http://localhost:8080/api/sekolah/${localStorage.getItem(
+              "sekolahId"
+            )}/add-siswa`,
             {
               namaSiswa: namaSiswa,
               tanggalLahir: tanggalLahir,
@@ -163,8 +151,8 @@ export default function Table() {
   const getAll = async () => {
     await axios
       .get(
-        "http://localhost:8080/api/user/" +
-          localStorage.getItem("id") +
+        "http://localhost:8080/api/sekolah/" +
+          localStorage.getItem("sekolahId") +
           "/siswa"
       )
       .then((res) => {
@@ -216,7 +204,7 @@ export default function Table() {
         axios({
           url:
             "http://localhost:8080/api/excel/download/" +
-            localStorage.getItem("id"),
+            localStorage.getItem("sekolahId"),
           method: "GET",
           responseType: "blob",
         }).then((response) => {
@@ -275,7 +263,7 @@ export default function Table() {
     await axios
       .post(
         "http://localhost:8080/api/excel/upload/user/" +
-          localStorage.getItem("id"),
+          localStorage.getItem("sekolahId"),
         formData
       )
       .then(() => {
@@ -298,108 +286,6 @@ export default function Table() {
     <>
       <NavComp />
       <div className="">
-        {localStorage.getItem("token") === null ? (
-          <>
-            <div className="p-5">
-              <div className="p-4">
-                <h1 className="text-2xl font-bold sm:text-3xl">
-                  DAFTAR SEKOLAH MENENGAH PERTAMA SEMARANG
-                </h1>
-                <div className="relative my-5">
-                  <input
-                    type="text"
-                    id="search"
-                    placeholder="Cari..."
-                    className="w-full border-2 rounded-md p-3 py-2.5 pr-10 hover:shadow-lg shadow-md light:text-white sm:text-sm"
-                    onChange={(event) => {
-                      setsearchTerm(event.target.value);
-                    }}
-                  />
-                  <span className="absolute border-sky-200 inset-y-0 right-0 grid w-10 place-content-center ">
-                    <button type="button" className="rounded-full p-0.5">
-                      <span className="sr-only">Submit</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        className="bi bi-search"
-                        viewBox="0 0 16 16"
-                      >
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                      </svg>
-                    </button>
-                  </span>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 p-4 gap-4 md:grid-cols-3">
-                {sekolah
-                  .filter((val) => {
-                    if (searchTerm == "") {
-                      return val;
-                    } else if (
-                      val.namaSekolah
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase())
-                    ) {
-                      return val;
-                    }
-                  })
-                  .map((val, key) => {
-                    return (
-                      <div key={key}>
-                        <div>
-                          <a
-                            href=""
-                            className="group block bg-white p-6 transition-shadow hover:shadow-sm sm:pr-12"
-                          >
-                            <span className="inline-block rounded-sm bg-indigo-600 p-2 text-white">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                                />
-                              </svg>
-                            </span>
-                            <h3 className="mt-3 text-lg font-bold">
-                              {val.namaSekolah}
-                            </h3>
-                            <p className="mt-3 text-sm text-gray-500">
-                              {val.alamatSekolah}
-                            </p>
-                            <p className="mt-3 text-sm text-gray-500">
-                              {val.teleponSekolah}
-                            </p>
-
-                            <p className="relative mt-16 inline-block text-sm font-bold text-indigo-600">
-                              <span className="absolute inset-x-0 bottom-0 h-2/3 transform bg-indigo-100 transition-transform group-hover:scale-110"></span>
-                              <a
-                                href={`/sekolah/${val.id}`}
-                                className="relative"
-                              >
-                                Semua Siswa
-                              </a>
-                            </p>
-                          </a>
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
             <div className="flex justify-center gap-x-14 my-10">
               <div className="pie rounded-2xl p-1 shadow-xl">
                 <div className="rounded-xl bg-white p-1">
@@ -831,8 +717,6 @@ export default function Table() {
                 ) : null}
               </div>
             </div>
-          </>
-        )}
       </div>
     </>
   );

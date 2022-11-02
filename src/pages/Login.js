@@ -31,6 +31,7 @@ export default function Login() {
         })
         localStorage.setItem("sekolahId", data.sekolah.id);
         localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.role)
         navigate("/");
       }
     } catch (error) {

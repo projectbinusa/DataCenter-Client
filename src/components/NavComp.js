@@ -4,8 +4,7 @@ import "../css/nav.css";
 
 export default function NavComp() {
   const logout = () => {
-    localStorage.removeItem("sekolahId");
-    localStorage.removeItem("token");
+    localStorage.clear();
   };
 
   return (
