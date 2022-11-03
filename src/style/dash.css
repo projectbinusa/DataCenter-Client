@@ -1,0 +1,10 @@
+@media (min-width: 42em) {
+  .s-content {
+    margin-left: 4em;
+  }
+}
+@media (min-width: 68em) {
+  .s-content {
+    margin-left: 15em;
+  }
+}

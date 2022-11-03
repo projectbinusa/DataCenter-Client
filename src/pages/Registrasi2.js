@@ -61,18 +61,75 @@ export default function Step2() {
                   <div className="text-2xl font-semibold">
                     Create New Account
                   </div>
-                  <div className="text-xs">
-                    enter your email and password to create account
+                </div>
+              </div>
+
+              {/* step start */}
+              <div className="w-full mt-3">
+                <div className="flex">
+                  <div className="w-1/2">
+                    <div className="relative mb-2">
+                      
+                      <div className="w-10 h-10 mx-auto bg-[#f2f7ff] rounded-full text-lg text-white flex items-center">
+                        <span className="text-center text-black w-full">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            className="w-full fill-current"
+                            viewBox="1 0 16 15"
+                          >
+                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="text-xs text-center md:text-base">Add Email</div>
                   </div>
+
+                  <div className="w-1/2">
+                    <div className="relative mb-2">
+                      <div
+                        className="absolute flex align-center items-center align-middle content-center"
+                        style={{
+                          width: "calc(100% - 2.5rem - 1rem)",
+                          top: "50%",
+                          transform: "translate(-50%, -50%)",
+                        }}
+                      >
+                        <div className="w-full bg-[#94add8a9] rounded items-center align-middle align-center flex-1">
+                          <div
+                            className="w-0 bg-[#f2f7ff] py-1 rounded"
+                            style={{ width: "100%" }}
+                          ></div>
+                        </div>
+                      </div>
+
+                      <div className="w-10 h-10 mx-auto bg-[#f2f7ff] border-2 border-gray-200 rounded-full text-lg text-white flex items-center">
+                        <span className="text-center text-black w-full">
+                          <svg
+                            className="w-full fill-current"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                          >
+                            <path
+                              className="heroicon-ui"
+                              d="M9 4.58V4c0-1.1.9-2 2-2h2a2 2 0 0 1 2 2v.58a8 8 0 0 1 1.92 1.11l.5-.29a2 2 0 0 1 2.74.73l1 1.74a2 2 0 0 1-.73 2.73l-.5.29a8.06 8.06 0 0 1 0 2.22l.5.3a2 2 0 0 1 .73 2.72l-1 1.74a2 2 0 0 1-2.73.73l-.5-.3A8 8 0 0 1 15 19.43V20a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-.58a8 8 0 0 1-1.92-1.11l-.5.29a2 2 0 0 1-2.74-.73l-1-1.74a2 2 0 0 1 .73-2.73l.5-.29a8.06 8.06 0 0 1 0-2.22l-.5-.3a2 2 0 0 1-.73-2.72l1-1.74a2 2 0 0 1 2.73-.73l.5.3A8 8 0 0 1 9 4.57zM7.88 7.64l-.54.51-1.77-1.02-1 1.74 1.76 1.01-.17.73a6.02 6.02 0 0 0 0 2.78l.17.73-1.76 1.01 1 1.74 1.77-1.02.54.51a6 6 0 0 0 2.4 1.4l.72.2V20h2v-2.04l.71-.2a6 6 0 0 0 2.41-1.4l.54-.51 1.77 1.02 1-1.74-1.76-1.01.17-.73a6.02 6.02 0 0 0 0-2.78l-.17-.73 1.76-1.01-1-1.74-1.77 1.02-.54-.51a6 6 0 0 0-2.4-1.4l-.72-.2V4h-2v2.04l-.71.2a6 6 0 0 0-2.41 1.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="text-xs text-center md:text-base">Setting</div>
+                  </div>
+
                 </div>
               </div>
-              <div className="flex">
-                <div className="step bg-[#f2f7ff] text-black">1</div>
-                <div className="flex items-center justify-center w-96">
-                  <div className="border-t border-gray-100 w-full h-0"></div>
-                </div>
-                <div className="step bg-[#f2f7ff] text-black">2</div>
-              </div>
+              {/* step end */}
 
               <div className="border rounded-lg mt-10 mx-20 p-5">
                 <form action="" className="p-5" onSubmit={register}>

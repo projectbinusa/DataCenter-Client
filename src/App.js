@@ -8,6 +8,9 @@ import EditSiswa from "./pages/EditSiswa";
 import SekolahById from "./pages/SekolahById";
 import PrivateRoute from "./router/PrivateRoute";
 import Registrasi2 from "./pages/Registrasi2";
+import Dashboard from "./pages/Dashboard";
+import TableSekolahAdmin from "./pages/TableSekolahAdmin";
+import TableSiswaAdmin from "./pages/TableSiswaAdmin";
 
 function App() {
   return (
@@ -18,6 +21,11 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/registrasi" element={<Registrasi />} />
           <Route path="/registrasi2" element={<Registrasi2/>} />
+          {/* super admin page start */}
+          <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/table-sekolah-admin" element={<TableSekolahAdmin/>} />
+          <Route path="/table-siswa-admin" element={<TableSiswaAdmin/>} />
+          {/* super admin page end */}
 
           <Route
             path="/table"
