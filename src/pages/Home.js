@@ -8,7 +8,8 @@ import axios from "axios";
 
 
 export default function Home() {
-  const [namaSekolah, setNamaSekolah] = useState({ namaSekolah: "" })
+  const [namaSekolah, setNamaSekolah] = useState({ namaSekolah: "" });
+  const [jumlahSiswa, setJumlahSiswa] = useState([]);
 
   const getNamaSekolah = async () => {
     try {
@@ -20,8 +21,18 @@ export default function Home() {
     }
   }
 
+  const getJumlahSiswa = async() => {
+    try {
+      const res = await axios.get(`http://localhost:8080/api/sekolah/${localStorage.getItem("sekolahId")}/siswa`);
+      setJumlahSiswa(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     getNamaSekolah();
+    getJumlahSiswa();
   }, [])
 
   AOS.init({ duration: 1750, once: true });
@@ -63,18 +74,16 @@ export default function Home() {
       ) : (
         <>
           <NavComp />
-          <div className="w-screen-2xl h-full bg-sky-50 center content-center">
-            <div className="p-10">
-              <h2 className="text-2xl md:text-3xl">
+          <div className="w-screen-2xl center content-center">
+            <div className="m-10 p-10">
+              <h2 className="text-2xl md:text-3xl pb-4 mb-5 border-b-2 border-[#0b409c]">
                 Data Sekolah {namaSekolah.namaSekolah}
-                <div className="mt-4 border-t-2 border-indigo-100 pt-2">
-                </div>
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 p-5 justify-around gap-5">
                 <div data-aos="fade-right">
                   <a
-                    href="#"
-                    className="block h-80 overflow-hidden rounded-lg border-2 border-gray-500 shadow-sm"
+                    href="/table"
+                    className="block h-80 overflow-hidden rounded-lg border-2 border-[#0b409c] hover:shadow-xl"
                   >
                     <span className="inline-block rounded-sm p-2 text-dark">
                       <svg className="h-32 w-32"
@@ -87,7 +96,7 @@ export default function Home() {
                       </h3>
 
                       <p className="mt-2 text-sm text-gray-500">
-                        329 SISWA
+                        {jumlahSiswa.length} SISWA
                       </p>
 
                       <div
@@ -99,10 +108,10 @@ export default function Home() {
                     </div>
                   </a>
                 </div>
-                <div data-aos="fade-right">
+                <div data-aos="fade-left">
                   <a
-                    href="#"
-                    className="block h-80 overflow-hidden rounded-lg border-2 border-gray-500 shadow-sm"
+                    href="/table"
+                    className="block h-80 overflow-hidden rounded-lg border-2 border-[#0b409c] hover:shadow-xl"
                   >
                     <span className="inline-block rounded-sm p-2 text-dark">
                       <svg className="h-32 w-32"

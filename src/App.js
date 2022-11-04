@@ -6,11 +6,13 @@ import Home from "./pages/Home";
 import Table from "./pages/TableSiswa";
 import EditSiswa from "./pages/EditSiswa";
 import SekolahById from "./pages/SekolahById";
-import PrivateRoute from "./router/PrivateRoute";
 import Registrasi2 from "./pages/Registrasi2";
+import PrivateRoute from "./router/PrivateRoute";
+import PrivateSuperAdmin from "./router/PrivateSuperAdmin";
 import Dashboard from "./pages/Dashboard";
 import TableSekolahAdmin from "./pages/TableSekolahAdmin";
 import TableSiswaAdmin from "./pages/TableSiswaAdmin";
+import EditSiswaByAdmin from "./pages/EditSiswaByAdmin";
 
 function App() {
   return (
@@ -22,7 +24,14 @@ function App() {
           <Route path="/registrasi" element={<Registrasi />} />
           <Route path="/registrasi2" element={<Registrasi2/>} />
           {/* super admin page start */}
-          <Route path="/dashboard" element={<Dashboard/>} />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateSuperAdmin>
+                <Dashboard/>
+              </PrivateSuperAdmin>
+            }
+          />
           <Route path="/table-sekolah-admin" element={<TableSekolahAdmin/>} />
           <Route path="/table-siswa-admin" element={<TableSiswaAdmin/>} />
           {/* super admin page end */}
@@ -37,6 +46,7 @@ function App() {
           />
           <Route path="/edit-siswa/:id" element={<EditSiswa />} />
           <Route path="/sekolah/:id" element={<SekolahById />} />
+          <Route path="/edit-siswa-sekolah/:id" element={<EditSiswaByAdmin />} />
 
         </Routes>
       </BrowserRouter>

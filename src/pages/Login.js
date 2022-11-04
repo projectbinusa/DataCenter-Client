@@ -29,10 +29,14 @@ export default function Login() {
           title: 'Sukses!',
           text: 'Login telah berhasil!',
         })
-        localStorage.setItem("sekolahId", data.sekolah.id);
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.role)
-        navigate("/");
+        if (localStorage.getItem("role") === "super admin") {
+          navigate("/dashboard")
+        } else {
+          localStorage.setItem("sekolahId", data.sekolah.id);
+          navigate("/")
+        }
       }
     } catch (error) {
       Swal.fire({

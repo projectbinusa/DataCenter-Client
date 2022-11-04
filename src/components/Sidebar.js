@@ -1,13 +1,21 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../style/sidebar.css";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.clear();
+    navigate("/login")
+  };
+
   return (
     <div>
       <div className="s-layout">
         <div className="s-layout__sidebar">
-          <a className="s-sidebar__trigger flex items-center" href="/dashboard">
+          <a className="s-sidebar__trigger flex items-center">
             <span className="text-gray-400 w-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +65,7 @@ export default function Sidebar() {
                       viewBox="0 0 130 16"
                     >
                       <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z" />
-                    </svg>{" "}
+                    </svg>
                   </span>
                   <em>Tabel Sekolah</em>
                 </NavLink>
@@ -77,14 +85,14 @@ export default function Sidebar() {
                       viewBox="0 0 130 16"
                     >
                       <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z" />
-                    </svg>{" "}
+                    </svg>
                   </span>
                   <em>Tabel Siswa</em>
                 </NavLink>
               </li>
 
               <li>
-                <a className="s-sidebar__nav-link side-out" href="#0">
+                <a className="s-sidebar__nav-link side-out" onClick={logout} >
                   <span className="text-center text-inherit w-full">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
