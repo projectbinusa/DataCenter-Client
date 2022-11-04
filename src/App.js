@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard";
 import TableSekolahAdmin from "./pages/TableSekolahAdmin";
 import TableSiswaAdmin from "./pages/TableSiswaAdmin";
 import EditSiswaByAdmin from "./pages/EditSiswaByAdmin";
+import EditSiswaAdmin from "./pages/EditSiswaAdmin"
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path="/edit-siswa/:id" element={<EditSiswa />} />
           <Route path="/sekolah/:id" element={<SekolahById />} />
           <Route path="/edit-siswa-sekolah/:id" element={<EditSiswaByAdmin />} />
+          <Route path="/edit-siswa-admin/:id" element={<EditSiswaAdmin />} />
 
         </Routes>
       </BrowserRouter>
