@@ -6,7 +6,6 @@ import axios from "axios";
 import school from "../assets/school-icon.png";
 import student from "../assets/student-icon.png";
 
-
 export default function Dashboard() {
   const [siswa, setSiswa] = useState([]);
   const [sekolah, setSekolah] = useState([]);
@@ -44,9 +43,7 @@ export default function Dashboard() {
 
   const allSiswa = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8080/api/siswa/"
-      );
+      const response = await axios.get("http://localhost:8080/api/siswa/");
       setSiswa(response.data);
       const totalPerempuan = response.data.filter(
         (x) => x.gender === "Perempuan"
@@ -62,9 +59,7 @@ export default function Dashboard() {
 
   const allSekolah = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8080/api/sekolah/"
-      );
+      const response = await axios.get("http://localhost:8080/api/sekolah/");
       setSekolah(response.data);
     } catch (error) {
       console.log(error);
@@ -73,9 +68,7 @@ export default function Dashboard() {
 
   const allAgama = async () => {
     try {
-      const respon = await axios.get(
-        "http://localhost:8080/api/siswa/"
-      );
+      const respon = await axios.get("http://localhost:8080/api/siswa/");
       setSiswa(respon.data);
       const islam = respon.data.filter((r) => r.agama === "Islam").length;
       const kristen = respon.data.filter((r) => r.agama === "Kristen").length;
@@ -98,19 +91,19 @@ export default function Dashboard() {
   const [grafik, setGrafik] = useState({
     options: {
       chart: {
-        id: "bar"
+        id: "bar",
       },
       xaxis: {
-        categories: [2016, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-      }
+        categories: [2016, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+      },
     },
     series: [
       {
         name: "jumlah siswa",
-        data: [30, 40, 45, 50, 49, 60, 70, 91]
-      }
-    ]
-  })
+        data: [30, 40, 45, 50, 49, 60, 70, 91],
+      },
+    ],
+  });
 
   useEffect(() => {
     allSiswa();
@@ -129,14 +122,16 @@ export default function Dashboard() {
                 <div className="pie rounded-2xl p-1 shadow-xl">
                   <div className="rounded-xl items-center bg-white p-1">
                     <div className="pie rounded-xl p-1">
-                      <p className="text-white text-2xl">Grafik Jumlah Siswa Pertahun</p>
+                      <p className="text-white text-2xl">
+                        Grafik Jumlah Siswa Pertahun
+                      </p>
                     </div>
                     <div className="m-3">
                       <Chart
                         options={grafik.options}
                         series={grafik.series}
                         type="bar"
-                        className="w-[850px]"
+                        width="850"
                       />
                     </div>
                   </div>
@@ -158,12 +153,10 @@ export default function Dashboard() {
                       {siswa.length} Siswa
                     </p>
                     <a href="/table-siswa-admin">
-                    <div
-                        className="mt-4 p-2 inline-block border-blue-500 font-medium text-blue-600 hover:border rounded-lg rounded-blue-500"
-                      >
+                      <div className="mt-4 p-2 inline-block border-blue-500 font-medium text-blue-600 hover:border rounded-lg rounded-blue-500">
                         Lihat Lebih Detail
                       </div>
-                      </a>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -175,57 +168,68 @@ export default function Dashboard() {
                       alt="student-icon"
                       className="w-28 h-24"
                     />
-                    <h2 class="mt-4 text-xl font-bold">Jumlah Seluruh Sekolah</h2>
+                    <h2 class="mt-4 text-xl font-bold">
+                      Jumlah Seluruh Sekolah
+                    </h2>
 
                     <p class="mt-1 text-lg text-gray-700">
                       {sekolah.length} Sekolah
                     </p>
                     <a href="/table-sekolah-admin">
-                    <div
-                        className="mt-4 p-2 inline-block border-blue-500 font-medium text-blue-600 hover:border rounded-lg rounded-blue-500"
-                      >
+                      <div className="mt-4 p-2 inline-block border-blue-500 font-medium text-blue-600 hover:border rounded-lg rounded-blue-500">
                         Lihat Lebih Detail
                       </div>
-                      </a>
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
             <div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
-              <div className="pie rounded-2xl p-1 shadow-xl">
+              <div className="pie rounded-2xl p-1 shadow-xl w-[450px]">
                 <div className="rounded-xl items-center bg-white p-1">
                   <div className="pie rounded-xl p-1">
-                    <p className="text-white text-2xl">Data Gender Seluruh Siswa</p>
+                    <p className="text-white text-2xl">
+                      Data Gender Seluruh Siswa
+                    </p>
                   </div>
                   <div className="m-5">
-                    <Chart
-                      options={state.options}
-                      series={state.series}
-                      type="pie"
-                      width="380"
-                      className="text-left"
-                    />
+                    {siswa.length === 0 ? (
+                      <div>belum ada data</div>
+                    ) : (
+                      <Chart
+                        options={state.options}
+                        series={state.series}
+                        type="pie"
+                        width="380"
+                        className="text-left"
+                      />
+                    )}
                   </div>
                 </div>
               </div>
-              <div className="pie rounded-2xl p-1 shadow-xl">
+              <div className="pie rounded-2xl p-1 shadow-xl w-[450px]">
                 <div className="rounded-xl bg-white p-1">
                   <div className="pie rounded-xl p-1">
-                    <p className="text-white text-2xl">Data Agama Seluruh Siswa</p>
+                    <p className="text-white text-2xl">
+                      Data Agama Seluruh Siswa
+                    </p>
                   </div>
                   <div className="m-5">
-                    <Chart
-                      options={religi.options}
-                      series={religi.series}
-                      type="pie"
-                      width="380"
-                      className="text-center"
-                    />
+                    {siswa.length === 0 ? (
+                      <div>belum ada data</div>
+                    ) : (
+                      <Chart
+                        options={religi.options}
+                        series={religi.series}
+                        type="pie"
+                        width="380"
+                        className="text-center"
+                      />
+                    )}
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
         </main>
       </div>

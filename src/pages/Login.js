@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../css/login.css";
+import "../style/login.css";
 import logo from "../assets/dc-logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -25,17 +25,17 @@ export default function Login() {
       );
       if (status === 200) {
         Swal.fire({
-          icon: 'success',
-          title: 'Sukses!',
-          text: 'Login telah berhasil!',
-        })
+          icon: "success",
+          title: "Sukses!",
+          text: "Login telah berhasil!",
+        });
         localStorage.setItem("token", data.token);
-        localStorage.setItem("role", data.role)
+        localStorage.setItem("role", data.role);
         if (localStorage.getItem("role") === "super admin") {
-          navigate("/dashboard")
+          navigate("/dashboard");
         } else {
           localStorage.setItem("sekolahId", data.sekolah.id);
-          navigate("/")
+          navigate("/");
         }
       }
     } catch (error) {
@@ -78,14 +78,15 @@ export default function Login() {
               >
                 <div className="pb-3">
                   <p className="text-2xl font-medium pb-2">
-                    Log In to your account
+                    Masuk ke akun Anda
                   </p>
-                  <p className="text-sm">enter your email and password</p>
+                  <p className="text-sm">masukkan email dan kata sandi Anda</p>
                 </div>
 
                 <div className="p-1">
                   <div className="relative mt-1 text-black">
                     <input
+                      autocomplete="off"
                       type="email"
                       id="email"
                       className="w-full rounded-lg border-gray-200 py-4 px-3 text-sm shadow-sm"
@@ -99,9 +100,10 @@ export default function Login() {
                 <div className="p-1">
                   <div className="relative  mt-1 text-black">
                     <input
+                      autocomplete="off"
                       type={passwordType}
                       className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-                      placeholder="Enter password"
+                      placeholder="Kata Sandi"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
@@ -111,10 +113,17 @@ export default function Login() {
                       className="absolute inset-y-0 right-4 inline-flex items-center"
                     >
                       {passwordType === "password" ? (
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-eye" viewBox="0 0 16 16">
-                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                      </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          className="bi bi-eye"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                          <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                        </svg>
                       ) : (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -138,14 +147,14 @@ export default function Login() {
                     type="submit"
                     className="button-log block w-32 rounded-lg px-5 py-3 text-sm font-medium text-white"
                   >
-                    Log in
+                    Masuk
                   </button>
                 </div>
 
                 <p className="text-center text-sm">
-                  No account?
+                  Tidak punya akun?
                   <a className="underline mx-1" href="/registrasi">
-                    Registration
+                    Daftar
                   </a>
                 </p>
               </form>

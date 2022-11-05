@@ -35,7 +35,7 @@ export default function Sidebar() {
           <nav className="s-sidebar__nav">
             <ul>
               <li>
-                <NavLink className="s-sidebar__nav-link" to="/dashboard">
+                <NavLink className="s-sidebar__nav-link focus:bg-[#f2f7ffa8] focus:text-[#10316b]" to="/dashboard">
                   <span className="text-center text-inherit w-full">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@ export default function Sidebar() {
               </li>
 
               <li>
-                <a className="s-sidebar__nav-link side-out" onClick={logout} >
+                <a className="s-sidebar__nav-link side-out cursor-pointer" onClick={logout} >
                   <span className="text-center text-inherit w-full">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

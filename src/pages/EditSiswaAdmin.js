@@ -69,7 +69,7 @@ export default function EditSiswa() {
           showConfirmButton: false,
           timer: 1500,
         });
-       navigate("/table-siswa-admin");
+        navigate("/table-siswa-admin");
       })
       .catch((error) => {
         alert("Terjadi kesalahan: " + error);
@@ -96,6 +96,7 @@ export default function EditSiswa() {
                 className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
               >
                 <input
+                  autocomplete="off"
                   type="text"
                   id="nama"
                   placeholder="Nama"
@@ -117,6 +118,7 @@ export default function EditSiswa() {
                   className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
                 >
                   <input
+                    autocomplete="off"
                     type="text"
                     id="tempatLahir"
                     placeholder="Tempat Lahir"
@@ -136,6 +138,7 @@ export default function EditSiswa() {
                   className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
                 >
                   <input
+                    autocomplete="off"
                     type="text"
                     id="tanggalLahir"
                     placeholder="Tanggal Lahir"
@@ -179,6 +182,7 @@ export default function EditSiswa() {
             <div className="grid grid-cols-2 gap-5 text-center">
               <div className="relative mt-3">
                 <input
+                  autocomplete="off"
                   className="group peer hidden"
                   type="radio"
                   name="shippingOption"
@@ -210,6 +214,7 @@ export default function EditSiswa() {
 
               <div className="relative mt-3">
                 <input
+                  autocomplete="off"
                   className="group peer hidden"
                   type="radio"
                   name="shippingOption"

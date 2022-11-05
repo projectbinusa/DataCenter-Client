@@ -9,6 +9,7 @@ import SekolahById from "./pages/SekolahById";
 import Registrasi2 from "./pages/Registrasi2";
 import PrivateRoute from "./router/PrivateRoute";
 import PrivateSuperAdmin from "./router/PrivateSuperAdmin";
+import PrivateReg from "./router/PrivateReg"
 import Dashboard from "./pages/Dashboard";
 import TableSekolahAdmin from "./pages/TableSekolahAdmin";
 import TableSiswaAdmin from "./pages/TableSiswaAdmin";
@@ -23,7 +24,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registrasi" element={<Registrasi />} />
-          <Route path="/registrasi2" element={<Registrasi2/>} />
+          <Route path="/registrasi2" element={
+            <PrivateReg>
+              <Registrasi2/>
+            </PrivateReg>
+          } />
           {/* super admin page start */}
           <Route
             path="/dashboard"

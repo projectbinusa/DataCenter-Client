@@ -12,12 +12,14 @@ export default function SekolahById() {
   const [namaSekolah, setNamaSekolah] = useState([]);
   const [siswa, setSiswa] = useState([]);
   const [searchTerm, setsearchTerm] = useState("");
+  const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [namaSiswa, setNamaSiswa] = useState("");
   const [tempatLahir, setTempatLahir] = useState("");
   const [tanggalLahir, setTanggalLahir] = useState("");
   const [agama, setAgama] = useState("");
   const [gender, setGender] = useState("");
+  const [excel, setExcel] = useState("");
 
   const navigate = useNavigate();
 
@@ -193,6 +195,91 @@ export default function SekolahById() {
     getNamaSekolah();
   }, []);
 
+  const download = async () => {
+    await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, download it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios({
+          url:
+            "http://localhost:8080/api/excel/download/" +
+            localStorage.getItem("sekolahId"),
+          method: "GET",
+          responseType: "blob",
+        }).then((response) => {
+          var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+          var fileLink = document.createElement("a");
+
+          fileLink.href = fileURL;
+          fileLink.setAttribute("download", "data-siswa.xlsx");
+          document.body.appendChild(fileLink);
+
+          fileLink.click();
+        });
+        Swal.fire("Download!", "Your file has been download.", "success");
+      }
+    });
+  };
+
+  const downloadFormat = async () => {
+    await Swal.fire({
+      title: "Yakin ingin mendownload?",
+      text: "Ini adalah file format excel untuk mengimport data siswa",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0b409c",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, download!",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios({
+          url: "http://localhost:8080/api/excel/download/",
+          method: "GET",
+          responseType: "blob",
+        }).then((response) => {
+          var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+          var fileLink = document.createElement("a");
+
+          fileLink.href = fileURL;
+          fileLink.setAttribute("download", "format-excel.xlsx");
+          document.body.appendChild(fileLink);
+
+          fileLink.click();
+        });
+        Swal.fire("Download!", "File berhasil di download.", "success");
+      }
+    });
+  };
+
+  const importExcel = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("file", excel);
+
+    await axios
+      .post(
+        "http://localhost:8080/api/excel/upload/user/" +
+          localStorage.getItem("sekolahId"),
+        formData
+      )
+      .then(() => {
+        Swal.fire("Sukses!", " berhasil ditambahkan.", "success");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       <div className="flex">
@@ -207,41 +294,59 @@ export default function SekolahById() {
               </div>
             </div>
             <div className="m-5">
+              {/* diagram pie start*/}
+
               <div className="flex justify-center gap-x-14 my-10">
-                <div className="pie rounded-2xl p-1 shadow-xl">
+                {/* diagram gender start */}
+                <div className="pie rounded-2xl p-1 shadow-xl w-[450px]">
                   <div className="rounded-xl bg-white p-1">
                     <div className="pie rounded-xl p-3">
                       <p className="text-white text-2xl">Gender</p>
                     </div>
                     <div className="m-5">
-                      <Chart
-                        options={state.options}
-                        series={state.series}
-                        type="pie"
-                        width="380"
-                        className="text-left"
-                      />
+                      {siswa.length === 0 ? (
+                        <div>belum ada data</div>
+                      ) : (
+                        <Chart
+                          options={state.options}
+                          series={state.series}
+                          type="pie"
+                          width="380"
+                          className="text-left"
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
-                <div className="pie rounded-2xl p-1 shadow-xl">
+                {/* diagram gender end */}
+
+                {/* diagram agama start */}
+                <div className="pie rounded-2xl p-1 shadow-xl w-[450px]">
                   <div className="rounded-xl bg-white p-1">
                     <div className="pie rounded-xl p-3">
                       <p className="text-white text-2xl">Agama</p>
                     </div>
                     <div className="m-5">
-                      <Chart
-                        options={religi.options}
-                        series={religi.series}
-                        type="pie"
-                        width="380"
-                        className="text-left"
-                      />
+                      {siswa.length === 0 ? (
+                        <div>belum ada data</div>
+                      ) : (
+                        <Chart
+                          options={religi.options}
+                          series={religi.series}
+                          type="pie"
+                          width="380"
+                          className="text-left"
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
+                {/* diagram agama end */}
               </div>
-              <div className="border">
+              {/* diagram pie end */}
+
+              {/* tombol import export dan add start */}
+              <div className="">
                 <div className="p-5">
                   <div className="tombol flex justify-center gap-3 mt-6">
                     <button
@@ -251,9 +356,29 @@ export default function SekolahById() {
                     >
                       Tambah Data Siswa
                     </button>
+                    <button
+                      className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={() => setModal(true)}
+                    >
+                      Import Data
+                    </button>
+                    {siswa.length === 0 ? (
+                      <></>
+                    ) : (
+                      <button
+                        className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                        onClick={download}
+                      >
+                        Download Data
+                      </button>
+                    )}
                   </div>
                 </div>
+                {/* tombol import export dan add end */}
 
+                {/* tabel siswa start */}
                 <div className="p-5 pt-1">
                   <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 p-5">
                     <table
@@ -380,7 +505,9 @@ export default function SekolahById() {
                     </table>
                   </div>
                 </div>
+                {/* tabel siswa end */}
 
+                {/* modal tambah siswa start */}
                 {showModal ? (
                   <>
                     <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -413,6 +540,7 @@ export default function SekolahById() {
                                   Nama
                                 </label>
                                 <input
+                                  autocomplete="off"
                                   className="w-full rounded-lg border p-3 text-sm"
                                   placeholder="Nama Siswa"
                                   type="text"
@@ -428,6 +556,7 @@ export default function SekolahById() {
                                     Tempat Lahir
                                   </label>
                                   <input
+                                    autocomplete="off"
                                     className="w-full rounded-lg border p-3 text-sm"
                                     placeholder="Tempat Lahir"
                                     type="text"
@@ -443,6 +572,7 @@ export default function SekolahById() {
                                     Tanggal Lahir
                                   </label>
                                   <input
+                                    autocomplete="off"
                                     className="w-full rounded-lg border p-3 text-sm"
                                     type="date"
                                     value={tanggalLahir}
@@ -460,9 +590,7 @@ export default function SekolahById() {
                                   onChange={(e) => setAgama(e.target.value)}
                                   value={agama}
                                 >
-                                  <option selected>
-                                    Agama
-                                  </option>
+                                  <option selected>Agama</option>
                                   <option value="Islam">Islam</option>
                                   <option value="Kristen">Kristen</option>
                                   <option value="Katholik">Katholik</option>
@@ -475,6 +603,7 @@ export default function SekolahById() {
                               <div className="grid grid-cols-2 gap-8">
                                 <div className="relative">
                                   <input
+                                    autocomplete="off"
                                     className="group peer hidden"
                                     type="radio"
                                     name="shippingOption"
@@ -503,6 +632,7 @@ export default function SekolahById() {
                                 </div>
                                 <div className="relative">
                                   <input
+                                    autocomplete="off"
                                     className="group peer hidden"
                                     type="radio"
                                     name="shippingOption"
@@ -554,6 +684,90 @@ export default function SekolahById() {
                     <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
                   </>
                 ) : null}
+                {/* modal tambah siswa end */}
+
+                {/* modal import dan download format data start */}
+                {modal ? (
+                  <>
+                    <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+                      <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                        {/*content*/}
+                        <div className="border-1 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                          {/*header*/}
+                          <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                            <h3 className="text-3xl font-semibold">
+                              Import Data
+                            </h3>
+                            <button
+                              className="p-1 ml-auto bg-transparent border-0 opacity-20 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                              onClick={() => setModal(false)}
+                            >
+                              <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                ×
+                              </span>
+                            </button>
+                          </div>
+                          {/*body*/}
+                          <div className="relative flex-auto">
+                            <form
+                              action=""
+                              className="space-y-4 p-3"
+                              onSubmit={importExcel}
+                            >
+                              <div>
+                                <p className="m-5 text-lg font-medium">
+                                  download file dibawah untuk menginput data
+                                  siswa anda. (format sudah tertulis)
+                                </p>
+                                <button
+                                  className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                                  type="button"
+                                  onClick={downloadFormat}
+                                >
+                                  Download File
+                                </button>
+                              </div>
+                              <div className="py-3">
+                                <p className="m-5 text-lg font-medium">
+                                  jika sudah menginputkan data siswa ke dalam
+                                  file yang sudah anda download tadi,
+                                  selanjutnya bisa anda importkan dengan menekan
+                                  tombol dibawah:
+                                </p>
+                                <input
+                                  autocomplete="off"
+                                  type="file"
+                                  accept=".xlsx"
+                                  onChange={(e) => setExcel(e.target.files[0])}
+                                  className="border-2 rounded-md p-3"
+                                />
+                              </div>
+                              <div className="flex items-center justify-end gap-5 p-3 border-t border-solid border-slate-200 rounded-b">
+                                <button
+                                  className="text-white bg-red-700 font-bold uppercase px-6 py-3.5 rounded-md text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                  type="button"
+                                  onClick={() => setModal(false)}
+                                >
+                                  Batal
+                                </button>
+                                <button
+                                  className="bg-gradient-to-r from-[#0b409c] to-[#10316b] text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                  type="submit"
+                                >
+                                  Import
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                          {/*footer*/}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                  </>
+                ) : null}
+
+                {/* modal import dan download format data end */}
               </div>
             </div>
           </main>

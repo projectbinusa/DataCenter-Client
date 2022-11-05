@@ -1,0 +1,6 @@
+.center {
+    background-image: url("../assets/data-center.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}

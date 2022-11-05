@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../assets/dc-logo.png";
-import "../css/nav.css";
+import "../style/nav.css";
 
 export default function NavComp() {
   const logout = () => {
