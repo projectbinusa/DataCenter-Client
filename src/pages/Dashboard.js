@@ -48,17 +48,38 @@ export default function Dashboard() {
 
   const allSiswa = async () => {
     try {
-      const response = await axios.get(
+      const {data} = await axios.get(
         "http://localhost:8080/api/siswa/"
       );
-      setSiswa(response.data);
-      const totalPerempuan = response.data.filter(
+      setSiswa(data);
+      const totalPerempuan = data.filter(
         (x) => x.gender === "Perempuan"
       ).length;
       setState({
         ...state,
-        series: [totalPerempuan, response.data.length - totalPerempuan],
+        series: [totalPerempuan, data.length - totalPerempuan],
       });
+      const islam = data.filter((r) => r.agama === "Islam").length;
+      const kristen = data.filter((r) => r.agama === "Kristen").length;
+      const katholik = data.filter((r) => r.agama === "Katholik").length;
+      const hindu = data.filter((r  ) => r.agama === "Hindu").length;
+      const buddha = data.filter((r) => r.agama === "Buddha").length;
+      const khonghucu = data.filter(
+        (r) => r.agama === "Khonghucu"
+      ).length;
+      const non = data.filter((r) => r.agama === "Non").length;
+      setReligi({
+        ...religi,
+        series: [islam, kristen, katholik, hindu, buddha, khonghucu, non],
+      });
+      const now = new Date()
+      const values = [];
+      const years = []
+      for (let i = now.getFullYear() - 7; i <= now.getFullYear(); i++) {
+        values.push(data.filter(x => x.tahunDaftar === i).length);
+        years.push(i)
+      }
+      setGrafik({x: years, y: values})
     } catch (error) {
       console.log(error);
     }
@@ -75,51 +96,14 @@ export default function Dashboard() {
     }
   };
 
-  const allAgama = async () => {
-    try {
-      const respon = await axios.get(
-        "http://localhost:8080/api/siswa/"
-      );
-      setSiswa(respon.data);
-      const islam = respon.data.filter((r) => r.agama === "Islam").length;
-      const kristen = respon.data.filter((r) => r.agama === "Kristen").length;
-      const katholik = respon.data.filter((r) => r.agama === "Katholik").length;
-      const hindu = respon.data.filter((r) => r.agama === "Hindu").length;
-      const buddha = respon.data.filter((r) => r.agama === "Buddha").length;
-      const khonghucu = respon.data.filter(
-        (r) => r.agama === "Khonghucu"
-      ).length;
-      const non = respon.data.filter((r) => r.agama === "Non").length;
-      setReligi({
-        ...religi,
-        series: [islam, kristen, katholik, hindu, buddha, khonghucu, non],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const [grafik, setGrafik] = useState({
-    options: {
-      chart: {
-        id: "bar"
-      },
-      xaxis: {
-        categories: [2016, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-      }
-    },
-    series: [
-      {
-        name: "jumlah siswa",
-        data: [30, 40, 45, 50, 49, 60, 70, 91]
-      }
-    ]
+    x: [2015, 2016,2017,2018,2019,2020,2021,2022],
+    y: [3,3,5,1,2,5,6]
   })
 
   useEffect(() => {
     allSiswa();
     allSekolah();
-    allAgama();
   }, []);
 
   return (
@@ -137,15 +121,27 @@ export default function Dashboard() {
                     </div>
                     <div className="m-3 h-auto">
                       <Chart
-                        options={grafik.options}
-                        series={grafik.series}
+                        options={{
+                            chart: {
+                              id: "bar"
+                            },
+                            xaxis: {
+                              categories: grafik.x
+                            }
+                          }}
+                        series={[
+                          {
+                            name: "jumlah siswa",
+                            data: grafik.y
+                          }
+                        ]}
                         type="bar"
                       />
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-1 gap-5">
+              <div class="grid grid-cols-1 gap-5">
                 <div className="pie rounded-2xl p-1 shadow-xl" data-aos="fade-left">
                   <div className="rounded-xl items-center bg-white p-1">
                     <div className="m-5">
@@ -154,9 +150,9 @@ export default function Dashboard() {
                         alt="student-icon"
                         className="w-28 h-24"
                       />
-                      <h2 className="mt-4 text-xl font-bold">Jumlah Seluruh Siswa</h2>
+                      <h2 class="mt-4 text-xl font-bold">Jumlah Seluruh Siswa</h2>
 
-                      <p className="mt-1 text-lg text-gray-700">
+                      <p class="mt-1 text-lg text-gray-700">
                         {siswa.length} Siswa
                       </p>
                       <a href="/table-siswa-admin">
@@ -177,9 +173,9 @@ export default function Dashboard() {
                         alt="student-icon"
                         className="w-28 h-24"
                       />
-                      <h2 className="mt-4 text-xl font-bold">Jumlah Seluruh Sekolah</h2>
+                      <h2 class="mt-4 text-xl font-bold">Jumlah Seluruh Sekolah</h2>
 
-                      <p className="mt-1 text-lg text-gray-700">
+                      <p class="mt-1 text-lg text-gray-700">
                         {sekolah.length} Sekolah
                       </p>
                       <a href="/table-sekolah-admin">
