@@ -600,7 +600,7 @@ export default function SekolahById() {
                                   Nama
                                 </label>
                                 <input
-                                  autocomplete="off"
+                                  autoComplete="off"
                                   className="w-full rounded-lg border p-3 text-sm"
                                   placeholder="Nama Siswa"
                                   type="text"
@@ -616,7 +616,7 @@ export default function SekolahById() {
                                     Tempat Lahir
                                   </label>
                                   <input
-                                    autocomplete="off"
+                                    autoComplete="off"
                                     className="w-full rounded-lg border p-3 text-sm"
                                     placeholder="Tempat Lahir"
                                     type="text"
@@ -632,7 +632,7 @@ export default function SekolahById() {
                                     Tanggal Lahir
                                   </label>
                                   <input
-                                    autocomplete="off"
+                                    autoComplete="off"
                                     className="w-full rounded-lg border p-3 text-sm"
                                     type="date"
                                     value={tanggalLahir}
@@ -663,7 +663,7 @@ export default function SekolahById() {
                               <div className="grid grid-cols-2 gap-8">
                                 <div className="relative">
                                   <input
-                                    autocomplete="off"
+                                    autoComplete="off"
                                     className="group peer hidden"
                                     type="radio"
                                     name="shippingOption"
@@ -692,7 +692,7 @@ export default function SekolahById() {
                                 </div>
                                 <div className="relative">
                                   <input
-                                    autocomplete="off"
+                                    autoComplete="off"
                                     className="group peer hidden"
                                     type="radio"
                                     name="shippingOption"
@@ -795,7 +795,7 @@ export default function SekolahById() {
                                   tombol dibawah:
                                 </p>
                                 <input
-                                  autocomplete="off"
+                                  autoComplete="off"
                                   type="file"
                                   accept=".xlsx"
                                   onChange={(e) => setExcel(e.target.files[0])}

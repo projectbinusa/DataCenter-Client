@@ -117,7 +117,7 @@ export default function Registrasi() {
                         placeholder="Email"
                         className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                         required
-                        autocomplete="off"
+                        autoComplete="off"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
@@ -138,7 +138,7 @@ export default function Registrasi() {
                         placeholder="Password"
                         className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                         required
-                        autocomplete="off"
+                        autoComplete="off"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                       />

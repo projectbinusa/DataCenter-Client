@@ -132,7 +132,7 @@ export default function Step2() {
                         placeholder="Nama Sekolah"
                         className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                         required
-                        autocomplete="off"
+                        autoComplete="off"
                         value={namaSekolah}
                         onChange={(e) => setNamaSekolah(e.target.value)}
                       />
@@ -154,7 +154,7 @@ export default function Step2() {
                           placeholder="Alamat Sekolah"
                           className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                           required
-                          autocomplete="off"
+                          autoComplete="off"
                           value={alamatSekolah}
                           onChange={(e) => setAlamatSekolah(e.target.value)}
                         />
@@ -175,7 +175,7 @@ export default function Step2() {
                           placeholder="No. Telp Sekolah"
                           className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                           required
-                          autocomplete="off"
+                          autoComplete="off"
                           value={teleponSekolah}
                           onChange={(e) => setTeleponSekolah(e.target.value)}
                         />

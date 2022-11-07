@@ -86,7 +86,7 @@ export default function Login() {
                 <div className="p-1">
                   <div className="relative mt-1 text-black">
                     <input
-                      autocomplete="off"
+                      autoComplete="off"
                       type="email"
                       id="email"
                       className="w-full rounded-lg border-gray-200 py-4 px-3 text-sm shadow-sm"
@@ -100,7 +100,7 @@ export default function Login() {
                 <div className="p-1">
                   <div className="relative  mt-1 text-black">
                     <input
-                      autocomplete="off"
+                      autoComplete="off"
                       type={passwordType}
                       className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
                       placeholder="Kata Sandi"
