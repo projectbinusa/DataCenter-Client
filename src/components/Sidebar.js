@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../style/sidebar.css";
 
@@ -15,7 +14,7 @@ export default function Sidebar() {
     <div>
       <div className="s-layout">
         <div className="s-layout__sidebar">
-          <a className="s-sidebar__trigger flex items-center">
+          <NavLink activeClassName="active" className="s-sidebar__trigger flex items-center">
             <span className="text-gray-400 w-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -30,12 +29,12 @@ export default function Sidebar() {
                 />
               </svg>
             </span>
-          </a>
+          </NavLink>
 
           <nav className="s-sidebar__nav">
             <ul>
               <li>
-                <NavLink className="s-sidebar__nav-link focus:bg-[#f2f7ffa8] focus:text-[#10316b]" to="/dashboard">
+                <NavLink activeClassName="active" className="s-sidebar__nav-link focus:bg-[#f2f7ffa8] focus:text-[#10316b]" to="/dashboard">
                   <span className="text-center text-inherit w-full">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +50,7 @@ export default function Sidebar() {
                 </NavLink>
               </li>
               <li>
-                <NavLink
+                <NavLink activeClassName="active"
                   className="s-sidebar__nav-link"
                   to="/table-sekolah-admin"
                 >
@@ -71,7 +70,7 @@ export default function Sidebar() {
                 </NavLink>
               </li>
               <li>
-                <NavLink
+                <NavLink activeClassName="active"
                   className="s-sidebar__nav-link"
                   to="/table-siswa-admin"
                 >
@@ -91,7 +90,7 @@ export default function Sidebar() {
                 </NavLink>
               </li>
 
-              <li>
+             <li>
                 <a className="s-sidebar__nav-link side-out cursor-pointer" onClick={logout} >
                   <span className="text-center text-inherit w-full">
                     <svg

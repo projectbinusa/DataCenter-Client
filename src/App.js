@@ -9,12 +9,12 @@ import SekolahById from "./pages/SekolahById";
 import Registrasi2 from "./pages/Registrasi2";
 import PrivateRoute from "./router/PrivateRoute";
 import PrivateSuperAdmin from "./router/PrivateSuperAdmin";
-import PrivateReg from "./router/PrivateReg"
+import PrivateReg from "./router/PrivateReg";
 import Dashboard from "./pages/Dashboard";
 import TableSekolahAdmin from "./pages/TableSekolahAdmin";
 import TableSiswaAdmin from "./pages/TableSiswaAdmin";
 import EditSiswaByAdmin from "./pages/EditSiswaByAdmin";
-import EditSiswaAdmin from "./pages/EditSiswaAdmin"
+import EditSiswaAdmin from "./pages/EditSiswaAdmin";
 
 function App() {
   return (
@@ -24,22 +24,32 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registrasi" element={<Registrasi />} />
-          <Route path="/registrasi2" element={
-            <PrivateReg>
-              <Registrasi2/>
-            </PrivateReg>
-          } />
+          <Route
+            path="/registrasi2"
+            element={
+              <PrivateReg>
+                <Registrasi2 />
+              </PrivateReg>
+            }
+          />
+          
           {/* super admin page start */}
           <Route
             path="/dashboard"
             element={
               <PrivateSuperAdmin>
-                <Dashboard/>
+                <Dashboard />
               </PrivateSuperAdmin>
             }
           />
-          <Route path="/table-sekolah-admin" element={<TableSekolahAdmin/>} />
-          <Route path="/table-siswa-admin" element={<TableSiswaAdmin/>} />
+          <Route path="/sekolah/:id" element={<SekolahById />} />
+          <Route path="/table-sekolah-admin" element={<TableSekolahAdmin />} />
+          <Route
+            path="/edit-siswa-sekolah/:id"
+            element={<EditSiswaByAdmin />}
+          />
+          <Route path="/table-siswa-admin" element={<TableSiswaAdmin />} />
+          <Route path="/edit-siswa-admin/:id" element={<EditSiswaAdmin />} />
           {/* super admin page end */}
 
           <Route
@@ -51,10 +61,6 @@ function App() {
             }
           />
           <Route path="/edit-siswa/:id" element={<EditSiswa />} />
-          <Route path="/sekolah/:id" element={<SekolahById />} />
-          <Route path="/edit-siswa-sekolah/:id" element={<EditSiswaByAdmin />} />
-          <Route path="/edit-siswa-admin/:id" element={<EditSiswaAdmin />} />
-
         </Routes>
       </BrowserRouter>
     </div>

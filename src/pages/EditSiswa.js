@@ -69,7 +69,7 @@ export default function EditSiswa() {
           showConfirmButton: false,
           timer: 1500,
         });
-        window.location.reload();
+        navigate("/table")
       })
       .catch((error) => {
         alert("Terjadi kesalahan: " + error);

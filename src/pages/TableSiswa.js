@@ -13,6 +13,7 @@ import $ from "jquery";
 export default function Table() {
   const [siswa, setSiswa] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [isChecked, setIsChecked] = useState([]);
   const [namaSiswa, setNamaSiswa] = useState("");
   const [tempatLahir, setTempatLahir] = useState("");
   const [tanggalLahir, setTanggalLahir] = useState("");
@@ -185,12 +186,6 @@ export default function Table() {
     });
   };
 
-  useEffect(() => {
-    getAll();
-    data();
-    dta();
-  }, []);
-
   const download = async () => {
     await Swal.fire({
       title: "Are you sure?",
@@ -276,6 +271,61 @@ export default function Table() {
       });
   };
 
+  const handlecheckbox = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setIsChecked([...isChecked, value]);
+    } else {
+      setIsChecked(isChecked.filter((e) => e !== value));
+    }
+  };
+
+  const alldelete = async () => {
+    if (isChecked.length !== 0) {
+      await Swal.fire({
+        title: "Anda yakin?",
+        text: "Yakin ingin menghapus data siswa ini?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "Batal",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .delete(
+              `http://localhost:8080/api/siswa?ids=` + isChecked.toString()
+            )
+            .then(() => {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Berhasil Menghapus!!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              window.location.reload();
+            });
+        }
+      });
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Tidak ada data yang dipilih",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+
+  useEffect(() => {
+    getAll();
+    data();
+    dta();
+  }, []);
+
   const male = {
     backgroundColor: "lightblue",
   };
@@ -341,8 +391,17 @@ export default function Table() {
 
         <div className="border-2 rounded-xl shadow-md p-5 m-5">
           {/* tombol import export dan add start */}
-          <div className="p-5">
-            <div className="tombol flex justify-center gap-3 mt-6">
+          <div className="grid grid-cols-2">
+            <div className="mt-6">
+              <button
+                className="z-30 block text-white bg-red-500 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+                onClick={alldelete}
+              >
+                Hapus yang dipilih
+              </button>
+            </div>
+            <div className="tombol flex justify-end gap-3 mt-6">
               <button
                 className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
@@ -384,6 +443,9 @@ export default function Table() {
                 <thead className="th-add">
                   <tr>
                     <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                      Pilih
+                    </th>
+                    <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
                       No
                     </th>
                     <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
@@ -410,6 +472,21 @@ export default function Table() {
                   {siswa.map((val, idx) => {
                     return (
                       <tr key={idx}>
+                        <td className="sticky inset-y-0 left-0 bg-white px-4 py-2">
+                          <label className="sr-only" for="Row1">
+                            checkbox
+                          </label>
+
+                          <input
+                            className="h-5 w-5 rounded border-gray-200"
+                            type="checkbox"
+                            id="Row1"
+                            value={val.id}
+                            checked={val.isChecked}
+                            onChange={(e) => handlecheckbox(e)}
+                          />
+                        </td>
+
                         <td className="sticky border-blue-300 left-0 py-2">
                           {idx + 1}
                         </td>
@@ -698,7 +775,10 @@ export default function Table() {
                           </button>
                         </div>
                         <div className="py-3">
-                          <p className="m-5 text-lg font-medium">
+                          <p className="text-lg font-medium mt-5">
+                            nb: file excel tidak boleh ada kolom yang blank
+                          </p>
+                          <p className="mb-5 text-lg font-medium">
                             jika sudah menginputkan data siswa ke dalam file
                             yang sudah anda download tadi, selanjutnya bisa anda
                             importkan dengan menekan tombol dibawah:

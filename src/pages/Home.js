@@ -116,7 +116,7 @@ export default function Home() {
                             width="30"
                             height="30"
                             fill="currentColor"
-                            class="bi bi-arrow-right-short"
+                            className="bi bi-arrow-right-short"
                             viewBox="0 0 16 16"
                           >
                             <path
@@ -147,7 +147,7 @@ export default function Home() {
                             width="30"
                             height="30"
                             fill="currentColor"
-                            class="bi bi-arrow-right-short"
+                            className="bi bi-arrow-right-short"
                             viewBox="0 0 16 16"
                           >
                             <path

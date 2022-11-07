@@ -20,6 +20,7 @@ export default function SekolahById() {
   const [agama, setAgama] = useState("");
   const [gender, setGender] = useState("");
   const [excel, setExcel] = useState("");
+  const [isChecked, setIsChecked] = useState("");
 
   const navigate = useNavigate();
 
@@ -159,13 +160,6 @@ export default function SekolahById() {
     }
   };
 
-  const male = {
-    backgroundColor: "lightblue",
-  };
-  const female = {
-    backgroundColor: "lightpink",
-  };
-
   const getAllUserData = () => {
     axios
       .get("http://localhost:8080/api/sekolah/" + param.id + "/siswa/")
@@ -187,14 +181,6 @@ export default function SekolahById() {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    data();
-    dta();
-    getAllUserData();
-    getNamaSekolah();
-  }, []);
-
 
   const download = async () => {
     await Swal.fire({
@@ -275,6 +261,69 @@ export default function SekolahById() {
       });
   };
 
+  const handlecheckbox = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setIsChecked([...isChecked, value]);
+    } else {
+      setIsChecked(isChecked.filter((e) => e !== value));
+    }
+  };
+
+  const alldelete = async () => {
+    if (isChecked.length !== 0) {
+      await Swal.fire({
+        title: "Anda yakin?",
+        text: "Yakin ingin menghapus data siswa ini?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "Batal",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .delete(
+              `http://localhost:8080/api/siswa?ids=` + isChecked.toString()
+            )
+            .then(() => {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Berhasil Menghapus!!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              window.location.reload();
+            });
+        }
+      });
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Tidak ada data yang dipilih",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+
+  useEffect(() => {
+    data();
+    dta();
+    getAllUserData();
+    getNamaSekolah();
+  }, []);
+
+  const male = {
+    backgroundColor: "lightblue",
+  };
+  const female = {
+    backgroundColor: "lightpink",
+  };
+
   return (
     <div>
       <div className="flex">
@@ -341,34 +390,43 @@ export default function SekolahById() {
 
               <div className="">
                 {/* tombol import export dan add start */}
-                <div className="py-5">
-                    <div className="flex justify-center gap-3 mt-6">
+                <div className="grid grid-cols-3 py-5">
+                  <div className="mt-6">
+                    <button
+                      className="z-30 block text-white bg-red-500 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={alldelete}
+                    >
+                      Hapus yang dipilih
+                    </button>
+                  </div>
+                  <div className="col-span-2 flex justify-end gap-3 mt-6">
+                    <button
+                      className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={() => setShowModal(true)}
+                    >
+                      Tambah Data Siswa
+                    </button>
+                    <button
+                      className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={() => setModal(true)}
+                    >
+                      Import Data
+                    </button>
+                    {siswa.length === 0 ? (
+                      <></>
+                    ) : (
                       <button
                         className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
-                        onClick={() => setShowModal(true)}
+                        onClick={download}
                       >
-                        Tambah Data Siswa
+                        Download Data
                       </button>
-                      <button
-                        className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button"
-                        onClick={() => setModal(true)}
-                      >
-                        Import Data
-                      </button>
-                      {siswa.length === 0 ? (
-                        <></>
-                      ) : (
-                        <button
-                          className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                          type="button"
-                          onClick={download}
-                        >
-                          Download Data
-                        </button>
-                      )}
-                    </div>
+                    )}
+                  </div>
                 </div>
                 {/* tombol import export dan add end */}
 

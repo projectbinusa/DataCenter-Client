@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 
 export default function TableSiswaAdmin() {
   const [siswa, setSiswa] = useState([]);
+  const [isChecked, setIsChecked] = useState([]);
 
   $(document).ready(function () {
     setTimeout(function () {
@@ -61,21 +62,54 @@ export default function TableSiswaAdmin() {
     allSiswa();
   }, []);
 
-  const [isChecked, setisChecked] = useState([]);
-
   const handlecheckbox = (e) => {
     const { value, checked } = e.target;
     if (checked) {
-      setisChecked([...isChecked, value]);
+      setIsChecked([...isChecked, value]);
     } else {
-      setisChecked(isChecked.filter((e) => e !== value));
+      setIsChecked(isChecked.filter((e) => e !== value));
     }
-  }
+  };
 
   const alldelete = async () => {
-      await axios.delete(`http://localhost:8080/api/siswa?ids=`+isChecked.toString());
-
-  }
+    if (isChecked.length !== 0) {
+      await Swal.fire({
+        title: "Anda yakin?",
+        text: "Yakin ingin menghapus data siswa ini?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "Batal",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .delete(
+              `http://localhost:8080/api/siswa?ids=` + isChecked.toString()
+            )
+            .then(() => {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Berhasil Menghapus!!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              window.location.reload();
+            });
+        }
+      });
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Tidak ada data yang dipilih",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
 
   return (
     <div className="flex">
@@ -88,25 +122,7 @@ export default function TableSiswaAdmin() {
                 Data Seluruh Siswa SMP di Wilayah Semarang
               </div>
             </div>
-          </div><button
-            className="z-30 block rounded-full border-2 border-white bg-red-100 p-4 text-red-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-red-50"
-            type="button"onClick={alldelete}
-          >
-            <svg
-              className="h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              />
-            </svg>
-          </button>
+          </div>
           <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 p-5">
             <table
               className="min-w-full divide-gray-200 text-center p-5"
@@ -147,11 +163,13 @@ export default function TableSiswaAdmin() {
                 {siswa.map((val, idx) => {
                   return (
                     <tr key={idx}>
-                      <td class="sticky inset-y-0 left-0 bg-white px-4 py-2">
-                        <label class="sr-only" for="Row1">checkbox</label>
+                      <td className="sticky inset-y-0 left-0 bg-white px-4 py-2">
+                        <label className="sr-only" for="Row1">
+                          checkbox
+                        </label>
 
                         <input
-                          class="h-5 w-5 rounded border-gray-200"
+                          className="h-5 w-5 rounded border-gray-200"
                           type="checkbox"
                           id="Row1"
                           value={val.id}
@@ -241,6 +259,14 @@ export default function TableSiswaAdmin() {
                                 ))} */}
               </tbody>
             </table>
+
+            <button
+              className="z-30 block border-2 border-white bg-red-100 p-2 text-red-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-red-50"
+              type="button"
+              onClick={alldelete}
+            >
+              Hapus
+            </button>
           </div>
         </main>
       </div>

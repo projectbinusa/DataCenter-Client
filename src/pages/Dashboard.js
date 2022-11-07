@@ -145,7 +145,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div>
-              <div class="grid grid-cols-1 gap-5">
+              <div className="grid grid-cols-1 gap-5">
                 <div className="pie rounded-2xl p-1 shadow-xl" data-aos="fade-left">
                   <div className="rounded-xl items-center bg-white p-1">
                     <div className="m-5">
@@ -154,9 +154,9 @@ export default function Dashboard() {
                         alt="student-icon"
                         className="w-28 h-24"
                       />
-                      <h2 class="mt-4 text-xl font-bold">Jumlah Seluruh Siswa</h2>
+                      <h2 className="mt-4 text-xl font-bold">Jumlah Seluruh Siswa</h2>
 
-                      <p class="mt-1 text-lg text-gray-700">
+                      <p className="mt-1 text-lg text-gray-700">
                         {siswa.length} Siswa
                       </p>
                       <a href="/table-siswa-admin">
@@ -177,9 +177,9 @@ export default function Dashboard() {
                         alt="student-icon"
                         className="w-28 h-24"
                       />
-                      <h2 class="mt-4 text-xl font-bold">Jumlah Seluruh Sekolah</h2>
+                      <h2 className="mt-4 text-xl font-bold">Jumlah Seluruh Sekolah</h2>
 
-                      <p class="mt-1 text-lg text-gray-700">
+                      <p className="mt-1 text-lg text-gray-700">
                         {sekolah.length} Sekolah
                       </p>
                       <a href="/table-sekolah-admin">

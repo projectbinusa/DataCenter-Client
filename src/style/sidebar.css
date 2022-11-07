@@ -92,6 +92,10 @@
  }
  
  .s-sidebar__nav-link:hover {
+    background: #f2f7ff2d;
+    color: #9eb4da;
+ }
+ .active {
     background: #f2f7ffa8;
     color: #10316b;
  }
