@@ -195,6 +195,7 @@ export default function SekolahById() {
     getNamaSekolah();
   }, []);
 
+
   const download = async () => {
     await Swal.fire({
       title: "Are you sure?",
@@ -207,9 +208,7 @@ export default function SekolahById() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios({
-          url:
-            "http://localhost:8080/api/excel/download/" +
-            localStorage.getItem("sekolahId"),
+          url: "http://localhost:8080/api/excel/download/" + param.id,
           method: "GET",
           responseType: "blob",
         }).then((response) => {
@@ -266,11 +265,7 @@ export default function SekolahById() {
     formData.append("file", excel);
 
     await axios
-      .post(
-        "http://localhost:8080/api/excel/upload/user/" +
-          localStorage.getItem("sekolahId"),
-        formData
-      )
+      .post("http://localhost:8080/api/excel/upload/user/" + param.id, formData)
       .then(() => {
         Swal.fire("Sukses!", " berhasil ditambahkan.", "success");
         window.location.reload();
@@ -295,7 +290,6 @@ export default function SekolahById() {
             </div>
             <div className="m-5">
               {/* diagram pie start*/}
-
               <div className="flex justify-center gap-x-14 my-10">
                 {/* diagram gender start */}
                 <div className="pie rounded-2xl p-1 shadow-xl w-[450px]">
@@ -345,36 +339,36 @@ export default function SekolahById() {
               </div>
               {/* diagram pie end */}
 
-              {/* tombol import export dan add start */}
               <div className="">
-                <div className="p-5">
-                  <div className="tombol flex justify-center gap-3 mt-6">
-                    <button
-                      className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={() => setShowModal(true)}
-                    >
-                      Tambah Data Siswa
-                    </button>
-                    <button
-                      className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={() => setModal(true)}
-                    >
-                      Import Data
-                    </button>
-                    {siswa.length === 0 ? (
-                      <></>
-                    ) : (
+                {/* tombol import export dan add start */}
+                <div className="py-5">
+                    <div className="flex justify-center gap-3 mt-6">
                       <button
                         className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
-                        onClick={download}
+                        onClick={() => setShowModal(true)}
                       >
-                        Download Data
+                        Tambah Data Siswa
                       </button>
-                    )}
-                  </div>
+                      <button
+                        className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                        onClick={() => setModal(true)}
+                      >
+                        Import Data
+                      </button>
+                      {siswa.length === 0 ? (
+                        <></>
+                      ) : (
+                        <button
+                          className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                          type="button"
+                          onClick={download}
+                        >
+                          Download Data
+                        </button>
+                      )}
+                    </div>
                 </div>
                 {/* tombol import export dan add end */}
 
