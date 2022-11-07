@@ -330,8 +330,8 @@ export default function SekolahById() {
         <Sidebar />
         <div className="flex justify-center">
           <main className="s-content px-10 py-5">
-            <div className="max-w p-5">
-              <div className="border bg-[#10316b] mb-7 px-16">
+            <div className="max-w-5xl p-5">
+              <div className="border bg-[#10316b] mb-7">
                 <div className="text-2xl text-white font-semibold my-7">
                   Data {namaSekolah.namaSekolah}
                 </div>
@@ -339,7 +339,7 @@ export default function SekolahById() {
             </div>
             <div className="m-5">
               {/* diagram pie start*/}
-              <div className="flex justify-center gap-x-14 my-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-x-14 my-10">
                 {/* diagram gender start */}
                 <div className="pie rounded-2xl p-1 shadow-xl w-[450px]">
                   <div className="rounded-xl bg-white p-1">
@@ -391,14 +391,22 @@ export default function SekolahById() {
               <div className="">
                 {/* tombol import export dan add start */}
                 <div className="grid grid-cols-3 py-5">
-                  <div className="mt-6">
-                    <button
-                      className="z-30 block text-white bg-red-500 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={alldelete}
-                    >
-                      Hapus yang dipilih
-                    </button>
+                  <div>
+                    {siswa.length !== 0 ? (
+                      <>
+                        <div className="mt-6">
+                          <button
+                            className="z-30 block text-white bg-red-500 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            type="button"
+                            onClick={alldelete}
+                          >
+                            Hapus yang dipilih
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                   <div className="col-span-2 flex justify-end gap-3 mt-6">
                     <button

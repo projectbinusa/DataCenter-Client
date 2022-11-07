@@ -337,7 +337,7 @@ export default function Table() {
     <>
       <NavComp />
       <div className="">
-        <div className="flex justify-center gap-x-14 my-10">
+        <div className="flex flex-wrap justify-center gap-5 my-10">
           {/* diagram gender start */}
           <div data-aos="fade-right">
             <div className="pie rounded-2xl p-1 shadow-xl w-[450px]">
@@ -391,17 +391,26 @@ export default function Table() {
 
         <div className="border-2 rounded-xl shadow-md p-5 m-5">
           {/* tombol import export dan add start */}
-          <div className="grid grid-cols-2">
-            <div className="mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div>
+            {siswa.length !== 0 ? (
+              <>
+              <div className="mt-6 grid justify-start">
               <button
-                className="z-30 block text-white bg-red-500 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className="text-white bg-red-500 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none"
                 type="button"
                 onClick={alldelete}
               >
                 Hapus yang dipilih
               </button>
             </div>
-            <div className="tombol flex justify-end gap-3 mt-6">
+            </>
+            ) : (
+              <></>
+            )}
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 justify-end gap-3 mt-6">
               <button
                 className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"

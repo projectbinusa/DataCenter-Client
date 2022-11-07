@@ -255,18 +255,22 @@ export default function TableSiswaAdmin() {
                     </tr>
                   );
                 })}
-                {/* {siswa.map((data, idx) => (
-                                ))} */}
               </tbody>
             </table>
-
-            <button
-              className="z-30 block border-2 border-white bg-red-100 p-2 text-red-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-red-50"
+            {siswa.length !== 0 ? (
+              <>
+               <button
+              className="z-30 block text-red-700 bg-red-100 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               type="button"
               onClick={alldelete}
             >
-              Hapus
+              Hapus yang dipilih
             </button>
+              </>
+            ) : (
+              <></>
+            )}
+           
           </div>
         </main>
       </div>

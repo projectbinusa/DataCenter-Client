@@ -12,7 +12,7 @@ export default function EditSiswaByAdmin() {
   const [tanggalLahir, setTanggalLahir] = useState("");
   const [gender, setGender] = useState("");
   const [agama, setAgama] = useState("");
-
+  const [sekolah, setSekolah] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,6 +25,7 @@ export default function EditSiswaByAdmin() {
         setTanggalLahir(dataSiswa.tanggalLahir);
         setGender(dataSiswa.gender);
         setAgama(dataSiswa.agama);
+        setSekolah(dataSiswa.sekolah);
       })
       .catch((error) => {
         alert("Terjadi kesalahan Sir! " + error);
@@ -69,11 +70,15 @@ export default function EditSiswaByAdmin() {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/sekolah/" + param.id);
+        navigate("/sekolah/" + sekolah.id);
       })
       .catch((error) => {
         alert("Terjadi kesalahan: " + error);
       });
+  };
+
+  const batal = () => {
+    navigate("/sekolah/" + sekolah.id);
   };
 
   return (
@@ -247,7 +252,8 @@ export default function EditSiswaByAdmin() {
 
             <div className="flex justify-between">
               <button
-                type="submit"
+                type="button"
+                onClick={batal}
                 className="block w-24 rounded-lg text-black outline outline-red-500 py-3 text-sm font-medium"
               >
                 Batal

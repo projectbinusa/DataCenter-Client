@@ -26,6 +26,10 @@
     align-items: center;
     flex: 1;
  }
+
+ .s-layout__sidebar {
+   position: relative;
+ }
  
  /* Sidebar */
  .s-sidebar__trigger {

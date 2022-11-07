@@ -76,6 +76,11 @@ export default function EditSiswa() {
       });
   };
 
+  const batal = () => {
+    navigate("/table")
+    
+  }
+
   return (
     <div>
       <div className="sticky top-0">
@@ -247,7 +252,7 @@ export default function EditSiswa() {
 
             <div className="flex justify-between">
               <button
-                type="submit"
+                type="button" onClick={batal}
                 className="block w-24 rounded-lg text-black outline outline-red-500 py-3 text-sm font-medium"
               >
                 Batal
