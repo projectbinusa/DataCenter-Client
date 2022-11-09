@@ -35,7 +35,7 @@ export default function Registrasi() {
 
   return (
     <section>
-      <div className="sec-reg">
+      <div className="sec-reg h-[100%] md:h-[100vh]">
         <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
             <div className="lg:col-span-2 lg:py-12">
@@ -43,7 +43,7 @@ export default function Registrasi() {
                 <img
                   src={logo}
                   alt=""
-                  style={{ width: "370px", height: "220px" }}
+                  className="w-[270px] h-[165px] md:w-[370px] md:h-[225px]"
                 />
               </div>
             </div>
@@ -150,7 +150,7 @@ export default function Registrasi() {
                       </span>
                     </label>
                   </div>
-                  <div className="flex justify-end mt-5">
+                  <div className="flex justify-center md:justify-end mt-5">
                     <button
                       type="submit"
                       className="rounded-lg w-[50%] md:w-[30%] bg-[#f2f7ff] text-sm md:text-base text-center text-black p-3"
