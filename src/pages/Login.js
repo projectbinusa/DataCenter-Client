@@ -67,7 +67,7 @@ export default function Login() {
               <img
                 src={logo}
                 alt=""
-                style={{ width: "300px", height: "175px" }}
+                className="w-[270px] h-[165px] md:w-[370px] md:h-[225px]"
               />
             </div>
             <div className="body-log">
