@@ -16,7 +16,7 @@ import TableSekolahAdmin from "./pages/TableSekolahAdmin";
 import TableSiswaAdmin from "./pages/TableSiswaAdmin";
 import EditSiswaByAdmin from "./pages/EditSiswaByAdmin";
 import EditSiswaAdmin from "./pages/EditSiswaAdmin";
-import PrivateBack from "./router/PrivateBack";
+// import PrivateBack from "./router/PrivateBack";
 
 function App() {
   return (
@@ -38,11 +38,11 @@ function App() {
           <Route
             path="/registrasi2"
             element={
-              <PrivateBack>
+              // <PrivateBack>
                 <PrivateReg>
                   <Registrasi2 />
                 </PrivateReg>
-              </PrivateBack>
+              // </PrivateBack>
             }
           />
 

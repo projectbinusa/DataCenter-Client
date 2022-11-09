@@ -48,63 +48,65 @@ export default function Registrasi() {
               </div>
             </div>
             <div className="rounded-lg shadow-lg lg:col-span-3 lg:p-12 body-reg p-10">
-              <div className="flex justify-center items-center mx-24 mb-7">
+              <div className="flex justify-center items-center mx-10 md:mx-24 mb-7">
                 <div>
-                  <div className="text-2xl font-semibold">Buat Akun Baru</div>
+                  <div className="text-xl md:text-2xl font-semibold">Buat Akun Baru</div>
                 </div>
               </div>
 
               {/* step start */}
-              <div className="w-full mt-3">
-                <div className="flex">
-                  <div className="w-1/2">
-                    <div className="relative mb-2">
-                      <div className="w-10 h-10 mx-auto bg-[#f2f7ff] rounded-full text-lg text-white flex items-center">
-                        <span className="text-center text-black text-lg font-semibold w-full ">
-                          1
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="text-xs text-center md:text-base">
-                      Step 1
-                    </div>
-                  </div>
-
-                  <div className="w-1/2">
-                    <div className="relative mb-2">
-                      <div
-                        className="absolute flex align-center items-center align-middle content-center"
-                        style={{
-                          width: "calc(100% - 2.5rem - 1rem)",
-                          top: "50%",
-                          transform: "translate(-50%, -50%)",
-                        }}
-                      >
-                        <div className="w-full bg-[#94add8a9] rounded items-center align-middle align-center flex-1">
-                          <div
-                            className="w-0 bg-[#f2f7ff] py-1 rounded"
-                            style={{ width: "50%" }}
-                          ></div>
+              <div className="flex justify-center">
+                <div className="w-full mt-1 md:mt-3">
+                  <div className="flex">
+                    <div className="w-1/2">
+                      <div className="relative mb-2">
+                        <div className="w-7 h-7 md:w-10 md:h-10 mx-auto bg-[#f2f7ff] rounded-full text-lg text-white flex items-center">
+                          <span className="text-center text-black text-lg font-semibold w-full ">
+                            1
+                          </span>
                         </div>
                       </div>
 
-                      <div className="w-10 h-10 mx-auto bg-[#94add8a9] border-2 border-gray-200 rounded-full text-lg text-white flex items-center">
-                        <span className="text-center text-white text-xl font-semibold w-full">
-                          2
-                        </span>
+                      <div className="text-xs text-center md:text-base">
+                        Step 1
                       </div>
                     </div>
 
-                    <div className="text-xs text-center md:text-base">
-                      Step 2
+                    <div className="w-1/2">
+                      <div className="relative mb-2">
+                        <div
+                          className="absolute flex align-center items-center align-middle content-center"
+                          style={{
+                            width: "calc(100% - 2.5rem - 1rem)",
+                            top: "50%",
+                            transform: "translate(-50%, -50%)",
+                          }}
+                        >
+                          <div className="w-full bg-[#94add8a9] rounded items-center align-middle align-center flex-1">
+                            <div
+                              className="w-0 bg-[#f2f7ff] py-1 rounded"
+                              style={{ width: "50%" }}
+                            ></div>
+                          </div>
+                        </div>
+
+                        <div className="w-7 h-7 md:w-10 md:h-10 mx-auto bg-[#94add8a9] border-2 border-gray-200 rounded-full text-lg text-white flex items-center">
+                          <span className="text-center text-white text-lg font-semibold w-full">
+                            2
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="text-xs text-center md:text-base">
+                        Step 2
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               {/* step end */}
 
-              <div className="border rounded-lg mt-10 mx-20 p-5">
+              <div className="border rounded-lg mt-5 mx-auto md:mt-10 md:mx-20 p-5">
                 <form action="" className="p-5" onSubmit={register}>
                   <div className="mb-5">
                     <label
@@ -151,7 +153,7 @@ export default function Registrasi() {
                   <div className="flex justify-end mt-5">
                     <button
                       type="submit"
-                      className="rounded-lg w-[30%] bg-[#f2f7ff] text-black p-3"
+                      className="rounded-lg w-[50%] md:w-[30%] bg-[#f2f7ff] text-sm md:text-base text-center text-black p-3"
                     >
                       Next
                     </button>

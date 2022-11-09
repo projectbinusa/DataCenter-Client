@@ -91,7 +91,7 @@ export default function Sidebar() {
               </li>
 
              <li>
-                <a className="s-sidebar__nav-link side-out cursor-pointer" onClick={logout} >
+                <a className="s-sidebar__nav-link side-out mt-[50vh] md:mt-[55vh] cursor-pointer" onClick={logout} >
                   <span className="text-center text-inherit w-full">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
