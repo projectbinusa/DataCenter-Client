@@ -96,7 +96,7 @@ export default function EditSiswa() {
 
             <div className="relative mt-3">
               <label
-                for="nama"
+                htmlFor="nama"
                 className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
               >
                 <input
@@ -118,7 +118,7 @@ export default function EditSiswa() {
             <div className="grid grid-cols-1 gap-5 text-center sm:grid-cols-2">
               <div className="relative mt-3">
                 <label
-                  for="tempatLahir"
+                  htmlFor="tempatLahir"
                   className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
                 >
                   <input
@@ -138,7 +138,7 @@ export default function EditSiswa() {
               </div>
               <div className="relative mt-3">
                 <label
-                  for="tanggalLahir"
+                  htmlFor="tanggalLahir"
                   className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
                 >
                   <input
@@ -159,7 +159,7 @@ export default function EditSiswa() {
             </div>
 
             <div className="relative mt-3">
-              <label className="sr-only" for="agama">
+              <label className="sr-only" htmlFor="agama">
                 Agama
               </label>
 
@@ -170,9 +170,6 @@ export default function EditSiswa() {
                 autoComplete="agama-name"
                 onChange={agamaChangeHandler}
               >
-                <option selected disabled>
-                  Agama
-                </option>
                 <option onChange={agamaChangeHandler}>Islam</option>
                 <option onChange={agamaChangeHandler}>Kristen</option>
                 <option onChange={agamaChangeHandler}>Katholik</option>
@@ -197,7 +194,7 @@ export default function EditSiswa() {
 
                 <label
                   className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                  for="Laki"
+                  htmlFor="Laki"
                 >
                   <span> Laki-Laki </span>
                 </label>
@@ -211,7 +208,7 @@ export default function EditSiswa() {
                   <path
                     fillRule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   />
                 </svg>
               </div>
@@ -229,7 +226,7 @@ export default function EditSiswa() {
 
                 <label
                   className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                  for="Perempuan"
+                  htmlFor="Perempuan"
                 >
                   <span> Perempuan </span>
                 </label>
@@ -243,7 +240,7 @@ export default function EditSiswa() {
                   <path
                     fillRule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   />
                 </svg>
               </div>

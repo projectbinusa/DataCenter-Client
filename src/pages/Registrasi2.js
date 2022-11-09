@@ -123,7 +123,7 @@ export default function Step2() {
                 <form action="" className="p-5" onSubmit={register}>
                   <div className="mb-5">
                     <label
-                      for="namaSekolah"
+                      htmlFor="namaSekolah"
                       className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
                     >
                       <input
@@ -145,7 +145,7 @@ export default function Step2() {
                   <div className="grid grid-cols-2 gap-5">
                     <div>
                       <label
-                        for="alamatSekolah"
+                        htmlFor="alamatSekolah"
                         className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
                       >
                         <input
@@ -166,7 +166,7 @@ export default function Step2() {
                     </div>
                     <div>
                       <label
-                        for="teleponSekolah"
+                        htmlFor="teleponSekolah"
                         className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
                       >
                         <input

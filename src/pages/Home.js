@@ -46,39 +46,35 @@ export default function Home() {
     <div className="">
       {localStorage.getItem("token") === null ? (
         <>
-          <div className="p-16 w-screen h-full bg-gradient-to-r from-sky-800 to-blue-900 content-center">
+          <div className=" w-screen h-[100vh] bg-gradient-to-r from-sky-800 to-blue-900 justify-center overflow-hidden">
             <section
-              className="overflow-hidden mt-16 content-center p-2 sm:grid sm:grid-cols-2 sm:items-center"
+              className="overflow-hidden mt-16 justify-center p-2 sm:grid sm:grid-cols-2 sm:items-center"
             >
-              <div data-aos="fade-right" className="p-8 md:p-12 lg:px-16 lg:py-24">
+              <div  className="p-8 md:p-12 lg:px-16 lg:py-24">
                 <div className="mx-auto max-w-xl text-center sm:text-left">
-                  <h2 className="text-4xl font-bold font-mono text-white md:text-3xl">
+                  <h2 className="text-xl md:text-3xl font-bold font-mono text-white">
                     Selamat Datang Di Data Center
                   </h2>
-                  <p className="text-white font-mono text-[16px] md:mt-4 md:block">
+                  <p className="text-white font-mono text-sm md:text-[16px] md:mt-4 md:block">
                     Silahkan Masuk/Daftar untuk mengakses Data Center
                   </p>
-                  <div className="flex gap-5">
-                    <div className="mt-4 md:mt-8 w-48">
+                  <div className="flex gap-5 a-log">
                       <a
                         href="/login"
-                        className="inline-block w-full rounded-full text-center border hover:from-cyan-400 via-sky-400 rounded px-12 py-3 text-lg font-medium text-white"
+                        className="inline-block w-full rounded-full text-center border hover:from-cyan-400 via-sky-400 rounded px-10 py-3 text-md md:px-12 md:py-3 md:text-lg font-medium text-white mt-4 md:mt-8 w-48"
                       >
                         Masuk
                       </a>
-                    </div>
-                    <div className="mt-4 md:mt-8 w-48">
                       <a
                         href="/registrasi"
-                        className="inline-block w-full rounded-full text-center border hover:from-cyan-400 via-sky-400 rounded px-12 py-3 text-lg font-medium text-white"
+                        className="inline-block w-full rounded-full text-center border hover:from-cyan-400 via-sky-400 rounded px-10 py-3 text-md md:px-12 md:py-3 md:text-lg font-medium text-white mt-4 md:mt-8 w-48"
                       >
                         Daftar
                       </a>
-                    </div>
                   </div>
                 </div>
               </div>
-              <div data-aos="fade-left" className="w-4/5 content-center">
+              <div data-aos="fade-left" className="w-4/5  mx-auto grid md:justify-center">
                 <img alt="Violin" src={logo} />
               </div>
             </section>
@@ -87,7 +83,7 @@ export default function Home() {
       ) : (
         <>
           <NavComp />
-          <div className="w-screen-2xl center content-center">
+          <div className="w-screen-2xl center">
             <div className="flex justify-start">
               <div className="w-[500px] py-52 px-5">
                 <h2 className="text-2xl md:text-3xl pb-4 mb-5">

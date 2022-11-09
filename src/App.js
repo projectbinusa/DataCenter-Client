@@ -10,57 +10,119 @@ import Registrasi2 from "./pages/Registrasi2";
 import PrivateRoute from "./router/PrivateRoute";
 import PrivateSuperAdmin from "./router/PrivateSuperAdmin";
 import PrivateReg from "./router/PrivateReg";
+import PrivateHome from "./router/PrivateHome";
 import Dashboard from "./pages/Dashboard";
 import TableSekolahAdmin from "./pages/TableSekolahAdmin";
 import TableSiswaAdmin from "./pages/TableSiswaAdmin";
 import EditSiswaByAdmin from "./pages/EditSiswaByAdmin";
 import EditSiswaAdmin from "./pages/EditSiswaAdmin";
+import PrivateBack from "./router/PrivateBack";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registrasi" element={<Registrasi />} />
+
+          <Route
+            path="/"
+            element={
+              <PrivateHome>
+                <Home />
+              </PrivateHome>
+            }
+          />
+
           <Route
             path="/registrasi2"
             element={
-              <PrivateReg>
-                <Registrasi2 />
-              </PrivateReg>
+              <PrivateBack>
+                <PrivateReg>
+                  <Registrasi2 />
+                </PrivateReg>
+              </PrivateBack>
             }
           />
-          
+
           {/* super admin page start */}
           <Route
             path="/dashboard"
             element={
-              <PrivateSuperAdmin>
-                <Dashboard />
-              </PrivateSuperAdmin>
+              <PrivateRoute>
+                <PrivateSuperAdmin>
+                  <Dashboard />
+                </PrivateSuperAdmin>
+              </PrivateRoute>
             }
           />
-          <Route path="/sekolah/:id" element={<SekolahById />} />
-          <Route path="/table-sekolah-admin" element={<TableSekolahAdmin />} />
+
+          <Route
+            path="/sekolah/:id"
+            element={
+              <PrivateRoute>
+                <SekolahById />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/table-sekolah-admin"
+            element={
+              <PrivateRoute>
+                <TableSekolahAdmin />
+              </PrivateRoute>
+            }
+          />
+
           <Route
             path="/edit-siswa-sekolah/:id"
-            element={<EditSiswaByAdmin />}
+            element={
+              <PrivateRoute>
+                <EditSiswaByAdmin />
+              </PrivateRoute>
+            }
           />
-          <Route path="/table-siswa-admin" element={<TableSiswaAdmin />} />
-          <Route path="/edit-siswa-admin/:id" element={<EditSiswaAdmin />} />
+
+          <Route
+            path="/table-siswa-admin"
+            element={
+              <PrivateRoute>
+                <TableSiswaAdmin />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/edit-siswa-admin/:id"
+            element={
+              <PrivateRoute>
+                <EditSiswaAdmin />
+              </PrivateRoute>
+            }
+          />
           {/* super admin page end */}
 
           <Route
             path="/table"
             element={
               <PrivateRoute>
-                <Table />
+                <PrivateHome>
+                  <Table />
+                </PrivateHome>
               </PrivateRoute>
             }
           />
-          <Route path="/edit-siswa/:id" element={<EditSiswa />} />
+
+          <Route
+            path="/edit-siswa/:id"
+            element={
+              <PrivateRoute>
+                <EditSiswa />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

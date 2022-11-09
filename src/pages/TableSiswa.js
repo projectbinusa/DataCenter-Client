@@ -268,6 +268,7 @@ export default function Table() {
       })
       .catch((err) => {
         console.log(err);
+        Swal.fire("Error", "Anda belum memilih file untuk diimport!.", "error");
       });
   };
 
@@ -340,12 +341,12 @@ export default function Table() {
         <div className="flex flex-wrap justify-center gap-5 my-10">
           {/* diagram gender start */}
           <div data-aos="fade-right">
-            <div className="pie rounded-2xl p-1 shadow-xl w-[450px]">
+            <div className="pie rounded-2xl p-1 shadow-xl w-[370px] md:w-[450px]">
               <div className="rounded-xl bg-white p-1">
                 <div className="pie rounded-xl p-1">
                   <p className="text-white text-2xl">Gender</p>
                 </div>
-                <div className="m-5">
+                <div className="m-5 overflow-hidden overflow-x-auto">
                   {siswa.length === 0 ? (
                     <div>belum ada data</div>
                   ) : (
@@ -365,12 +366,12 @@ export default function Table() {
 
           {/* diagram agama start */}
           <div data-aos="fade-left">
-            <div className="pie rounded-2xl p-1 shadow-xl w-[450px]">
+            <div className="pie rounded-2xl p-1 shadow-xl w-[370px] md:w-[450px]">
               <div className="rounded-xl bg-white p-1">
                 <div className="pie rounded-xl p-1">
                   <p className="text-white text-2xl">Agama</p>
                 </div>
-                <div className="m-5">
+                <div className="m-5 overflow-hidden overflow-x-auto">
                   {siswa.length === 0 ? (
                     <div>belum ada data</div>
                   ) : (
@@ -391,28 +392,21 @@ export default function Table() {
 
         <div className="border-2 rounded-xl shadow-md p-5 m-5">
           {/* tombol import export dan add start */}
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            <div>
-            {siswa.length !== 0 ? (
-              <>
-              <div className="mt-6 grid justify-start">
+          <div className="grid justify-center">
+            <div className="grid grid-cols-1 md:flex gap-3 mt-6">
+              {siswa.length === 0 ? (
+                <></>
+              ) : (
+                <button
+                  className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={download}
+                >
+                  Download Data
+                </button>
+              )}
               <button
-                className="text-white bg-red-500 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none"
-                type="button"
-                onClick={alldelete}
-              >
-                Hapus yang dipilih
-              </button>
-            </div>
-            </>
-            ) : (
-              <></>
-            )}
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 justify-end gap-3 mt-6">
-              <button
-                className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
                 onClick={() => setShowModal(true)}
               >
@@ -420,23 +414,12 @@ export default function Table() {
               </button>
 
               <button
-                className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
                 onClick={() => setModal(true)}
               >
                 Import Data
               </button>
-              {siswa.length === 0 ? (
-                <></>
-              ) : (
-                <button
-                  className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                  type="button"
-                  onClick={download}
-                >
-                  Download Data
-                </button>
-              )}
             </div>
           </div>
           {/* tombol import export dan add end */}
@@ -481,8 +464,8 @@ export default function Table() {
                   {siswa.map((val, idx) => {
                     return (
                       <tr key={idx}>
-                        <td className="sticky inset-y-0 left-0 bg-white px-4 py-2">
-                          <label className="sr-only" for="Row1">
+                        <td className="inset-y-0 left-0 bg-white px-4 py-2">
+                          <label className="sr-only" htmlFor="Row1">
                             checkbox
                           </label>
 
@@ -496,7 +479,7 @@ export default function Table() {
                           />
                         </td>
 
-                        <td className="sticky border-blue-300 left-0 py-2">
+                        <td className="border-blue-300 left-0 py-2">
                           {idx + 1}
                         </td>
                         <td className="whitespace-nowrap px-4 py-2 text-gray-700">
@@ -571,6 +554,19 @@ export default function Table() {
                   })}
                 </tbody>
               </table>
+              {siswa.length !== 0 ? (
+                <div className="grid justify-center md:justify-start">
+                  <button
+                    className="text-red-700 bg-red-100 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={alldelete}
+                  >
+                    Hapus yang dipilih
+                  </button>
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
           {/* tabel siswa end */}
@@ -598,7 +594,7 @@ export default function Table() {
                     <div className="relative p-6 flex-auto">
                       <form action="" className="space-y-4" onSubmit={addSiswa}>
                         <div>
-                          <label className="sr-only" for="name">
+                          <label className="sr-only" htmlFor="name">
                             Nama
                           </label>
                           <input
@@ -626,7 +622,7 @@ export default function Table() {
                             />
                           </div>
                           <div>
-                            <label className="sr-only" for="phone">
+                            <label className="sr-only" htmlFor="phone">
                               Tanggal Lahir
                             </label>
                             <input
@@ -644,18 +640,18 @@ export default function Table() {
                             className="relative w-full rounded-lg border p-2.5 text-sm focus:z-10"
                             aria-label="agama"
                             onChange={(e) => setAgama(e.target.value)}
-                            value={agama}
+                            defaultValue="Agama"
                           >
-                            <option selected disabled>
+                            <option value="Agama" disabled>
                               Agama
                             </option>
-                            <option value="Islam">Islam</option>
-                            <option value="Kristen">Kristen</option>
-                            <option value="Katholik">Katholik</option>
-                            <option value="Hindu">Hindu</option>
-                            <option value="Buddha">Buddha</option>
-                            <option value="Khonghucu">Khonghucu</option>
-                            <option value="Non">Non</option>
+                            <option defaultValue="Islam">Islam</option>
+                            <option defaultValue="Kristen">Kristen</option>
+                            <option defaultValue="Katholik">Katholik</option>
+                            <option defaultValue="Hindu">Hindu</option>
+                            <option defaultValue="Buddha">Buddha</option>
+                            <option defaultValue="Khonghucu">Khonghucu</option>
+                            <option defaultValue="Non">Non</option>
                           </select>
                         </div>
                         <div className="grid grid-cols-2 gap-8">
@@ -671,7 +667,7 @@ export default function Table() {
                             />
                             <label
                               className="block cursor-pointer rounded-lg bg-blue border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                              for="next_day_alt"
+                              htmlFor="next_day_alt"
                             >
                               <span> Laki-Laki </span>
                             </label>
@@ -684,7 +680,7 @@ export default function Table() {
                               <path
                                 fillRule="evenodd"
                                 d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                clip-rule="evenodd"
+                                clipRule="evenodd"
                               />
                             </svg>
                           </div>
@@ -700,7 +696,7 @@ export default function Table() {
                             />
                             <label
                               className="block cursor-pointer rounded-lg bg-blue border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                              for="perempuan"
+                              htmlFor="perempuan"
                             >
                               <span> Perempuan </span>
                             </label>
@@ -713,7 +709,7 @@ export default function Table() {
                               <path
                                 fillRule="evenodd"
                                 d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                clip-rule="evenodd"
+                                clipRule="evenodd"
                               />
                             </svg>
                           </div>

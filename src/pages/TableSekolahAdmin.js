@@ -32,18 +32,16 @@ export default function TableSekolahAdmin() {
         cancelButtonText: "Batal",
       }).then((result) => {
         if (result.isConfirmed) {
-          axios
-            .delete("http://localhost:8080/api/sekolah/" + id)
-            .then(() => {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Berhasil Menghapus!!",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              getSekolah();
+          axios.delete("http://localhost:8080/api/sekolah/" + id).then(() => {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Berhasil Menghapus!!",
+              showConfirmButton: false,
+              timer: 1500,
             });
+            getSekolah();
+          });
         }
       });
     } catch (error) {
@@ -66,10 +64,12 @@ export default function TableSekolahAdmin() {
 
         {/* content start */}
         <div className="flex justify-center">
-          <main className="s-content px-10 py-5">
-            <div className="border bg-[#10316b] mb-7 px-16">
-              <div className="text-4xl text-white font-semibold my-7">
-                Data Sekolah Menengah Pertama di Wilayah Semarang
+          <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
+            <div className="bg-[#10316b] rounded-lg mb-7 p-1">
+              <div className="border-2 border-white rounded-lg px-16">
+                <div className="text-md md:text-4xl text-white font-bold md:font-semibold my-7">
+                  Data Sekolah Menengah Pertama di Wilayah Semarang
+                </div>
               </div>
             </div>
 
@@ -82,29 +82,33 @@ export default function TableSekolahAdmin() {
                         <img
                           src={school}
                           alt="school-icon"
-                          className="w-28 h-24"
+                          className="w-32 h-28 md:w-28 md:h-24"
                         />
                       </div>
-                      <h1 className="nama-sekolah text-lg font-semibold">
+                      <h1 className="nama-sekolah text-xl md:text-lg font-semibold">
                         {smp.namaSekolah}
                       </h1>
-                      <h4 className="text-sm mb-4">{smp.alamatSekolah}</h4>
-                      <div className="grid grid-cols-2 gap-2 mt-6">
-                        <button
-                          className="text-white w-[100px] bg-red-500 active:bg-slate-300 text-sm py-2 px-5 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-                          type="button"
-                          onClick={() => deleteSekolah(smp.id)}
-                        >
-                          Hapus
-                        </button>
-                        <a href={"/sekolah/" + smp.id}>
+                      <h4 className="text-md md:text-sm mb-4">
+                        {smp.alamatSekolah}
+                      </h4>
+                      <div className="grid justify-center">
+                        <div className="grid grid-cols-2 gap-3 md:gap-2 mt-6">
                           <button
-                            className="text-white w-[100px] add-siswa active:bg-slate-300 text-sm py-2 px-5 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                            className="text-white w-[130px] md:w-[100px] bg-red-500 active:bg-slate-300 text-md md:text-sm py-2 px-5 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
                             type="button"
+                            onClick={() => deleteSekolah(smp.id)}
                           >
-                            Detail
+                            Hapus
                           </button>
-                        </a>
+                          <a href={"/sekolah/" + smp.id}>
+                            <button
+                              className="text-white w-[130px] md:w-[100px] add-siswa active:bg-slate-300 text-md md:text-sm py-2 px-5 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                              type="button"
+                            >
+                              Detail
+                            </button>
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
