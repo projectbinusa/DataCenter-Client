@@ -26,8 +26,10 @@ export default function Login() {
       if (status === 200) {
         Swal.fire({
           icon: "success",
-          title: "Sukses!",
-          text: "Login telah berhasil!",
+          title: "Berhasil!",
+          text: "Berhasil login.",
+          showConfirmButton: false,
+          timer: 1500
         });
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.role);

@@ -101,7 +101,9 @@ export default function Dashboard() {
   return (
     <div>
       <div className="flex">
+        <div className="z-10">
         <Sidebar />
+        </div>
         <div className="flex justify-center w-[100%]">
           <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
             <div className="grid grid-cols-1 gap-5 md:grid-cols-3">

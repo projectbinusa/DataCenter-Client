@@ -201,12 +201,21 @@ export default function SekolahById() {
           var fileLink = document.createElement("a");
 
           fileLink.href = fileURL;
-          fileLink.setAttribute("download", "data-siswa.xlsx");
+          fileLink.setAttribute(
+            "download",
+            `data-siswa-(${namaSekolah.namaSekolah}).xlsx`
+          );
           document.body.appendChild(fileLink);
 
           fileLink.click();
         });
-        Swal.fire("Download!", "Your file has been download.", "success");
+        Swal.fire({
+          title: "Berhasil!",
+          text: "File berhasil di download.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     });
   };
@@ -248,16 +257,45 @@ export default function SekolahById() {
     const formData = new FormData();
 
     formData.append("file", excel);
-
-    await axios
-      .post("http://localhost:8080/api/excel/upload/user/" + param.id, formData)
-      .then(() => {
-        Swal.fire("Sukses!", " berhasil ditambahkan.", "success");
-        window.location.reload();
-      })
-      .catch((err) => {
-        console.log(err);
+    try {
+      await Swal.fire({
+        title: "Yakin?",
+        text: "Yakin ingin mengimport data siswa ini?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, import!",
+        cancelButtonText: "Batal",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .post(
+              "http://localhost:8080/api/excel/upload/user/" + param.id,
+              formData
+            )
+            .then(() => {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Berhasil!",
+                text: "Berhasil menambahkan data dengan file excel.",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              // window.location.reload();
+            });
+        }
       });
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: 'Coba lagi!',
+        text: 'Belum berhasil menambahkan data dengan file excel.',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
   };
 
   const handlecheckbox = (e) => {
@@ -757,84 +795,88 @@ export default function SekolahById() {
 
                 {/* modal import dan download format data start */}
                 {modal ? (
-            <>
-              <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                  {/*content*/}
-                  <div className="border-1 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                    {/*header*/}
-                    <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                      <h3 className="text-3xl font-semibold">Import Data</h3>
-                      <button
-                        className="p-1 ml-auto bg-transparent border-0 opacity-20 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                        onClick={() => setModal(false)}
-                      >
-                        <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
-                          ×
-                        </span>
-                      </button>
+                  <>
+                    <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+                      <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                        {/*content*/}
+                        <div className="border-1 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                          {/*header*/}
+                          <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                            <h3 className="text-3xl font-semibold">
+                              Import Data
+                            </h3>
+                            <button
+                              className="p-1 ml-auto bg-transparent border-0 opacity-20 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                              onClick={() => setModal(false)}
+                            >
+                              <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                ×
+                              </span>
+                            </button>
+                          </div>
+                          {/*body*/}
+                          <div className="relative flex-auto">
+                            <form
+                              action=""
+                              className="space-y-4 p-3"
+                              onSubmit={importExcel}
+                            >
+                              <div>
+                                <p className="m-5 text-lg font-medium">
+                                  download file dibawah untuk menginput data
+                                  siswa anda. (format sudah tertulis)
+                                </p>
+                                <button
+                                  className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                                  type="button"
+                                  onClick={downloadFormat}
+                                >
+                                  Download File
+                                </button>
+                              </div>
+                              <div className="py-3">
+                                <p className="text-lg font-medium mt-5">
+                                  nb: hapus semua kolom blank pada file excel
+                                  yang akan di import
+                                </p>
+                                <p className="mb-5 text-lg font-medium">
+                                  jika sudah menginputkan data siswa ke dalam
+                                  file yang sudah anda download tadi,
+                                  selanjutnya bisa anda importkan dengan menekan
+                                  tombol dibawah:
+                                </p>
+                                <input
+                                  autoComplete="off"
+                                  type="file"
+                                  accept=".xlsx"
+                                  onChange={(e) => setExcel(e.target.files[0])}
+                                  className="border-2 rounded-md p-3"
+                                />
+                              </div>
+                              <div className="flex items-center justify-end gap-5 p-3 border-t border-solid border-slate-200 rounded-b">
+                                <button
+                                  className="text-white bg-red-700 font-bold uppercase px-6 py-3.5 rounded-md text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                  type="button"
+                                  onClick={() => setModal(false)}
+                                >
+                                  Batal
+                                </button>
+                                <button
+                                  className="bg-gradient-to-r from-[#0b409c] to-[#10316b] text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                  type="submit"
+                                >
+                                  Import
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                          {/*footer*/}
+                        </div>
+                      </div>
                     </div>
-                    {/*body*/}
-                    <div className="relative flex-auto">
-                      <form
-                        action=""
-                        className="space-y-4 p-3"
-                        onSubmit={importExcel}
-                      >
-                        <div>
-                          <p className="m-5 text-lg font-medium">
-                            download file dibawah untuk menginput data siswa
-                            anda. (format sudah tertulis)
-                          </p>
-                          <button
-                            className="text-white add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-                            type="button"
-                            onClick={downloadFormat}
-                          >
-                            Download File
-                          </button>
-                        </div>
-                        <div className="py-3">
-                          <p className="text-lg font-medium mt-5">
-                            nb: file excel tidak boleh ada kolom yang blank
-                          </p>
-                          <p className="mb-5 text-lg font-medium">
-                            jika sudah menginputkan data siswa ke dalam file
-                            yang sudah anda download tadi, selanjutnya bisa anda
-                            importkan dengan menekan tombol dibawah:
-                          </p>
-                          <input
-                            autoComplete="off"
-                            type="file"
-                            accept=".xlsx"
-                            onChange={(e) => setExcel(e.target.files[0])}
-                            className="border-2 rounded-md p-3"
-                          />
-                        </div>
-                        <div className="flex items-center justify-end gap-5 p-3 border-t border-solid border-slate-200 rounded-b">
-                          <button
-                            className="text-white bg-red-700 font-bold uppercase px-6 py-3.5 rounded-md text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                            type="button"
-                            onClick={() => setModal(false)}
-                          >
-                            Batal
-                          </button>
-                          <button
-                            className="bg-gradient-to-r from-[#0b409c] to-[#10316b] text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                            type="submit"
-                          >
-                            Import
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-                    {/*footer*/}
-                  </div>
-                </div>
-              </div>
-              <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-            </>
-          ) : null}
+                    <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                  </>
+                ) : null}
 
                 {/* modal import dan download format data end */}
               </div>

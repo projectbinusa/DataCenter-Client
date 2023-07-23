@@ -5,11 +5,11 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from "jquery";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Checkbox from "./Checkbox";
+// import Checkbox from "./Checkbox";
 
 export default function TableSiswaAdmin() {
   const [siswa, setSiswa] = useState([]);
-  const [isCheckAll, setIsCheckAll] = useState(false);
+  // const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
 
   $(document).ready(function () {
@@ -64,22 +64,22 @@ export default function TableSiswaAdmin() {
     allSiswa();
   }, []);
 
-  const handleSelectAll = () => {
-    setIsCheckAll(!isCheckAll);
-    setIsCheck(siswa.map(li => li.id));
-    if (isCheckAll) {
-      setIsCheck([]);
-    }
-  };
+  // const handleSelectAll = () => {
+  //   setIsCheckAll(!isCheckAll);
+  //   setIsCheck(siswa.map((li) => li.id));
+  //   if (isCheckAll) {
+  //     setIsCheck([]);
+  //   }
+  // };
 
   const handleClick = (e) => {
     const { id, checked } = e.target;
+    console.log(isCheck);
     if (checked) {
       setIsCheck([...isCheck, id]);
     } else {
       setIsCheck(isCheck.filter((e) => e !== id));
     }
-
   };
 
   const alldelete = async () => {
@@ -96,9 +96,7 @@ export default function TableSiswaAdmin() {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(
-              `http://localhost:8080/api/siswa?ids=` + isCheck.toString()
-            )
+            .delete(`http://localhost:8080/api/siswa?ids=` + isCheck.toString())
             .then(() => {
               Swal.fire({
                 position: "center",
@@ -122,8 +120,6 @@ export default function TableSiswaAdmin() {
     }
   };
 
-  console.log(isCheck);
-
   return (
     <div className="flex">
       <Sidebar />
@@ -144,14 +140,14 @@ export default function TableSiswaAdmin() {
               <thead className="th-add">
                 <tr>
                   <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                    <Checkbox
+                    {/* <Checkbox
                       className="h-5 w-5 rounded border-gray-200"
                       type="checkbox"
                       name="selectAll"
                       id="selectAll"
                       handleClick={handleSelectAll}
                       checked={isCheckAll}
-                    />
+                    /> */}
                     Pilih
                   </th>
                   <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
@@ -189,18 +185,24 @@ export default function TableSiswaAdmin() {
                           checkbox
                         </label>
 
-                        <Checkbox
+                        <input
+                          className="h-5 w-5 rounded border-gray-200"
+                          type="checkbox"
+                          id={val.id}
+                          checked={val.isCheck}
+                          onChange={(e) => handleClick(e)}
+                        />
+
+                        {/* <Checkbox
                           className="h-5 w-5 rounded border-gray-200"
                           type="checkbox"
                           id={val.id}
                           name={val.namaSiswa}
                           handleClick={handleClick}
                           isChecked={isCheck.includes(val.id)}
-                        />
+                        /> */}
                       </td>
-                      <td className="border-blue-300 left-0 py-2">
-                        {idx + 1}
-                      </td>
+                      <td className="border-blue-300 left-0 py-2">{idx + 1}</td>
                       <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                         {val.namaSiswa}
                       </td>

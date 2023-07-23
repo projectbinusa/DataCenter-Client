@@ -256,20 +256,32 @@ export default function Table() {
 
     formData.append("file", excel);
 
-    await axios
-      .post(
-        "http://localhost:8080/api/excel/upload/user/" +
-          localStorage.getItem("sekolahId"),
+    try {
+      await axios.post(
+        `http://localhost:8080/api/excel/upload/user/${localStorage.getItem(
+          "sekolahId"
+        )}`,
         formData
-      )
-      .then(() => {
-        Swal.fire("Sukses!", " berhasil ditambahkan.", "success");
-        window.location.reload();
-      })
-      .catch((err) => {
-        console.log(err);
-        Swal.fire("Error", "Anda belum memilih file untuk diimport!.", "error");
+      );
+      Swal.fire({
+        title: "Berhasil!",
+        text: "Berhasil menambahkan data dengan file excel.",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
       });
+      setModal(false);
+      getAll();
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: "Coba lagi!",
+        text: "Belum berhasil menambahkan data dengan file excel.",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   };
 
   const handlecheckbox = (e) => {
@@ -781,7 +793,8 @@ export default function Table() {
                         </div>
                         <div className="py-3">
                           <p className="text-lg font-medium mt-5">
-                            nb: file excel tidak boleh ada kolom yang blank
+                            nb: hapus semua kolom blank pada file excel yang
+                            akan di import
                           </p>
                           <p className="mb-5 text-lg font-medium">
                             jika sudah menginputkan data siswa ke dalam file
