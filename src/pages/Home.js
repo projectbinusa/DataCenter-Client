@@ -5,6 +5,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import logo from "../assets/Home-Image.png";
 import axios from "axios";
+import { base_url } from "../utils/baseURL";
 
 export default function Home() {
   const [namaSekolah, setNamaSekolah] = useState({ namaSekolah: "" });
@@ -13,9 +14,7 @@ export default function Home() {
   const getNamaSekolah = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8080/api/user/${localStorage.getItem(
-          "sekolahId"
-        )}/sekolah`
+        `${base_url}/user/${localStorage.getItem("sekolahId")}/sekolah`
       );
       setNamaSekolah(res.data);
     } catch (error) {
@@ -26,11 +25,9 @@ export default function Home() {
   const getJumlahSiswa = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8080/api/sekolah/${localStorage.getItem(
-          "sekolahId"
-        )}/siswa`
+        `${base_url}/sekolah/${localStorage.getItem("sekolahId")}/siswa`
       );
-      setJumlahSiswa(res.data);
+      setJumlahSiswa(res.data.content);
     } catch (error) {
       console.log(error);
     }
@@ -47,10 +44,8 @@ export default function Home() {
       {localStorage.getItem("token") === null ? (
         <>
           <div className=" w-screen h-[100vh] bg-gradient-to-r from-sky-800 to-blue-900 justify-center overflow-hidden">
-            <section
-              className="overflow-hidden mt-16 justify-center p-2 sm:grid sm:grid-cols-2 sm:items-center"
-            >
-              <div  className="p-8 md:p-12 lg:px-16 lg:py-24">
+            <section className="overflow-hidden mt-16 justify-center p-2 sm:grid sm:grid-cols-2 sm:items-center">
+              <div className="p-8 md:p-12 lg:px-16 lg:py-24">
                 <div className="mx-auto max-w-xl text-center sm:text-left">
                   <h2 className="text-xl md:text-3xl font-bold font-mono text-white">
                     Selamat Datang Di Data Center
@@ -59,22 +54,25 @@ export default function Home() {
                     Silahkan Masuk/Daftar untuk mengakses Data Center
                   </p>
                   <div className="flex gap-5 a-log">
-                      <a
-                        href="/login"
-                        className="inline-block w-full rounded-full text-center border hover:from-cyan-400 via-sky-400 rounded px-10 py-3 text-md md:px-12 md:py-3 md:text-lg font-medium text-white mt-4 md:mt-8 w-48"
-                      >
-                        Masuk
-                      </a>
-                      <a
-                        href="/registrasi"
-                        className="inline-block w-full rounded-full text-center border hover:from-cyan-400 via-sky-400 rounded px-10 py-3 text-md md:px-12 md:py-3 md:text-lg font-medium text-white mt-4 md:mt-8 w-48"
-                      >
-                        Daftar
-                      </a>
+                    <a
+                      href="/login"
+                      className="inline-block w-full rounded-full text-center border hover:from-cyan-400 via-sky-400 rounded px-10 py-3 text-md md:px-12 md:py-3 md:text-lg font-medium text-white mt-4 md:mt-8 w-48"
+                    >
+                      Masuk
+                    </a>
+                    <a
+                      href="/registrasi"
+                      className="inline-block w-full rounded-full text-center border hover:from-cyan-400 via-sky-400 rounded px-10 py-3 text-md md:px-12 md:py-3 md:text-lg font-medium text-white mt-4 md:mt-8 w-48"
+                    >
+                      Daftar
+                    </a>
                   </div>
                 </div>
               </div>
-              <div data-aos="fade-left" className="w-4/5  mx-auto grid md:justify-center">
+              <div
+                data-aos="fade-left"
+                className="w-4/5  mx-auto grid md:justify-center"
+              >
                 <img alt="Violin" src={logo} />
               </div>
             </section>
@@ -82,48 +80,50 @@ export default function Home() {
         </>
       ) : (
         <>
-          <NavComp />
+          <div className="sticky top-0">
+            <NavComp />
+          </div>
           <div className="w-screen-2xl center">
             <div className="flex justify-start">
               <div className="w-[500px] py-52 px-5">
                 <h2 className="text-2xl md:text-3xl pb-4 mb-5">
                   Data Sekolah {namaSekolah.namaSekolah}
                 </h2>
-                  <div data-aos="fade-right" className="flex justify-center">
-                    <div className="grid grid-cols-3 w-80 shadow-xl">
-                      <div className="bg-[#10316b] rounded-l-md col-span-2 py-3">
-                        <h3 className="text-sm text-white font-bold">
-                          JUMLAH SISWA
-                        </h3>
+                <div data-aos="fade-right" className="flex justify-center">
+                  <div className="grid grid-cols-3 w-80 shadow-xl">
+                    <div className="bg-[#10316b] rounded-l-md col-span-2 py-3">
+                      <h3 className="text-sm text-white font-bold">
+                        JUMLAH SISWA
+                      </h3>
 
-                        <p className="mt-2 text-sm text-gray-200">
-                          {jumlahSiswa.length} SISWA
-                        </p>
-                      </div>
-                      <a
-                        href="/table"
-                        className="text-2xl bg-[#f2f7ff] rounded-r-md flex justify-center items-center"
-                      >
-                        <span aria-hidden>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="30"
-                            height="30"
-                            fill="currentColor"
-                            className="bi bi-arrow-right-short"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                            />
-                          </svg>
-                        </span>
-                      </a>
+                      <p className="mt-2 text-sm text-gray-200">
+                        {jumlahSiswa.length} SISWA
+                      </p>
                     </div>
+                    <a
+                      href="/table"
+                      className="text-2xl bg-[#f2f7ff] rounded-r-md flex justify-center items-center"
+                    >
+                      <span aria-hidden>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="30"
+                          height="30"
+                          fill="currentColor"
+                          className="bi bi-arrow-right-short"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                          />
+                        </svg>
+                      </span>
+                    </a>
                   </div>
                 </div>
               </div>
+            </div>
           </div>
         </>
       )}

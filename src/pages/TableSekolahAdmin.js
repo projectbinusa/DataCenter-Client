@@ -5,6 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import "../style/dash.css";
 import { useParams } from "react-router-dom";
+import { base_url } from "../utils/baseURL";
 
 export default function TableSekolahAdmin() {
   const param = useParams();
@@ -12,7 +13,7 @@ export default function TableSekolahAdmin() {
 
   const getSekolah = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/sekolah");
+      const res = await axios.get(`${base_url}/sekolah`);
       setSekolah(res.data);
     } catch (error) {
       console.log(error);
@@ -32,7 +33,7 @@ export default function TableSekolahAdmin() {
         cancelButtonText: "Batal",
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete("http://localhost:8080/api/sekolah/" + id).then(() => {
+          axios.delete(`${base_url}/sekolah/${id}`).then(() => {
             Swal.fire({
               position: "center",
               icon: "success",

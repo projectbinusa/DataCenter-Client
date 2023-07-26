@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import NavComp from "../components/NavComp";
 import Swal from "sweetalert2";
 import "../style/edit.css";
+import { base_url } from "../utils/baseURL";
 
 export default function EditSiswaByAdmin() {
   const param = useParams();
@@ -17,7 +18,7 @@ export default function EditSiswaByAdmin() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/siswa/" + param.id)
+      .get(`${base_url}/siswa/${param.id}`)
       .then((response) => {
         const dataSiswa = response.data;
         setNamaSiswa(dataSiswa.namaSiswa);
@@ -55,7 +56,7 @@ export default function EditSiswaByAdmin() {
     event.preventDefault();
 
     await axios
-      .put("http://localhost:8080/api/siswa/" + param.id, {
+      .put(`${base_url}/siswa/${param.id}`, {
         namaSiswa: namaSiswa,
         tempatLahir: tempatLahir,
         tanggalLahir: tanggalLahir,

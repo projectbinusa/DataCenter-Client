@@ -3,7 +3,7 @@ import "../style/registrasi.css";
 import logo from "../assets/dc-logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Swal from "sweetalert2";
+import { base_url } from "../utils/baseURL";
 
 export default function Registrasi() {
   const [email, setEmail] = useState("");
@@ -29,12 +29,7 @@ export default function Registrasi() {
     };
 
     try {
-      const res = await axios.post("http://localhost:8080/api/register", reg);
-      Swal.fire({
-        icon: "success",
-        title: "Sukses!",
-        text: "Registrasi telah berhasil!",
-      });
+      const res = await axios.post(`${base_url}/register`, reg);
       localStorage.setItem("id", res.data.id);
       navigate("/registrasi2");
     } catch (error) {

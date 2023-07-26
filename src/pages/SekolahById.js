@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Chart from "react-apexcharts";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "../style/table.css";
-import $ from "jquery";
 import Swal from "sweetalert2";
 import Sidebar from "../components/Sidebar";
+import { base_url } from "../utils/baseURL";
 
 export default function SekolahById() {
   const param = useParams();
@@ -20,12 +20,38 @@ export default function SekolahById() {
   const [gender, setGender] = useState("");
   const [excel, setExcel] = useState("");
   const [isChecked, setIsChecked] = useState("");
+  const [keyword, setKeyword] = useState("");
+  const [page, setPage] = useState(0);
+  const [size, setSize] = useState(10);
+  const [totalPages, setTotalPages] = useState([]);
 
-  const navigate = useNavigate();
+  const totalPage = totalPages.length - 1;
+
+  const [state, setState] = useState({
+    options: {
+      labels: ["Perempuan", "Laki-laki"],
+      colors: ["lightpink", "lightblue"],
+    },
+    series: [0, 0],
+  });
+
+  const [religi, setReligi] = useState({
+    options: {
+      labels: [
+        "Islam",
+        "Kristen",
+        "Katholik",
+        "Hindu",
+        "Buddha",
+        "Konghuchu",
+        "None",
+      ],
+    },
+    series: [0, 0, 0, 0, 0, 0, 0],
+  });
 
   const addSiswa = async (e) => {
     e.preventDefault();
-    e.persist();
 
     try {
       await Swal.fire({
@@ -37,16 +63,13 @@ export default function SekolahById() {
         confirmButtonText: "tambahkan",
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.post(
-            `http://localhost:8080/api/sekolah/${param.id}/add-siswa`,
-            {
-              namaSiswa: namaSiswa,
-              tanggalLahir: tanggalLahir,
-              tempatLahir: tempatLahir,
-              agama: agama,
-              gender: gender,
-            }
-          );
+          axios.post(`${base_url}/sekolah/${param.id}/add-siswa`, {
+            namaSiswa: namaSiswa,
+            tanggalLahir: tanggalLahir,
+            tempatLahir: tempatLahir,
+            agama: agama,
+            gender: gender,
+          });
           Swal.fire({
             position: "center",
             icon: "success",
@@ -74,7 +97,7 @@ export default function SekolahById() {
       cancelButtonText: "Batal",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete("http://localhost:8080/api/siswa/" + id).then(() => {
+        axios.delete(`${base_url}/siswa/${id}`).then(() => {
           Swal.fire({
             position: "center",
             icon: "success",
@@ -88,47 +111,17 @@ export default function SekolahById() {
     });
   };
 
-  $(document).ready(function () {
-    setTimeout(function () {
-      $("#example").DataTable();
-    }, 1000);
-  });
-
-  const [state, setState] = useState({
-    options: {
-      labels: ["Perempuan", "Laki-laki"],
-      colors: ["lightpink", "lightblue"],
-    },
-    series: [0, 0],
-  });
-
-  const [religi, setReligi] = useState({
-    options: {
-      labels: [
-        "Islam",
-        "Kristen",
-        "Katholik",
-        "Hindu",
-        "Buddha",
-        "Konghuchu",
-        "None",
-      ],
-    },
-    series: [0, 0, 0, 0, 0, 0, 0],
-  });
-
   const data = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8080/api/sekolah/" + param.id + "/siswa"
-      );
-      setSiswa(response.data);
-      const totalPerempuan = response.data.filter(
+      const response = await axios.get(`${base_url}/sekolah/${param.id}/siswa`);
+      const resData = response.data.content;
+      setSiswa(resData);
+      const totalPerempuan = resData.filter(
         (x) => x.gender === "Perempuan"
       ).length;
       setState({
         ...state,
-        series: [totalPerempuan, response.data.length - totalPerempuan],
+        series: [totalPerempuan, resData.length - totalPerempuan],
       });
     } catch (error) {
       console.log(error);
@@ -137,19 +130,16 @@ export default function SekolahById() {
 
   const dta = async () => {
     try {
-      const respon = await axios.get(
-        "http://localhost:8080/api/sekolah/" + param.id + "/siswa"
-      );
-      setSiswa(respon.data);
-      const islam = respon.data.filter((r) => r.agama === "Islam").length;
-      const kristen = respon.data.filter((r) => r.agama === "Kristen").length;
-      const katholik = respon.data.filter((r) => r.agama === "Katholik").length;
-      const hindu = respon.data.filter((r) => r.agama === "Hindu").length;
-      const budha = respon.data.filter((r) => r.agama === "Buddha").length;
-      const khonghucu = respon.data.filter(
-        (r) => r.agama === "Konghuchu"
-      ).length;
-      const none = respon.data.filter((r) => r.agama === "Non").length;
+      const respon = await axios.get(`${base_url}/sekolah/${param.id}/siswa`);
+      const resData = respon.data.content;
+      setSiswa(resData);
+      const islam = resData.filter((r) => r.agama === "Islam").length;
+      const kristen = resData.filter((r) => r.agama === "Kristen").length;
+      const katholik = resData.filter((r) => r.agama === "Katholik").length;
+      const hindu = resData.filter((r) => r.agama === "Hindu").length;
+      const budha = resData.filter((r) => r.agama === "Buddha").length;
+      const khonghucu = resData.filter((r) => r.agama === "Konghuchu").length;
+      const none = resData.filter((r) => r.agama === "Non").length;
       setReligi({
         ...religi,
         series: [islam, kristen, katholik, hindu, budha, khonghucu, none],
@@ -159,22 +149,26 @@ export default function SekolahById() {
     }
   };
 
-  const getAllUserData = () => {
-    axios
-      .get("http://localhost:8080/api/sekolah/" + param.id + "/siswa/")
-      .then((response) => {
-        setSiswa(response.data);
-      })
-      .catch((error) => {
-        alert("Terjadi kesalahan " + error);
-      });
+  const getAllUserData = async (keyword, page, size) => {
+    try {
+      const res = await axios.get(
+        `${base_url}/sekolah/${param.id}/siswa?nama=${keyword}&page=${page}&size=${size}`
+      );
+      const resData = res.data.content;
+      setSiswa(resData);
+      const pages = [];
+      for (let i = 0; i < res.data.totalPages; i++) {
+        pages.push(i);
+      }
+      setTotalPages(pages);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getNamaSekolah = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:8080/api/sekolah/" + param.id
-      );
+      const res = await axios.get(`${base_url}/sekolah/${param.id}`);
       setNamaSekolah(res.data);
     } catch (error) {
       console.log(error);
@@ -193,7 +187,7 @@ export default function SekolahById() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios({
-          url: "http://localhost:8080/api/excel/download/" + param.id,
+          url: `${base_url}/excel/download/${param.id}`,
           method: "GET",
           responseType: "blob",
         }).then((response) => {
@@ -233,7 +227,7 @@ export default function SekolahById() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios({
-          url: "http://localhost:8080/api/excel/download/",
+          url: `${base_url}/excel/download`,
           method: "GET",
           responseType: "blob",
         }).then((response) => {
@@ -270,10 +264,7 @@ export default function SekolahById() {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .post(
-              "http://localhost:8080/api/excel/upload/user/" + param.id,
-              formData
-            )
+            .post(`${base_url}/excel/upload/user/${param.id}`, formData)
             .then(() => {
               Swal.fire({
                 position: "center",
@@ -290,11 +281,11 @@ export default function SekolahById() {
     } catch (error) {
       console.log(error);
       Swal.fire({
-        title: 'Coba lagi!',
-        text: 'Belum berhasil menambahkan data dengan file excel.',
+        title: "Coba lagi!",
+        text: "Belum berhasil menambahkan data dengan file excel.",
         showConfirmButton: false,
-        timer: 1500
-      })
+        timer: 1500,
+      });
     }
   };
 
@@ -321,9 +312,7 @@ export default function SekolahById() {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(
-              `http://localhost:8080/api/siswa?ids=` + isChecked.toString()
-            )
+            .delete(`${base_url}/siswa?ids=${isChecked.toString()}`)
             .then(() => {
               Swal.fire({
                 position: "center",
@@ -347,10 +336,44 @@ export default function SekolahById() {
     }
   };
 
+  const search = (kw, pg, sz) => {
+    setPage(0);
+    getAllUserData(kw, pg, sz);
+  };
+
+  const perPage = (sz) => {
+    setSize(sz);
+    setPage(0);
+    getAllUserData(keyword, page, sz);
+  };
+
+  const curr = (pg) => {
+    setPage(pg);
+    getAllUserData(keyword, pg, size);
+  };
+
+  const prev = () => {
+    if (page <= 0) {
+      return;
+    }
+    const prv = page - 1;
+    setPage(prv);
+    getAllUserData(keyword, prv, size);
+  };
+
+  const next = () => {
+    if (page >= totalPage) {
+      return;
+    }
+    const nxt = page + 1;
+    setPage(nxt);
+    getAllUserData(keyword, nxt, size);
+  };
+
   useEffect(() => {
     data();
     dta();
-    getAllUserData();
+    getAllUserData(keyword, page, size);
     getNamaSekolah();
   }, []);
 
@@ -378,14 +401,14 @@ export default function SekolahById() {
               {/* diagram pie start*/}
               <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-5 my-10">
                 {/* diagram gender start */}
-                <div className="pie rounded-2xl p-1 shadow-xl w-[350px] md:w-[450px]">
+                <div className="pie rounded-2xl p-1 shadow-xl w-[350px] md:w-full">
                   <div className="rounded-xl bg-white p-1">
                     <div className="pie rounded-xl p-3">
                       <p className="text-white text-2xl">Gender</p>
                     </div>
                     <div className="m-5 overflow-hidden overflow-x-auto">
                       {siswa.length === 0 ? (
-                        <div>belum ada data</div>
+                        <div>Tidak ada data</div>
                       ) : (
                         <Chart
                           options={state.options}
@@ -399,16 +422,15 @@ export default function SekolahById() {
                   </div>
                 </div>
                 {/* diagram gender end */}
-
                 {/* diagram agama start */}
-                <div className="pie rounded-2xl p-1 shadow-xl w-[350px] md:w-[450px]">
+                <div className="pie rounded-2xl p-1 shadow-xl w-[350px] md:w-full">
                   <div className="rounded-xl bg-white p-1">
-                    <div className="pie rounded-xl px-2 md:p-1">
+                    <div className="pie rounded-xl p-3">
                       <p className="text-white text-2xl">Agama</p>
                     </div>
                     <div className="m-5 overflow-hidden overflow-x-auto">
                       {siswa.length === 0 ? (
-                        <div>belum ada data</div>
+                        <div>Tidak ada data</div>
                       ) : (
                         <Chart
                           options={religi.options}
@@ -420,7 +442,7 @@ export default function SekolahById() {
                       )}
                     </div>
                   </div>
-                </div>
+                </div>{" "}
                 {/* diagram agama end */}
               </div>
               {/* diagram pie end */}
@@ -428,10 +450,26 @@ export default function SekolahById() {
               <div className="">
                 {/* tombol import export dan add start */}
                 <div className="grid justify-center">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 my-6">
-                    {siswa.length === 0 ? (
-                      <></>
-                    ) : (
+                  {siswa.length === 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 my-6">
+                      <button
+                        className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                        onClick={() => setShowModal(true)}
+                      >
+                        Tambah Data Siswa
+                      </button>
+
+                      <button
+                        className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                        onClick={() => setModal(true)}
+                      >
+                        Import Data
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 my-6">
                       <button
                         className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
@@ -439,33 +477,60 @@ export default function SekolahById() {
                       >
                         Download Data
                       </button>
-                    )}
-                    <button
-                      className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={() => setShowModal(true)}
-                    >
-                      Tambah Data Siswa
-                    </button>
+                      <button
+                        className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                        onClick={() => setShowModal(true)}
+                      >
+                        Tambah Data Siswa
+                      </button>
 
-                    <button
-                      className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={() => setModal(true)}
-                    >
-                      Import Data
-                    </button>
-                  </div>
+                      <button
+                        className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                        onClick={() => setModal(true)}
+                      >
+                        Import Data
+                      </button>
+                    </div>
+                  )}
                 </div>
                 {/* tombol import export dan add end */}
 
+                {/* filter table start */}
+                <div className="p-3 flex justify-between items-center">
+                  <div className="space-x-2">
+                    <label className="font-semibold">Show</label>
+                    <select
+                      className="border rounded"
+                      onClick={(e) => perPage(e.target.value)}
+                    >
+                      <option value={10}>10</option>
+                      <option value={25}>25</option>
+                      <option value={75}>75</option>
+                      <option value={100}>100</option>
+                    </select>
+                    <label className="font-semibold">entries</label>
+                  </div>
+                  <form className="space-x-2">
+                    <label className="text-sm font-semibold">
+                      Search by Nama Siswa
+                    </label>
+                    <input
+                      type="text"
+                      id="Search"
+                      placeholder="Type here.."
+                      className="p-2 sm:text-sm rounded border focus:ring-0 focus:outline-none"
+                      onChange={(e) => search(e.target.value, page, size)}
+                    />
+                  </form>
+                </div>
+                {/* filter table end */}
+
                 {/* tabel siswa start */}
                 <div className="p-5 pt-1">
-                  <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 p-5">
-                    <table
-                      className="min-w-full divide-gray-200 text-center p-5"
-                      id="example"
-                    >
+                  <div className="overflow-hidden rounded-lg">
+                    <table className="min-w-full divide-gray-200 text-center p-5 border border-gray-200">
                       <thead className="th-add">
                         <tr>
                           <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
@@ -494,6 +559,7 @@ export default function SekolahById() {
                           </th>
                         </tr>
                       </thead>
+                      {siswa.length !== 0 ? (
                       <tbody className="">
                         {siswa.map((val, idx) => {
                           return (
@@ -513,7 +579,7 @@ export default function SekolahById() {
                                 />
                               </td>
                               <td className="border-blue-300 left-0 py-2">
-                                {idx + 1}
+                                {page * size + idx + 1}
                               </td>
                               <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                 {val.namaSiswa}
@@ -588,19 +654,143 @@ export default function SekolahById() {
                           );
                         })}
                       </tbody>
+                      ) : (
+                        <tbody>
+                          <tr>
+                            <td className="py-5" colSpan={8}>Tidak ada data</td>
+                          </tr>
+                        </tbody>
+                      ) }
                     </table>
                     {siswa.length !== 0 ? (
-                      <div className="grid justify-center md:justify-start">
+                      <div className="flex justify-center md:justify-between mt-5">
                         <button
-                          className="text-red-700 bg-red-100 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                          className="text-red-700 bg-red-100 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded hover:shadow outline-none focus:outline-none ease-linear transition-all duration-150"
                           type="button"
                           onClick={alldelete}
                         >
                           Hapus yang dipilih
                         </button>
+                        <div className="flex gap-3">
+                          <button
+                            className={`w-10 h-10 border rounded-full flex justify-center items-center bg-gray-200 ${
+                              page <= 0
+                                ? "cursor-not-allowed"
+                                : "hover:fill-white hover:bg-[#10316b]"
+                            }`}
+                            onClick={prev}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="inherit"
+                              className="bi bi-chevron-left"
+                              viewBox="0 0 16 16"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+                              />
+                            </svg>
+                          </button>
+                          {totalPages.map((pg, idx) => (
+                            <button
+                              className={`w-10 h-10 border rounded-full ${
+                                page === pg
+                                  ? "bg-[#10316b] text-white"
+                                  : "bg-gray-200"
+                              }`}
+                              key={idx}
+                              onClick={() => curr(pg)}
+                            >
+                              {pg + 1}
+                            </button>
+                          ))}
+                          <button
+                            className={`w-10 h-10 border rounded-full flex justify-center items-center bg-gray-200 ${
+                              page >= totalPage
+                                ? "cursor-not-allowed"
+                                : "hover:fill-white hover:bg-[#10316b]"
+                            }`}
+                            onClick={next}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="inherit"
+                              className="bi bi-chevron-right"
+                              viewBox="0 0 16 16"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
                     ) : (
-                      <></>
+                      <div className="flex justify-end gap-3 my-3">
+                        <button
+                          className={`w-10 h-10 border rounded-full flex justify-center items-center bg-gray-200 ${
+                            page <= 0
+                              ? "cursor-not-allowed"
+                              : "hover:fill-white hover:bg-[#10316b]"
+                          }`}
+                          onClick={prev}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="inherit"
+                            className="bi bi-chevron-left"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+                            />
+                          </svg>
+                        </button>
+                        {totalPages.map((pg, idx) => (
+                          <button
+                            className={`w-10 h-10 border rounded-full ${
+                              page === pg
+                                ? "bg-[#10316b] text-white"
+                                : "bg-gray-200"
+                            }`}
+                            key={idx}
+                            onClick={() => curr(pg)}
+                          >
+                            {pg + 1}
+                          </button>
+                        ))}
+                        <button
+                          className={`w-10 h-10 border rounded-full flex justify-center items-center bg-gray-200 ${
+                            page >= totalPage
+                              ? "cursor-not-allowed"
+                              : "hover:fill-white hover:bg-[#10316b]"
+                          }`}
+                          onClick={next}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="inherit"
+                            className="bi bi-chevron-right"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     )}
                   </div>
                 </div>

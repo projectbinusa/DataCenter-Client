@@ -4,6 +4,7 @@ import logo from "../assets/dc-logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { base_url } from "../utils/baseURL";
 
 export default function Login() {
   const [passwordType, setPasswordType] = useState("password");
@@ -17,7 +18,7 @@ export default function Login() {
 
     try {
       const { data, status } = await axios.post(
-        "http://localhost:8080/api/login",
+        `${base_url}/login`,
         {
           email: email,
           password: password,
