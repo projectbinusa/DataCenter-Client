@@ -392,7 +392,7 @@ export default function TableGuru() {
         <PageSidebar />
         <div className="p-4 sm:ml-64 mt-16">
           <div class="grid grid-cols-4 gap-4">
-            {/* Total Guru Card */}
+            {/* Total Guru Card tes */}
             <div className="rounded-xl bg-white p-1 h-[100px] ml-8">
               <div className="rounded-xl p-4 h-[100px] flex items-center">
                 <div className="flex items-start">
@@ -556,160 +556,160 @@ export default function TableGuru() {
           </div>
           <br></br>
           {/* tabel guru start */}
-          
-            <div className="p-5 bg-white">
-              <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 p-5">
-                <table
-                  className="min-w-full divide-gray-200 text-center p-5"
-                  id="example"
-                  data-aos="zoom-in"
-                >
-                  <thead className="th-add">
-                    <tr>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Pilih
-                      </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        No
-                      </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Nama Guru
-                      </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Tempat Lahir
-                      </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Tanggal Lahir
-                      </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Agama
-                      </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Gender
-                      </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Action
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="">
-                    {guru.map((val, idx) => {
-                      return (
-                        <tr key={idx}>
-                          <td className="inset-y-0 left-0 bg-white px-4 py-2">
-                            <label className="sr-only" htmlFor="Row1">
-                              checkbox
-                            </label>
 
-                            <input
-                              className="h-5 w-5 rounded border-gray-200"
-                              type="checkbox"
-                              id="Row1"
-                              value={val.id}
-                              checked={val.isChecked}
-                              onChange={(e) => handlecheckbox(e)}
-                            />
-                          </td>
+          <div className="p-5 bg-white">
+            <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 p-5">
+              <table
+                className="min-w-full divide-gray-200 text-center p-5"
+                id="example"
+                data-aos="zoom-in"
+              >
+                <thead className="th-add">
+                  <tr>
+                    <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                      Pilih
+                    </th>
+                    <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                      No
+                    </th>
+                    <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                      Nama Guru
+                    </th>
+                    <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                      Tempat Lahir
+                    </th>
+                    <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                      Tanggal Lahir
+                    </th>
+                    <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                      Agama
+                    </th>
+                    <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                      Gender
+                    </th>
+                    <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="">
+                  {guru.map((val, idx) => {
+                    return (
+                      <tr key={idx}>
+                        <td className="inset-y-0 left-0 bg-white px-4 py-2">
+                          <label className="sr-only" htmlFor="Row1">
+                            checkbox
+                          </label>
 
-                          <td className="border-blue-300 left-0 py-2">
-                            {idx + 1}
-                          </td>
-                          <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                            {val.namaGuru}
-                          </td>
-                          <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                            {val.tempatLahir}
-                          </td>
-                          <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                            {val.tanggalLahir}
-                          </td>
-                          <td className="whitespace-nowrap px-4 py-2">
-                            <strong className="rounded bg-red-100 px-3 py-1.5 text-xs font-medium text-red-700">
-                              {val.agama}
-                            </strong>
-                          </td>
-                          <td className="whitespace-nowrap px-4 py-2">
-                            <strong
-                              className="rounded px-3 py-1.5 text-xs font-medium"
-                              style={val.gender === "Laki-Laki" ? male : female}
-                            >
-                              {val.gender}
-                            </strong>
-                          </td>
-                          <td className="whitespace-nowrap text-ceter py-2">
-                            <div className="flex items-center -space-x-4 hover:space-x-1">
-                              <a href={"/detail-guru/" + val.id}>
-                                <button
-                                  className="z-20 block rounded-full border-2 border-white bg-blue-100 p-4 text-blue-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-blue-50"
-                                  type="button"
-                                >
-                                  {/* Eye SVG */}
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    className="h-6 w-6"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                    />
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M2 12s3 7.5 10 7.5 10-7.5 10-7.5-3-7.5-10-7.5S2 12 2 12z"
-                                    />
-                                  </svg>
-                                </button>
-                              </a>
+                          <input
+                            className="h-5 w-5 rounded border-gray-200"
+                            type="checkbox"
+                            id="Row1"
+                            value={val.id}
+                            checked={val.isChecked}
+                            onChange={(e) => handlecheckbox(e)}
+                          />
+                        </td>
 
+                        <td className="border-blue-300 left-0 py-2">
+                          {idx + 1}
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                          {val.namaGuru}
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                          {val.tempatLahir}
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                          {val.tanggalLahir}
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-2">
+                          <strong className="rounded bg-red-100 px-3 py-1.5 text-xs font-medium text-red-700">
+                            {val.agama}
+                          </strong>
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-2">
+                          <strong
+                            className="rounded px-3 py-1.5 text-xs font-medium"
+                            style={val.gender === "Laki-Laki" ? male : female}
+                          >
+                            {val.gender}
+                          </strong>
+                        </td>
+                        <td className="whitespace-nowrap text-ceter py-2">
+                          <div className="flex items-center -space-x-4 hover:space-x-1">
+                            <a href={"/detail-guru/" + val.id}>
                               <button
-                                className="z-30 block rounded-full border-2 border-white bg-red-100 p-4 text-red-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-red-50"
+                                className="z-20 block rounded-full border-2 border-white bg-blue-100 p-4 text-blue-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-blue-50"
                                 type="button"
-                                onClick={() => deleteGuru(val.id)}
                               >
+                                {/* Eye SVG */}
                                 <svg
-                                  className="h-4 w-4"
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
                                   viewBox="0 0 24 24"
                                   stroke="currentColor"
+                                  className="h-6 w-6"
                                 >
                                   <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     strokeWidth="2"
-                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                  />
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M2 12s3 7.5 10 7.5 10-7.5 10-7.5-3-7.5-10-7.5S2 12 2 12z"
                                   />
                                 </svg>
                               </button>
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-                {guru.length !== 0 ? (
-                  <div className="grid justify-center md:justify-start">
-                    <button
-                      className="text-red-700 bg-red-100 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={alldelete}
-                    >
-                      Hapus yang dipilih
-                    </button>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
+                            </a>
+
+                            <button
+                              className="z-30 block rounded-full border-2 border-white bg-red-100 p-4 text-red-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-red-50"
+                              type="button"
+                              onClick={() => deleteGuru(val.id)}
+                            >
+                              <svg
+                                className="h-4 w-4"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              {guru.length !== 0 ? (
+                <div className="grid justify-center md:justify-start">
+                  <button
+                    className="text-red-700 bg-red-100 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={alldelete}
+                  >
+                    Hapus yang dipilih
+                  </button>
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
-            {/* tabel siswa end */}
+          </div>
+          {/* tabel siswa end */}
         </div>
       </div>
     </>
