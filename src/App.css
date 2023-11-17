@@ -34,3 +34,21 @@
   }
 }
 
+@media (max-width: 767px) {
+  /* Gaya untuk layar kecil (mobile) */
+  #desktop-menu {
+    display: none; /* Sembunyikan menu desktop */
+  }
+}
+
+/* Gaya untuk layar besar (desktop) */
+@media (min-width: 768px) {
+  #desktop-menu {
+    display: flex; /* Tampilkan menu desktop */
+  }
+
+  #mobile-menu-2 {
+    display: none; /* Sembunyikan tombol "Lihat Detail" pada desktop */
+  }
+}
+

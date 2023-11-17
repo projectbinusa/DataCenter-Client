@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/dc-logo.png";
 import Swal from "sweetalert2";
 import { useNavigate, Link } from "react-router-dom";
@@ -32,7 +32,7 @@ export default function PageSidebar() {
       }
     });
   };
-
+ 
   return (
     <div>
       <nav className="fixed top-0 z-50 w-full bg-[#0b409c] border-b border-gray-200">
@@ -186,7 +186,7 @@ export default function PageSidebar() {
               </li>
               <li>
                 <button
-                  type="button"
+                  type="button" 
                   className="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:text-blue-600 hover:bg-[#dfecff]"
                   aria-controls="dropdown-example"
                   data-collapse-toggle="dropdown-example"
@@ -230,7 +230,7 @@ export default function PageSidebar() {
                 </ul>
               </li>
               <li>
-              <Link to={`/info-sekolah/${userId}/${sekolahId}`}>
+              <Link to={`/info-sekolah`}>
 
                   <a className="flex items-center p-2 rounded-lg text-white hover:text-blue-600 hover:bg-[#dfecff] group">
                     <span className="flex-1 ms-3 whitespace-nowrap">

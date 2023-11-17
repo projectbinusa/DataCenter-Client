@@ -4,15 +4,14 @@ import AOS from "aos";
 import PageSidebar from "../../components/PageSidebar";
 import logo from "../../assets/school-icon.png";
 import dataCenter from "../../assets/dc-logo.png";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { Footer } from "flowbite-react";
 import {
-  BsDribbble,
-  BsFacebook,
-  BsGithub,
-  BsInstagram,
-  BsTwitter,
-} from "react-icons/bs";
+  Navigate,
+  useNavigate,
+  useParams,
+  Link,
+  NavLink,
+} from "react-router-dom";
+import "../../App.css";
 import Swal from "sweetalert2";
 
 AOS.init({ duration: 1750, once: true });
@@ -24,7 +23,8 @@ export default function InfoSekolah() {
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-  const { userId, sekolahId } = useParams();
+  const userId = localStorage.getItem("userId");
+  const sekolahId = localStorage.getItem("sekolahId");
   const [namaSekolah, setNamaSekolah] = useState("");
   const [alamatSekolah, setAlamatSekolah] = useState("");
   const [teleponSekolah, setTeleponSekolah] = useState("");
@@ -35,6 +35,7 @@ export default function InfoSekolah() {
   const [akreditasiSekolah, setAkreditasiSekolah] = useState("");
   const [numSiswa, setNumSiswa] = useState("");
   const [numGuru, setNumGuru] = useState("");
+  const [UserId, setUserId] = useState("");
   const navigate = useNavigate();
 
   const handleEditButtonClick = () => {
@@ -59,7 +60,6 @@ export default function InfoSekolah() {
       }
     });
   };
- 
 
   const fetchStudentData = async () => {
     try {
@@ -95,28 +95,37 @@ export default function InfoSekolah() {
       console.error("Error fetching guru data:", error);
     }
   };
-
-  useEffect(() => {
-    axios
-    .get(`http://localhost:8080/api/user/${userId}/sekolah`)
-    .then((response) => {
+  const sekolah = async () => {
+    try {
+      if (!userId || userId === null || userId === undefined) {
+        console.error("userId is null or undefined");
+        return;
+      }
+      setUserId(UserId);
+      const response = await axios.get(
+        `http://localhost:8080/api/user/${userId}/sekolah`
+      );
       const dataSekolah = response.data;
+
       setNamaSekolah(dataSekolah.namaSekolah);
       setInformasiSekolah(dataSekolah.informasiSekolah);
       setEmailSekolah(dataSekolah.emailSekolah);
       setAlamatSekolah(dataSekolah.alamatSekolah);
       setTeleponSekolah(dataSekolah.teleponSekolah);
       setStatus(dataSekolah.status);
-    })
-    .catch((error) => {
-     Swal.fire({
-      icon:"warning",
-      text:"Gagal Mengambil Data",
-     })
-    });
-     fetchStudentData();
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      Swal.fire({
+        icon: "warning",
+        text: "Gagal Mengambil Data",
+      });
+    }
+  };
+  useEffect(() => {
+    sekolah();
+    fetchStudentData();
     fetchGuruData();
-  }, [userId, sekolahId]);
+  }, []);
 
   return (
     <div>
@@ -126,31 +135,37 @@ export default function InfoSekolah() {
           <section className="bg-gray-50 dark:bg-gray-800">
             <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
               <div className="max-w-screen-md mb-8 lg:mb-16">
+                <center>
+                  <img
+                    src={logo}
+                    alt=""
+                    style={{
+                      height: "70px",
+                      width: "120px",
+                      position: "absolute bottom-0 right-4",
+                      top: "50%",
+
+                      transform: "translateY(-50%)",
+                      margin: "5px",
+                    }}
+                  />
+                </center>
                 <div
                   className="max-w-screen-md mb-8 lg:mb-16"
                   style={{ position: "relative" }}
                 >
-                  <div className="flex items-center">
-                    <h2 className="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white">
-                      Informasi <i>{namaSekolah}</i>
+                  <center>
+                    <h2 className="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white  ">
+                      Informasi <i>{namaSekolah} </i>
                     </h2>
+                  </center>
 
-                    <img
-                      src={logo}
-                      alt=""
-                      style={{
-                        height: "40px",
-                        width: "70px",
-                        marginLeft: "10px",
-                      }}
-                    />
-                  </div>
-
-                  <p className="text-gray-500  text-xs sm:text-base dark:text-gray-400">
+                  <p className="text-gray-500 sm:text-xl dark:text-gray-400">
                     {informasiSekolah}
                   </p>
                 </div>
               </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {/* First Column */}
                 <div className="divide-solid p-4">
@@ -199,7 +214,7 @@ export default function InfoSekolah() {
                     </span>
                     <a
                       className="block rounded-md nav-log px-5 py-2.5 text-sm font-medium transition"
-                      href="/table-siswa"
+                      href="/table "
                     >
                       Lihat Detail
                     </a>
@@ -227,72 +242,126 @@ export default function InfoSekolah() {
                   </h3>
                   <p className="text-gray-500 dark:text-gray-400 flex justify-between items-center">
                     <span>
-                      12
-                      {/* {ruangKelas} */} Kelas
+                      <div
+                        class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
+                        id="desktop-menu"
+                      >
+                        <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                          <li>
+                            <NavLink to={"kelasx"}>
+                              <a
+                                class="block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white hover:bg-blue-300 "
+                                aria-current="page"
+                              >
+                                X
+                              </a>
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink to={"kelasxi"}>
+                              <a
+                                class="block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white hover:bg-blue-300 "
+                                aria-current="page"
+                              >
+                                XI
+                              </a>
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink to={"kelasxii"}>
+                              <a
+                                class="block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white hover:bg-blue-300  "
+                                aria-current="page"
+                              >
+                                XII
+                              </a>
+                            </NavLink>
+                          </li>
+                        </ul>
+                      </div>
                     </span>
+
                     <a
+                      data-collapse-toggle="mobile-menu-2"
+                      type="button"
                       className="block rounded-md nav-log px-5 py-2.5 text-sm font-medium transition"
-                      href="/"
+                      aria-controls="mobile-menu-2"
+                      aria-expanded="false"
                     >
-                      Lihat Detail
+                      Pilih Kelas
                     </a>
                   </p>
+
+                  <div
+                    class="hidden justify-between items-center w-full lg:hidden lg:w-auto lg:order-1"
+                    id="mobile-menu-2"
+                  >
+                    <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                      <li>
+                        <NavLink to={"kelasx"}>
+                          <a
+                            class="block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white"
+                            aria-current="page"
+                          >
+                            X
+                          </a>
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink to={"kelasxi"}>
+                          <a class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
+                            XI
+                          </a>
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink to={"kelasxii"}>
+                          <a class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
+                            XII
+                          </a>
+                        </NavLink>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
-          </section>
 
-          <button
-            className="  bottom-0 right-4 my-4 md:my-2  bg-blue-500 text-white px-4 py-2 rounded-md"
-            onClick={() => handleEditButtonClick()}
-          >
-            Ubah Data
-          </button>
-        </div>{" "}
-      </div>
-      <div className="p-4 sm:ml-64 mt-36">
-        <Footer bgDark>
-          <div className="w-full">
-            {/* <div className="grid w-full grid-cols-2 gap-8 px-6 py-8 md:grid-cols-3">
-              <div>
-                <Footer.Title title="About" />
-                <Footer.LinkGroup col>
-                  <Footer.Link href="#">Binusa</Footer.Link>
-                  <Footer.Link href="#">Extrakurikuler</Footer.Link>
-                  <Footer.Link href="#">Osis Binusa</Footer.Link>
-                </Footer.LinkGroup>
-              </div>
-              <div>
-                <Footer.Title title="Contact Us" />
-                <Footer.LinkGroup col>
-                  <Footer.Link href="#">Binusa@gmail.com</Footer.Link>
-                  <Footer.Link href="#">smk_bina_nusantara_smg</Footer.Link>
-                  <Footer.Link href="#">+6287367264</Footer.Link>
-                </Footer.LinkGroup>
-              </div>
+            <div className="flex items-center justify-between">
+              <button
+                className="bottom-0 right-4 my-4 md:my-2 ml-4 md:ml-2 bg-blue-500 text-white px-4 py-2 rounded-md"
+                onClick={() => handleEditButtonClick()}
+              >
+                Ubah Data
+              </button>
+              <div className="  text-gray-500 dark:text-gray-400 p-5 md:p-3">
+                <p style={{ fontSize: "0.6em" }} className="pr-20">
+                  <svg
+                    className="w-4 h-4 inline-block mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 512 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
+                  </svg>
 
-              <div>
-                <Footer.Title title="Location" />
-                <Footer.LinkGroup col>
-                  <Footer.Link href="#">
-                    Jl. Kemantren Raya No.5, RT.02/RW.04, Wonosari, Kec.
-                    Ngaliyan, Kota Semarang, Jawa Tengah 50186
-                  </Footer.Link>
-                </Footer.LinkGroup>
-              </div>
-            </div> */}
-            <div className="w-full bg-gray-700 px-4 py-6 sm:flex sm:items-center sm:justify-between">
-              <Footer.Copyright href="#" by="Data Center" year={2023} />
-              <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center bg-  hover:bg-bluesky-200">
-                <Footer.Icon href="#" icon={BsFacebook} />
-                <Footer.Icon href="#" icon={BsInstagram} />
-                <Footer.Icon href="#" icon={BsTwitter} />
-                <Footer.Icon href="#" icon={BsGithub} />
-                <Footer.Icon href="#" icon={BsDribbble} />
+                  {emailSekolah}
+                </p>
+                <p style={{ fontSize: "0.6em" }}>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 512 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z" />
+                  </svg>
+                  {teleponSekolah}
+                </p>
               </div>
             </div>
-          </div>
-        </Footer>
+          </section>
+        </div>{" "}
       </div>
     </div>
   );

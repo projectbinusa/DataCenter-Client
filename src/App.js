@@ -28,7 +28,7 @@ import EditGuru from "./pages/guru/EditGuru";
 import LandingPage from "./pages/landingpage/landingpage";
 import DetailGuru from "./pages/guru/DetailGuru";
 import DetailMurid from "./pages/siswa/DetailMurid";
-import EditSekolah from './pages/sekolah/EditSekolah';
+import EditSekolah from "./pages/sekolah/EditSekolah";
 import PublikSekolah from "./pages/landingpage/PublikSekolah";
 
 // import PrivateBack from "./router/PrivateBack";
@@ -52,7 +52,7 @@ function App() {
               </PrivateHome>
             }
           />
-<Route
+          <Route
             path="/publik-sekolah/:id"
             element={
               <PrivateHome>
@@ -222,15 +222,17 @@ function App() {
             }
           />
           <Route
-            path="/info-sekolah/:userId/:sekolahId"
+            path="/info-sekolah"
             element={
               <PrivateRoute>
                 <PrivateHome>
                   <InfoSekolah />
+                  
                 </PrivateHome>
               </PrivateRoute>
             }
           />
+         
 
           <Route
             path="/edit-siswa/:id"
