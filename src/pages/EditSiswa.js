@@ -1,31 +1,38 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import NavComp from "../components/NavComp";
 import Swal from "sweetalert2";
 import "../style/edit.css";
-import { base_url } from "../utils/baseURL";
+import PageSidebar from "../components/PageSidebar";
 
-export default function EditSiswa() {
+export default function EditGuru() {
   const param = useParams();
-  const [namaSiswa, setNamaSiswa] = useState("");
+  const [namaMurid, setNamaMurid] = useState("");
   const [tempatLahir, setTempatLahir] = useState("");
   const [tanggalLahir, setTanggalLahir] = useState("");
-  const [gender, setGender] = useState("");
   const [agama, setAgama] = useState("");
+  const [umur, setUmur] = useState("");
+  const [noTeleponOrtu, setNoTeleponOrtu] = useState("");
+  const [gender, setGender] = useState("");
+  const [namaOrtu, setNamaOrtu] = useState("");
+  const [kelas, setKelas] = useState("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`${base_url}/siswa/${param.id}`)
+      .get("http://localhost:8080/api/siswa/" + param.id)
       .then((response) => {
         const dataSiswa = response.data;
-        setNamaSiswa(dataSiswa.namaSiswa);
+        setNamaMurid(dataSiswa.namaMurid);
+        setUmur(dataSiswa.umur);
         setTempatLahir(dataSiswa.tempatLahir);
         setTanggalLahir(dataSiswa.tanggalLahir);
-        setGender(dataSiswa.gender);
+        setKelas(dataSiswa.kelas);
         setAgama(dataSiswa.agama);
+        setNamaOrtu(dataSiswa.namaOrtu);
+        setNoTeleponOrtu(dataSiswa.noTeleponOrtu);
+        setGender(dataSiswa.gender);
       })
       .catch((error) => {
         alert("Terjadi kesalahan Sir! " + error);
@@ -33,34 +40,46 @@ export default function EditSiswa() {
   }, []);
 
   const nameChangeHandler = (event) => {
-    setNamaSiswa(event.target.value);
+    setNamaMurid(event.target.value);
   };
-
+  const umurChangeHandler = (event) => {
+    setUmur(event.target.value);
+  };
   const tempatChangeHandler = (event) => {
     setTempatLahir(event.target.value);
   };
-
   const tanggalChangeHandler = (event) => {
     setTanggalLahir(event.target.value);
   };
-
-  const genderChangeHandler = (event) => {
-    setGender(event.target.value);
+  const kelasChangeHandler = (event) => {
+    setKelas(event.target.value);
   };
   const agamaChangeHandler = (event) => {
     setAgama(event.target.value);
   };
-
+  const noChangeHandler = (event) => {
+    setNoTeleponOrtu(event.target.value);
+  };
+  const ortuChangeHandler = (event) => {
+    setNamaOrtu(event.target.value);
+  };
+  const genderChangeHandler = (event) => {
+    setGender(event.target.value);
+  };
   const submitActionHandler = async (event) => {
     event.preventDefault();
 
     await axios
-      .put(`${base_url}/siswa/${param.id}`, {
-        namaSiswa: namaSiswa,
+      .put("http://localhost:8080/api/siswa/" + param.id, {
+        namaMurid: namaMurid,
         tempatLahir: tempatLahir,
         tanggalLahir: tanggalLahir,
-        gender: gender,
         agama: agama,
+        umur: umur,
+        noTeleponOrtu: noTeleponOrtu,
+        gender: gender,
+        namaOrtu: namaOrtu,
+        kelas: kelas,
       })
       .then(() => {
         Swal.fire({
@@ -70,7 +89,7 @@ export default function EditSiswa() {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/table")
+        navigate("/table");
       })
       .catch((error) => {
         alert("Terjadi kesalahan: " + error);
@@ -78,193 +97,222 @@ export default function EditSiswa() {
   };
 
   const batal = () => {
-    navigate("/table")
-    
-  }
+    navigate("/table");
+  };
+  const kelasOptions = ["X", "XI", "XII"];
+  const agamaOptions = [
+    "islam",
+    "kristen",
+    "katholik",
+    "hindu",
+    "buddha",
+    "khonghucu",
+    "non",
+  ];
 
   return (
-    <div>
-      <div className="sticky top-0">
-        <NavComp />
-      </div>
-      <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-lg">
-          <form
-            action=""
-            className="mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
-            onSubmit={submitActionHandler}
-          >
-            <p className="text-3xl font-medium mb-7">Edit Siswa</p>
+    <>
+      <div>
+        <PageSidebar />
+        <div className="p-4 sm:ml-64 mt-14">
+          <div className="mx-auto max-w-screen-xl">
+            <form
+              className="mt-10 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
+              onSubmit={submitActionHandler}
+            >
+              <p className="text-center text-3xl font-medium mb-7">
+                Edit Murid
+              </p>
 
-            <div className="relative mt-3">
-              <label
-                htmlFor="nama"
-                className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-              >
-                <input
-                  autoComplete="off"
-                  type="text"
-                  id="nama"
-                  placeholder="Nama"
-                  className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                  value={namaSiswa}
-                  onChange={nameChangeHandler}
-                />
-
-                <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-                  Nama
-                </span>
-              </label>
-            </div>
-
-            <div className="grid grid-cols-1 gap-5 text-center sm:grid-cols-2">
-              <div className="relative mt-3">
-                <label
-                  htmlFor="tempatLahir"
-                  className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-                >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="relative">
+                  <label htmlFor="namaMurid">Nama Murid:</label>
                   <input
-                    autoComplete="off"
+                    id="namaMurid"
                     type="text"
+                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                    value={namaMurid}
+                    onChange={nameChangeHandler}
+                  />
+                </div>
+                <div className="">
+                  <label htmlFor="umur">Umur:</label>
+                  <input
+                    id="umur"
+                    type="text"
+                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                    value={umur}
+                    onChange={umurChangeHandler}
+                  />
+                </div>
+                <div className="relative">
+                  <label htmlFor="tempatLahir">Tempat Lahir:</label>
+                  <input
                     id="tempatLahir"
-                    placeholder="Tempat Lahir"
-                    className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                    type="text"
+                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
                     value={tempatLahir}
                     onChange={tempatChangeHandler}
                   />
+                </div>
 
-                  <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-                    Tempat Lahir
-                  </span>
-                </label>
-              </div>
-              <div className="relative mt-3">
-                <label
-                  htmlFor="tanggalLahir"
-                  className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-                >
+                <div className="relative">
+                  <label htmlFor="tanggalLahir">Tanggal Lahir:</label>
                   <input
-                    autoComplete="off"
-                    type="text"
                     id="tanggalLahir"
-                    placeholder="Tanggal Lahir"
-                    className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                    type="date"
+                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
                     value={tanggalLahir}
                     onChange={tanggalChangeHandler}
                   />
+                </div>
 
-                  <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-                    Tanggal Lahir
-                  </span>
-                </label>
-              </div>
-            </div>
-
-            <div className="relative mt-3">
-              <label className="sr-only" htmlFor="agama">
-                Agama
-              </label>
-
-              <select
-                className="relative w-full border-gray-200 p-3 text-sm focus:z-10 block bg-white overflow-hidden rounded-md border  shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-                id="agama"
-                name="agama"
-                autoComplete="agama-name"
-                onChange={agamaChangeHandler}
-              >
-                <option onChange={agamaChangeHandler}>Islam</option>
-                <option onChange={agamaChangeHandler}>Kristen</option>
-                <option onChange={agamaChangeHandler}>Katholik</option>
-                <option onChange={agamaChangeHandler}>Hindu</option>
-                <option onChange={agamaChangeHandler}>Buddha</option>
-                <option onChange={agamaChangeHandler}>Khonghucu</option>
-                <option onChange={agamaChangeHandler}>Non</option>
-              </select>
-            </div>
-
-            <div className="grid grid-cols-2 gap-5 text-center">
-              <div className="relative mt-3">
-                <input
-                  autoComplete="off"
-                  className="group peer hidden"
-                  type="radio"
-                  name="shippingOption"
-                  value="Laki-Laki"
-                  id="Laki"
-                  onChange={genderChangeHandler}
-                />
-
-                <label
-                  className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                  htmlFor="Laki"
-                >
-                  <span> Laki-Laki </span>
-                </label>
-
-                <svg
-                  className="absolute top-3 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clipRule="evenodd"
+                <div className="relative">
+                  <label htmlFor="namaOrtu">Nama Ortu:</label>
+                  <input
+                    id="namaOrtu"
+                    type="text"
+                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                    value={namaOrtu}
+                    onChange={ortuChangeHandler}
                   />
-                </svg>
-              </div>
-
-              <div className="relative mt-3">
-                <input
-                  autoComplete="off"
-                  className="group peer hidden"
-                  type="radio"
-                  name="shippingOption"
-                  value="Perempuan"
-                  id="Perempuan"
-                  onChange={genderChangeHandler}
-                />
-
-                <label
-                  className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                  htmlFor="Perempuan"
-                >
-                  <span> Perempuan </span>
-                </label>
-
-                <svg
-                  className="absolute top-3 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clipRule="evenodd"
+                </div>
+                <div className="relative">
+                  <label htmlFor="noTeleponOrtu">No Telepon Ortu:</label>
+                  <input
+                    id="noTeleponOrtu"
+                    type="text"
+                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                    value={noTeleponOrtu}
+                    onChange={noChangeHandler}
                   />
-                </svg>
-              </div>
-            </div>
+                </div>
 
-            <div className="flex justify-between">
-              <button
-                type="button" onClick={batal}
-                className="block w-24 rounded-lg text-black outline outline-red-500 py-3 text-sm font-medium"
-              >
-                Batal
-              </button>
-              <button
-                type="submit"
-                className="block w-24 rounded-lg text-black outline outline-[#0b409c] py-3 text-sm font-medium"
-              >
-                Simpan
-              </button>
-            </div>
-          </form>
+                <div className="relative">
+                  <label htmlFor="agama">Agama:</label>
+                  <select
+                    id="agama"
+                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                    value={agama}
+                    onChange={agamaChangeHandler}
+                  >
+                    <option value="Agama" disabled>
+                      Agama
+                    </option>
+                    <option onChange={agamaChangeHandler}>Islam</option>
+                    <option onChange={agamaChangeHandler}>Kristen</option>
+                    <option onChange={agamaChangeHandler}>Katholik</option>
+                    <option onChange={agamaChangeHandler}>Hindu</option>
+                    <option onChange={agamaChangeHandler}>Buddha</option>
+                    <option onChange={agamaChangeHandler}>Khonghucu</option>
+                  </select>
+                </div>
+
+                <div className="relative">
+                  <label htmlFor="kelas">Kelas:</label>
+                  <select
+                    id="kelas"
+                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                    value={kelas}
+                    onChange={kelasChangeHandler}
+                  >
+                    <option value="" disabled>
+                      Pilih Kelas
+                    </option>
+                    {kelasOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-5 text-center">
+                <div className="relative">
+                  <input
+                    autoComplete="off"
+                    className="group peer hidden"
+                    type="radio"
+                    name="shippingOption"
+                    value="Laki-Laki"
+                    id="Laki"
+                    onChange={genderChangeHandler}
+                  />
+
+                  <label
+                    className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
+                    htmlFor="Laki"
+                  >
+                    <span> Laki-Laki </span>
+                  </label>
+
+                  <svg
+                    className="absolute top-3 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+
+                <div className="relative">
+                  <input
+                    autoComplete="off"
+                    className="group peer hidden"
+                    type="radio"
+                    name="shippingOption"
+                    value="Perempuan"
+                    id="Perempuan"
+                    onChange={genderChangeHandler}
+                  />
+
+                  <label
+                    className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
+                    htmlFor="Perempuan"
+                  >
+                    <span> Perempuan </span>
+                  </label>
+
+                  <svg
+                    className="absolute top-3 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </div>
+
+              <div className="flex justify-between">
+                <button
+                  type="button"
+                  onClick={batal}
+                  className="block w-24 rounded-lg text-black outline outline-red-500 py-3 text-sm font-medium"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  className="block w-24 rounded-lg text-black outline outline-[#0b409c] py-3 text-sm font-medium"
+                >
+                  Simpan
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -5,7 +5,6 @@ import logo from "../assets/dc-logo.png";
 import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { base_url } from "../utils/baseURL";
 
 export default function Step2() {
   const [namaSekolah, setNamaSekolah] = useState("");
@@ -25,29 +24,20 @@ export default function Step2() {
 
     try {
       await axios.post(
-        `${base_url}/user/${localStorage.getItem(
+        `http://localhost:8080/api/user/${localStorage.getItem(
           "id"
         )}/add-sekolah`,
         reg
       );
       Swal.fire({
         icon: "success",
-        title: "Berhasil!",
-        text: "Registrasi berhasil.",
-        showConfirmButton: false,
-        timer: 1500,
+        title: "Sukses!",
+        text: "Success Cuy!",
       });
       localStorage.clear();
       navigate("/login");
     } catch (error) {
       console.log(error);
-      Swal.fire({
-        icon: "error",
-        title: "Coba lagi!",
-        text: "Registrasi belum berhasil.",
-        showConfirmButton: false,
-        timer: 1500,
-      });
     }
   };
 

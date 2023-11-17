@@ -1,7 +1,14 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 .form-add {
-    background-color: #f2f7ff;
+  background-color: #f2f7ff;
+}
+/* Tambahkan padding pada input */
+input[type="text"],
+input[type="date"],
+select {
+  padding: 8px; /* Atur ukuran padding sesuai kebutuhan */
+  /* Style lain yang mungkin Anda inginkan */
 }

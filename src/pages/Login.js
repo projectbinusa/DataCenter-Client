@@ -4,7 +4,6 @@ import logo from "../assets/dc-logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { base_url } from "../utils/baseURL";
 
 export default function Login() {
   const [passwordType, setPasswordType] = useState("password");
@@ -18,7 +17,7 @@ export default function Login() {
 
     try {
       const { data, status } = await axios.post(
-        `${base_url}/login`,
+        "http://localhost:8080/api/login",
         {
           email: email,
           password: password,
@@ -27,10 +26,8 @@ export default function Login() {
       if (status === 200) {
         Swal.fire({
           icon: "success",
-          title: "Berhasil!",
-          text: "Berhasil login.",
-          showConfirmButton: false,
-          timer: 1500
+          title: "Sukses!",
+          text: "Login telah berhasil!",
         });
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.role);
@@ -38,7 +35,7 @@ export default function Login() {
           navigate("/dashboard");
         } else {
           localStorage.setItem("sekolahId", data.sekolah.id);
-          navigate("/");
+          navigate("/dash");
         }
       }
     } catch (error) {

@@ -6,7 +6,6 @@ import axios from "axios";
 import school from "../assets/school-icon.png";
 import student from "../assets/student-icon.png";
 import AOS from "aos";
-import { base_url } from "../utils/baseURL";
 
 export default function Dashboard() {
   const [siswa, setSiswa] = useState([]);
@@ -47,23 +46,22 @@ export default function Dashboard() {
 
   const allSiswa = async () => {
     try {
-      const { data } = await axios.get(`${base_url}/siswa`);
-      const resData = data.content;
-      setSiswa(resData);
-      const totalPerempuan = resData.filter(
+      const { data } = await axios.get("http://localhost:8080/api/siswa/");
+      setSiswa(data);
+      const totalPerempuan = data.filter(
         (x) => x.gender === "Perempuan"
       ).length;
       setState({
         ...state,
-        series: [totalPerempuan, resData.length - totalPerempuan],
+        series: [totalPerempuan, data.length - totalPerempuan],
       });
-      const islam = resData.filter((r) => r.agama === "Islam").length;
-      const kristen = resData.filter((r) => r.agama === "Kristen").length;
-      const katholik = resData.filter((r) => r.agama === "Katholik").length;
-      const hindu = resData.filter((r) => r.agama === "Hindu").length;
-      const buddha = resData.filter((r) => r.agama === "Buddha").length;
-      const khonghucu = resData.filter((r) => r.agama === "Khonghucu").length;
-      const non = resData.filter((r) => r.agama === "Non").length;
+      const islam = data.filter((r) => r.agama === "Islam").length;
+      const kristen = data.filter((r) => r.agama === "Kristen").length;
+      const katholik = data.filter((r) => r.agama === "Katholik").length;
+      const hindu = data.filter((r) => r.agama === "Hindu").length;
+      const buddha = data.filter((r) => r.agama === "Buddha").length;
+      const khonghucu = data.filter((r) => r.agama === "Khonghucu").length;
+      const non = data.filter((r) => r.agama === "Non").length;
       setReligi({
         ...religi,
         series: [islam, kristen, katholik, hindu, buddha, khonghucu, non],
@@ -72,7 +70,7 @@ export default function Dashboard() {
       const values = [];
       const years = [];
       for (let i = now.getFullYear() - 7; i <= now.getFullYear(); i++) {
-        values.push(resData.filter((x) => x.tahunDaftar === i).length);
+        values.push(data.filter((x) => x.tahunDaftar === i).length);
         years.push(i);
       }
       setGrafik({ x: years, y: values });
@@ -83,7 +81,7 @@ export default function Dashboard() {
 
   const allSekolah = async () => {
     try {
-      const response = await axios.get(`${base_url}/sekolah`);
+      const response = await axios.get("http://localhost:8080/api/sekolah/");
       setSekolah(response.data);
     } catch (error) {
       console.log(error);
@@ -103,9 +101,7 @@ export default function Dashboard() {
   return (
     <div>
       <div className="flex">
-        <div className="z-10">
-          <Sidebar />
-        </div>
+        <Sidebar />
         <div className="flex justify-center w-[100%]">
           <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
             <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
@@ -210,7 +206,7 @@ export default function Dashboard() {
                   </div>
                   <div className="m-5 overflow-hidden overflow-x-auto">
                     {siswa.length === 0 ? (
-                      <div>Tidak ada data</div>
+                      <div>belum ada data</div>
                     ) : (
                       <Chart
                         options={state.options}
@@ -235,7 +231,7 @@ export default function Dashboard() {
                   </div>
                   <div className="m-5 overflow-hidden overflow-x-auto">
                     {siswa.length === 0 ? (
-                      <div>Tidak ada data</div>
+                      <div>belum ada data</div>
                     ) : (
                       <Chart
                         options={religi.options}
