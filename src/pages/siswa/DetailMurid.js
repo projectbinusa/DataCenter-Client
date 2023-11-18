@@ -41,47 +41,31 @@ export default function DetailMurid() {
   return (
     <>
       <PageSidebar />
-      <div className="mx-auto min-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 min-h-screen max-h-screen mt-10">
-        <div className="mx-auto max-w-xl flex items-center space-x-4">
+      <div className="mx-auto min-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 min-h-screen max-h-screen mt-16 p-4 sm:ml-64">
+        <div className="mx-auto max-w-3xl flex items-center space-x-4">
           {/* Left Card - Foto Profil */}
-          <div className="flex justify-center space-x-4">
-            <div className="flex flex-col items-center bg-white p-8 shadow-md rounded-md">
+          <div className="bg-white p-8 shadow-md rounded-md w-1/3 h-[317px]">
+            <div className="flex items-center justify-center mb-6">
               <img
                 src={defaultProfilePicture}
                 alt="Profile"
                 className="rounded-full w-40 h-40 object-cover"
               />
             </div>
-          </div>
-          {/* Right Card - Detail Murid */}
-          <div className="bg-white p-8 shadow-md rounded-md mb-8 max-w-5x1">
-            <div className="flex items-start border-b border-gray-200 pb-2">
-              <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
-                Nama Murid
-              </label>
+            <div className=" text-center pb-2">
               <p className="mt-1 text-md font-bold text-gray-900">
                 {namaMurid}
               </p>
             </div>
 
-            <div className="flex items-start border-b border-gray-200 pb-2">
-              <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
-                Tempat Lahir
-              </label>
+            <div className=" text-center pb-2">
               <p className="mt-1 text-md font-bold text-gray-900">
-                {tempatLahir}
+                {tempatLahir}, {tanggalLahir}
               </p>
             </div>
-
-            <div className="flex items-start border-b border-gray-200 pb-2">
-              <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
-                Tanggal Lahir
-              </label>
-              <p className="mt-1 text-md font-bold text-gray-900">
-                {tanggalLahir}
-              </p>
-            </div>
-
+          </div>
+          {/* Right Card - Detail Murid */}
+          <div className="bg-white p-8 shadow-md rounded-md w-2/3">
             <div className="flex items-start border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Agama
@@ -102,7 +86,7 @@ export default function DetailMurid() {
               </label>
               <p className="mt-1 text-md font-bold text-gray-900">{umur}</p>
             </div>
-            <div className="flex items-start">
+            <div className="flex items-start border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Kelas
               </label>

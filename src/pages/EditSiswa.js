@@ -50,6 +50,8 @@ export default function EditGuru() {
   };
   const tanggalChangeHandler = (event) => {
     setTanggalLahir(event.target.value);
+    const umur = hitungUmur(event.target.value); // Menghitung umur
+    setUmur(umur.toString()); // Memperbarui state umur
   };
   const kelasChangeHandler = (event) => {
     setKelas(event.target.value);
@@ -110,6 +112,23 @@ export default function EditGuru() {
     "non",
   ];
 
+  // Fungsi untuk menghitung umur dari tanggal lahir
+  const hitungUmur = (tanggalLahir) => {
+    const dateOfBirth = new Date(tanggalLahir);
+    const today = new Date();
+
+    let age = today.getFullYear() - dateOfBirth.getFullYear();
+    const monthDiff = today.getMonth() - dateOfBirth.getMonth();
+
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < dateOfBirth.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
+  };
   return (
     <>
       <div>
@@ -124,27 +143,17 @@ export default function EditGuru() {
                 Edit Murid
               </p>
 
+              <div className="relative">
+                <label htmlFor="namaMurid">Nama Murid:</label>
+                <input
+                  id="namaMurid"
+                  type="text"
+                  className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                  value={namaMurid}
+                  onChange={nameChangeHandler}
+                />
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="relative">
-                  <label htmlFor="namaMurid">Nama Murid:</label>
-                  <input
-                    id="namaMurid"
-                    type="text"
-                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
-                    value={namaMurid}
-                    onChange={nameChangeHandler}
-                  />
-                </div>
-                <div className="">
-                  <label htmlFor="umur">Umur:</label>
-                  <input
-                    id="umur"
-                    type="text"
-                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
-                    value={umur}
-                    onChange={umurChangeHandler}
-                  />
-                </div>
                 <div className="relative">
                   <label htmlFor="tempatLahir">Tempat Lahir:</label>
                   <input

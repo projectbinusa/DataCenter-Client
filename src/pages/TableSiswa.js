@@ -85,30 +85,6 @@ export default function Table() {
     }
   };
 
-  const dta = async () => {
-    try {
-      const respon = await axios.get(
-        "http://localhost:8080/api/sekolah/" +
-          localStorage.getItem("sekolahId") +
-          "/siswa"
-      );
-      setSiswa(respon.data);
-      const islam = respon.data.filter((r) => r.agama === "Islam").length;
-      const kristen = respon.data.filter((r) => r.agama === "Kristen").length;
-      const katholik = respon.data.filter((r) => r.agama === "Katholik").length;
-      const hindu = respon.data.filter((r) => r.agama === "Hindu").length;
-      const buddha = respon.data.filter((r) => r.agama === "Buddha").length;
-      const khonghucu = respon.data.filter(
-        (r) => r.agama === "Khonghucu"
-      ).length;
-      setReligi({
-        ...religi,
-        series: [islam, kristen, katholik, hindu, buddha, khonghucu],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const dt = async () => {
     try {
       const respon = await axios.get(
@@ -346,7 +322,6 @@ export default function Table() {
   useEffect(() => {
     getAll();
     data();
-    dta();
     dt();
   }, []);
 
@@ -378,13 +353,59 @@ export default function Table() {
     const averageAge = totalAges / (siswa.length || 1); // To avoid division by zero
     return Math.round(averageAge);
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/sekolah/${localStorage.getItem(
+            "sekolahId"
+          )}/siswa`
+        );
+        setSiswa(response.data);
+
+        // Menghitung jumlah siswa berdasarkan agama
+        const agamaCounts = {
+          Islam: 0,
+          Kristen: 0,
+          Katholik: 0,
+          Hindu: 0,
+          Buddha: 0,
+          Khonghucu: 0,
+        };
+
+        response.data.forEach((student) => {
+          // Asumsikan 'agama' adalah atribut yang menyimpan agama siswa dalam respons dari API
+          agamaCounts[student.agama]++;
+        });
+
+        // Mendapatkan labels yang memiliki jumlah siswa lebih dari 0
+        const labelsWithCount = Object.keys(agamaCounts).filter(
+          (agama) => agamaCounts[agama] > 0
+        );
+
+        // Update state dengan labels yang memiliki data
+        setReligi({
+          ...religi,
+          options: {
+            labels: labelsWithCount,
+          },
+          series: labelsWithCount.map((agama) => agamaCounts[agama]),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <PageSidebar />
       <div className="p-4 sm:ml-64 flex-grow">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-14">
           {/* Total Murid */}
-          <div className="rounded-xl bg-white p-4 h-[150px] text-center flex items-center shadow-md">
+          <div className="rounded-xl bg-white p-4 h-[150px] text-center flex items-center shadow-md border border-blue-500 border-2">
             <FontAwesomeIcon
               icon={faUsers}
               className="text-4xl text-blue-600 mr-4"
@@ -398,7 +419,7 @@ export default function Table() {
           </div>
 
           {/* Total Murid per Kelas */}
-          <div className="rounded-xl bg-white p-4 h-[150px] text-center flex items-center shadow-md">
+          <div className="rounded-xl bg-white p-4 h-[150px] text-center flex items-center shadow-md border border-blue-500 border-2">
             <FontAwesomeIcon
               icon={faUserFriends}
               className="text-4xl text-green-600 mr-4"
@@ -423,7 +444,7 @@ export default function Table() {
           </div>
 
           {/* Rata-Rata Umur */}
-          <div className="rounded-xl bg-white p-4 h-[150px] text-center flex items-center shadow-md">
+          <div className="rounded-xl bg-white p-4 h-[150px] text-center flex items-center shadow-md border border-blue-500 border-2">
             <FontAwesomeIcon
               icon={faUserGraduate}
               className="text-4xl text-purple-600 mr-4"
@@ -437,38 +458,10 @@ export default function Table() {
           </div>
         </div>
 
-        {/* Chart components */}
         <div className="flex flex-wrap justify-center gap-5 my-10">
-          {/* Chart - Agama */}
-          <div data-aos="fade-left">
-            <div className="pie rounded-2xl p-1 shadow-xl w-[350px] md:w-[350px]">
-              <div className="rounded-xl bg-white p-1">
-                <div className="pie rounded-xl p-1">
-                  <p className="text-white text-2xl text-center">Agama</p>
-                </div>
-                <div className="m-5 overflow-hidden overflow-x-auto">
-                  {/* Menampilkan diagram hanya jika terdapat data agama */}
-                  {religi.series.some((value) => value !== 0) ? (
-                    <Chart
-                      options={religi.options}
-                      series={[{ data: religi.series }]}
-                      type="bar"
-                      width="270"
-                      className="text-left"
-                    />
-                  ) : (
-                    <p className="text-center text-gray-500">
-                      Tidak ada data agama
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Chart - Gender */}
           <div data-aos="fade-right">
-            <div className="pie rounded-2xl p-1 shadow-xl w-[380px] md:w-[320px]">
+            <div className="pie rounded-2xl p-1 shadow-xl w-[380px] md:w-[400px]">
               <div className="rounded-xl bg-white p-1">
                 <div className="pie rounded-xl p-1">
                   <p className="text-white text-2xl text-center">Gender</p>
@@ -488,7 +481,7 @@ export default function Table() {
 
           {/* Chart - Kelas */}
           <div data-aos="fade-center">
-            <div className="pie rounded-2xl p-1 shadow-xl w-[350px] md:w-[320px]">
+            <div className="pie rounded-2xl p-1 shadow-xl w-[350px] md:w-[400px]">
               <div className="rounded-xl bg-white p-1">
                 <div className="pie rounded-xl p-1">
                   <p className="text-white text-2xl text-center">Kelas</p>
@@ -506,8 +499,35 @@ export default function Table() {
             </div>
           </div>
         </div>
+        <div className="flex flex-wrap justify-center gap-5 my-10">
+          {/* Diagram Agama */}
+          <div className="text-center">
+            <div data-aos="fade-left">
+              <div className=" pie rounded-2xl p-1 shadow-xl w-[370px] md:w-[490px] h-[360px]">
+                <div className="rounded-xl bg-white p-1 h-[350px]">
+                  <div className="pie rounded-xl p-1">
+                    <p className="text-white text-2xl text-center">Agama</p>
+                  </div>
+                  <div className="m-5 overflow-hidden overflow-x-auto">
+                    {siswa.length === 0 ? (
+                      <div>belum ada data</div>
+                    ) : (
+                      <Chart
+                        options={religi.options}
+                        series={[{ data: religi.series }]}
+                        type="bar"
+                        width="400"
+                        className="text-left"
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <div className="border-2 rounded-xl shadow-md p-5 m-5">
+        <div className="border-2 rounded-xl shadow-md p-5 m-5 bg-white">
           {/* tombol import export dan add start */}
           <div className="grid justify-center">
             <div className="grid grid-cols-1 md:flex gap-3 mt-6">
