@@ -185,93 +185,106 @@ export default function TableGuru() {
     }
   };
 
-  const dta = async () => {
-    try {
-      const respon = await axios.get(
-        "http://localhost:8080/api/guru/" +
-          localStorage.getItem("sekolahId") +
-          "/guru"
-      );
-      setGuru(respon.data);
-      const islam = respon.data.filter((r) => r.agama === "Islam").length;
-      const kristen = respon.data.filter((r) => r.agama === "Kristen").length;
-      const katholik = respon.data.filter((r) => r.agama === "Katholik").length;
-      const hindu = respon.data.filter((r) => r.agama === "Hindu").length;
-      const buddha = respon.data.filter((r) => r.agama === "Buddha").length;
-      const khonghucu = respon.data.filter(
-        (r) => r.agama === "Khonghucu"
-      ).length;
-      const non = respon.data.filter((r) => r.agama === "Non").length;
-      setReligi({
-        ...religi,
-        series: [islam, kristen, katholik, hindu, buddha, khonghucu, non],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const respon = await axios.get(
+          "http://localhost:8080/api/guru/" +
+            localStorage.getItem("sekolahId") +
+            "/guru"
+        );
+        setGuru(respon.data);
 
-  const diagramgelar = async () => {
-    try {
-      const respon = await axios.get(
-        "http://localhost:8080/api/guru/" +
-          localStorage.getItem("sekolahId") +
-          "/guru"
-      );
-      setGuru(respon.data);
-      const sag = respon.data.filter(
-        (r) => r.gelarPendidikan === "S.Ag"
-      ).length;
-      const ssos = respon.data.filter(
-        (r) => r.gelarPendidikan === "S.Sos"
-      ).length;
-      const sikom = respon.data.filter(
-        (r) => r.gelarPendidikan === "S.Ikom"
-      ).length;
-      const spd = respon.data.filter(
-        (r) => r.gelarPendidikan === "S.Pd"
-      ).length;
-      const st = respon.data.filter((r) => r.gelarPendidikan === "S.T").length;
-      const skom = respon.data.filter(
-        (r) => r.gelarPendidikan === "S.Kom"
-      ).length;
-      const ssi = respon.data.filter(
-        (r) => r.gelarPendidikan === "S.Si"
-      ).length;
-      const smat = respon.data.filter(
-        (r) => r.gelarPendidikan === "S.Mat"
-      ).length;
-      const spdi = respon.data.filter(
-        (r) => r.gelarPendidikan === "S.Pd.I"
-      ).length;
-      const ss = respon.data.filter((r) => r.gelarPendidikan === "S.S").length;
-      const ssn = respon.data.filter(
-        (r) => r.gelarPendidikan === "S.Sn"
-      ).length;
-      const lainnya = respon.data.filter(
-        (r) => r.gelarPendidikan === "Lainnya"
-      ).length;
-      setGelar({
-        ...gelar,
-        series: [
-          sag,
-          ssos,
-          sikom,
-          spd,
-          st,
-          skom,
-          ssi,
-          smat,
-          spdi,
-          ss,
-          ssn,
-          lainnya,
-        ],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+        const agamaCounts = {
+          Islam: 0,
+          Kristen: 0,
+          Katholik: 0,
+          Hindu: 0,
+          Buddha: 0,
+          Khonghucu: 0,
+          Non: 0,
+        };
+
+        // Menghitung jumlah guru berdasarkan agama
+        respon.data.forEach((r) => {
+          agamaCounts[r.agama]++;
+        });
+
+        // Mendapatkan labels yang memiliki jumlah guru lebih dari 0
+        const labelsWithCount = Object.keys(agamaCounts).filter(
+          (agama) => agamaCounts[agama] > 0
+        );
+
+        // Update state dengan labels yang memiliki data
+        setReligi({
+          ...religi,
+          options: {
+            ...religi.options,
+            labels: labelsWithCount,
+          },
+          series: labelsWithCount.map((agama) => agamaCounts[agama]),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const respon = await axios.get(
+          "http://localhost:8080/api/guru/" +
+            localStorage.getItem("sekolahId") +
+            "/guru"
+        );
+        setGuru(respon.data);
+
+        const gelarCounts = {
+          "S.Ag": 0,
+          "S.Sos": 0,
+          "S.Ikom": 0,
+          "S.Pd": 0,
+          "S.T": 0,
+          "S.Kom": 0,
+          "S.Si": 0,
+          "S.Mat": 0,
+          "S.Pd.I": 0,
+          "S.S": 0,
+          "S.Sn": 0,
+          Lainnya: 0,
+        };
+
+        // Menghitung jumlah guru berdasarkan agama
+        respon.data.forEach((r) => {
+          gelarCounts[r.gelarPendidikan]++;
+        });
+
+        // Mendapatkan labels yang memiliki jumlah guru lebih dari 0
+        const labelsWithCount = Object.keys(gelarCounts).filter(
+          (gelarPendidikan) => gelarCounts[gelarPendidikan] > 0
+        );
+
+        // Update state dengan labels yang memiliki data
+        setGelar({
+          ...gelar,
+          options: {
+            ...gelar.options,
+            labels: labelsWithCount,
+          },
+          series: labelsWithCount.map(
+            (gelarPendidikan) => gelarCounts[gelarPendidikan]
+          ),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const getAll = async () => {
     await axios
@@ -364,8 +377,6 @@ export default function TableGuru() {
     getAll();
     data();
     dataa();
-    dta();
-    diagramgelar();
   }, []);
 
   const male = {
@@ -392,7 +403,7 @@ export default function TableGuru() {
         <PageSidebar />
         <div className="p-4 sm:ml-64 mt-16">
           <div class="grid grid-cols-4 gap-4">
-            {/* Total Guru Card tes */}
+            {/* Total Guru Card */}
             <div className="rounded-xl bg-white p-1 h-[100px] ml-8">
               <div className="rounded-xl p-4 h-[100px] flex items-center">
                 <div className="flex items-start">

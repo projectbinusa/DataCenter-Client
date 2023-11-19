@@ -120,210 +120,176 @@ export default function EditGuru() {
 
               <div className="relative mt-3">
                 <label
-                  htmlFor="nama"
-                  className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                  for="name"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  <input
-                    autoComplete="off"
-                    type="text"
-                    id="nama"
-                    placeholder="Nama Guru"
-                    className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                    value={namaGuru}
-                    onChange={nameChangeHandler}
-                  />
-
-                  <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-                    Nama
-                  </span>
+                  Nama
                 </label>
+                <input
+                  type="text"
+                  id="name"
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                  placeholder="Nama"
+                  value={namaGuru}
+                  onChange={nameChangeHandler}
+                  required
+                />
               </div>
 
-              <div className="relative mt-3">
-                <label
-                  htmlFor="umur"
-                  className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-                >
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <div className="relative">
+                  <label
+                    for="tempatlahir"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Tempat Lahir
+                  </label>
                   <input
-                    autoComplete="off"
                     type="text"
-                    id="umur"
-                    placeholder="Umur"
-                    className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                    value={umur}
-                    onChange={umurChangeHandler}
+                    id="tempatlahir"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    placeholder="Tempat Lahir"
+                    value={tempatLahir}
+                    onChange={tempatChangeHandler}
+                    required
                   />
-
-                  <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-                    Umur
-                  </span>
-                </label>
-              </div>
-
-              <div className="grid grid-cols-1 gap-5 text-center sm:grid-cols-2">
-                <div className="relative">
-                  <label
-                    htmlFor="tempatLahir"
-                    className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-                  >
-                    <input
-                      autoComplete="off"
-                      type="text"
-                      id="tempatLahir"
-                      placeholder="Tempat Lahir"
-                      className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                      value={tempatLahir}
-                      onChange={tempatChangeHandler}
-                    />
-
-                    <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-                      Tempat Lahir
-                    </span>
-                  </label>
                 </div>
+
                 <div className="relative">
                   <label
-                    htmlFor="tanggalLahir"
-                    className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                    for="tanggallahir"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    <input
-                      autoComplete="off"
-                      type="date"
-                      id="tanggalLahir"
-                      placeholder="Tanggal Lahir"
-                      className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                      value={tanggalLahir}
-                      onChange={tanggalChangeHandler}
-                    />
-
-                    <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-                      Tanggal Lahir
-                    </span>
+                    Tanggal Lahir
                   </label>
+                  <input
+                    type="date"
+                    id="tanggallahir"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    placeholder="Tanggal Lahir"
+                    value={tanggalLahir}
+                    onChange={tanggalChangeHandler}
+                    required
+                  />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 gap-5 text-center sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="relative">
                   <label
-                    htmlFor="notelepon"
-                    className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                    for="notelepon"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    <input
-                      autoComplete="off"
-                      type="text"
-                      id="notelepon"
-                      placeholder="No Telepon"
-                      className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                      value={noTelepon}
-                      onChange={noChangeHandler}
-                    />
-
-                    <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-                      No Telepon
-                    </span>
+                    No Telepon
                   </label>
+                  <input
+                    type="text"
+                    id="notelepon"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    placeholder="No Telepon"
+                    value={noTelepon}
+                    onChange={noChangeHandler}
+                    required
+                  />
                 </div>
 
                 <div className="relative">
                   <label
-                    htmlFor="gelar"
-                    className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                    for="gelarPendidikan"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    <select
-                      className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                      id="gelar"
-                      name="gelarPendidikan"
-                      autoComplete="gelarPendidikan"
-                      value={gelarPendidikan}
-                      onChange={gelarChangeHandler}
-                    >
-                      <option value="Gelar Pendidikan" disabled>
-                        Gelar Pendidikan
-                      </option>
-                      <option value="S.Ag">S.Ag</option>
-                      <option value="S.Sos">S.Sos</option>
-                      <option value="S.Ikom">S.Ikom</option>
-                      <option value="S.Pd">S.Pd </option>
-                      <option value="S.T">S.T </option>
-                      <option value="S.Kom">S.Kom</option>
-                      <option value="S.Si">S.Si</option>
-                      <option value="S.Mat">S.Mat</option>
-                      <option value="S.Pd.I">S.Pd.I</option>
-                      <option value="S.S">S.S</option>
-                      <option value="S.Sn">S.Sn</option>
-                    </select>
-                    <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
+                    Gelar Pendidikan
+                  </label>
+                  <select
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    id="gelar"
+                    name="gelarPendidikan"
+                    value={gelarPendidikan}
+                    onChange={gelarChangeHandler}
+                    required
+                  >
+                    <option value="Gelar Pendidikan" disabled>
                       Gelar Pendidikan
-                    </span>
-                  </label>
+                    </option>
+                    <option value="S.Ag">S.Ag</option>
+                    <option value="S.Sos">S.Sos</option>
+                    <option value="S.Ikom">S.Ikom</option>
+                    <option value="S.Pd">S.Pd </option>
+                    <option value="S.T">S.T </option>
+                    <option value="S.Kom">S.Kom</option>
+                    <option value="S.Si">S.Si</option>
+                    <option value="S.Mat">S.Mat</option>
+                    <option value="S.Pd.I">S.Pd.I</option>
+                    <option value="S.S">S.S</option>
+                    <option value="S.Sn">S.Sn</option>
+                  </select>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 gap-5 text-center sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="relative">
                   <label
-                    htmlFor="statusKawin"
-                    className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                    for="statusKawin"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    <select
-                      className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                      id="statusKawin"
-                      name="statusKawin"
-                      autoComplete="statusKawin"
-                      value={statusKawin}
-                      onChange={statusChangeHandler}
-                    >
-                      <option value="" disabled>
-                        Status Kawin
-                      </option>
-                      <option value="Belum Menikah">Belum Menikah</option>
-                      <option value="Menikah">Menikah</option>
-                      <option value="Cerai">Cerai</option>
-                    </select>
-                    <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-                      Status Kawin
-                    </span>
+                    Status Kawin
                   </label>
+                  <select
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    id="statusKawin"
+                    name="statusKawin"
+                    value={statusKawin}
+                    onChange={statusChangeHandler}
+                  >
+                    <option value="" disabled>
+                      Status Kawin
+                    </option>
+                    <option value="Belum Menikah">Belum Menikah</option>
+                    <option value="Menikah">Menikah</option>
+                    <option value="Cerai">Cerai</option>
+                  </select>
                 </div>
 
                 <div className="relative">
                   <label
-                    htmlFor="agama"
-                    className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                    for="agama"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    <select
-                      className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                      id="agama"
-                      name="agama"
-                      autoComplete="agama-name"
-                      value={agama}
-                      onChange={agamaChangeHandler}
-                    >
-                      <option value="" disabled>
-                        Agama
-                      </option>
-                      <option value="Islam">Islam</option>
-                      <option value="Kristen">Kristen</option>
-                      <option value="Katholik">Katholik</option>
-                      <option value="Hindu">Hindu</option>
-                      <option value="Buddha">Buddha</option>
-                      <option value="Khonghucu">Khonghucu</option>
-                      <option value="Non">Non</option>
-                    </select>
-
-                    <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-                      Agama
-                    </span>
+                    Agama
                   </label>
+                  <select
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    id="agama"
+                    name="agama"
+                    autoComplete="agama-name"
+                    value={agama}
+                    onChange={agamaChangeHandler}
+                  >
+                    <option value="" disabled>
+                      Agama
+                    </option>
+                    <option value="Islam">Islam</option>
+                    <option value="Kristen">Kristen</option>
+                    <option value="Katholik">Katholik</option>
+                    <option value="Hindu">Hindu</option>
+                    <option value="Buddha">Buddha</option>
+                    <option value="Khonghucu">Khonghucu</option>
+                    <option value="Non">Non</option>
+                  </select>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-5 text-center">
-                <div className="relative">
+                <label
+                  for="gender"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left col-span-2"
+                >
+                  Gender
+                </label>
+                <div className="relative mt-[-20px]">
                   <input
                     autoComplete="off"
-                    className="group peer hidden"
+                    className="group peer hidden "
                     type="radio"
                     name="shippingOption"
                     value="Laki-Laki"
@@ -352,7 +318,7 @@ export default function EditGuru() {
                   </svg>
                 </div>
 
-                <div className="relative">
+                <div className="relative mt-[-20px]">
                   <input
                     autoComplete="off"
                     className="group peer hidden"

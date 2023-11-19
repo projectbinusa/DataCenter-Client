@@ -44,7 +44,7 @@ export default function DetailGuru() {
       <div className="mx-auto min-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 min-h-screen max-h-screen mt-16 p-4 sm:ml-64">
         <div className="mx-auto max-w-3xl flex items-center space-x-4">
           {/* Left Card - Foto Profil */}
-          <div className="bg-white p-8 shadow-md rounded-md w-1/3 h-[317px]">
+          <div className="bg-white p-8 shadow-md rounded-md w-1/3 h-[300px]">
             <div className="flex items-center justify-center mb-6">
               <img
                 src={defaultProfilePicture}
@@ -78,12 +78,6 @@ export default function DetailGuru() {
               <p className="mt-1 text-md font-bold text-gray-900">{gender}</p>
             </div>
 
-            <div className="flex items-start border-b border-gray-200 pb-2">
-              <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
-                Umur
-              </label>
-              <p className="mt-1 text-md font-bold text-gray-900">{umur}</p>
-            </div>
             <div className="flex items-start border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 No Telepon
