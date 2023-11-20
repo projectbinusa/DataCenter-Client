@@ -31,10 +31,10 @@ export default function InfoSekolah() {
   const [emailSekolah, setEmailSekolah] = useState("");
   const [informasiSekolah, setInformasiSekolah] = useState("");
   const [status, setStatus] = useState("");
-  const [ruangKelas, setRuangKelas] = useState("");
-  const [akreditasiSekolah, setAkreditasiSekolah] = useState("");
+   const [akreditasiSekolah, setAkreditasiSekolah] = useState("");
   const [numSiswa, setNumSiswa] = useState("");
   const [numGuru, setNumGuru] = useState("");
+  const [numKelas, setNumKelas] = useState("");
   const [UserId, setUserId] = useState("");
   const navigate = useNavigate();
 
@@ -59,6 +59,18 @@ export default function InfoSekolah() {
         });
       }
     });
+  };
+
+  const kelas = async () => {
+    try {
+      const kelasResponse = await axios.get(
+        `http://localhost:8080/api/kelas/${sekolahId}/kelas`
+      );
+      const dataKelas = kelasResponse.data;
+      setNumKelas(dataKelas.length);
+    } catch (error) {
+      console.error("Errorr  data :" , error)
+    }
   };
 
   const fetchStudentData = async () => {
@@ -122,6 +134,7 @@ export default function InfoSekolah() {
     }
   };
   useEffect(() => {
+    kelas();
     sekolah();
     fetchStudentData();
     fetchGuruData();
@@ -184,12 +197,14 @@ export default function InfoSekolah() {
                   </h3>
                   <p className="text-gray-500 dark:text-gray-400 flex justify-between items-center">
                     <span>{numGuru !== null ? numGuru : "0"} Guru</span>
-                    <a
+              
+              <Link to={"/table-guru"}>
+                 <span
                       className="block rounded-md nav-log px-5 py-2.5 text-sm font-medium transition"
-                      href="/table-guru"
-                    >
+                     >
                       Lihat Detail
-                    </a>
+                    </span>
+              </Link>
                   </p>
                 </div>
 
@@ -212,12 +227,13 @@ export default function InfoSekolah() {
                     <span>
                       <span>{numSiswa !== null ? numSiswa : "0"} Murid</span>
                     </span>
-                    <a
+                    <Link to={"table"}>
+                    <span
                       className="block rounded-md nav-log px-5 py-2.5 text-sm font-medium transition"
-                      href="/table "
-                    >
+                      >
                       Lihat Detail
-                    </a>
+                    </span>
+                       </Link>
                   </p>
                 </div>
 
@@ -241,88 +257,15 @@ export default function InfoSekolah() {
                     Kelas
                   </h3>
                   <p className="text-gray-500 dark:text-gray-400 flex justify-between items-center">
-                    <span>
-                      <div
-                        class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
-                        id="desktop-menu"
-                      >
-                        <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                          <li>
-                            <NavLink to={"kelasx"}>
-                              <a
-                                class="block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white hover:bg-blue-300 "
-                                aria-current="page"
-                              >
-                                X
-                              </a>
-                            </NavLink>
-                          </li>
-                          <li>
-                            <NavLink to={"kelasxi"}>
-                              <a
-                                class="block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white hover:bg-blue-300 "
-                                aria-current="page"
-                              >
-                                XI
-                              </a>
-                            </NavLink>
-                          </li>
-                          <li>
-                            <NavLink to={"kelasxii"}>
-                              <a
-                                class="block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white hover:bg-blue-300  "
-                                aria-current="page"
-                              >
-                                XII
-                              </a>
-                            </NavLink>
-                          </li>
-                        </ul>
-                      </div>
-                    </span>
-
-                    <a
-                      data-collapse-toggle="mobile-menu-2"
-                      type="button"
+                    {numKelas} Kelas
+                    <Link to={"data-kelas"}>
+                    <span
                       className="block rounded-md nav-log px-5 py-2.5 text-sm font-medium transition"
-                      aria-controls="mobile-menu-2"
-                      aria-expanded="false"
-                    >
-                      Pilih Kelas
-                    </a>
+                      >
+                      Lihat Detail
+                    </span>
+                       </Link>
                   </p>
-
-                  <div
-                    class="hidden justify-between items-center w-full lg:hidden lg:w-auto lg:order-1"
-                    id="mobile-menu-2"
-                  >
-                    <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                      <li>
-                        <NavLink to={"kelasx"}>
-                          <a
-                            class="block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white"
-                            aria-current="page"
-                          >
-                            X
-                          </a>
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to={"kelasxi"}>
-                          <a class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
-                            XI
-                          </a>
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to={"kelasxii"}>
-                          <a class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
-                            XII
-                          </a>
-                        </NavLink>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
             </div>

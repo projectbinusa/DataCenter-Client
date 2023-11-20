@@ -7,7 +7,8 @@ import Swal from "sweetalert2";
 import { Label, Textarea } from "flowbite-react";
 
 export default function EditSekolah() {
-  const { userId, sekolahId } = useParams();
+   const userId = localStorage.getItem("userId");
+  const sekolahId = localStorage.getItem("sekolahId");
   const [namaSekolah, setNamaSekolah] = useState("");
   const [informasiSekolah, setInformasiSekolah] = useState("");
   const [emailSekolah, setEmailSekolah] = useState("");
@@ -55,39 +56,53 @@ export default function EditSekolah() {
   const statusChangeHandler = (event) => {
     setStatus(event.target.value);
   };
+ 
   const submitActionHandler = async (event) => {
     event.preventDefault();
-
-    await axios
-      .put(`http://localhost:8080/api/sekolah/${sekolahId} `, {
+  
+   
+    try {
+      await axios.put(`http://localhost:8080/api/sekolah/${sekolahId}`, {
         namaSekolah: namaSekolah,
         alamatSekolah: alamatSekolah,
         emailSekolah: emailSekolah,
         teleponSekolah: teleponSekolah,
         status: status,
         informasiSekolah: informasiSekolah,
-      })
-      .then(() => {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Edit Success!!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        navigate(`/info-sekolah/${userId}/${sekolahId}`);
-      })
-      .catch((error) => {
-        Swal.fire({
-          position: "center",
-          icon: "warning",
-          title: "Gagal Merubah Data ",
-        });
       });
+  
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Edit Success!!",
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        setTimeout(() => {
+           
+          navigate("/info-sekolah");
+        }, 1000)   });
+    } catch (error) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Gagal Merubah Data ",
+      });
+    }
   };
+  
 
   const batal = () => {
-    navigate(`/info-sekolah/${userId}/${sekolahId}`);
+    Swal.fire({
+      icon:"error",
+      text:"Batal Mengubah Data",
+      timer:1000,
+
+    });
+    setTimeout(() => {
+           
+      navigate("/info-sekolah");
+    }, 1000)  
   };
 
   return (
@@ -203,47 +218,24 @@ export default function EditSekolah() {
                         required
                         rows={12}
                       />
+                      <p className="absolute text-xs"></p>
                     </div>
                   </div>
                 </div>
 
-                {/* <div className="relative">
-                  <label className="sr-only" htmlFor="agama">
-                    Agama
-                  </label>
-
-                  <select
-                    className="relative w-full border-gray-200 p-3 text-sm focus:z-10 block bg-white overflow-hidden rounded-md border  shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-                    id="agama"
-                    name="agama"
-                    autoComplete="agama-name"
-                    onChange={agamaChangeHandler}
-                  >
-                    <option value="Agama" disabled>
-                      Agama
-                    </option>
-                    <option onChange={agamaChangeHandler}>Islam</option>
-                    <option onChange={agamaChangeHandler}>Kristen</option>
-                    <option onChange={agamaChangeHandler}>Katholik</option>
-                    <option onChange={agamaChangeHandler}>Hindu</option>
-                    <option onChange={agamaChangeHandler}>Buddha</option>
-                    <option onChange={agamaChangeHandler}>Khonghucu</option>
-                    <option onChange={agamaChangeHandler}>Non</option>
-                  </select>
-                </div>
-              </div> */}
+ 
 
                 <div className="flex justify-between p-3 ">
                   <button
                     type="button"
                     onClick={batal}
-                    className="block w-24 rounded-lg text-white bg-red-700 hover:bg-red-400  py-3 text-sm font-medium"
+                    className="block w-24 rounded-lg text-black outline outline-red-500 py-3 text-sm font-medium"
                   >
                     Batal
                   </button>
                   <button
                     type="submit"
-                    className="block w-24 rounded-lg text-white bg-blue-600 hover:bg-blue-300 py-3 text-sm font-medium float-right"
+                    className="block w-24 rounded-lg text-black outline outline-[#0b409c] py-3 text-sm font-medium"
                   >
                     Simpan
                   </button>

@@ -30,6 +30,7 @@ import DetailGuru from "./pages/guru/DetailGuru";
 import DetailMurid from "./pages/siswa/DetailMurid";
 import EditSekolah from "./pages/sekolah/EditSekolah";
 import PublikSekolah from "./pages/landingpage/PublikSekolah";
+import DataKelas from "./pages/sekolah/DataKelas";
 
 // import PrivateBack from "./router/PrivateBack";
 
@@ -227,6 +228,17 @@ function App() {
               <PrivateRoute>
                 <PrivateHome>
                   <InfoSekolah />
+                  
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/data-kelas"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <DataKelas />
                   
                 </PrivateHome>
               </PrivateRoute>

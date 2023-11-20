@@ -41,70 +41,69 @@ export default function LandingPage() {
   return (
     <body>
       <header>
-        <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
-          <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-            <a href="" class="flex items-center">
-              <img src={Logo} class="mr-5 h-20 sm:h-21" alt="The Data Center" />
-              {/* <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-                The Data Center
-              </span> */}
+        <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+          <div className="flex items-center lg:order-2 md:flex justify-between flex-grow">
+            <a href="" className="flex items-center">
+              <img src={Logo} className="  h-12 md:h-4" alt="The Data Center" />
             </a>
-            <div class="flex items-center lg:order-2">
+            <div className="flex items-center lg:order-3 md:flex lg:flex-col md:flex-col-reverse">
               <a
                 href="/login"
-                class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+                className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 lg:mr-0"
               >
                 Log in
               </a>
               <a
                 href="/registrasi"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 lg:mr-0"
               >
                 Sign Up
               </a>
               <button
+                id="mobile-menu-2"
                 data-collapse-toggle="mobile-menu-2"
                 type="button"
-                class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 w-full text-xs"
                 aria-controls="mobile-menu-2"
                 aria-expanded="false"
               >
-                <span class="sr-only">Open main menu</span>
+                <span className="sr-only">Open main menu</span>
                 <svg
-                  class="w-6 h-6"
+                  className="w-6 h-6"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
                 <svg
-                  class="hidden w-6 h-6"
+                  className="hidden w-6 h-6"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </button>
             </div>
+
             <div
-              class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
+              className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
               id="mobile-menu-2"
             >
-              {/* <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+              {/* <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                 <li>
                   <a
                     href="#"
-                    class="block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white"
+                    className="block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white"
                     aria-current="page"
                   >
                     Home
@@ -113,7 +112,7 @@ export default function LandingPage() {
                 <li>
                   <a
                     href="#"
-                    class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                   >
                     Company
                   </a>
@@ -121,7 +120,7 @@ export default function LandingPage() {
                 <li>
                   <a
                     href="#"
-                    class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                   >
                     Marketplace
                   </a>
@@ -129,7 +128,7 @@ export default function LandingPage() {
                 <li>
                   <a
                     href="#"
-                    class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                   >
                     Features
                   </a>
@@ -137,7 +136,7 @@ export default function LandingPage() {
                 <li>
                   <a
                     href="#"
-                    class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                   >
                     Team
                   </a>
@@ -145,7 +144,7 @@ export default function LandingPage() {
                 <li>
                   <a
                     href="#"
-                    class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                   >
                     Contact
                   </a>
@@ -155,21 +154,21 @@ export default function LandingPage() {
           </div>
         </nav>
       </header>
-      <section class="bg-white dark:bg-gray-900">
-        <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-          <div class="mr-auto place-self-center lg:col-span-7">
-            <h1 class="max-w-2xl mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl dark:text-white">
+      <section className="bg-white dark:bg-gray-900">
+        <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+          <div className="mr-auto place-self-center lg:col-span-7">
+            <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl dark:text-white">
               Data Center
             </h1>
-            <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+            <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
               Informasi Data Sekolah Yang ada Di Seluruh Indonesia.
             </p>
 
-            <div className="w-75 pt-4">
+            <div classNameName="w-75 pt-4">
               <div>
                 <select
                   id="sekolah"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  classNameName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   value={selectedSekolah ? selectedSekolah.id : ""}
                   onChange={(e) =>
                     setSelectedSekolah(
@@ -189,11 +188,11 @@ export default function LandingPage() {
 
                 <button
                   onClick={handleSubmit}
-                  class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 mt-5"
+                  className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 mt-5"
                 >
                   Mulai
                   <svg
-                    class="w-5 h-5 ml-2 -mr-1"
+                    className="w-5 h-5 ml-2 -mr-1"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -209,7 +208,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+          <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
             <img
               src="https://www.pointstar.co.id/wp-content/uploads/2020/12/Data-Center-Racks_0.jpg"
               alt="mockup"
@@ -218,24 +217,24 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section class="bg-gray-50 dark:bg-gray-800">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-          <div class="max-w-screen-md mb-8 lg:mb-16">
-            <h2 class="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
+      <section className="bg-gray-50 dark:bg-gray-800">
+        <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+          <div className="max-w-screen-md mb-8 lg:mb-16">
+            <h2 className="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
               The Data Center adalah
             </h2>
-            <p class="text-gray-500 sm:text-xl dark:text-gray-400">
+            <p className="text-gray-500 sm:text-xl dark:text-gray-400">
               sebuah pusat pengelolaan informasi yang bertujuan untuk
               menyediakan data sekolah di seluruh wilayah Indonesia. Dengan
               menggunakan teknologi canggih, Data Center ini mengumpulkan,
               menyimpan, dan memproses informasi mengenai sekolah-sekolah.
             </p>
           </div>
-          <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
+          <div className="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
             <div>
-              <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-blue-900">
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-blue-900">
                 <svg
-                  class="w-5 h-5 text-blue-600 lg:w-6 lg:h-6 dark:text-blue-300"
+                  className="w-5 h-5 text-blue-600 lg:w-6 lg:h-6 dark:text-blue-300"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -247,11 +246,11 @@ export default function LandingPage() {
                   ></path>
                 </svg>
               </div>
-              <h3 class="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold dark:text-white">
                 {" "}
                 Info Sekolah: Menggali Detail Pendidikan Indonesia
               </h3>
-              <p class="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-gray-400">
                 The Data Center memperkenalkan fitur Info Sekolah, yang
                 memungkinkan pengguna menjelajahi halaman detail sekolah dengan
                 mudah. Dengan kemampuan CRUD, informasi sekolah dapat diperbarui
@@ -261,9 +260,9 @@ export default function LandingPage() {
             </div>
 
             <div>
-              <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-blue-900">
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-blue-900">
                 <svg
-                  class="w-5 h-5 text-blue-600 lg:w-6 lg:h-6 dark:text-blue-300"
+                  className="w-5 h-5 text-blue-600 lg:w-6 lg:h-6 dark:text-blue-300"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -271,11 +270,11 @@ export default function LandingPage() {
                   <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path>
                 </svg>
               </div>
-              <h3 class="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold dark:text-white">
                 {" "}
                 Data Murid: Menyelusuri Demografi Murid Dengan Detail
               </h3>
-              <p class="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-gray-400">
                 Fitur Data Murid membuka pintu ke dunia demografi murid dengan
                 tabel dan CRUD untuk memudahkan pengelolaan informasi. Detail
                 profil murid memberikan wawasan mendalam, sedangkan diagram
@@ -285,9 +284,9 @@ export default function LandingPage() {
             </div>
 
             <div>
-              <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-blue-900">
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-blue-900">
                 <svg
-                  class="w-5 h-5 text-blue-600 lg:w-6 lg:h-6 dark:text-blue-300"
+                  className="w-5 h-5 text-blue-600 lg:w-6 lg:h-6 dark:text-blue-300"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -300,10 +299,10 @@ export default function LandingPage() {
                   <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"></path>
                 </svg>
               </div>
-              <h3 class="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold dark:text-white">
                 Data Guru: Manajemen Guru yang Efisien dan Transparan
               </h3>
-              <p class="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-gray-400">
                 Tabel Data Guru dan fungsi CRUD mempermudah pengelolaan data
                 guru, sementara detail profil dan diagram berdasarkan gender,
                 agama, dan umur memberikan informasi lengkap. Fitur ini
@@ -313,9 +312,9 @@ export default function LandingPage() {
             </div>
 
             <div>
-              <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-blue-900">
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-blue-900">
                 <svg
-                  class="w-5 h-5 text-blue-600 lg:w-6 lg:h-6 dark:text-blue-300"
+                  className="w-5 h-5 text-blue-600 lg:w-6 lg:h-6 dark:text-blue-300"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -323,10 +322,10 @@ export default function LandingPage() {
                   <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>
                 </svg>
               </div>
-              <h3 class="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold dark:text-white">
                 Dashboard Utama: Gambaran Menyeluruh Pendidikan Indonesia
               </h3>
-              <p class="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-gray-400">
                 Dengan Dashboard Utama, pengguna dapat dengan cepat melihat
                 jumlah total murid, jumlah total guru, serta diagram yang
                 memberikan pemahaman mendalam tentang distribusi murid dan guru.
@@ -336,9 +335,9 @@ export default function LandingPage() {
             </div>
 
             <div>
-              <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-blue-900">
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-blue-900">
                 <svg
-                  class="w-5 h-5 text-blue-600 lg:w-6 lg:h-6 dark:text-blue-300"
+                  className="w-5 h-5 text-blue-600 lg:w-6 lg:h-6 dark:text-blue-300"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -369,10 +368,10 @@ export default function LandingPage() {
                   ></rect>
                 </svg>
               </div>
-              <h3 class="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold dark:text-white">
                 Visualisasi Data: Diagram yang Informatif
               </h3>
-              <p class="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-gray-400">
                 The Data Center ini memanfaatkan diagram sebagai alat
                 visualisasi data yang informatif. Diagram murid dan guru
                 berdasarkan berbagai kriteria seperti gender, agama, dan kelas
@@ -381,9 +380,9 @@ export default function LandingPage() {
               </p>
             </div>
             <div>
-              <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-blue-900">
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-blue-900">
                 <svg
-                  class="w-5 h-5 text-blue-600 lg:w-7 lg:h-7 dark:text-blue-300"
+                  className="w-5 h-5 text-blue-600 lg:w-7 lg:h-7 dark:text-blue-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -397,10 +396,10 @@ export default function LandingPage() {
                   ></path>
                 </svg>
               </div>
-              <h3 class="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold dark:text-white">
                 Profil Sekolah: Mendalam ke Visi-Misi dan Keunggulan Pendidikan
               </h3>
-              <p class="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-gray-400">
                 Fitur Profil Sekolah memberikan wawasan mendalam ke visi-misi,
                 kurikulum, dan program unggulan suatu sekolah. Ini memberikan
                 gambaran menyeluruh tentang keunggulan pendidikan yang
@@ -413,27 +412,27 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section class="bg-white dark:bg-gray-900">
-        <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
-          <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
-            <h2 class="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
+      <section className="bg-white dark:bg-gray-900">
+        <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+          <div className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+            <h2 className="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
               The Data Center adalah
             </h2>
-            <p class="mb-4">
+            <p className="mb-4">
               tonggak penting dalam mendukung pengelolaan dan pengembangan
               sistem pendidikan nasional, memastikan bahwa informasi yang
               diperlukan untuk meningkatkan kualitas pendidikan dapat diakses
               dengan mudah dan aman.
             </p>
           </div>
-          <div class="grid grid-cols-2 gap-4 mt-8">
+          <div className="grid grid-cols-2 gap-4 mt-8">
             <img
-              class="w-full rounded-lg"
+              className="w-full rounded-lg"
               src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png"
               alt="office content 1"
             />
             <img
-              class="mt-4 w-full lg:mt-10 rounded-lg"
+              className="mt-4 w-full lg:mt-10 rounded-lg"
               src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png"
               alt="office content 2"
             />
@@ -441,68 +440,68 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <footer class="p-4 bg-gray-50 sm:p-6 dark:bg-gray-800">
-        <div class="mx-auto max-w-screen-xl">
-          <div class="md:flex md:justify-between">
-            <div class="mb-6 md:mb-0">
-              <a href="" class="flex items-center">
+      <footer className="p-4 bg-gray-50 sm:p-6 dark:bg-gray-800">
+        <div className="mx-auto max-w-screen-xl">
+          <div className="md:flex md:justify-between">
+            <div className="mb-6 md:mb-0">
+              <a href="" className="flex items-center">
                 <img
                   src={Logo}
-                  class="mr-5 h-20 sm:h-21"
+                  className="mr-5 h-20 sm:h-21"
                   alt="The Data Center"
                 />
-                {/* <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+                {/* <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                 The Data Center
               </span> */}
               </a>
             </div>
-            <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+            <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                   Resources
                 </h2>
-                <ul class="text-gray-600 dark:text-gray-400">
-                  <li class="mb-4">
-                    <a href="#" class="hover:underline">
+                <ul className="text-gray-600 dark:text-gray-400">
+                  <li className="mb-4">
+                    <a href="#" className="hover:underline">
                       Flowbite
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="hover:underline">
+                    <a href="#" className="hover:underline">
                       Tailwind CSS
                     </a>
                   </li>
                 </ul>
               </div>
               <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                   Follow us
                 </h2>
-                <ul class="text-gray-600 dark:text-gray-400">
-                  <li class="mb-4">
-                    <a href="#" class="hover:underline ">
+                <ul className="text-gray-600 dark:text-gray-400">
+                  <li className="mb-4">
+                    <a href="#" className="hover:underline ">
                       Github
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="hover:underline">
+                    <a href="#" className="hover:underline">
                       Discord
                     </a>
                   </li>
                 </ul>
               </div>
               <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                   Legal
                 </h2>
-                <ul class="text-gray-600 dark:text-gray-400">
-                  <li class="mb-4">
-                    <a href="#" class="hover:underline">
+                <ul className="text-gray-600 dark:text-gray-400">
+                  <li className="mb-4">
+                    <a href="#" className="hover:underline">
                       Privacy Policy
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="hover:underline">
+                    <a href="#" className="hover:underline">
                       Terms &amp; Conditions
                     </a>
                   </li>
@@ -510,22 +509,22 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-          <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-          <div class="sm:flex sm:items-center sm:justify-between">
-            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+          <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+          <div className="sm:flex sm:items-center sm:justify-between">
+            <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
               © 2022{" "}
-              <a href="#" class="hover:underline">
+              <a href="#" className="hover:underline">
                 Your website
               </a>
               . All Rights Reserved.
             </span>
-            <div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
+            <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
               <a
                 href=""
-                class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+                className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
                 <svg
-                  class="w-5 h-5"
+                  className="w-5 h-5"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
