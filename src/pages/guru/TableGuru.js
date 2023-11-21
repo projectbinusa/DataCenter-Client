@@ -16,6 +16,7 @@ export default function TableGuru() {
   const [guru, setGuru] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
   const [modal, setModal] = useState(false);
+  const [excel, setExcel] = useState("");
 
   const [state, setState] = useState({
     options: {
@@ -372,6 +373,29 @@ export default function TableGuru() {
     } else {
       setIsChecked(isChecked.filter((e) => e !== value));
     }
+  };
+
+  const importExcel = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("file", excel);
+
+    await axios
+      .post(
+        "http://localhost:8080/api/excel-guru/upload/guru/" +
+          localStorage.getItem("sekolahId"),
+        formData
+      )
+      .then(() => {
+        Swal.fire("Sukses!", " berhasil ditambahkan.", "success");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+        Swal.fire("Error", "Anda belum memilih file untuk diimport!.", "error");
+      });
   };
 
   const download = async () => {
@@ -832,7 +856,7 @@ export default function TableGuru() {
                       <form
                         action=""
                         className="space-y-4 p-3"
-                        // onSubmit={importExcel}
+                        onSubmit={importExcel}
                       >
                         <div>
                           <p className="m-5 text-lg font-medium">
@@ -860,7 +884,7 @@ export default function TableGuru() {
                             autoComplete="off"
                             type="file"
                             accept=".xlsx"
-                            // onChange={(e) => setExcel(e.target.files[0])}
+                            onChange={(e) => setExcel(e.target.files[0])}
                             className="border-2 rounded-md p-3"
                           />
                         </div>

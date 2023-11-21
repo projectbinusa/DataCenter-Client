@@ -4,7 +4,7 @@ import axios from "axios";
 import AOS from "aos";
 import PageSidebar from "../../components/PageSidebar";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/dc-logo.png";
+import Logo from "../../assets/logo.jpg";
 
 const api = "http://localhost:8080/api/sekolah";
 
@@ -41,15 +41,23 @@ export default function LandingPage() {
   return (
     <body>
       <header>
-        <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+        <nav className="border-gray-200 px-4 lg:px-6 py-2.5 bg-gray-800">
           <div className="flex items-center lg:order-2 md:flex justify-between flex-grow">
             <a href="" className="flex items-center">
-              <img src={Logo} className="  h-12 md:h-4" alt="The Data Center" />
+              <img
+                src={Logo}
+                className="mr-5 h-20 md:h-20 lg:h-32"
+                alt="The Data Center"
+              />
+              <span className="self-center text-lg font-semibold text-white md:text-2xl lg:text-2xl">
+                THE DATA CENTER
+              </span>
             </a>
+
             <div className="flex items-center lg:order-3 md:flex lg:flex-col md:flex-col-reverse">
               <a
                 href="/login"
-                className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 lg:mr-0"
+                className="text-gray-800 text-white hover:bg-white-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 lg:mr-0"
               >
                 Log in
               </a>
@@ -154,10 +162,10 @@ export default function LandingPage() {
           </div>
         </nav>
       </header>
-      <section className="bg-white dark:bg-gray-900">
+      <section className="bg-gray-900">
         <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
           <div className="mr-auto place-self-center lg:col-span-7">
-            <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl dark:text-white">
+            <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl text-white">
               Data Center
             </h1>
             <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
@@ -217,13 +225,13 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="bg-gray-50 dark:bg-gray-800">
+      <section className="bg-gray-50 bg-gray-800">
         <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
           <div className="max-w-screen-md mb-8 lg:mb-16">
-            <h2 className="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
+            <h2 className="mb-4 text-4xl font-extrabold text-white-900 text-white">
               The Data Center adalah
             </h2>
-            <p className="text-gray-500 sm:text-xl dark:text-gray-400">
+            <p className="text-gray-500 sm:text-xl dark:text-gray-100">
               sebuah pusat pengelolaan informasi yang bertujuan untuk
               menyediakan data sekolah di seluruh wilayah Indonesia. Dengan
               menggunakan teknologi canggih, Data Center ini mengumpulkan,
@@ -246,7 +254,7 @@ export default function LandingPage() {
                   ></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold text-white">
                 {" "}
                 Info Sekolah: Menggali Detail Pendidikan Indonesia
               </h3>
@@ -270,7 +278,7 @@ export default function LandingPage() {
                   <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold text-white">
                 {" "}
                 Data Murid: Menyelusuri Demografi Murid Dengan Detail
               </h3>
@@ -299,7 +307,7 @@ export default function LandingPage() {
                   <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold text-white">
                 Data Guru: Manajemen Guru yang Efisien dan Transparan
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
@@ -322,7 +330,7 @@ export default function LandingPage() {
                   <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold text-white">
                 Dashboard Utama: Gambaran Menyeluruh Pendidikan Indonesia
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
@@ -368,7 +376,7 @@ export default function LandingPage() {
                   ></rect>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold text-white">
                 Visualisasi Data: Diagram yang Informatif
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
@@ -396,7 +404,7 @@ export default function LandingPage() {
                   ></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">
+              <h3 className="mb-2 text-xl font-bold text-white">
                 Profil Sekolah: Mendalam ke Visi-Misi dan Keunggulan Pendidikan
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
@@ -412,10 +420,10 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="bg-white dark:bg-gray-900">
+      <section className="bg-gray-900">
         <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
           <div className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
-            <h2 className="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
+            <h2 className="mb-4 text-4xl font-extrabold text-white-900 text-white">
               The Data Center adalah
             </h2>
             <p className="mb-4">
@@ -440,7 +448,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <footer className="p-4 bg-gray-50 sm:p-6 dark:bg-gray-800">
+      <footer className="p-4 bg-gray-50 sm:p-6 bg-gray-800">
         <div className="mx-auto max-w-screen-xl">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
