@@ -204,7 +204,17 @@ export default function PublikSekolah() {
                 </div>
               </div>
             </div>
+   
           </section>
+          <div className="flex items-center justify-between">
+              <a href="/"
+                className="bottom-0 right-4 my-4 md:my-2 ml-4 md:ml-2 bg-blue-500 text-white px-4 py-2 rounded-md"
+               
+              > 
+              Kembali
+              </a>
+            
+            </div>
         </div>{" "}
       </div>
     </div>

@@ -31,7 +31,7 @@ export default function InfoSekolah() {
   const [emailSekolah, setEmailSekolah] = useState("");
   const [informasiSekolah, setInformasiSekolah] = useState("");
   const [status, setStatus] = useState("");
-   const [akreditasiSekolah, setAkreditasiSekolah] = useState("");
+  const [akreditasiSekolah, setAkreditasiSekolah] = useState("");
   const [numSiswa, setNumSiswa] = useState("");
   const [numGuru, setNumGuru] = useState("");
   const [numKelas, setNumKelas] = useState("");
@@ -69,7 +69,7 @@ export default function InfoSekolah() {
       const dataKelas = kelasResponse.data;
       setNumKelas(dataKelas.length);
     } catch (error) {
-      console.error("Errorr  data :" , error)
+      console.error("Errorr  data :", error);
     }
   };
 
@@ -197,14 +197,13 @@ export default function InfoSekolah() {
                   </h3>
                   <p className="text-gray-500 dark:text-gray-400 flex justify-between items-center">
                     <span>{numGuru !== null ? numGuru : "0"} Guru</span>
-              
-              <Link to={"/table-guru"}>
-                 <span
+
+                    <a
+                      href="/table-guru"
                       className="block rounded-md nav-log px-5 py-2.5 text-sm font-medium transition"
-                     >
+                    >
                       Lihat Detail
-                    </span>
-              </Link>
+                    </a>
                   </p>
                 </div>
 
@@ -227,13 +226,13 @@ export default function InfoSekolah() {
                     <span>
                       <span>{numSiswa !== null ? numSiswa : "0"} Murid</span>
                     </span>
-                    <Link to={"table"}>
-                    <span
+
+                    <a
+                      href="/table"
                       className="block rounded-md nav-log px-5 py-2.5 text-sm font-medium transition"
-                      >
+                    >
                       Lihat Detail
-                    </span>
-                       </Link>
+                    </a>
                   </p>
                 </div>
 
@@ -258,13 +257,12 @@ export default function InfoSekolah() {
                   </h3>
                   <p className="text-gray-500 dark:text-gray-400 flex justify-between items-center">
                     {numKelas} Kelas
-                    <Link to={"data-kelas"}>
-                    <span
+                    <a
+                      href="/data-kelas"
                       className="block rounded-md nav-log px-5 py-2.5 text-sm font-medium transition"
-                      >
+                    >
                       Lihat Detail
-                    </span>
-                       </Link>
+                    </a>
                   </p>
                 </div>
               </div>
@@ -303,6 +301,7 @@ export default function InfoSekolah() {
                 </p>
               </div>
             </div>
+            
           </section>
         </div>{" "}
       </div>

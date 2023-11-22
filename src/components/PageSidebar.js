@@ -230,6 +230,59 @@ export default function PageSidebar() {
                 </ul>
               </li>
               <li>
+                <button
+                  type="button" 
+                  className="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:text-blue-600 hover:bg-[#dfecff]"
+                  aria-controls="dropdown-example"
+                  data-collapse-toggle="dropdown-2"
+                >
+                  <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
+                    Inventory
+                  </span>
+                  <svg
+                    className="w-3 h-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 10 6"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="m1 1 4 4 4-4"
+                    />
+                  </svg>
+                </button>
+                <ul id="dropdown-2" className="hidden py-2 space-y-2">
+                  <li>
+                    <a
+                      href="/data-kelas"
+                      className="flex items-center w-full p-2 transition duration-75 text-white hover:text-blue-600 rounded-lg pl-11 group hover:bg-[#dfecff]"
+                    >
+                      Data Kelas
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/extra"
+                      className="flex items-center w-full p-2 transition duration-75 text-white hover:text-blue-600 rounded-lg pl-11 group hover:bg-[#dfecff]"
+                    >
+                      Extrakulikuler
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/gelar"
+                      className="flex items-center w-full p-2 transition duration-75 text-white hover:text-blue-600 rounded-lg pl-11 group hover:bg-[#dfecff]"
+                    >
+                      Gelar Pendidikan
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
               <Link to={`/info-sekolah`}>
 
                   <a className="flex items-center p-2 rounded-lg text-white hover:text-blue-600 hover:bg-[#dfecff] group">

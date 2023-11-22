@@ -31,6 +31,12 @@ import DetailMurid from "./pages/siswa/DetailMurid";
 import EditSekolah from "./pages/sekolah/EditSekolah";
 import PublikSekolah from "./pages/landingpage/PublikSekolah";
 import DataKelas from "./pages/sekolah/DataKelas";
+import TambahKelas from "./pages/sekolah/TambahKelas";
+import UbahKelas from "./pages/sekolah/UbahKelas";
+import ExtraSekolah from "./pages/sekolah/ExtraSekolah";
+import GelarPendidikan from "./pages/sekolah/GelarPendidikan";
+import TambahExtra from "./pages/sekolah/TambahExtra";
+import TambahGelar from "./pages/sekolah/TambahGelar";
 
 // import PrivateBack from "./router/PrivateBack";
 
@@ -239,6 +245,73 @@ function App() {
               <PrivateRoute>
                 <PrivateHome>
                   <DataKelas />
+                  
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/tambah-kelas"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <TambahKelas />
+                  
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ubah-kelas"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <UbahKelas />
+                  
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+         
+          <Route
+            path="/extra"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <ExtraSekolah />
+                  
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/tambah-extra"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <TambahExtra />
+                  
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/gelar"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <GelarPendidikan />
+                  
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/tambah-gelar"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <TambahGelar />
                   
                 </PrivateHome>
               </PrivateRoute>

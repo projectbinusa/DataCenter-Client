@@ -46,16 +46,16 @@ export default function LandingPage() {
             <a href="" className="flex items-center">
               <img
                 src={Logo}
-                className="mr-5 h-20 md:h-20 lg:h-32"
+                className="mr-3 h-6 sm:h-9"
                 alt="The Data Center"
               />
-              <span className="self-center text-lg font-semibold text-white md:text-2xl lg:text-2xl">
+              <span className="self-center text-sm font-semibold whitespace-nowrap text-white">
                 THE DATA CENTER
               </span>
             </a>
 
-            <div className="flex items-center lg:order-3 md:flex lg:flex-col md:flex-col-reverse">
-              <a
+            <div className="flex justify-around   lg:flex justify-between md:flex lg:flex-col sm:flex-col-reverse">
+              <a  
                 href="/login"
                 className="text-gray-800 text-white hover:bg-white-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 lg:mr-0"
               >
@@ -67,7 +67,7 @@ export default function LandingPage() {
               >
                 Sign Up
               </a>
-              <button
+              {/* <button
                 id="mobile-menu-2"
                 data-collapse-toggle="mobile-menu-2"
                 type="button"
@@ -100,7 +100,7 @@ export default function LandingPage() {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-              </button>
+              </button> */}
             </div>
 
             <div
