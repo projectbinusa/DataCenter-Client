@@ -16,7 +16,24 @@ export default function DetailGuru() {
   const [gender, setGender] = useState("");
   const [gelarPendidikan, setGelarPendidikan] = useState("");
   const [statusKawin, setStatusKawin] = useState("");
+
   //   const [profilePicture, setProfilePicture] = useState(defaultProfilePicture);
+
+  const hitungUmur = (tanggalLahir) => {
+    const today = new Date();
+    const birthDate = new Date(tanggalLahir);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
+  };
 
   useEffect(() => {
     axios
@@ -28,7 +45,7 @@ export default function DetailGuru() {
         setTanggalLahir(dataGuru.tanggalLahir);
         setGender(dataGuru.gender);
         setAgama(dataGuru.agama);
-        setUmur(dataGuru.umur);
+        setUmur(hitungUmur(dataGuru.tanggalLahir));
         setNoTelepon(dataGuru.noTelepon);
         setGelarPendidikan(dataGuru.gelarPendidikan);
         setStatusKawin(dataGuru.statusKawin);
@@ -69,6 +86,13 @@ export default function DetailGuru() {
                 Agama
               </label>
               <p className="mt-1 text-md font-bold text-gray-900">{agama}</p>
+            </div>
+
+            <div className="flex items-start border-b border-gray-200 pb-2">
+              <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
+                Umur
+              </label>
+              <p className="mt-1 text-md font-bold text-gray-900">{umur}</p>
             </div>
 
             <div className="flex items-start border-b border-gray-200 pb-2">

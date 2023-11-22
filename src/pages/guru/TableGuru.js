@@ -487,12 +487,12 @@ export default function TableGuru() {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex flex-col md:flex-row">
         <PageSidebar />
         <div className="p-4 sm:ml-64 mt-16">
-          <div class="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {/* Total Guru Card */}
-            <div className="rounded-xl bg-white p-1 h-[100px] ml-8">
+            <div className="rounded-xl bg-white p-1 flex">
               <div className="rounded-xl p-4 h-[100px] flex items-center">
                 <div className="flex items-start">
                   <div className="self-start">
@@ -509,7 +509,7 @@ export default function TableGuru() {
             </div>
 
             {/* Rata-rata Umur Card */}
-            <div className="rounded-xl bg-white p-1  h-[100px] mx-3">
+            <div className="rounded-xl bg-white p-1 flex">
               <div className="rounded-xl p-4 h-[100px] flex items-center">
                 {averageAgeIcon}
                 <div>
@@ -533,11 +533,11 @@ export default function TableGuru() {
             </div>
           </div>
 
-          <div className="flex flex-row justify-center gap-5 mt-5 mb-5">
+          <div className="flex flex-col md:flex-row justify-center gap-5 mt-5 mb-5">
             {/* Diagram Gender */}
-            <div className="text-center">
+            <div className="text-center md:flex-1">
               <div data-aos="fade-right">
-                <div className=" rounded-2xl p-1 shadow-xl w-[370px] md:w-[490px] h-[330px]">
+                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[330px]">
                   <div className="rounded-xl bg-white p-1  h-[320px]">
                     <div className="m-5 overflow-hidden overflow-x-auto">
                       {guru.length === 0 ? (
@@ -563,9 +563,9 @@ export default function TableGuru() {
               </div>
             </div>
             {/* Diagram Age */}
-            <div className="text-center">
+            <div className="text-center md:flex-1">
               <div data-aos="fade-right">
-                <div className=" rounded-2xl p-1 shadow-xl w-[370px] md:w-[490px] h-[330px]">
+                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[330px]">
                   <div className="rounded-xl bg-white p-1  h-[320px]">
                     <div className="m-5 overflow-hidden overflow-x-auto">
                       {guru.length === 0 ? (
@@ -592,11 +592,11 @@ export default function TableGuru() {
             </div>
           </div>
 
-          <div className="flex flex-row justify-center gap-5 my-5">
+          <div className="flex flex-col md:flex-row justify-center gap-5 my-5">
             {/* Diagram Gelar */}
-            <div className="text-center">
+            <div className="text-center md:flex-1">
               <div data-aos="fade-left">
-                <div className=" rounded-2xl p-1 shadow-xl w-[370px] md:w-[490px] h-[360px]">
+                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
                   <div className="rounded-xl bg-white p-1 h-[350px]">
                     <div className="m-5 overflow-hidden overflow-x-auto">
                       {guru.length === 0 ? (
@@ -625,9 +625,9 @@ export default function TableGuru() {
             </div>
 
             {/* Diagram Agama */}
-            <div className="text-center">
+            <div className="text-center md:flex-1">
               <div data-aos="fade-left">
-                <div className=" rounded-2xl p-1 shadow-xl w-[370px] md:w-[490px] h-[360px]">
+                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
                   <div className="rounded-xl bg-white p-1 h-[350px]">
                     <div className="m-5 overflow-hidden overflow-x-auto">
                       {guru.length === 0 ? (
