@@ -7,29 +7,26 @@ import "../../style/edit.css";
 import PageSidebar from "../../components/PageSidebar";
 
 export default function UbahKelas() {
-  const kelasId = localStorage.getItem("kelasId");
-  const [namaKelas, setNamaKelas] = useState("");
-
+  const extraId = localStorage.getItem("extraId");
+  const [namaExtra, setNamaExtra] = useState("");
   const [status, setStatus] = useState("");
-
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/kelas/${kelasId}`)
+      .get(`http://localhost:8080/api/extra/${extraId}`)
       .then((response) => {
-        const dataKelas = response.data;
-        setNamaKelas(dataKelas.namaKelas);
-
-        setStatus(dataKelas.status);
+        const dataExtra = response.data;
+        setNamaExtra(dataExtra.namaExtra);
+        setStatus(dataExtra.status);
       })
       .catch((error) => {
         alert("Terjadi kesalahan Sir! " + error);
       });
-  }, []);
+  }, [extraId]);
 
   const nameChangeHandler = (event) => {
-    setNamaKelas(event.target.value);
+    setNamaExtra(event.target.value);
   };
 
   const statusChangeHandler = (event) => {
@@ -37,31 +34,39 @@ export default function UbahKelas() {
   };
 
   const submitActionHandler = async (event) => {
-    event.preventDefault();
+    try {
+      event.preventDefault();
+      console.log("Submitting data:", { namaExtra, status });
 
-    await axios
-      .put(`http://localhost:8080/api/kelas/${kelasId}` , {
-        namaKelas: namaKelas,
-
+  await    axios.put(`http://localhost:8080/api/extra/${extraId}`, {
+        namaExtra: namaExtra,
         status: status,
-      })
-      .then(() => {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Edit Success!!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        navigate("/data-kelas");
-      })
-      .catch((error) => {
-        alert("Terjadi kesalahan: " + error);
       });
+      
+
+      console.log("Edit success!");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Edit Success!!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      navigate("/extra");
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Terjadi kesalahan saat menyimpan perubahan!",
+      });
+    }
   };
 
   const batal = () => {
-    navigate("/data-kelas");
+    navigate("/extra");
   };
 
   return (
@@ -75,25 +80,24 @@ export default function UbahKelas() {
               className="mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
               onSubmit={submitActionHandler}
             >
-                <center>
-
-              <p className="text-3xl font-medium mb-7">Edit Kelas</p>
-                </center>
+              <center>
+                <p className="text-3xl font-medium mb-7">Edit Extra</p>
+              </center>
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                <div className="relative ">
+                <div className="relative  ">
                   <label
                     for="name"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Nama Kelas
+                    Nama Extra
                   </label>
                   <input
                     type="text"
                     id="name"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                    placeholder="Nama Kelas"
-                    value={namaKelas}
+                    placeholder="Nama Extra"
+                    value={namaExtra}
                     onChange={nameChangeHandler}
                     required
                   />

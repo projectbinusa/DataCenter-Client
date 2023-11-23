@@ -6,9 +6,9 @@ import Swal from "sweetalert2";
 import "../../style/edit.css";
 import PageSidebar from "../../components/PageSidebar";
 
-export default function EditGuru() {
-  const sekolahId = localStorage.getItem("sekolahId");
-  const [namaKelas, setNamaKelas] = useState("");
+export default function UpdateGelar() {
+  const gelarPendidikanId = localStorage.getItem("gelarPendidikanId");
+  const [namaGelar, seNamaGelar] = useState("");
 
   const [status, setStatus] = useState("");
 
@@ -16,12 +16,12 @@ export default function EditGuru() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/kela/" + sekolahId.id)
+      .get(`http://localhost:8080/api/gelarPendidikan/${gelarPendidikanId}`)
       .then((response) => {
-        const dataGuru = response.data;
-        setNamaKelas(dataGuru.namaKelas);
+        const dataGelar = response.data;
+        seNamaGelar(dataGelar.namaGelar);
 
-        setStatus(dataGuru.status);
+        setStatus(dataGelar.status);
       })
       .catch((error) => {
         alert("Terjadi kesalahan Sir! " + error);
@@ -29,7 +29,7 @@ export default function EditGuru() {
   }, []);
 
   const nameChangeHandler = (event) => {
-    setNamaKelas(event.target.value);
+    seNamaGelar(event.target.value);
   };
 
   const statusChangeHandler = (event) => {
@@ -40,8 +40,8 @@ export default function EditGuru() {
     event.preventDefault();
 
     await axios
-      .put("http://localhost:8080/api/guru/" + sekolahId.id, {
-        namaKelas: namaKelas,
+      .put(`http://localhost:8080/api/gelarPendidikan/${gelarPendidikanId}` , {
+        namaGelar: namaGelar,
 
         status: status,
       })
@@ -53,7 +53,7 @@ export default function EditGuru() {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/table-guru");
+        navigate("/gelar");
       })
       .catch((error) => {
         alert("Terjadi kesalahan: " + error);
@@ -61,7 +61,7 @@ export default function EditGuru() {
   };
 
   const batal = () => {
-    navigate("/data-kelas");
+    navigate("/gelar");
   };
 
   return (
@@ -75,22 +75,25 @@ export default function EditGuru() {
               className="mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
               onSubmit={submitActionHandler}
             >
-              <p className="text-3xl font-medium mb-7">Edit Kelas</p>
+                <center>
+
+              <p className="text-3xl font-medium mb-7">Edit Gelar Pendidikan</p>
+                </center>
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                <div className="relative mt-3">
+                <div className="relative ">
                   <label
                     for="name"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Nama Kelas
+                    Nama Gelar
                   </label>
                   <input
                     type="text"
                     id="name"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                    placeholder="Nama"
-                    value={namaKelas}
+                    placeholder="Nama Gelar"
+                    value={namaGelar}
                     onChange={nameChangeHandler}
                     required
                   />

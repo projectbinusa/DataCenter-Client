@@ -31,13 +31,15 @@ import DetailMurid from "./pages/siswa/DetailMurid";
 import EditSekolah from "./pages/sekolah/EditSekolah";
 import PublikSekolah from "./pages/landingpage/PublikSekolah";
 import DataKelas from "./pages/sekolah/DataKelas";
-import TambahKelas from "./pages/sekolah/TambahKelas";
+import TambahKelas from "./pages/sekolah/TambahKelas";  
 import UbahKelas from "./pages/sekolah/UbahKelas";
 import ExtraSekolah from "./pages/sekolah/ExtraSekolah";
 import GelarPendidikan from "./pages/sekolah/GelarPendidikan";
 import TambahExtra from "./pages/sekolah/TambahExtra";
 import TambahGelar from "./pages/sekolah/TambahGelar";
-
+import UbahExtra from "./pages/sekolah/UbahExtra";
+import UpdateGelar from "./pages/sekolah/UpdateGelar";
+ 
 // import PrivateBack from "./router/PrivateBack";
 
 function App() {
@@ -285,6 +287,17 @@ function App() {
             }
           />
           <Route
+            path="/ubah-extra"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                  <UbahExtra />
+                  
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+          <Route
             path="/tambah-extra"
             element={
               <PrivateRoute>
@@ -302,6 +315,16 @@ function App() {
                 <PrivateHome>
                   <GelarPendidikan />
                   
+                </PrivateHome>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ubah-gelar"
+            element={
+              <PrivateRoute>
+                <PrivateHome>
+                   <UpdateGelar/>
                 </PrivateHome>
               </PrivateRoute>
             }

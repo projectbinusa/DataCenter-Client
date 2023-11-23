@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Aos from "aos";
 import "../../style/table.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,8 +15,8 @@ export default function DataKelas() {
   const kelasId = localStorage.getItem("kelasId");
   const [extra, setExtra] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
-  const navigate = useNavigate;
- 
+  const navigate = useNavigate();
+
   const getAll = async () => {
     await axios
       .get(`http://localhost:8080/api/extra/${sekolahId}/extra`)
@@ -62,8 +62,9 @@ export default function DataKelas() {
       cancelButtonText: "Batal",
     }).then((result) => {
       if (result.isConfirmed) {
-      navigate("/ubah-extra");
-          }
+        localStorage.setItem("extraId",id);
+         navigate("/ubah-extra");
+      }
     });
   };
   const handlecheckbox = (e) => {
@@ -119,7 +120,7 @@ export default function DataKelas() {
   }, []);
 
   return (
-    < >
+    <>
       <PageSidebar />
       <div className="flex my-20">
         <div className="flex justify-center w-[100%]">
@@ -127,9 +128,10 @@ export default function DataKelas() {
             <div className="p-5 bg-white">
               <div className="grid justify-center">
                 <div className="grid grid-cols-1 md:flex gap-3 mt-6">
-                  <a href="/tambah-extra"
+                  <a
+                    href="/tambah-extra"
                     className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                   >
+                  >
                     Tambah Data Extra
                   </a>
                 </div>

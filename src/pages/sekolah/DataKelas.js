@@ -62,11 +62,12 @@ export default function DataKelas() {
       cancelButtonText: "Batal",
     }).then((result) => {
       if (result.isConfirmed) {
-      navigate("/ubah-kelas"
-      );
-          }
+         localStorage.setItem("kelasId", id);
+        navigate("/ubah-kelas");
+      }
     });
   };
+  
   const handlecheckbox = (e) => {
     const { value, checked } = e.target;
     if (checked) {

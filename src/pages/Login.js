@@ -34,7 +34,9 @@ export default function Login() {
         localStorage.setItem("userId", data.id);
         localStorage.setItem("sekolahId", data.sekolahId);
         localStorage.setItem("kelasId", data.id);
-        localStorage.setItem("gelarId", data.id);
+        localStorage.setItem("gelarPendidikanId", data.id);
+        localStorage.setItem("extraId", data.id);
+
         if (localStorage.getItem("role") === "super admin") {
           navigate("/dashboard");
         } else {

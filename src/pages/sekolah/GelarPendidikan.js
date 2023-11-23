@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { useEffect, useState ,useNavigate} from "react";
+import { useEffect, useState } from "react";
+import {useNavigate} from "react-router-dom";
 import Aos from "aos";
 import "../../style/table.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,11 +10,10 @@ import PageSidebar from "../../components/PageSidebar";
 import Swal from "sweetalert2";
 
 export default function DataKelas() {
-  const userId = localStorage.getItem("userId");
-  const sekolahId = localStorage.getItem("sekolahId");
-  const kelasId = localStorage.getItem("kelasId");
-  const [gelar, setGelar] = useState([]);
+   const sekolahId = localStorage.getItem("sekolahId");
+   const [gelar, setGelar] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
+  const navigate = useNavigate();
  
   const getAll = async () => {
     await axios
@@ -48,7 +48,7 @@ export default function DataKelas() {
       }
     });
   };
-  const ubahKelas = async (id) => {
+  const ubahGelar = async (id) => {
     await Swal.fire({
       title: "Anda yakin?",
       text: "Yakin ingin Mengubah Data Gelar Ini?",
@@ -60,6 +60,8 @@ export default function DataKelas() {
       cancelButtonText: "Batal",
     }).then((result) => {
       if (result.isConfirmed) {
+        localStorage.setItem("gelarPendidikanId", id);
+        navigate("/ubah-gelar ");
       
           }
     });
@@ -191,7 +193,7 @@ export default function DataKelas() {
                               <button
                                 className="z-30 block rounded-full border-2 border-white bg-green-100 p-4 text-green-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-green-50"
                                 type="button"
-                                onClick={() => ubahKelas(val.id)}
+                                onClick={() => ubahGelar(val.id)}
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"

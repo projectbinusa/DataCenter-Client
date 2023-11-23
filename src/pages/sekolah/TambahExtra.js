@@ -74,7 +74,7 @@ export default function TambahExtra() {
                
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              <div className="relative mt-3">
+              <div className="relative ">
                 <label
                   for="name"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
