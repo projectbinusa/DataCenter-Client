@@ -31,7 +31,7 @@ import DetailMurid from "./pages/siswa/DetailMurid";
 import EditSekolah from "./pages/sekolah/EditSekolah";
 import PublikSekolah from "./pages/landingpage/PublikSekolah";
 import DataKelas from "./pages/sekolah/DataKelas";
-import TambahKelas from "./pages/sekolah/TambahKelas";  
+import TambahKelas from "./pages/sekolah/TambahKelas";
 import UbahKelas from "./pages/sekolah/UbahKelas";
 import ExtraSekolah from "./pages/sekolah/ExtraSekolah";
 import GelarPendidikan from "./pages/sekolah/GelarPendidikan";
@@ -39,7 +39,9 @@ import TambahExtra from "./pages/sekolah/TambahExtra";
 import TambahGelar from "./pages/sekolah/TambahGelar";
 import UbahExtra from "./pages/sekolah/UbahExtra";
 import UpdateGelar from "./pages/sekolah/UpdateGelar";
- 
+import DetailGuruSekolah from "./pages/landingpage/DetailGuruSekolah";
+import DetailMuridSekolah from "./pages/landingpage/DetailMuridSekolah";
+
 // import PrivateBack from "./router/PrivateBack";
 
 function App() {
@@ -66,6 +68,22 @@ function App() {
             element={
               <PrivateHome>
                 <PublikSekolah />
+              </PrivateHome>
+            }
+          />
+          <Route
+            path="/detail-guru-sekolah/:id"
+            element={
+              <PrivateHome>
+                <DetailGuruSekolah />
+              </PrivateHome>
+            }
+          />
+          <Route
+            path="/detail-murid-sekolah/:id"
+            element={
+              <PrivateHome>
+                <DetailMuridSekolah />
               </PrivateHome>
             }
           />
@@ -236,7 +254,6 @@ function App() {
               <PrivateRoute>
                 <PrivateHome>
                   <InfoSekolah />
-                  
                 </PrivateHome>
               </PrivateRoute>
             }
@@ -247,7 +264,6 @@ function App() {
               <PrivateRoute>
                 <PrivateHome>
                   <DataKelas />
-                  
                 </PrivateHome>
               </PrivateRoute>
             }
@@ -258,7 +274,6 @@ function App() {
               <PrivateRoute>
                 <PrivateHome>
                   <TambahKelas />
-                  
                 </PrivateHome>
               </PrivateRoute>
             }
@@ -269,19 +284,17 @@ function App() {
               <PrivateRoute>
                 <PrivateHome>
                   <UbahKelas />
-                  
                 </PrivateHome>
               </PrivateRoute>
             }
           />
-         
+
           <Route
             path="/extra"
             element={
               <PrivateRoute>
                 <PrivateHome>
                   <ExtraSekolah />
-                  
                 </PrivateHome>
               </PrivateRoute>
             }
@@ -292,7 +305,6 @@ function App() {
               <PrivateRoute>
                 <PrivateHome>
                   <UbahExtra />
-                  
                 </PrivateHome>
               </PrivateRoute>
             }
@@ -303,7 +315,6 @@ function App() {
               <PrivateRoute>
                 <PrivateHome>
                   <TambahExtra />
-                  
                 </PrivateHome>
               </PrivateRoute>
             }
@@ -314,7 +325,6 @@ function App() {
               <PrivateRoute>
                 <PrivateHome>
                   <GelarPendidikan />
-                  
                 </PrivateHome>
               </PrivateRoute>
             }
@@ -324,7 +334,7 @@ function App() {
             element={
               <PrivateRoute>
                 <PrivateHome>
-                   <UpdateGelar/>
+                  <UpdateGelar />
                 </PrivateHome>
               </PrivateRoute>
             }
@@ -335,12 +345,10 @@ function App() {
               <PrivateRoute>
                 <PrivateHome>
                   <TambahGelar />
-                  
                 </PrivateHome>
               </PrivateRoute>
             }
           />
-         
 
           <Route
             path="/edit-siswa/:id"

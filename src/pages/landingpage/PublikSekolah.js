@@ -243,7 +243,7 @@ export default function PublikSekolah() {
                   </h3>
                   <p className="text-gray-500 dark:text-gray-400 flex justify-between items-center">
                     <span>{numGuru !== null ? numGuru : "0"} Guru</span>
-                    <Link to={"/table-guru"}>
+                    <Link to={"/detail-guru-sekolah/" + param.id}>
                       <span className="block rounded-md nav-log px-5 py-2.5 text-sm font-medium transition">
                         Lihat Detail
                       </span>
@@ -268,7 +268,7 @@ export default function PublikSekolah() {
                   </h3>{" "}
                   <p className="text-gray-500 dark:text-gray-400 flex justify-between items-center">
                     <span>{numSiswa !== null ? numSiswa : "0"} Murid</span>
-                    <Link to={"/table"}>
+                    <Link to={"/detail-murid-sekolah/" + param.id}>
                       <span className="block rounded-md nav-log px-5 py-2.5 text-sm font-medium transition">
                         Lihat Detail
                       </span>
@@ -296,8 +296,8 @@ export default function PublikSekolah() {
                     Kelas
                   </h3>
                   <p className="text-gray-500 dark:text-gray-400 flex justify-between items-center">
-                    <span>12 {/* {ruangKelas} */} Kelas</span>
-                    <Link to={"/login"}>
+                    {numKelas} Kelas
+                    <Link to={"/data-kelas"}>
                       <span className="block rounded-md nav-log px-5 py-2.5 text-sm font-medium transition">
                         Lihat Detail
                       </span>
