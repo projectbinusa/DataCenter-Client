@@ -6,8 +6,8 @@ import Swal from "sweetalert2";
 import "../../style/edit.css";
 import PageSidebar from "../../components/PageSidebar";
 
-export default function UbahKelas() {
-  const kelasId = localStorage.getItem("kelasId");
+export default function EditGuru() {
+  const sekolahId = localStorage.getItem("sekolahId");
   const [namaKelas, setNamaKelas] = useState("");
 
   const [status, setStatus] = useState("");
@@ -16,12 +16,12 @@ export default function UbahKelas() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/kelas/${kelasId}`)
+      .get("http://localhost:8080/api/kela/" + sekolahId.id)
       .then((response) => {
-        const dataKelas = response.data;
-        setNamaKelas(dataKelas.namaKelas);
+        const dataGuru = response.data;
+        setNamaKelas(dataGuru.namaKelas);
 
-        setStatus(dataKelas.status);
+        setStatus(dataGuru.status);
       })
       .catch((error) => {
         alert("Terjadi kesalahan Sir! " + error);
@@ -40,7 +40,7 @@ export default function UbahKelas() {
     event.preventDefault();
 
     await axios
-      .put(`http://localhost:8080/api/kelas/${kelasId}` , {
+      .put("http://localhost:8080/api/guru/" + sekolahId.id, {
         namaKelas: namaKelas,
 
         status: status,
@@ -53,7 +53,7 @@ export default function UbahKelas() {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("data-kelas");
+        navigate("/table-guru");
       })
       .catch((error) => {
         alert("Terjadi kesalahan: " + error);
@@ -89,7 +89,7 @@ export default function UbahKelas() {
                     type="text"
                     id="name"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                    placeholder="Nama Kelas"
+                    placeholder="Nama"
                     value={namaKelas}
                     onChange={nameChangeHandler}
                     required

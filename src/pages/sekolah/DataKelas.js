@@ -62,7 +62,8 @@ export default function DataKelas() {
       cancelButtonText: "Batal",
     }).then((result) => {
       if (result.isConfirmed) {
-      navigate("/ubah-kelas");
+      navigate("/ubah-kelas"
+      );
           }
     });
   };

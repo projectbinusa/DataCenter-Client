@@ -33,6 +33,8 @@ export default function Login() {
         localStorage.setItem("role", data.role);
         localStorage.setItem("userId", data.id);
         localStorage.setItem("sekolahId", data.sekolahId);
+        localStorage.setItem("kelasId", data.id);
+        localStorage.setItem("gelarId", data.id);
         if (localStorage.getItem("role") === "super admin") {
           navigate("/dashboard");
         } else {
