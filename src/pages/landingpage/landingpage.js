@@ -4,7 +4,7 @@ import axios from "axios";
 import AOS from "aos";
 import PageSidebar from "../../components/PageSidebar";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/logo.jpg";
+import Logo from "../../assets/logo.png";
 
 const api = "http://localhost:8080/api/sekolah";
 
