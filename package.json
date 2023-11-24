@@ -12,7 +12,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "aos": "^2.3.4",
-    "apexcharts": "^3.36.0",
+    "apexcharts": "^3.44.0",
     "axios": "^1.1.2",
     "cors": "^2.8.5",
     "datatables.net": "^1.12.1",

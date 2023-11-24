@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { Label, Textarea } from "flowbite-react";
 
 export default function EditSekolah() {
-   const userId = localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
   const sekolahId = localStorage.getItem("sekolahId");
   const [namaSekolah, setNamaSekolah] = useState("");
   const [informasiSekolah, setInformasiSekolah] = useState("");
@@ -15,6 +15,7 @@ export default function EditSekolah() {
   const [alamatSekolah, setAlamatSekolah] = useState("");
   const [teleponSekolah, setTeleponSekolah] = useState("");
   const [status, setStatus] = useState("");
+  const [image, setImage] = useState("");
 
   const navigate = useNavigate();
 
@@ -56,11 +57,14 @@ export default function EditSekolah() {
   const statusChangeHandler = (event) => {
     setStatus(event.target.value);
   };
- 
+  const imageChangeHandler = (event) => {
+    // Mengambil file gambar yang dipilih oleh user
+    const selectedFile = event.target.files[0];
+    setImage(selectedFile);
+  };
   const submitActionHandler = async (event) => {
     event.preventDefault();
-  
-   
+
     try {
       await axios.put(`http://localhost:8080/api/sekolah/${sekolahId}`, {
         namaSekolah: namaSekolah,
@@ -70,7 +74,7 @@ export default function EditSekolah() {
         status: status,
         informasiSekolah: informasiSekolah,
       });
-  
+
       Swal.fire({
         position: "center",
         icon: "success",
@@ -79,9 +83,9 @@ export default function EditSekolah() {
         timer: 1500,
       }).then(() => {
         setTimeout(() => {
-           
           navigate("/info-sekolah");
-        }, 1000)   });
+        }, 1000);
+      });
     } catch (error) {
       Swal.fire({
         position: "center",
@@ -90,19 +94,16 @@ export default function EditSekolah() {
       });
     }
   };
-  
 
   const batal = () => {
     Swal.fire({
-      icon:"error",
-      text:"Batal Mengubah Data",
-      timer:1000,
-
+      icon: "error",
+      text: "Batal Mengubah Data",
+      timer: 1000,
     });
     setTimeout(() => {
-           
       navigate("/info-sekolah");
-    }, 1000)  
+    }, 1000);
   };
 
   return (
@@ -116,7 +117,7 @@ export default function EditSekolah() {
                 Update Data Sekolah
               </p>
               <form action="" onSubmit={submitActionHandler}>
-                <div className="grid grid-cols-1 gap-5 text-center sm:grid-cols-2 p-5">
+                <div className="flex flex-col sm:grid grid-cols-2 gap-3 p-5">
                   <div className="relative p-5">
                     <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
                       Nama Sekolah
@@ -152,6 +153,24 @@ export default function EditSekolah() {
                         className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                         value={alamatSekolah}
                         onChange={alamatChangeHandler}
+                      />
+                    </label>
+                  </div>
+
+                  <div className="relative p-5">
+                    <span className="absolute left-3 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
+                      Gambar Sekolah
+                    </span>
+                    <label
+                      htmlFor="image"
+                      className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                    >
+                      <input
+                        type="file"
+                        id="image"
+                        accept="image/jpeg, image/png" // Menerima file gambar dengan format JPEG dan PNG
+                        className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                        onChange={imageChangeHandler}
                       />
                     </label>
                   </div>
@@ -198,7 +217,7 @@ export default function EditSekolah() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-1 text-center sm:grid-cols-1">
+                <div className="grid grid-cols-1 gap-1  text-center sm:grid-cols-1">
                   <div className="relative">
                     <div className="max-w-md mx-auto">
                       {" "}
@@ -223,9 +242,7 @@ export default function EditSekolah() {
                   </div>
                 </div>
 
- 
-
-                <div className="flex justify-between p-3 ">
+                <div className="flex justify-between p-5 md:p-6 ">
                   <button
                     type="button"
                     onClick={batal}

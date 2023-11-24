@@ -300,7 +300,7 @@ function App() {
             }
           />
           <Route
-            path="/ubah-extra"
+            path="/ubah-extra/:id"
             element={
               <PrivateRoute>
                 <PrivateHome>
