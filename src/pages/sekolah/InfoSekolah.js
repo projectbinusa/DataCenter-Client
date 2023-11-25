@@ -150,7 +150,7 @@ export default function InfoSekolah() {
       setAlamatSekolah(dataSekolah.alamatSekolah);
       setTeleponSekolah(dataSekolah.teleponSekolah);
       setStatus(dataSekolah.status);
-      setImage(dataSekolah.image);
+       setImage(dataSekolah.image);
     } catch (error) {
       console.error("Error fetching data:", error);
       Swal.fire({
@@ -176,18 +176,24 @@ export default function InfoSekolah() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-5">
             <section className="bg-gray-50 dark:bg-gray-800 rounded-lg">
               <div className="py-8 px-8 mx-auto max-w-screen-xl sm:py-16">
-            
-                  <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
-                    Logo Sekolah
-                  </h2>
-           
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+                  Logo Sekolah
+                </h2>
+
                 <div className="flex items-center justify-center">
-                  <img
-                    src={image}
-                    alt=""
-                    className="h-86 w-2/6 object-contain rounded-lg"
-                  />
+                  <button
+                    className="obeject-contain rounded-full"
+                    
+                  >
+                    <img
+                      src={image === null ? logo : image}
+                      alt=""
+                      className="h-86 w-2/6 object-contain rounded-full"
+                    />
+                  </button>
                 </div>
+
+              
 
                 <div className="  text-gray-500 dark:text-gray-400 p-5 md:p-3">
                   <i style={{ fontSize: "1.5em" }} className="p-2 md:p-1">
@@ -217,6 +223,14 @@ export default function InfoSekolah() {
                     {teleponSekolah}
                   </p>
                 </div>
+              </div>
+              <div className="flex items-center justify-between float-right px-5 py-2.5 ">
+                <button
+                  className="bottom-0 right-4 my-4 md:my-2 ml-4 md:ml-2 bg-blue-700 text-white px-4 py-2 rounded-md "
+                  onClick={() => handleEditButtonClick()}
+                >
+                  Ubah Profile
+                </button>
               </div>
             </section>
             <section className="bg-gray-50 dark:bg-gray-800 rounded-lg">
@@ -316,12 +330,9 @@ export default function InfoSekolah() {
                 </a>
               </p>
             </div>
-    
           </div>
 
-
           <div className="grid grid-cols-1 md:grid-cols-2 p-3 lg:grid-cols-2 gap-3 p-5">
-            
             <div className="divide-solid p-4  bg-gray-50 dark:bg-gray-800px rounded-lg">
               <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-blue-100 lg:h-12 lg:w-12 dark:bg-blue-900">
                 <svg
@@ -372,14 +383,6 @@ export default function InfoSekolah() {
                 </a>
               </p>
             </div>
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              className="bottom-0 right-4 my-4 md:my-2 ml-4 md:ml-2 bg-blue-500 text-white px-4 py-2 rounded-md"
-              onClick={() => handleEditButtonClick()}
-            >
-              Ubah Profile
-            </button>
           </div>
         </div>{" "}
       </div>
