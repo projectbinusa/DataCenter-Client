@@ -39,8 +39,8 @@ import TambahExtra from "./pages/sekolah/TambahExtra";
 import TambahGelar from "./pages/sekolah/TambahGelar";
 import UbahExtra from "./pages/sekolah/UbahExtra";
 import UpdateGelar from "./pages/sekolah/UpdateGelar";
-import DetailGuruSekolah from "./pages/landingpage/DetailGuruSekolah";
-import DetailMuridSekolah from "./pages/landingpage/DetailMuridSekolah";
+// import DetailGuruSekolah from "./pages/landingpage/DetailGuruSekolah";
+// import DetailMuridSekolah from "./pages/landingpage/DetailMuridSekolah";
 
 // import PrivateBack from "./router/PrivateBack";
 
@@ -71,7 +71,7 @@ function App() {
               </PrivateHome>
             }
           />
-          <Route
+          {/* <Route
             path="/detail-guru-sekolah/:id"
             element={
               <PrivateHome>
@@ -86,7 +86,7 @@ function App() {
                 <DetailMuridSekolah />
               </PrivateHome>
             }
-          />
+          /> */}
 
           <Route
             path="/registrasi2"

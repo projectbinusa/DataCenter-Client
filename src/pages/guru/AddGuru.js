@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PageSidebar from "../../components/PageSidebar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -15,6 +15,7 @@ export default function TableGuru() {
   const [gender, setGender] = useState("");
   const [gelar_pendidikan, setGelarPendidikan] = useState("");
   const [status_kawin, setStatusKawin] = useState("");
+  const [gelar_option, setGelarOption] = useState([]);
 
   const addGuru = async (e) => {
     e.preventDefault();
@@ -60,9 +61,23 @@ export default function TableGuru() {
       });
     }
   };
+  const getAll = async () => {
+    await axios
+      .get(
+        "http://localhost:8080/api/gelarPendidikan/" +
+          localStorage.getItem("sekolahId") +
+          "/gelarPendidikan"
+      )
+      .then((res) => {
+        setGelarOption(res.data);
+      });
+  };
   const batal = () => {
     navigate("/table-guru");
   };
+  useEffect(() => {
+    getAll();
+  }, []);
 
   return (
     <>
@@ -168,18 +183,11 @@ export default function TableGuru() {
                     <option value="" disabled>
                       Gelar Pendidikan
                     </option>
-                    <option value="S.Ag">S.Ag</option>
-                    <option value="S.Sos">S.Sos</option>
-                    <option value="S.Ikom">S.Ikom</option>
-                    <option value="S.Pd">S.Pd</option>
-                    <option value="S.T">S.T</option>
-                    <option value="S.Kom">S.Kom</option>
-                    <option value="S.Si">S.Si</option>
-                    <option value="S.Mat">S.Mat</option>
-                    <option value="S.Pd.I">S.Pd.I</option>
-                    <option value="S.S">S.S</option>
-                    <option value="S.Sn">S.Sn</option>
-                    {/* Add more options as needed */}
+                    {gelar_option.map((val) => {
+                      return (
+                        <option value={val.namaGelar}>{val.namaGelar}</option>
+                      );
+                    })}
                   </select>
                 </div>
               </div>
