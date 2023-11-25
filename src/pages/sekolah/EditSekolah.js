@@ -99,7 +99,7 @@ export default function EditSekolah() {
       Swal.fire({
         position: "center",
         icon: "warning",
-        title: "Gagal Merubah Data",
+        title: "Gagal Merubah Data" + error,
       });
     }
   };
