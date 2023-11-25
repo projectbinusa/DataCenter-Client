@@ -491,7 +491,7 @@ export default function PublikSekolah() {
                     className="max-w-screen-md mb-8 lg:mb-16"
                     style={{ position: "relative" }}
                   >
-                    <center>
+                    {/* <center>
                       <img
                         src={logo}
                         alt=""
@@ -506,7 +506,7 @@ export default function PublikSekolah() {
                         }}
                         className=""
                       />
-                    </center>
+                    </center> */}
                     <div style={{ paddingRight: "150px" }}>
                       <h2 className="mb-4 text-4xl font-extrabold text-gray-50 dark:text-white">
                         Informasi {namaSekolah}
@@ -518,12 +518,13 @@ export default function PublikSekolah() {
                     </div>
                   </div>
                 </div>
+
                 <div className="flex flex-col md:flex-row justify-center gap-5 mt-5 mb-5">
                   {/* Diagram Gender */}
                   <div className="text-center md:flex-1">
                     <div data-aos="fade-right">
                       <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[330px]">
-                        <div className="rounded-xl bg-white p-1  h-[320px]">
+                        <div className="rounded-xl bg-gray-300 p-1  h-[320px]">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             {guru.length === 0 ? (
                               <div>belum ada data</div>
@@ -553,7 +554,7 @@ export default function PublikSekolah() {
                   <div className="text-center md:flex-1">
                     <div data-aos="fade-right">
                       <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[330px]">
-                        <div className="rounded-xl bg-white p-1  h-[320px]">
+                        <div className="rounded-xl bg-gray-300 p-1  h-[320px]">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             {guru.length === 0 ? (
                               <div>belum ada data</div>
@@ -586,7 +587,7 @@ export default function PublikSekolah() {
                   <div className="text-center md:flex-1">
                     <div data-aos="fade-left">
                       <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
-                        <div className="rounded-xl bg-white p-1 h-[350px]">
+                        <div className="rounded-xl bg-gray-300 p-1 h-[350px]">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             {guru.length === 0 ? (
                               <div>belum ada data</div>
@@ -617,7 +618,7 @@ export default function PublikSekolah() {
                   <div className="text-center md:flex-1">
                     <div data-aos="fade-left">
                       <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
-                        <div className="rounded-xl bg-white p-1 h-[350px]">
+                        <div className="rounded-xl bg-gray-300 p-1 h-[350px]">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             {guru.length === 0 ? (
                               <div>belum ada data</div>
@@ -646,29 +647,26 @@ export default function PublikSekolah() {
                 </div>
                 <div className="flex flex-wrap justify-center gap-5 my-10">
                   {/* Chart - Gender */}
-                  <div data-aos="fade-right">
-                    <div className=" rounded-2xl p-1 shadow-xl w-[380px] md:w-[400px]">
-                      <div className="rounded-xl bg-white p-1">
-                        <div className=" rounded-xl p-1">
-                          <p className="text-white text-2xl text-center">
-                            Gender
-                          </p>
-                        </div>
-                        <div className="m-5 overflow-hidden overflow-x-auto">
-                          <Chart
-                            type="donut"
-                            width={350}
-                            className="text-center"
-                            options={statee.options}
-                            series={statee.series}
-                          />
-                          <div className=" rounded-xl text-left p-1">
-                            <p className="text-black text-md font-bold">
-                              Gender
-                            </p>
-                            <p className="text-black text-xs ">
-                              Menampilkan presentase gender murid
-                            </p>
+                  <div className="text-center md:flex-1">
+                    <div data-aos="fade-right">
+                      <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[310px]">
+                        <div className="rounded-xl bg-gray-300 p-1">
+                          <div className="m-5 overflow-hidden overflow-x-auto">
+                            <Chart
+                              type="donut"
+                              width={400}
+                              className="text-center"
+                              options={statee.options}
+                              series={statee.series}
+                            />
+                            <div className=" rounded-xl text-left p-1">
+                              <p className="text-black text-md font-bold">
+                                Gender
+                              </p>
+                              <p className="text-black text-xs ">
+                                Menampilkan presentase gender murid
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -676,46 +674,39 @@ export default function PublikSekolah() {
                   </div>
 
                   {/* Chart - Kelas */}
-                  <div data-aos="fade-center">
-                    <div className=" rounded-2xl p-1 shadow-xl w-[350px] md:w-[400px]">
-                      <div className="rounded-xl bg-white p-1">
-                        <div className=" rounded-xl p-1">
-                          <p className="text-white text-2xl text-center">
-                            Kelas
-                          </p>
-                        </div>
-                        <div className="m-5 overflow-hidden overflow-x-auto">
-                          <Chart
-                            options={kelas.options}
-                            series={kelas.series}
-                            type="donut"
-                            width={300}
-                            className="text-left"
-                          />
-                          <div className=" rounded-xl text-left p-1">
-                            <p className="text-black text-md font-bold">
-                              Kelas
-                            </p>
-                            <p className="text-black text-xs ">
-                              Menampilkan presentase kelas murid
-                            </p>
+                  <div className="text-center md:flex-1">
+                    <div data-aos="fade-center">
+                      <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[310px]">
+                        <div className="rounded-xl bg-gray-300 p-1">
+                          <div className="m-5 overflow-hidden overflow-x-auto">
+                            <Chart
+                              options={kelas.options}
+                              series={kelas.series}
+                              type="donut"
+                              width={350}
+                              className="text-left"
+                            />
+                            <div className=" rounded-xl text-left p-1">
+                              <p className="text-black text-md font-bold">
+                                Kelas
+                              </p>
+                              <p className="text-black text-xs ">
+                                Menampilkan presentase kelas murid
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <br></br>
                 <div className="flex flex-wrap justify-center gap-5 my-10">
                   {/* Diagram Agama */}
-                  <div className="text-center">
+                  <div className="text-center md:flex-1">
                     <div data-aos="fade-left">
-                      <div className="rounded-2xl p-1 shadow-xl w-[370px] md:w-[490px] h-[400px]">
-                        <div className="rounded-xl bg-white p-1 h-[390px]">
-                          <div className=" rounded-xl p-1">
-                            <p className="text-white text-2xl text-center">
-                              Agama
-                            </p>
-                          </div>
+                      <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
+                        <div className="rounded-xl bg-gray-300 p-1 h-[350px]">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             {siswa.length === 0 ? (
                               <div>belum ada data</div>
