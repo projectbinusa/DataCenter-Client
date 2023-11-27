@@ -8,6 +8,14 @@ import { useParams, Link } from "react-router-dom";
 import PageNavbar from "../../components/PageNavbar";
 import Logo from "../../assets/logo.png";
 import Swal from "sweetalert2";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChalkboardUser,
+  faMedal,
+  faSchool,
+  faUserFriends,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 
 AOS.init({ duration: 1750, once: true });
 const api = "http://localhost:8080/api/sekolah";
@@ -26,6 +34,8 @@ export default function PublikSekolah() {
   const [UserId, setUserId] = useState("");
   const [guru, setGuru] = useState([]);
   const [siswa, setSiswa] = useState([]);
+  const [kelas_option, setKelasOption] = useState([]);
+  const [extra_option, setExtraOption] = useState([]);
 
   const param = useParams();
 
@@ -65,108 +75,6 @@ export default function PublikSekolah() {
     },
     series: [0, 0, 0, 0, 0, 0, 0],
   });
-
-  const [gelar, setGelar] = useState({
-    options: {
-      plotOptions: {
-        bar: {
-          borderRadius: 10,
-        },
-      },
-      labels: [
-        "S.Ag",
-        "S.Sos",
-        "S.Ikom",
-        "S.Pd",
-        "S.T",
-        "S.Kom",
-        "S.Si",
-        "S.Mat",
-        "S.Pd.I",
-        "S.S",
-        "S.Sn",
-        "Lainnya",
-      ],
-      colors: [
-        "#00ff00",
-        "#b50595",
-        "#9c9c9c",
-        "#ff1500",
-        "#0015ff",
-        "#fffb03",
-        "#000000",
-      ],
-    },
-    series: [0, 0, 0, 0, 0, 0, 0],
-  });
-
-  const [ageData, setAgeData] = useState({
-    options: {
-      labels: [
-        "20-25 tahun",
-        "25-30 tahun",
-        "30-35 tahun",
-        "35-40 tahun",
-        "40-45 tahun",
-        "45-50 tahun",
-        "50-55 tahun",
-        "55-60 tahun",
-      ],
-      colors: [
-        "#007bff", // Blue
-        "#3399ff", // Light Blue
-        "#0056b3", // Dark Blue
-        "#66a3ff", // Sky Blue
-        "#003366", // Navy Blue
-        "#99c2ff", // Baby Blue
-        "#004080", // Royal Blue
-        "#b3d9ff", // Ice Blue
-      ],
-    },
-    series: [0, 0, 0, 0, 0, 0, 0, 0],
-  });
-
-  const dataa = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8080/api/guru/" + param.id + "/guru"
-      );
-      setGuru(response.data);
-
-      // Calculate age ranges
-      const now = new Date();
-      const ageRanges = [20, 25, 30, 35, 40, 45, 50, 55, 60];
-      const ageCounts = Array(ageRanges.length).fill(0);
-
-      response.data.forEach((guru) => {
-        const birthDate = new Date(guru.tanggalLahir);
-        const age = now.getFullYear() - birthDate.getFullYear();
-
-        // Check if birthday has occurred this year
-        const isBirthdayPassed =
-          now.getMonth() > birthDate.getMonth() ||
-          (now.getMonth() === birthDate.getMonth() &&
-            now.getDate() >= birthDate.getDate());
-
-        // Adjust age based on the current month and day
-        const adjustedAge = isBirthdayPassed ? age : age - 1;
-
-        for (let i = 0; i < ageRanges.length - 1; i++) {
-          if (adjustedAge >= ageRanges[i] && adjustedAge < ageRanges[i + 1]) {
-            ageCounts[i]++;
-            break;
-          }
-        }
-      });
-
-      setAgeData({
-        ...ageData,
-        series: ageCounts,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const data = async () => {
     try {
@@ -275,58 +183,6 @@ export default function PublikSekolah() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const respon = await axios.get(
-          "http://localhost:8080/api/guru/" + param.id + "/guru"
-        );
-        setGuru(respon.data);
-
-        const gelarCounts = {
-          "S.Ag": 0,
-          "S.Sos": 0,
-          "S.Ikom": 0,
-          "S.Pd": 0,
-          "S.T": 0,
-          "S.Kom": 0,
-          "S.Si": 0,
-          "S.Mat": 0,
-          "S.Pd.I": 0,
-          "S.S": 0,
-          "S.Sn": 0,
-          Lainnya: 0,
-        };
-
-        // Menghitung jumlah guru berdasarkan agama
-        respon.data.forEach((r) => {
-          gelarCounts[r.gelarPendidikan]++;
-        });
-
-        // Mendapatkan labels yang memiliki jumlah guru lebih dari 0
-        const labelsWithCount = Object.keys(gelarCounts).filter(
-          (gelarPendidikan) => gelarCounts[gelarPendidikan] > 0
-        );
-
-        // Update state dengan labels yang memiliki data
-        setGelar({
-          ...gelar,
-          options: {
-            ...gelar.options,
-            labels: labelsWithCount,
-          },
-          series: labelsWithCount.map(
-            (gelarPendidikan) => gelarCounts[gelarPendidikan]
-          ),
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   const getPublikSekolah = async () => {
     try {
       const response = await axios.get(`${api}/${param.id}`);
@@ -343,7 +199,7 @@ export default function PublikSekolah() {
 
   const [statee, setStatee] = useState({
     options: {
-      labels: ["Perempuan", "Laki-laki"],
+      labels: ["Wanita", "Pria"],
       colors: ["lightpink", "lightblue"],
     },
     series: [],
@@ -407,13 +263,82 @@ export default function PublikSekolah() {
     }
   };
 
+  const getAll = async () => {
+    await axios
+      .get(
+        "http://localhost:8080/api/guru/" +
+          localStorage.getItem("sekolahId") +
+          "/guru"
+      )
+      .then((res) => {
+        setGuru(res.data);
+      });
+  };
+
+  const getAllMurid = async () => {
+    await axios
+      .get(
+        "http://localhost:8080/api/sekolah/" +
+          localStorage.getItem("sekolahId") +
+          "/siswa"
+      )
+      .then((res) => {
+        setSiswa(res.data);
+      });
+  };
+
+  const getAllKelas = async () => {
+    await axios
+      .get(
+        "http://localhost:8080/api/kelas/" +
+          localStorage.getItem("sekolahId") +
+          "/kelas"
+      )
+      .then((res) => {
+        setKelasOption(res.data);
+      });
+  };
+
+  const getAllExtra = async () => {
+    await axios
+      .get(
+        "http://localhost:8080/api/extra/" +
+          localStorage.getItem("sekolahId") +
+          "/extra"
+      )
+      .then((res) => {
+        setExtraOption(res.data);
+      });
+  };
+
   useEffect(() => {
     data();
     dt();
-    dataa();
     getPublikSekolah();
     gendersiswa();
+    getAll();
+    getAllMurid();
+    getAllKelas();
+    getAllExtra();
   }, []);
+
+  const totalGuruIcon = (
+    <FontAwesomeIcon
+      icon={faChalkboardUser}
+      className="text-4xl text-black-600 mr-4"
+    />
+  );
+
+  const muridIcon = (
+    <FontAwesomeIcon icon={faUsers} className="text-4xl text-black-600 mr-4" />
+  );
+  const kelasIcon = (
+    <FontAwesomeIcon icon={faSchool} className="text-4xl text-black-600 mr-4" />
+  );
+  const extraIcon = (
+    <FontAwesomeIcon icon={faMedal} className="text-4xl text-black-600 mr-4" />
+  );
+
   return (
     <div className="bg-gray-900">
       <header>
@@ -484,7 +409,7 @@ export default function PublikSekolah() {
       <div className="bg-gray-900 min-h-screen">
         <div className="p-4 md:mx-20 sm:ml-64 mt-16 ">
           <div data-aos="fade-up">
-            <section className="bg-gray-800 dark:bg-gray-900">
+            <section className="bg-gray-800">
               <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
                 <div className="max-w-screen-md mb-8 lg:mb-16">
                   <div
@@ -508,23 +433,96 @@ export default function PublikSekolah() {
                       />
                     </center> */}
                     <div style={{ paddingRight: "150px" }}>
-                      <h2 className="mb-4 text-4xl font-extrabold text-gray-50 dark:text-white">
-                        Informasi {namaSekolah}
+                      <h2 className="mb-4 text-4xl font-extrabold text-gray-50 dark:text-white uppercase">
+                        Ini Adalah Informasi Sekolah {namaSekolah}
                       </h2>
-
                       <p className="text-gray-300 sm:text-xl dark:text-gray-400">
-                        {informasiSekolah}
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Temporibus quae, mollitia rem reiciendis ab
+                        reprehenderit laboriosam voluptatum, corporis rerum
+                        sapiente aliquid labore quis illum libero dolore quos
+                        dolor cupiditate similique.
                       </p>
                     </div>
                   </div>
                 </div>
+                <div className="grid grid-cols-1 px-4 md:grid-cols-4 gap-4">
+                  <div className="rounded-xl bg-gray-300 p-1 flex">
+                    <div className="rounded-xl p-4 h-[120px] flex items-center">
+                      <div className="flex items-start">
+                        <div className="self-start">
+                          {" "}
+                          {/* Tambahkan class self-start untuk ikon */}
+                          {totalGuruIcon}
+                        </div>
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-lg text-black">Total Guru</p>
+                        <p className="text-xl font-bold text-black">
+                          {guru.length}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="rounded-xl bg-gray-300 p-1 flex">
+                    <div className="rounded-xl p-4 h-[120px] flex items-center">
+                      <div className="flex items-start">
+                        <div className="self-start">
+                          {" "}
+                          {/* Tambahkan class self-start untuk ikon */}
+                          {muridIcon}
+                        </div>
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-lg text-black">Total Murid</p>
+                        <p className="text-xl font-bold text-black">
+                          {siswa.length}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="rounded-xl bg-gray-300 p-1 flex">
+                    <div className="rounded-xl p-4 h-[120px] flex items-center">
+                      <div className="flex items-start">
+                        <div className="self-start">
+                          {" "}
+                          {/* Tambahkan class self-start untuk ikon */}
+                          {kelasIcon}
+                        </div>
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-lg text-black">Total Kelas</p>
+                        <p className="text-xl font-bold text-black">
+                          {kelas_option.length}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="rounded-xl bg-gray-300 p-1 flex">
+                    <div className="rounded-xl p-4 h-[120px] flex items-center">
+                      <div className="flex items-start">
+                        <div className="self-start">
+                          {" "}
+                          {/* Tambahkan class self-start untuk ikon */}
+                          {extraIcon}
+                        </div>
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-lg text-black">Total Extra</p>
+                        <p className="text-xl font-bold text-black">
+                          {extra_option.length}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-                <div className="flex flex-col md:flex-row justify-center gap-5 mt-5 mb-5">
-                  {/* Diagram Gender */}
-                  <div className="text-center md:flex-1">
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="min-h-[700px] max-h-[700px]">
+                    {" "}
                     <div data-aos="fade-right">
-                      <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[330px]">
-                        <div className="rounded-xl bg-gray-300 p-1  h-[320px]">
+                      <div className="rounded-2xl p-4 shadow-xl w-full">
+                        <div className="rounded-xl bg-gray-300 p-1 h-[550px] ">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             {guru.length === 0 ? (
                               <div>belum ada data</div>
@@ -533,15 +531,15 @@ export default function PublikSekolah() {
                                 options={state.options}
                                 series={state.series}
                                 type="donut"
-                                width="355"
+                                width="300"
                                 className="text-left"
                               />
                             )}
-                            <div className=" rounded-xl text-left p-1">
+                            <div className="rounded-xl text-left p-1">
                               <p className="text-black text-md font-bold">
-                                Gender
+                                Gender Guru
                               </p>
-                              <p className="text-black text-xs ">
+                              <p className="text-black text-xs">
                                 Menampilkan presentase gender guru
                               </p>
                             </div>
@@ -550,120 +548,24 @@ export default function PublikSekolah() {
                       </div>
                     </div>
                   </div>
-                  {/* Diagram Age */}
-                  <div className="text-center md:flex-1">
+                  <div className="min-h-[400px] max-h-[400px]">
+                    {" "}
                     <div data-aos="fade-right">
-                      <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[330px]">
-                        <div className="rounded-xl bg-gray-300 p-1  h-[320px]">
-                          <div className="m-5 overflow-hidden overflow-x-auto">
-                            {guru.length === 0 ? (
-                              <div>belum ada data</div>
-                            ) : (
-                              <Chart
-                                options={ageData.options}
-                                series={ageData.series}
-                                type="donut"
-                                width="380"
-                                className="text-left"
-                              />
-                            )}
-                            <div className=" rounded-xl text-left p-1">
-                              <p className="text-black text-md font-bold">
-                                Umur
-                              </p>
-                              <p className="text-black text-xs ">
-                                Menampilkan presentase umur guru
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-col md:flex-row justify-center gap-5 my-5">
-                  {/* Diagram Gelar */}
-                  <div className="text-center md:flex-1">
-                    <div data-aos="fade-left">
-                      <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
-                        <div className="rounded-xl bg-gray-300 p-1 h-[350px]">
-                          <div className="m-5 overflow-hidden overflow-x-auto">
-                            {guru.length === 0 ? (
-                              <div>belum ada data</div>
-                            ) : (
-                              <Chart
-                                options={gelar.options}
-                                series={[{ data: gelar.series }]}
-                                type="bar"
-                                width="400"
-                                className="text-left"
-                              />
-                            )}
-                            <div className=" rounded-xl text-left p-1">
-                              <p className="text-black text-md font-bold">
-                                Gelar Pendidikan
-                              </p>
-                              <p className="text-black text-xs ">
-                                Menampilkan total gelar pendidikan guru
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Diagram Agama */}
-                  <div className="text-center md:flex-1">
-                    <div data-aos="fade-left">
-                      <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
-                        <div className="rounded-xl bg-gray-300 p-1 h-[350px]">
-                          <div className="m-5 overflow-hidden overflow-x-auto">
-                            {guru.length === 0 ? (
-                              <div>belum ada data</div>
-                            ) : (
-                              <Chart
-                                options={religiGuru.options}
-                                series={[{ data: religiGuru.series }]}
-                                type="bar"
-                                width="400"
-                                className="text-left"
-                              />
-                            )}
-                            <div className=" rounded-xl text-left p-1">
-                              <p className="text-black text-md font-bold">
-                                Agama
-                              </p>
-                              <p className="text-black text-xs ">
-                                Menampilkan total agama guru
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-wrap justify-center gap-5 my-10">
-                  {/* Chart - Gender */}
-                  <div className="text-center md:flex-1">
-                    <div data-aos="fade-right">
-                      <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[310px]">
-                        <div className="rounded-xl bg-gray-300 p-1">
+                      <div className="rounded-2xl p-4 shadow-xl w-full">
+                        <div className="rounded-xl bg-gray-300 p-1 h-[550px]">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             <Chart
                               type="donut"
-                              width={400}
+                              width="300"
                               className="text-center"
                               options={statee.options}
                               series={statee.series}
                             />
-                            <div className=" rounded-xl text-left p-1">
+                            <div className="rounded-xl text-left p-1">
                               <p className="text-black text-md font-bold">
-                                Gender
+                                Gender Murid
                               </p>
-                              <p className="text-black text-xs ">
+                              <p className="text-black text-xs">
                                 Menampilkan presentase gender murid
                               </p>
                             </div>
@@ -672,60 +574,62 @@ export default function PublikSekolah() {
                       </div>
                     </div>
                   </div>
-
-                  {/* Chart - Kelas */}
-                  <div className="text-center md:flex-1">
-                    <div data-aos="fade-center">
-                      <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[310px]">
-                        <div className="rounded-xl bg-gray-300 p-1">
-                          <div className="m-5 overflow-hidden overflow-x-auto">
-                            <Chart
-                              options={kelas.options}
-                              series={kelas.series}
-                              type="donut"
-                              width={350}
-                              className="text-left"
-                            />
-                            <div className=" rounded-xl text-left p-1">
-                              <p className="text-black text-md font-bold">
-                                Kelas
-                              </p>
-                              <p className="text-black text-xs ">
-                                Menampilkan presentase kelas murid
-                              </p>
+                  <div className="min-h-[700px] max-h-[700px]">
+                    <div className="h-[40%]">
+                      {" "}
+                      <div data-aos="fade-left">
+                        <div className="rounded-2xl p-4 shadow-xl w-full ">
+                          <div className="rounded-xl bg-gray-300 p-1 ">
+                            <div className="m-5 overflow-hidden overflow-x-auto">
+                              {guru.length === 0 ? (
+                                <div>belum ada data</div>
+                              ) : (
+                                <Chart
+                                  options={religiGuru.options}
+                                  series={[{ data: religiGuru.series }]}
+                                  type="bar"
+                                  width="250"
+                                  className="text-left"
+                                />
+                              )}
+                              <div className="rounded-xl text-left p-1">
+                                <p className="text-black text-md font-bold">
+                                  Agama Guru
+                                </p>
+                                <p className="text-black text-xs">
+                                  Menampilkan total agama guru
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <br></br>
-                <div className="flex flex-wrap justify-center gap-5 my-10">
-                  {/* Diagram Agama */}
-                  <div className="text-center md:flex-1">
-                    <div data-aos="fade-left">
-                      <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
-                        <div className="rounded-xl bg-gray-300 p-1 h-[350px]">
-                          <div className="m-5 overflow-hidden overflow-x-auto">
-                            {siswa.length === 0 ? (
-                              <div>belum ada data</div>
-                            ) : (
-                              <Chart
-                                options={religiMurid.options}
-                                series={[{ data: religiMurid.series }]}
-                                type="bar"
-                                width="400"
-                                className="text-left"
-                              />
-                            )}
-                            <div className=" rounded-xl text-left p-1">
-                              <p className="text-black text-md font-bold">
-                                Agama
-                              </p>
-                              <p className="text-black text-xs ">
-                                Menampilkan presentase agama murid
-                              </p>
+                    <div className="h-[40%]">
+                      {" "}
+                      <div data-aos="fade-left">
+                        <div className="rounded-2xl p-4 shadow-xl w-full ">
+                          <div className="rounded-xl bg-gray-300 p-1 ">
+                            <div className="m-5 overflow-hidden overflow-x-auto">
+                              {siswa.length === 0 ? (
+                                <div>belum ada data</div>
+                              ) : (
+                                <Chart
+                                  options={religiMurid.options}
+                                  series={[{ data: religiMurid.series }]}
+                                  type="bar"
+                                  width="250"
+                                  className="text-left"
+                                />
+                              )}
+                              <div className="rounded-xl text-left p-1">
+                                <p className="text-black text-md font-bold">
+                                  Agama Murid
+                                </p>
+                                <p className="text-black text-xs">
+                                  Menampilkan presentase agama murid
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </div>

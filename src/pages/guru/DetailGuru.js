@@ -55,6 +55,13 @@ export default function DetailGuru() {
       });
   }, [param.id]);
 
+  function formatTanggal(tanggal) {
+    const options = { day: "numeric", month: "numeric", year: "numeric" };
+    const formattedDate = new Date(tanggal);
+
+    return formattedDate.toLocaleDateString("id-ID", options);
+  }
+
   return (
     <>
       <PageSidebar />
@@ -74,57 +81,59 @@ export default function DetailGuru() {
             </div>
 
             <div className=" text-center pb-2">
-              <p className="mt-1 text-md font-bold text-gray-900">
-                {tempatLahir}, {tanggalLahir}
-              </p>
+              {tanggalLahir && (
+                <p className="mt-1 text-md font-bold text-gray-900">
+                  {tempatLahir}, {formatTanggal(tanggalLahir)}
+                </p>
+              )}
             </div>
           </div>
           {/* Right Card - Detail Guru */}
           <div className="bg-white p-8 shadow-md rounded-md w-2/3">
-            <div className="flex items-start border-b border-gray-200 pb-2">
+            <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Agama
               </label>
-              <p className="mt-1 text-md font-bold text-gray-900">{agama}</p>
+              <p className="flex-1 text-md font-bold text-gray-900">{agama}</p>
             </div>
 
-            <div className="flex items-start border-b border-gray-200 pb-2">
+            <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Umur
               </label>
-              <p className="mt-1 text-md font-bold text-gray-900">{umur}</p>
+              <p className="flex-1 text-md font-bold text-gray-900">{umur}</p>
             </div>
 
-            <div className="flex items-start border-b border-gray-200 pb-2">
+            <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Gender
               </label>
-              <p className="mt-1 text-md font-bold text-gray-900">{gender}</p>
+              <p className="flex-1 text-md font-bold text-gray-900">{gender}</p>
             </div>
 
-            <div className="flex items-start border-b border-gray-200 pb-2">
+            <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 No Telepon
               </label>
-              <p className="mt-1 text-md font-bold text-gray-900">
+              <p className="flex-1 text-md font-bold text-gray-900">
                 {noTelepon}
               </p>
             </div>
 
-            <div className="flex items-start border-b border-gray-200 pb-2">
+            <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Gelar Pendidikan
               </label>
-              <p className="mt-1 text-md font-bold text-gray-900">
+              <p className="flex-1 text-md font-bold text-gray-900">
                 {gelarPendidikan}
               </p>
             </div>
 
-            <div className="flex items-start">
+            <div className="flex items-center">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Status Kawin
               </label>
-              <p className="mt-1 text-md font-bold text-gray-900">
+              <p className="flex-1 text-md font-bold text-gray-900">
                 {statusKawin}
               </p>
             </div>

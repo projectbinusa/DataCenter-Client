@@ -95,14 +95,14 @@ export default function TableGuru() {
               <div className="relative mt-3">
                 <label
                   for="name"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  class="block mb-2 text-sm font-medium text-gray-900 "
                 >
                   Nama
                 </label>
                 <input
                   type="text"
                   id="name"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   placeholder="Nama"
                   value={nama_guru}
                   onChange={(e) => setNamaGuru(e.target.value)}
@@ -114,14 +114,14 @@ export default function TableGuru() {
                 <div className="relative">
                   <label
                     for="tempatlahir"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    class="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Tempat Lahir
                   </label>
                   <input
                     type="text"
                     id="tempatlahir"
-                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     placeholder="Tempat Lahir"
                     value={tempat_lahir}
                     onChange={(e) => setTempatLahir(e.target.value)}
@@ -131,14 +131,14 @@ export default function TableGuru() {
                 <div className="relative">
                   <label
                     for="tanggallahir"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    class="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Tanggal Lahir
                   </label>
                   <input
                     type="date"
                     id="tanggallahir"
-                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     placeholder="Tanggal Lahir"
                     value={tanggal_lahir}
                     onChange={(e) => setTanggalLahir(e.target.value)}
@@ -151,14 +151,14 @@ export default function TableGuru() {
                 <div className="relative">
                   <label
                     for="notelepon"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    class="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     No Telepon
                   </label>
                   <input
                     type="text"
                     id="notelepon"
-                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     placeholder="No Telepon"
                     value={no_telepon}
                     onChange={(e) => setNoTelepon(e.target.value)}
@@ -169,12 +169,12 @@ export default function TableGuru() {
                 <div className="relative">
                   <label
                     for="gelarPendidikan"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    class="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Gelar Pendidikan
                   </label>
                   <select
-                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     id="gelarPendidikan"
                     value={gelar_pendidikan}
                     onChange={(e) => setGelarPendidikan(e.target.value)}
@@ -196,12 +196,12 @@ export default function TableGuru() {
                 <div className="relative">
                   <label
                     for="statusKawin"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    class="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Status Kawin
                   </label>
                   <select
-                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     id="statusKawin"
                     name="statusKawin"
                     value={status_kawin}
@@ -219,12 +219,12 @@ export default function TableGuru() {
                 <div className="relative">
                   <label
                     for="agama"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    class="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Agama
                   </label>
                   <select
-                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     id="agama"
                     name="agama"
                     value={agama}
@@ -247,7 +247,7 @@ export default function TableGuru() {
               <div className="grid grid-cols-2 gap-5 text-center">
                 <label
                   for="gender"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left col-span-2"
+                  class="block mb-2 text-sm font-medium text-gray-900  text-left col-span-2"
                 >
                   Gender
                 </label>
