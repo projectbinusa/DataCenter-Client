@@ -41,7 +41,7 @@ export default function TambahKelas() {
         timer: 1500,
       });
       setTimeout(() => {
-        navigate("/data-kelas");
+        window.location.href = "/data-kelas";     
       }, 1500);
     } catch (err) {
       console.log(err);
@@ -59,82 +59,65 @@ export default function TambahKelas() {
   return (
     < >
       <PageSidebar />
-      <div className="flex my-20">
-        <div className="flex justify-center w-[100%]">
-          <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
+      <div className="p-4 sm:ml-64 mt-14">
+        <div className="mx-auto max-w-screen-xl">
           <form
-              action=""
-              className="mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
-              onSubmit={TambahKelas}
-            >
-              <p className="text-3xl font-medium mb-7">Tambah  Kelas</p>
+            className="mt-10 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
+            onSubmit={TambahKelas}
+          >
+            <p className="text-center text-3xl font-medium mb-7">Tambah  Kelas</p>
+           
 
-            
-
-               
-
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              <div className="relative ">
-                <label
-                  for="name"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Nama Kelas
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                  placeholder="Nama Kelas"
-                  value={nama_kelas}
-                  onChange={(e) => setNamaKelas(e.target.value)}
-                  required
-                />
-              </div>
-                <div className="relative">
-                  <label
-                    for="statusKawin"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Status  
-                  </label>
-                  <select
-                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                    id="statusKawin"
-                    name="statusKawin"
-                    value={status}
+            <div class="grid md:grid-cols-2 md:gap-6">
+            <div className="relative">
+              <label htmlFor="namaMurid">Nama Kelas</label>
+              <input
+                id="namaKelas"
+                type="text"
+                className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                placeholder="  Nama  Kelas "
+                value={nama_kelas}
+                onChange={(e) => setNamaKelas(e.target.value)}
+              />
+            </div>
+              <div className="relative">
+                <label htmlFor="status">Status</label>
+                <select
+                   name="status"
+                  id="status"
+                  className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
                   >
-                    <option value={status} disabled>
+                    <option value="" disabled>
                       Status  
                     </option>
                     
                     <option value="Aktif">Aktif</option>
                     <option value="Non Aktif">Non aktif</option>
                   </select>
-                </div>
-
-               
               </div>
- 
+            </div>
+          
 
-              <div className="flex justify-between p-5">
-                <button
-                  type="button"
-                  onClick={batal}
-                  className="block w-24 rounded-lg text-black outline outline-red-500 py-3 text-sm font-medium"
-                >
-                  Batal
-                </button>
-                <button
-                  type="submit"
-                  className="block w-24 rounded-lg text-black outline outline-[#0b409c] py-3 text-sm font-medium"
-                >
-                  Simpan
-                </button>
-              </div>
-            </form>
-          </main>
+      
+
+            <div className="flex justify-between p-5">
+              <button
+                type="button"
+                onClick={batal}
+                className="block w-24 rounded-lg text-black outline outline-red-500 py-3 text-sm font-medium"
+              >
+                Batal
+              </button>
+              <button
+                type="submit"
+                className="block w-24 rounded-lg text-black outline outline-[#0b409c] py-3 text-sm font-medium"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </>

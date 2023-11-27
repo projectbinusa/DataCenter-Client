@@ -283,14 +283,13 @@ export default function PageSidebar() {
                 </ul>
               </li>
               <li>
-              <Link to={`/info-sekolah`}>
-
-                  <a className="flex items-center p-2 rounded-lg text-white hover:text-blue-600 hover:bg-[#dfecff] group">
+           
+                  <a href="/info-sekolah" className="flex items-center p-2 rounded-lg text-white hover:text-blue-600 hover:bg-[#dfecff] group">
                     <span className="flex-1 ms-3 whitespace-nowrap">
                       Info Sekolah
                     </span>
                   </a>
-                </Link>
+                 
               </li>
             </ul>
           </div>
