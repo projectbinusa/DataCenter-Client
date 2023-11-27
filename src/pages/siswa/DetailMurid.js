@@ -8,6 +8,7 @@ import defaultProfilePicture from "../../assets/User.png";
 export default function DetailMurid() {
   const param = useParams();
   const [namaMurid, setNamaMurid] = useState("");
+  const [extrakulikuler, setExtrakulikuler] = useState("");
   const [tempatLahir, setTempatLahir] = useState("");
   const [tanggalLahir, setTanggalLahir] = useState("");
   const [agama, setAgama] = useState("");
@@ -24,6 +25,7 @@ export default function DetailMurid() {
       .then((response) => {
         const dataSiswa = response.data;
         setNamaMurid(dataSiswa.namaMurid);
+        setExtrakulikuler(dataSiswa.extrakulikuler);
         setTempatLahir(dataSiswa.tempatLahir);
         setTanggalLahir(dataSiswa.tanggalLahir);
         setGender(dataSiswa.gender);
@@ -37,7 +39,12 @@ export default function DetailMurid() {
         alert("Terjadi kesalahan Sir! " + error);
       });
   }, [param.id]);
+  function formatTanggal(tanggal) {
+    const options = { day: "numeric", month: "numeric", year: "numeric" };
+    const formattedDate = new Date(tanggal);
 
+    return formattedDate.toLocaleDateString("id-ID", options);
+  }
   return (
     <>
       <PageSidebar />
@@ -60,46 +67,52 @@ export default function DetailMurid() {
 
             <div className=" text-center pb-2">
               <p className="mt-1 text-md font-bold text-gray-900">
-                {tempatLahir}, {tanggalLahir}
+                {tempatLahir}, {formatTanggal(tanggalLahir)}
               </p>
             </div>
           </div>
           {/* Right Card - Detail Murid */}
           <div className="bg-white p-8 shadow-md rounded-md w-2/3">
-            <div className="flex items-start border-b border-gray-200 pb-2">
+            <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Agama
               </label>
               <p className="mt-1 text-md font-bold text-gray-900">{agama}</p>
             </div>
 
-            <div className="flex items-start border-b border-gray-200 pb-2">
+            <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Gender
               </label>
               <p className="mt-1 text-md font-bold text-gray-900">{gender}</p>
             </div>
 
-            <div className="flex items-start border-b border-gray-200 pb-2">
+           <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Umur
               </label>
               <p className="mt-1 text-md font-bold text-gray-900">{umur}</p>
             </div>
-            <div className="flex items-start border-b border-gray-200 pb-2">
+           <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Kelas
               </label>
               <p className="mt-1 text-md font-bold text-gray-900">{kelas}</p>
             </div>
-            <div className="flex items-start border-b border-gray-200 pb-2">
+           <div className="flex items-center border-b border-gray-200 pb-2">
+              <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
+                Extrakulikuler
+              </label>
+              <p className="mt-1 text-md font-bold text-gray-900">{extrakulikuler}</p>
+            </div>
+           <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Nama Ortu
               </label>
               <p className="mt-1 text-md font-bold text-gray-900">{namaOrtu}</p>
             </div>
 
-            <div className="flex items-start border-b border-gray-200 pb-2">
+           <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 No Telepon Ortu
               </label>

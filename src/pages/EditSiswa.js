@@ -8,6 +8,7 @@ import PageSidebar from "../components/PageSidebar";
 export default function EditGuru() {
   const param = useParams();
   const [namaMurid, setNamaMurid] = useState("");
+  const [extrakulikuler, setExtrakulikuler] = useState("");
   const [tempatLahir, setTempatLahir] = useState("");
   const [tanggalLahir, setTanggalLahir] = useState("");
   const [agama, setAgama] = useState("");
@@ -16,6 +17,8 @@ export default function EditGuru() {
   const [gender, setGender] = useState("");
   const [namaOrtu, setNamaOrtu] = useState("");
   const [kelas, setKelas] = useState("");
+  const [kelas_option, setKelasOption] = useState([]); 
+  const [extra_option, setExtraOption] = useState([]);
 
   const navigate = useNavigate();
 
@@ -25,6 +28,7 @@ export default function EditGuru() {
       .then((response) => {
         const dataSiswa = response.data;
         setNamaMurid(dataSiswa.namaMurid);
+        setExtrakulikuler(dataSiswa.extrakulikuler);
         setUmur(dataSiswa.umur);
         setTempatLahir(dataSiswa.tempatLahir);
         setTanggalLahir(dataSiswa.tanggalLahir);
@@ -41,6 +45,9 @@ export default function EditGuru() {
 
   const nameChangeHandler = (event) => {
     setNamaMurid(event.target.value);
+  };
+  const extraChangeHandler = (event) => {
+    setExtrakulikuler(event.target.value);
   };
   const umurChangeHandler = (event) => {
     setUmur(event.target.value);
@@ -74,6 +81,7 @@ export default function EditGuru() {
     await axios
       .put("http://localhost:8080/api/siswa/" + param.id, {
         namaMurid: namaMurid,
+        extrakulikuler: extrakulikuler,
         tempatLahir: tempatLahir,
         tanggalLahir: tanggalLahir,
         agama: agama,
@@ -97,21 +105,36 @@ export default function EditGuru() {
         alert("Terjadi kesalahan: " + error);
       });
   };
-
+  const getAllKelas = async () => { 
+    await axios 
+      .get( 
+        "http://localhost:8080/api/kelas/" + 
+          localStorage.getItem("sekolahId") + 
+          "/kelas" 
+      ) 
+      .then((res) => { 
+        setKelasOption(res.data); 
+      }); 
+  }; 
+ 
+  const getAllExtra = async () => { 
+    await axios 
+      .get( 
+        "http://localhost:8080/api/extra/" + 
+          localStorage.getItem("sekolahId") + 
+          "/extra" 
+      ) 
+      .then((res) => { 
+        setExtraOption(res.data); 
+      }); 
+  };
   const batal = () => {
     navigate("/table");
   };
-  const kelasOptions = ["X", "XI", "XII"];
-  const agamaOptions = [
-    "islam",
-    "kristen",
-    "katholik",
-    "hindu",
-    "buddha",
-    "khonghucu",
-    "non",
-  ];
-
+  useEffect(() => {
+    getAllKelas(); 
+    getAllExtra();
+  }, []);
   // Fungsi untuk menghitung umur dari tanggal lahir
   const hitungUmur = (tanggalLahir) => {
     const dateOfBirth = new Date(tanggalLahir);
@@ -142,16 +165,35 @@ export default function EditGuru() {
               <p className="text-center text-3xl font-medium mb-7">
                 Edit Murid
               </p>
-
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="relative">
                 <label htmlFor="namaMurid">Nama Murid:</label>
                 <input
                   id="namaMurid"
                   type="text"
-                  className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   value={namaMurid}
                   onChange={nameChangeHandler}
                 />
+              </div>
+              <div className="relative">
+                <label htmlFor="extrakulikuler">Extrakulikuler:</label>
+                <select
+                    id="agama"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    value={extrakulikuler}
+                    onChange={extraChangeHandler}
+                  >
+                <option value="" disabled>
+                    Pilih Extrakulikuler
+                  </option>
+                  {extra_option.map((val) => {
+                      return (
+                        <option value={val.namaExtra}>{val.namaExtra}</option>
+                      );
+                    })}
+                    </select>
+              </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="relative">
@@ -159,7 +201,7 @@ export default function EditGuru() {
                   <input
                     id="tempatLahir"
                     type="text"
-                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     value={tempatLahir}
                     onChange={tempatChangeHandler}
                   />
@@ -170,7 +212,7 @@ export default function EditGuru() {
                   <input
                     id="tanggalLahir"
                     type="date"
-                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     value={tanggalLahir}
                     onChange={tanggalChangeHandler}
                   />
@@ -181,7 +223,7 @@ export default function EditGuru() {
                   <input
                     id="namaOrtu"
                     type="text"
-                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     value={namaOrtu}
                     onChange={ortuChangeHandler}
                   />
@@ -191,7 +233,7 @@ export default function EditGuru() {
                   <input
                     id="noTeleponOrtu"
                     type="text"
-                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     value={noTeleponOrtu}
                     onChange={noChangeHandler}
                   />
@@ -201,7 +243,7 @@ export default function EditGuru() {
                   <label htmlFor="agama">Agama:</label>
                   <select
                     id="agama"
-                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     value={agama}
                     onChange={agamaChangeHandler}
                   >
@@ -221,18 +263,18 @@ export default function EditGuru() {
                   <label htmlFor="kelas">Kelas:</label>
                   <select
                     id="kelas"
-                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     value={kelas}
                     onChange={kelasChangeHandler}
                   >
                     <option value="" disabled>
-                      Pilih Kelas
-                    </option>
-                    {kelasOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
+                    Pilih Kelas
+                  </option>
+                  {kelas_option.map((val) => {
+                      return (
+                        <option value={val.namaKelas}>{val.namaKelas}</option>
+                      );
+                    })}
                   </select>
                 </div>
               </div>

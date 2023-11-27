@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -8,6 +8,7 @@ import "../../style/edit.css";
 export default function AddMurid() {
   const navigate = useNavigate();
   const [namaMurid, setNamaMurid] = useState("");
+  const [extrakulikuler, setExtrakulikuler] = useState("");
   const [tempatLahir, setTempatLahir] = useState("");
   const [tanggalLahir, setTanggalLahir] = useState("");
   const [agama, setAgama] = useState("");
@@ -16,12 +17,15 @@ export default function AddMurid() {
   const [gender, setGender] = useState("");
   const [kelas, setKelas] = useState("");
   const [noTeleponOrtu, setNoTeleponOrtu] = useState("");
+  const [kelas_option, setKelasOption] = useState([]); 
+  const [extra_option, setExtraOption] = useState([]);
 
   const addMurid = async (e) => {
     e.preventDefault();
 
     const add = {
       namaMurid,
+      extrakulikuler,
       tempatLahir,
       tanggalLahir,
       agama,
@@ -61,10 +65,36 @@ export default function AddMurid() {
       });
     }
   };
-
+  const getAllKelas = async () => { 
+    await axios 
+      .get( 
+        "http://localhost:8080/api/kelas/" + 
+          localStorage.getItem("sekolahId") + 
+          "/kelas" 
+      ) 
+      .then((res) => { 
+        setKelasOption(res.data); 
+      }); 
+  }; 
+ 
+  const getAllExtra = async () => { 
+    await axios 
+      .get( 
+        "http://localhost:8080/api/extra/" + 
+          localStorage.getItem("sekolahId") + 
+          "/extra" 
+      ) 
+      .then((res) => { 
+        setExtraOption(res.data); 
+      }); 
+  };
   const batal = () => {
     navigate("/table");
   };
+  useEffect(() => {
+    getAllKelas(); 
+    getAllExtra();
+  }, []);
   const hitungUmur = (tanggalLahir) => {
     const today = new Date();
     const birthDate = new Date(tanggalLahir);
@@ -87,18 +117,38 @@ export default function AddMurid() {
             onSubmit={addMurid}
           >
             <p className="text-center text-3xl font-medium mb-7">Add Murid</p>
+            <div class="grid md:grid-cols-2 md:gap-6">
             <div className="relative">
               <label htmlFor="namaMurid">Nama Murid:</label>
               <input
                 id="namaMurid"
                 type="text"
-                className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder="Masukan Nama Anda "
                 value={namaMurid}
                 onChange={(e) => setNamaMurid(e.target.value)}
               />
             </div>
-
+              <div className="relative">
+                <label htmlFor="extrakulikuler">Extrakulikuler:</label>
+                <select
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  value={extrakulikuler}
+                  onChange={(e) => setExtrakulikuler(e.target.value)}
+                  required
+                >
+                  <option value="" disabled>
+                    Pilih Extrakulikuler
+                  </option>
+                  {extra_option.map((val) => {
+                      return (
+                        <option value={val.namaExtra}>{val.namaExtra}</option>
+                      );
+                    })}
+                  
+                </select>
+              </div>
+              </div>
             <div class="grid md:grid-cols-2 md:gap-6">
               <div className="relative">
                 <label htmlFor="tempatLahir">Tempat Lahir:</label>
@@ -106,7 +156,7 @@ export default function AddMurid() {
                   type="text"
                   name="tempatlahir"
                   id="tempatlahir"
-                  className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   placeholder="Masukan Tempat Lahir Anda "
                   value={tempatLahir}
                   onChange={(e) => setTempatLahir(e.target.value)}
@@ -119,7 +169,7 @@ export default function AddMurid() {
                   type="date"
                   name="tanggallahir"
                   id="tanggallahir"
-                  className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   onChange={(e) => {
                     setTanggalLahir(e.target.value);
                     const age = hitungUmur(e.target.value);
@@ -136,7 +186,7 @@ export default function AddMurid() {
                   type="text"
                   name="namaortu"
                   id="namaortu"
-                  className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   placeholder="Masukan Nama Ortu Anda "
                   value={namaOrtu}
                   onChange={(e) => setNamaOrtu(e.target.value)}
@@ -149,7 +199,7 @@ export default function AddMurid() {
                   type="number"
                   name="noteleponortu"
                   id="noteleponortu"
-                  className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   placeholder="Masukan No Telepon Ortu Anda "
                   value={noTeleponOrtu}
                   onChange={(e) => setNoTeleponOrtu(e.target.value)}
@@ -161,7 +211,7 @@ export default function AddMurid() {
               <div className="relative">
                 <label htmlFor="agama">Agama:</label>
                 <select
-                  className="relative w-full border-gray-200 p-3 text-sm focus:z-10 block bg-white overflow-hidden rounded-md border  shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   value={agama}
                   onChange={(e) => setAgama(e.target.value)}
                   required
@@ -182,7 +232,7 @@ export default function AddMurid() {
               <div className="relative">
                 <label htmlFor="kelas">Kelas:</label>
                 <select
-                  className="relative w-full border-gray-200 p-3 text-sm focus:z-10 block bg-white overflow-hidden rounded-md border  shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   value={kelas}
                   onChange={(e) => setKelas(e.target.value)}
                   required
@@ -190,9 +240,11 @@ export default function AddMurid() {
                   <option value="" disabled>
                     Pilih Kelas
                   </option>
-                  <option value="X">X</option>
-                  <option value="XI">XI</option>
-                  <option value="XII">XII</option>
+                  {kelas_option.map((val) => {
+                      return (
+                        <option value={val.namaKelas}>{val.namaKelas}</option>
+                      );
+                    })}
                 </select>
                 {/* Add label for Kelas if needed */}
               </div>

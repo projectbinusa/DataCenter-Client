@@ -57,6 +57,20 @@ export default function Table() {
     },
     series: [0, 0, 0, 0, 0, 0, 0],
   });
+  const [extra, setExtra] = useState({
+    options: {
+      labels: ["Olahraga", "Seni", "Kebahasaan", "IT", "Olimpiade", "Renang", "Tari"],
+      colors: [
+        "#00ff00",
+        "#b50595",
+        "#9c9c9c",
+        "#ff1500",
+        "#0015ff",
+        "#fffb03",
+      ],
+    },
+    series: [0, 0, 0, 0, 0, 0, 0],
+  });
   const [kelas, setKelas] = useState({
     options: {
       labels: ["X", "XI", "XII"],
@@ -398,6 +412,53 @@ export default function Table() {
 
     fetchData();
   }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/sekolah/${localStorage.getItem(
+            "sekolahId"
+          )}/siswa`
+        );
+        setSiswa(response.data);
+
+        // Menghitung jumlah siswa berdasarkan agama
+        const extrakulikulerCounts = {
+          Olahraga: 0,
+          Seni: 0,
+          Kebahasaan: 0,
+          IT: 0,
+          Olimpiade: 0,
+          Renang: 0,
+          Tari: 0,
+          
+        };
+
+        response.data.forEach((student) => {
+          // Asumsikan 'agama' adalah atribut yang menyimpan agama siswa dalam respons dari API
+          extrakulikulerCounts[student.extrakulikuler]++;
+        });
+
+        // Mendapatkan labels yang memiliki jumlah siswa lebih dari 0
+        const labelsWithCount = Object.keys(extrakulikulerCounts).filter(
+          (extrakulikuler) => extrakulikulerCounts[extrakulikuler] > 0
+        );
+
+        // Update state dengan labels yang memiliki data
+        setExtra({
+          ...extra,
+          options: {
+            labels: labelsWithCount,
+          },
+          series: labelsWithCount.map((extrakulikuler) => extrakulikulerCounts[extrakulikuler]),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -483,7 +544,9 @@ export default function Table() {
           <div data-aos="fade-center">
             <div className="pie rounded-2xl p-1 shadow-xl w-[350px] md:w-[400px]">
               <div className="rounded-xl bg-white p-1">
+                
                 <div className="pie rounded-xl p-1">
+
                   <p className="text-white text-2xl text-center">Kelas</p>
                 </div>
                 <div className="m-5 overflow-hidden overflow-x-auto">
@@ -503,8 +566,8 @@ export default function Table() {
           {/* Diagram Agama */}
           <div className="text-center">
             <div data-aos="fade-left">
-              <div className=" pie rounded-2xl p-1 shadow-xl w-[370px] md:w-[490px] h-[360px]">
-                <div className="rounded-xl bg-white p-1 h-[350px]">
+              <div className=" pie rounded-2xl p-1 shadow-xl w-[370px] md:w-[440px] h-[330px]">
+                <div className="rounded-xl bg-white p-1 h-[320px]">
                   <div className="pie rounded-xl p-1">
                     <p className="text-white text-2xl text-center">Agama</p>
                   </div>
@@ -516,7 +579,32 @@ export default function Table() {
                         options={religi.options}
                         series={[{ data: religi.series }]}
                         type="bar"
-                        width="400"
+                        width="350"
+                        className="text-left"
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Diagram Extra */}
+          <div className="text-center">
+            <div data-aos="fade-left">
+              <div className=" pie rounded-2xl p-1 shadow-xl w-[370px] md:w-[440px] h-[330px]">
+                <div className="rounded-xl bg-white p-1 h-[320px]">
+                  <div className="pie rounded-xl p-1">
+                    <p className="text-white text-2xl text-center">Extrakulikuler</p>
+                  </div>
+                  <div className="m-5 overflow-hidden overflow-x-auto">
+                    {siswa.length === 0 ? (
+                      <div>belum ada data</div>
+                    ) : (
+                      <Chart
+                        options={extra.options}
+                        series={[{ data: extra.series }]}
+                        type="bar"
+                        width="350"
                         className="text-left"
                       />
                     )}
