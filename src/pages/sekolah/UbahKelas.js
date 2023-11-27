@@ -38,28 +38,32 @@ export default function UbahKelas() {
 
   const submitActionHandler = async (event) => {
     event.preventDefault();
-
+   
+  
     await axios
-      .put(`http://localhost:8080/api/kelas/${kelasId}` , {
+      .put(`http://localhost:8080/api/kelas/${kelasId}`, {
         namaKelas: namaKelas,
-
         status: status,
       })
       .then(() => {
+        // Show a success message using Sweetalert
         Swal.fire({
           position: "center",
           icon: "success",
           title: "Edit Success!!",
           showConfirmButton: false,
           timer: 1500,
+        }).then(() => {
+          // Redirect to the data-kelas page after Sweetalert is closed
+          window.location.href = "/data-kelas";
         });
-        navigate("/data-kelas");
       })
       .catch((error) => {
+        // Handle errors by displaying an alert message
         alert("Terjadi kesalahan: " + error);
-      });
+      })
+     
   };
-
   const batal = () => {
     navigate("/data-kelas");
   };
@@ -68,55 +72,43 @@ export default function UbahKelas() {
     <>
       <div>
         <PageSidebar />
-        <div className="mx-auto min-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 min-h-screen max-h-screen p-4 sm:ml-64">
-          <div className="mx-auto max-w-3xl">
+        <div className="p-4 sm:ml-64 mt-14">
+          <div className="mx-auto max-w-screen-xl">
             <form
-              action=""
-              className="mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
+              className="mt-10 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
               onSubmit={submitActionHandler}
             >
-                <center>
+              <p className="text-center text-3xl font-medium mb-7">
+                Edit Kelas
+              </p>
 
-              <p className="text-3xl font-medium mb-7">Edit Kelas</p>
-                </center>
-
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                <div className="relative ">
-                  <label
-                    for="name"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Nama Kelas
-                  </label>
+              <div class="grid md:grid-cols-2 md:gap-6">
+                <div className="relative">
+                  <label htmlFor="namaKelas">Nama Kelas</label>
                   <input
+                    id="namaKelas"
                     type="text"
-                    id="name"
-                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                    placeholder="Nama Kelas"
+                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                    placeholder="  Nama  Kelas "
                     value={namaKelas}
                     onChange={nameChangeHandler}
-                    required
                   />
                 </div>
                 <div className="relative">
-                  <label
-                    for=" "
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Status
-                  </label>
+                  <label htmlFor="status">Status</label>
                   <select
-                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                    id="status"
                     name="status"
+                    id="status"
+                    className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
                     value={status}
                     onChange={statusChangeHandler}
                   >
                     <option value="" disabled>
                       Status
                     </option>
+
                     <option value="Aktif">Aktif</option>
-                    <option value="Non Aktif">Non Aktif</option>
+                    <option value="Non Aktif">Non aktif</option>
                   </select>
                 </div>
               </div>
@@ -133,7 +125,7 @@ export default function UbahKelas() {
                   type="submit"
                   className="block w-24 rounded-lg text-black outline outline-[#0b409c] py-3 text-sm font-medium"
                 >
-                  Simpan
+                  Submit
                 </button>
               </div>
             </form>
