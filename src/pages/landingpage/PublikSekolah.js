@@ -26,6 +26,8 @@ export default function PublikSekolah() {
   const [teleponSekolah, setTeleponSekolah] = useState("");
   const [alamatSekolah, setAlamatSekolah] = useState("");
   const [emailSekolah, setEmailSekolah] = useState("");
+  const [akreditasiSekolah, setAkreditasiSekolah] = useState("");
+  const [visiMisi, setVisiMisi] = useState("");
   const [numSiswa, setNumSiswa] = useState("");
   const [numGuru, setNumGuru] = useState("");
   const [numKelas, setNumKelas] = useState("");
@@ -183,6 +185,71 @@ export default function PublikSekolah() {
     fetchData();
   }, []);
 
+  const [gelar, setGelar] = useState({
+    options: {
+      plotOptions: {
+        bar: {
+          borderRadius: 10,
+        },
+      },
+      labels: [],
+      colors: [
+        "#0015ff",
+        "#0056ff",
+        "#0087ff",
+        "#00b8ff",
+        "#00eaff",
+        "#66ffcc",
+        "#0099cc",
+      ],
+    },
+    series: [],
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const gelarResponse = await axios.get(
+          `http://localhost:8080/api/gelarPendidikan/${param.id}/gelarPendidikan`
+        );
+        const gelarData = gelarResponse.data;
+
+        const guruResponse = await axios.get(
+          `http://localhost:8080/api/guru/${param.id}/guru`
+        );
+        const guruData = guruResponse.data;
+
+        const gelarCounts = {};
+        guruData.forEach((r) => {
+          gelarCounts[r.gelarPendidikan] = 0;
+        });
+
+        guruData.forEach((r) => {
+          gelarCounts[r.gelarPendidikan]++;
+        });
+
+        const labelsWithCount = Object.keys(gelarCounts).filter(
+          (gelarPendidikan) => gelarCounts[gelarPendidikan] > 0
+        );
+
+        setGelar({
+          ...gelar,
+          options: {
+            ...gelar.options,
+            labels: labelsWithCount,
+          },
+          series: labelsWithCount.map(
+            (gelarPendidikan) => gelarCounts[gelarPendidikan]
+          ),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const getPublikSekolah = async () => {
     try {
       const response = await axios.get(`${api}/${param.id}`);
@@ -192,6 +259,9 @@ export default function PublikSekolah() {
       setInformasiSekolah(resData.informasiSekolah);
       setTeleponSekolah(resData.teleponSekolah);
       setEmailSekolah(resData.emailSekolah);
+      setAkreditasiSekolah(resData.akreditasiSekolah);
+      setStatus(resData.status);
+      setVisiMisi(resData.visiMisi);
     } catch (error) {
       console.log(error);
     }
@@ -207,6 +277,11 @@ export default function PublikSekolah() {
 
   const [religiMurid, setReligiMurid] = useState({
     options: {
+      plotOptions: {
+        bar: {
+          borderRadius: 15,
+        },
+      },
       labels: ["Islam", "Kristen", "Katholik", "Hindu", "Buddha", "Khonghucu"],
       colors: [
         "#00ff00",
@@ -221,11 +296,65 @@ export default function PublikSekolah() {
   });
   const [kelas, setKelas] = useState({
     options: {
-      labels: ["X", "XI", "XII"],
-      colors: ["#ff1500", "#0015ff", "#fffb03"],
+      plotOptions: {
+        bar: {
+          borderRadius: 10,
+        },
+      },
+      labels: [],
+      colors: [
+        "#0015ff",
+        "#0056ff",
+        "#0087ff",
+        "#00b8ff",
+        "#00eaff",
+        "#66ffcc",
+        "#0099cc",
+      ],
     },
-    series: [0, 0, 0],
+    series: [],
   });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const kelasResponse = await axios.get(
+          `http://localhost:8080/api/kelas/${param.id}/kelas`
+        );
+        const kelasData = kelasResponse.data;
+
+        const muridResponse = await axios.get(
+          `http://localhost:8080/api/sekolah/${param.id}/siswa`
+        );
+        const muridData = muridResponse.data;
+
+        const kelasCounts = {};
+        muridData.forEach((r) => {
+          kelasCounts[r.kelas] = 0;
+        });
+
+        muridData.forEach((r) => {
+          kelasCounts[r.kelas]++;
+        });
+
+        const labelsWithCount = Object.keys(kelasCounts).filter(
+          (kelas) => kelasCounts[kelas] > 0
+        );
+
+        setKelas({
+          ...kelas,
+          options: {
+            ...kelas.options,
+            labels: labelsWithCount,
+          },
+          series: labelsWithCount.map((kelas) => kelasCounts[kelas]),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const gendersiswa = async () => {
     try {
@@ -245,7 +374,7 @@ export default function PublikSekolah() {
     }
   };
 
-  const dt = async () => {
+  const kelass = async () => {
     try {
       const respon = await axios.get(
         "http://localhost:8080/api/sekolah/" + param.id + "/siswa"
@@ -263,7 +392,7 @@ export default function PublikSekolah() {
     }
   };
 
-  const getAll = async () => {
+  const getAllGuru = async () => {
     await axios
       .get(
         "http://localhost:8080/api/guru/" +
@@ -289,11 +418,7 @@ export default function PublikSekolah() {
 
   const getAllKelas = async () => {
     await axios
-      .get(
-        "http://localhost:8080/api/kelas/" +
-          localStorage.getItem("sekolahId") +
-          "/kelas"
-      )
+      .get("http://localhost:8080/api/kelas/" + param.id + "/kelas")
       .then((res) => {
         setKelasOption(res.data);
       });
@@ -301,11 +426,7 @@ export default function PublikSekolah() {
 
   const getAllExtra = async () => {
     await axios
-      .get(
-        "http://localhost:8080/api/extra/" +
-          localStorage.getItem("sekolahId") +
-          "/extra"
-      )
+      .get("http://localhost:8080/api/extra/" + param.id + "/extra")
       .then((res) => {
         setExtraOption(res.data);
       });
@@ -313,10 +434,10 @@ export default function PublikSekolah() {
 
   useEffect(() => {
     data();
-    dt();
+    kelass();
     getPublikSekolah();
     gendersiswa();
-    getAll();
+    getAllGuru();
     getAllMurid();
     getAllKelas();
     getAllExtra();
@@ -344,7 +465,7 @@ export default function PublikSekolah() {
       <header>
         <nav className="border-gray-800 px-4 lg:px-6 py-2.5 bg-gray-800">
           <div className="flex items-center lg:order-2 md:flex justify-between flex-grow">
-            <a href="" className="flex items-center">
+            <a href="/" className="flex items-center">
               <img
                 src={Logo}
                 className="mr-3 h-6 sm:h-9"
@@ -432,17 +553,25 @@ export default function PublikSekolah() {
                         className=""
                       />
                     </center> */}
-                    <div style={{ paddingRight: "150px" }}>
-                      <h2 className="mb-4 text-4xl font-extrabold text-gray-50 dark:text-white uppercase">
+                    <div style={{ paddingRight: "100px" }}>
+                      <h2 className="mb-4 text-4xl font-extrabold text-white uppercase px-3">
                         Ini Adalah Informasi Sekolah {namaSekolah}
                       </h2>
-                      <p className="text-gray-300 sm:text-xl dark:text-gray-400">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Temporibus quae, mollitia rem reiciendis ab
-                        reprehenderit laboriosam voluptatum, corporis rerum
-                        sapiente aliquid labore quis illum libero dolore quos
-                        dolor cupiditate similique.
+                    </div>
+                    <div className="text-white p-5 md:p-3">
+                      <p className="font-bold text-2xl">
+                        TERAKREDITASI {akreditasiSekolah}
                       </p>
+                      <h2 className="mb-4 text-2xl font-bold text-white">
+                        VISI MISI <i>{namaSekolah} </i>
+                      </h2>
+                      <p className=" sm:text-xl text-gray-300">
+                        {visiMisi !== null
+                          ? visiMisi
+                          : " Belum mengisi Visi Misi"}
+                      </p>
+                      <p>Status:{status}</p>
+                      <p>{informasiSekolah}</p>
                     </div>
                   </div>
                 </div>
@@ -521,8 +650,8 @@ export default function PublikSekolah() {
                   <div className="min-h-[700px] max-h-[700px]">
                     {" "}
                     <div data-aos="fade-right">
-                      <div className="rounded-2xl p-4 shadow-xl w-full">
-                        <div className="rounded-xl bg-gray-300 p-1 h-[550px] ">
+                      <div className="rounded-2xl p-4 shadow-xl w-full h-[40%]">
+                        <div className="rounded-xl bg-gray-300 p-1">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             {guru.length === 0 ? (
                               <div>belum ada data</div>
@@ -547,12 +676,39 @@ export default function PublikSekolah() {
                         </div>
                       </div>
                     </div>
+                    <div data-aos="fade-right">
+                      <div className="rounded-2xl p-4 shadow-xl w-full h-[40%]">
+                        <div className="rounded-xl bg-gray-300 p-1 h-[270px]">
+                          <div className="m-5 overflow-hidden overflow-x-auto">
+                            {guru.length === 0 ? (
+                              <div>belum ada data</div>
+                            ) : (
+                              <Chart
+                                options={kelas.options}
+                                series={kelas.series}
+                                type="donut"
+                                width="305"
+                                className="text-left"
+                              />
+                            )}
+                            <div className="rounded-xl text-left p-1">
+                              <p className="text-black text-md font-bold">
+                                Kelas
+                              </p>
+                              <p className="text-black text-xs">
+                                Menampilkan presentase kelas
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div className="min-h-[400px] max-h-[400px]">
                     {" "}
                     <div data-aos="fade-right">
-                      <div className="rounded-2xl p-4 shadow-xl w-full">
-                        <div className="rounded-xl bg-gray-300 p-1 h-[550px]">
+                      <div className="rounded-2xl p-4 shadow-xl w-full h-[40%]">
+                        <div className="rounded-xl bg-gray-300 p-1">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             <Chart
                               type="donut"
@@ -573,69 +729,114 @@ export default function PublikSekolah() {
                         </div>
                       </div>
                     </div>
+                    <div data-aos="fade-right">
+                      <div className="rounded-2xl p-4 shadow-xl w-full h-[40%]">
+                        <div className="rounded-xl bg-gray-300 p-1">
+                          <div className="m-5 overflow-hidden overflow-x-auto">
+                            <Chart
+                              type="donut"
+                              width="300"
+                              className="text-center"
+                              options={gelar.options}
+                              series={gelar.series}
+                            />
+                            <div className="rounded-xl text-left p-1">
+                              <p className="text-black text-md font-bold">
+                                Gelar Guru
+                              </p>
+                              <p className="text-black text-xs">
+                                Menampilkan presentase gelar guru
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div className="min-h-[700px] max-h-[700px]">
-                    <div className="h-[40%]">
-                      {" "}
-                      <div data-aos="fade-left">
-                        <div className="rounded-2xl p-4 shadow-xl w-full ">
-                          <div className="rounded-xl bg-gray-300 p-1 ">
-                            <div className="m-5 overflow-hidden overflow-x-auto">
-                              {guru.length === 0 ? (
-                                <div>belum ada data</div>
-                              ) : (
-                                <Chart
-                                  options={religiGuru.options}
-                                  series={[{ data: religiGuru.series }]}
-                                  type="bar"
-                                  width="250"
-                                  className="text-left"
-                                />
-                              )}
-                              <div className="rounded-xl text-left p-1">
-                                <p className="text-black text-md font-bold">
-                                  Agama Guru
-                                </p>
-                                <p className="text-black text-xs">
-                                  Menampilkan total agama guru
-                                </p>
-                              </div>
+                    <div data-aos="fade-left">
+                      <div className="rounded-2xl p-4 shadow-xl w-full ">
+                        <div className="rounded-xl bg-gray-300 p-1 ">
+                          <div className="m-5 overflow-hidden overflow-x-auto">
+                            {guru.length === 0 ? (
+                              <div>belum ada data</div>
+                            ) : (
+                              <Chart
+                                options={religiGuru.options}
+                                series={[{ data: religiGuru.series }]}
+                                type="bar"
+                                width="255"
+                                className="text-left"
+                              />
+                            )}
+                            <div className="rounded-xl text-left p-1">
+                              <p className="text-black text-md font-bold">
+                                Agama Guru
+                              </p>
+                              <p className="text-black text-xs">
+                                Menampilkan total agama guru
+                              </p>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="h-[40%]">
-                      {" "}
-                      <div data-aos="fade-left">
-                        <div className="rounded-2xl p-4 shadow-xl w-full ">
-                          <div className="rounded-xl bg-gray-300 p-1 ">
-                            <div className="m-5 overflow-hidden overflow-x-auto">
-                              {siswa.length === 0 ? (
-                                <div>belum ada data</div>
-                              ) : (
-                                <Chart
-                                  options={religiMurid.options}
-                                  series={[{ data: religiMurid.series }]}
-                                  type="bar"
-                                  width="250"
-                                  className="text-left"
-                                />
-                              )}
-                              <div className="rounded-xl text-left p-1">
-                                <p className="text-black text-md font-bold">
-                                  Agama Murid
-                                </p>
-                                <p className="text-black text-xs">
-                                  Menampilkan presentase agama murid
-                                </p>
-                              </div>
+
+                    <div data-aos="fade-left">
+                      <div className="rounded-2xl p-4 shadow-xl w-full ">
+                        <div className="rounded-xl bg-gray-300 p-1 ">
+                          <div className="m-5 overflow-hidden overflow-x-auto">
+                            {siswa.length === 0 ? (
+                              <div>belum ada data</div>
+                            ) : (
+                              <Chart
+                                options={religiMurid.options}
+                                series={[{ data: religiMurid.series }]}
+                                type="bar"
+                                width="255"
+                                className="text-left"
+                              />
+                            )}
+                            <div className="rounded-xl text-left p-1">
+                              <p className="text-black text-md font-bold">
+                                Agama Murid
+                              </p>
+                              <p className="text-black text-xs">
+                                Menampilkan presentase agama murid
+                              </p>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
+                <div className="text-white p-5 md:p-3">
+                  <i style={{ fontSize: "1.5em" }} className="p-2 md:p-1">
+                    Contact
+                  </i>
+                  <p style={{ fontSize: "1em" }} className="p-2 md:p-1">
+                    <svg
+                      className="w-4 h-4 inline-block mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
+                    </svg>
+                    {emailSekolah}
+                  </p>
+                  <p style={{ fontSize: "1em" }} className="p-2 md:p-1">
+                    <svg
+                      className="w-4 h-4 inline-block mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z" />
+                    </svg>
+                    {teleponSekolah}
+                  </p>
                 </div>
                 {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 "> */}
                 {/* First Column */}

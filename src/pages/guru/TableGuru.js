@@ -63,40 +63,6 @@ export default function TableGuru() {
     series: [0, 0, 0, 0, 0, 0, 0],
   });
 
-  const [gelar, setGelar] = useState({
-    options: {
-      plotOptions: {
-        bar: {
-          borderRadius: 10,
-        },
-      },
-      labels: [
-        "S.Ag",
-        "S.Sos",
-        "S.Ikom",
-        "S.Pd",
-        "S.T",
-        "S.Kom",
-        "S.Si",
-        "S.Mat",
-        "S.Pd.I",
-        "S.S",
-        "S.Sn",
-        "Lainnya",
-      ],
-      colors: [
-        "#00ff00",
-        "#b50595",
-        "#9c9c9c",
-        "#ff1500",
-        "#0015ff",
-        "#fffb03",
-        "#000000",
-      ],
-    },
-    series: [0, 0, 0, 0, 0, 0, 0],
-  });
-
   const [ageData, setAgeData] = useState({
     options: {
       labels: [
@@ -234,42 +200,57 @@ export default function TableGuru() {
     fetchData();
   }, []);
 
+  const [gelar, setGelar] = useState({
+    options: {
+      plotOptions: {
+        bar: {
+          borderRadius: 10,
+        },
+      },
+      labels: [],
+      colors: [
+        "#0015ff",
+        "#b50595",
+        "#9c9c9c",
+        "#ff1500",
+        "#00ff00",
+        "#fffb03",
+        "#000000",
+      ],
+    },
+    series: [],
+  });
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const respon = await axios.get(
-          "http://localhost:8080/api/guru/" +
-            localStorage.getItem("sekolahId") +
-            "/guru"
+        const gelarResponse = await axios.get(
+          `http://localhost:8080/api/gelarPendidikan/${localStorage.getItem(
+            "sekolahId"
+          )}/gelarPendidikan`
         );
-        setGuru(respon.data);
+        const gelarData = gelarResponse.data;
 
-        const gelarCounts = {
-          "S.Ag": 0,
-          "S.Sos": 0,
-          "S.Ikom": 0,
-          "S.Pd": 0,
-          "S.T": 0,
-          "S.Kom": 0,
-          "S.Si": 0,
-          "S.Mat": 0,
-          "S.Pd.I": 0,
-          "S.S": 0,
-          "S.Sn": 0,
-          Lainnya: 0,
-        };
+        const guruResponse = await axios.get(
+          `http://localhost:8080/api/guru/${localStorage.getItem(
+            "sekolahId"
+          )}/guru`
+        );
+        const guruData = guruResponse.data;
 
-        // Menghitung jumlah guru berdasarkan agama
-        respon.data.forEach((r) => {
+        const gelarCounts = {};
+        guruData.forEach((r) => {
+          gelarCounts[r.gelarPendidikan] = 0;
+        });
+
+        guruData.forEach((r) => {
           gelarCounts[r.gelarPendidikan]++;
         });
 
-        // Mendapatkan labels yang memiliki jumlah guru lebih dari 0
         const labelsWithCount = Object.keys(gelarCounts).filter(
           (gelarPendidikan) => gelarCounts[gelarPendidikan] > 0
         );
 
-        // Update state dengan labels yang memiliki data
         setGelar({
           ...gelar,
           options: {
