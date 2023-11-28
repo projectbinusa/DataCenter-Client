@@ -65,7 +65,7 @@ export default function UbahKelas() {
      
   };
   const batal = () => {
-    navigate("/data-kelas");
+    window.location.href = "/data-kelas";
   };
 
   return (

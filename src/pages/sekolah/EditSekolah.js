@@ -4,6 +4,7 @@ import PageSidebar from "../../components/PageSidebar";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Label, Textarea } from "flowbite-react";
+import { toByteArray, fromByteArray } from "base64-js";
 
 export default function EditSekolah() {
   const userId = localStorage.getItem("userId");
@@ -13,19 +14,10 @@ export default function EditSekolah() {
   const [emailSekolah, setEmailSekolah] = useState("");
   const [alamatSekolah, setAlamatSekolah] = useState("");
   const [teleponSekolah, setTeleponSekolah] = useState("");
+  const [akreditasiSekolah, setAkreditasiSekolah] = useState("");
+  const [visiMisi, setVisiMisi] = useState("");
   const [status, setStatus] = useState("");
   const [image, setImage] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [sekolah, setSekolah] = useState({
-    namaSekolah: "",
-    alamatSekolah: "",
-    emailSekolah: "",
-    teleponSekolah: "",
-    status: "",
-    informasiSekolah: "",
-    image: null,
-  });
-  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -38,6 +30,8 @@ export default function EditSekolah() {
         setAlamatSekolah(dataSekolah.alamatSekolah);
         setTeleponSekolah(dataSekolah.teleponSekolah);
         setStatus(dataSekolah.status);
+        setAkreditasiSekolah(dataSekolah.akreditasiSekolah);
+        setVisiMisi(dataSekolah.visiMisi);
         setImage(dataSekolah.image);
       })
       .catch((error) => {
@@ -66,13 +60,59 @@ export default function EditSekolah() {
   const statusChange = (event) => {
     setStatus(event.target.value);
   };
-
-  const handleImageChange = (event) => {
-    setSekolah({
-      ...sekolah,
-      image: event.target.files[0],
-    });
+  const akreditasiCHange = (event) => {
+    setAkreditasiSekolah(event.target.value);
   };
+  const VisimisiChange = (event) => {
+    setVisiMisi(event.target.value);
+  };
+  const handleImageChange = (event) => {
+    const imageFile = event.target.files[0];
+
+    if (!imageFile.type.match("image.*")) {
+      Swal.fire({
+        icon: "warning",
+        text: "Format gambar tidak didukung",
+      });
+      return;
+    }
+
+    if (imageFile.size > 1000000) {
+      Swal.fire({
+        icon: "warning",
+        text: "Ukuran gambar terlalu besar",
+      });
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64String = reader.result.split(",")[1];
+      const formData = new FormData();
+      formData.append("image", base64String);
+
+      axios
+        .post(
+          `http://localhost:8080/api/sekolah/${sekolahId}/upload-image`,
+          formData
+        )
+        .then(() => {
+          Swal.fire({
+            icon: "success",
+            text: "Gambar berhasil diupload",
+          });
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "warning",
+            text: "Gagal mengupload gambar",
+          });
+        });
+    };
+
+    reader.readAsDataURL(imageFile);
+  };
+
   const submitActionHandler = async (event) => {
     event.preventDefault();
 
@@ -84,6 +124,8 @@ export default function EditSekolah() {
         teleponSekolah: teleponSekolah,
         status: status,
         informasiSekolah: informasiSekolah,
+        akreditasiSekolah: akreditasiSekolah,
+        visiMisi: visiMisi,
       })
       .then(() => {
         Swal.fire({
@@ -97,23 +139,15 @@ export default function EditSekolah() {
       })
       .catch((error) => {
         Swal.fire({
-            position:"center",
-            icon:"warning",
-            title:"Gagal Merubah Data "  ,
-
-        })
+          position: "center",
+          icon: "warning",
+          title: "Gagal Merubah Data ",
+        });
       });
   };
-  
+
   const batal = () => {
-    Swal.fire({
-      icon: "error",
-      text: "Batal Mengubah Data",
-      timer: 1000,
-    });
-    setTimeout(() => {
-      window.location.href = "/info-sekolah";
-    }, 1000);
+    window.location.href = "/info-sekolah";
   };
 
   return (
@@ -130,7 +164,24 @@ export default function EditSekolah() {
                 Edit Sekolah
               </p>
             </center>
-
+            <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
+              <div className="relative">
+                <label
+                  htmlFor="image"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
+                >
+                  Logo Sekolah
+                </label>
+                <input
+                  type="file"
+                  id="image"
+                  placeholder="Logo Sekolah"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  style={{ width: "80%" }}
+                />
+              </div>
+            </div>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div className="relative mt-3">
                 <label
@@ -166,6 +217,47 @@ export default function EditSekolah() {
                   onChange={(e) => alamatChangeHandler(e)}
                   required
                 />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <div className="relative mt-3">
+                <label
+                  for="name"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
+                >
+                  Akreditasi Sekolah
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="   Akreditasi Sekolah"
+                  value={akreditasiSekolah}
+                  onChange={(e) => akreditasiCHange(e)}
+                  required
+                />
+              </div>
+
+              <div className="relative">
+                <label
+                  for="status"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
+                >
+                  Status
+                </label>
+                <select
+                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  id="status"
+                  name="status"
+                  value={status}
+                  onChange={(e) => statusChange(e)}
+                >
+                  <option value="" disabled>
+                    Status
+                  </option>
+                  <option value="Negeri">Negeri</option>
+                  <option value="Swasta">Swasta</option>
+                </select>
               </div>
             </div>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -205,46 +297,7 @@ export default function EditSekolah() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              <div className="relative">
-                <label
-                  for="image"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
-                >
-                  Logo Sekolah{" "}
-                </label>
-                <input
-                  type="file"
-                  id="image"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Logo Sekolah"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                />
-              </div>
-              <div className="relative">
-                <label
-                  for="status"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
-                >
-                  Status
-                </label>
-                <select
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  id="status"
-                  name="status"
-                  value={status}
-                  onChange={(e) => statusChange(e)}
-                >
-                  <option value="" disabled>
-                    Status
-                  </option>
-                  <option value="Negeri">Negeri</option>
-                  <option value="Swasta">Swasta</option>
-                </select>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 gap-1  text-center sm:grid-cols-1">
+            <div className="grid grid-cols-1 gap-1 sm:grid-cols-2 p-2">
               <div className="relative">
                 <div className="max-w-md mx-auto">
                   {" "}
@@ -258,9 +311,35 @@ export default function EditSekolah() {
                   <Textarea
                     id="informasiSekolah"
                     placeholder="Tinggalakan Informasi..."
-                    value={informasiSekolah}
+                    value={
+                      informasiSekolah === null
+                        ? "Belum Mengisi Informasi "
+                        : informasiSekolah
+                    }
                     onChange={(e) => informasiChangeHandler(e)}
-
+                    className="overflow-y-auto relative block bg-white text-dark overflow-hidden rounded-md border border-gray-200  px-3 pt-3 shadow-sm dark:bg-white  dark:text-dark"
+                    required
+                    rows={12}
+                  />
+                </div>
+              </div>
+              <div className="relative">
+                <div className="max-w-md mx-auto">
+                  {" "}
+                  <div className="mb-2 block">
+                    <Label
+                      htmlFor="visiMisi"
+                      value="Visi Misi"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
+                    />
+                  </div>
+                  <Textarea
+                    id="visiMisi"
+                    placeholder="Visi Misi"
+                    value={
+                      visiMisi === null ? "Belum Mengisi Visi Misi" : visiMisi
+                    }
+                    onChange={(e) => VisimisiChange(e)}
                     className="overflow-y-auto relative block bg-white text-dark overflow-hidden rounded-md border border-gray-200  px-3 pt-3 shadow-sm dark:bg-white  dark:text-dark"
                     required
                     rows={12}
