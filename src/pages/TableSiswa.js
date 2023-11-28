@@ -99,25 +99,6 @@ export default function Table() {
     }
   };
 
-  const dt = async () => {
-    try {
-      const respon = await axios.get(
-        "http://localhost:8080/api/sekolah/" +
-          localStorage.getItem("sekolahId") +
-          "/siswa"
-      );
-      setSiswa(respon.data);
-      const X = respon.data.filter((r) => r.kelas === "X").length;
-      const XI = respon.data.filter((r) => r.kelas === "XI").length;
-      const XII = respon.data.filter((r) => r.kelas === "XII").length;
-      setKelas({
-        ...kelas,
-        series: [X, XI, XII],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const addSiswa = async (e) => {
     e.preventDefault();
@@ -336,7 +317,6 @@ export default function Table() {
   useEffect(() => {
     getAll();
     data();
-    dt();
   }, []);
 
   const male = {
@@ -404,6 +384,50 @@ export default function Table() {
             labels: labelsWithCount,
           },
           series: labelsWithCount.map((agama) => agamaCounts[agama]),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const respon = await axios.get(
+          "http://localhost:8080/api/sekolah/" +
+            localStorage.getItem("sekolahId") +
+            "/siswa"
+        );
+        setSiswa(respon.data);
+
+        const kelasCounts = {
+          "X": 0,
+          "XI": 0,
+          "XII": 0,
+        };
+
+        // Menghitung jumlah guru berdasarkan agama
+        respon.data.forEach((r) => {
+          kelasCounts[r.kelas]++;
+        });
+
+        // Mendapatkan labels yang memiliki jumlah guru lebih dari 0
+        const labelsWithCount = Object.keys(kelasCounts).filter(
+          (kelas) => kelasCounts[kelas] > 0
+        );
+
+        // Update state dengan labels yang memiliki data
+        setKelas({
+          ...kelas,
+          options: {
+            ...kelas.options,
+            labels: labelsWithCount,
+          },
+          series: labelsWithCount.map(
+            (kelas) => kelasCounts[kelas]
+          ),
         });
       } catch (error) {
         console.log(error);
@@ -519,101 +543,126 @@ export default function Table() {
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-5 my-10">
-          {/* Chart - Gender */}
-          <div data-aos="fade-right">
-            <div className="pie rounded-2xl p-1 shadow-xl w-[380px] md:w-[400px]">
-              <div className="rounded-xl bg-white p-1">
-                <div className="pie rounded-xl p-1">
-                  <p className="text-white text-2xl text-center">Gender</p>
+        <div className="flex flex-col md:flex-row justify-center gap-5 mt-5 mb-5">
+            {/* Diagram Gender */}
+            <div className="text-center md:flex-1">
+              <div data-aos="fade-right">
+                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[470px] h-[330px]">
+                  <div className="rounded-xl bg-white p-1  h-[320px]">
+                    <div className="m-5 overflow-hidden overflow-x-auto">
+                      {siswa.length === 0 ? (
+                        <div>belum ada data</div>
+                      ) : (
+                        <Chart
+                          options={state.options}
+                          series={state.series}
+                          type="donut"
+                          width="355"
+                          className="text-left"
+                        />
+                      )}
+                      <div className=" rounded-xl text-left p-1">
+                        <p className="text-black text-md font-bold">Gender</p>
+                        <p className="text-black text-xs ">
+                          Menampilkan presentase gender murid
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="m-5 overflow-hidden overflow-x-auto">
-                  <Chart
-                    type="donut"
-                    width={310}
-                    className="text-center"
-                    options={state.options}
-                    series={state.series}
-                  />
+              </div>
+            </div>
+            {/* Diagram Age */}
+            <div className="text-center md:flex-1">
+              <div data-aos="fade-right">
+                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[470px] h-[330px]">
+                  <div className="rounded-xl bg-white p-1  h-[320px]">
+                    <div className="m-5 overflow-hidden overflow-x-auto">
+                      {siswa.length === 0 ? (
+                        <div>belum ada data</div>
+                      ) : (
+                        <Chart
+                          options={kelas.options}
+                          series={kelas.series}
+                          type="donut"
+                          width="312"
+                          className="text-left"
+                        />
+                      )}
+                      <div className=" rounded-xl text-left p-1">
+                        <p className="text-black text-md font-bold">Kelas</p>
+                        <p className="text-black text-xs ">
+                          Menampilkan presentase Kelas murid
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Chart - Kelas */}
-          <div data-aos="fade-center">
-            <div className="pie rounded-2xl p-1 shadow-xl w-[350px] md:w-[400px]">
-              <div className="rounded-xl bg-white p-1">
-                
-                <div className="pie rounded-xl p-1">
+          <div className="flex flex-col md:flex-row justify-center gap-5 my-5">
+            {/* Diagram Gelar */}
+            <div className="text-center md:flex-1">
+              <div data-aos="fade-left">
+                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[470px] h-[360px]">
+                  <div className="rounded-xl bg-white p-1 h-[350px]">
+                    <div className="m-5 overflow-hidden overflow-x-auto">
+                      {siswa.length === 0 ? (
+                        <div>belum ada data</div>
+                      ) : (
+                        <Chart
+                          options={extra.options}
+                          series={[{ data: extra.series }]}
+                          type="bar"
+                          width="400"
+                          className="text-left"
+                        />
+                      )}
+                      <div className=" rounded-xl text-left p-1">
+                        <p className="text-black text-md font-bold">
+                          Extrakulikuler
+                        </p>
+                        <p className="text-black text-xs ">
+                          Menampilkan total extrakulikuler murid
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                  <p className="text-white text-2xl text-center">Kelas</p>
-                </div>
-                <div className="m-5 overflow-hidden overflow-x-auto">
-                  <Chart
-                    options={kelas.options}
-                    series={kelas.series}
-                    type="donut"
-                    width={260}
-                    className="text-left"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-wrap justify-center gap-5 my-10">
-          {/* Diagram Agama */}
-          <div className="text-center">
-            <div data-aos="fade-left">
-              <div className=" pie rounded-2xl p-1 shadow-xl w-[370px] md:w-[440px] h-[330px]">
-                <div className="rounded-xl bg-white p-1 h-[320px]">
-                  <div className="pie rounded-xl p-1">
-                    <p className="text-white text-2xl text-center">Agama</p>
-                  </div>
-                  <div className="m-5 overflow-hidden overflow-x-auto">
-                    {siswa.length === 0 ? (
-                      <div>belum ada data</div>
-                    ) : (
-                      <Chart
-                        options={religi.options}
-                        series={[{ data: religi.series }]}
-                        type="bar"
-                        width="350"
-                        className="text-left"
-                      />
-                    )}
+            {/* Diagram Agama */}
+            <div className="text-center md:flex-1">
+              <div data-aos="fade-left">
+                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[470px] h-[360px]">
+                  <div className="rounded-xl bg-white p-1 h-[350px]">
+                    <div className="m-5 overflow-hidden overflow-x-auto">
+                      {siswa.length === 0 ? (
+                        <div>belum ada data</div>
+                      ) : (
+                        <Chart
+                          options={religi.options}
+                          series={[{ data: religi.series }]}
+                          type="bar"
+                          width="400"
+                          className="text-left"
+                        />
+                      )}
+                      <div className=" rounded-xl text-left p-1">
+                        <p className="text-black text-md font-bold">Agama</p>
+                        <p className="text-black text-xs ">
+                          Menampilkan total agama murid
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          {/* Diagram Extra */}
-          <div className="text-center">
-            <div data-aos="fade-left">
-              <div className=" pie rounded-2xl p-1 shadow-xl w-[370px] md:w-[440px] h-[330px]">
-                <div className="rounded-xl bg-white p-1 h-[320px]">
-                  <div className="pie rounded-xl p-1">
-                    <p className="text-white text-2xl text-center">Extrakulikuler</p>
-                  </div>
-                  <div className="m-5 overflow-hidden overflow-x-auto">
-                    {siswa.length === 0 ? (
-                      <div>belum ada data</div>
-                    ) : (
-                      <Chart
-                        options={extra.options}
-                        series={[{ data: extra.series }]}
-                        type="bar"
-                        width="350"
-                        className="text-left"
-                      />
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div className="border-2 rounded-xl shadow-md p-5 m-5 bg-white">
           {/* tombol import export dan add start */}
