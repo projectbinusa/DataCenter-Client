@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PageSidebar from "../../components/PageSidebar";
-import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Label, Textarea } from "flowbite-react";
-import { toByteArray, fromByteArray } from "base64-js";
 
 export default function EditSekolah() {
   const userId = localStorage.getItem("userId");
@@ -85,34 +83,40 @@ export default function EditSekolah() {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64String = reader.result.split(",")[1];
-      const formData = new FormData();
-      formData.append("image", base64String);
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    let timerInterval;
 
-      axios
-        .post(
-          `http://localhost:8080/api/sekolah/${sekolahId}/upload-image`,
-          formData
-        )
-        .then(() => {
-          Swal.fire({
-            icon: "success",
-            text: "Gambar berhasil diupload",
-          });
-        })
-        .catch((error) => {
-          Swal.fire({
-            icon: "warning",
-            text: "Gagal mengupload gambar",
-          });
+    Swal.fire({
+      title: "Sedang Mengupload File",
+      icon: "Loading",
+      timer: 2000,
+      timerProgressBar: true,
+
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    });
+
+    axios
+      .put(
+        `http://localhost:8080/api/sekolah/${sekolahId}/upload-image`,
+        formData
+      )
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          text: "Gambar berhasil diupload",
         });
-    };
-
-    reader.readAsDataURL(imageFile);
+        setImage(URL.createObjectURL(imageFile));
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "warning",
+          text: "Gagal mengupload gambar",
+        });
+      });
   };
-
   const submitActionHandler = async (event) => {
     event.preventDefault();
 
@@ -180,6 +184,9 @@ export default function EditSekolah() {
                   onChange={handleImageChange}
                   style={{ width: "80%" }}
                 />
+                <span className="block text-gray-600 text-xs p-3 dark:text-gray-600 ">
+                  *file akan di upload terlebih dahulu{" "}
+                </span>
               </div>
             </div>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">

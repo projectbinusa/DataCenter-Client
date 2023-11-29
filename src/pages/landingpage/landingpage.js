@@ -5,6 +5,7 @@ import AOS from "aos";
 import PageSidebar from "../../components/PageSidebar";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/logo.png";
+import Autocomplete from "react-autocomplete";
 
 const api = "http://localhost:8080/api/sekolah";
 
@@ -27,13 +28,88 @@ export default function LandingPage() {
 
   console.log(getSekolah);
 
-  const handleSubmit = () => {
-    // Lakukan navigasi ke halaman yang sesuai dengan ID yang dipilih
+  const handleSubmit = (e) => {
     if (selectedSekolah) {
       window.location.href = `/publik-sekolah/${selectedSekolah.id}`;
     }
   };
-
+  
+  const searchInput = document.getElementById("searchSekolah");
+  const schoolList = document.getElementById("schoolList");
+  let inputTimeout;
+  
+  const handleSearch = (e) => {
+    clearTimeout(inputTimeout);
+  
+    const searchTerm = e.target.value.toLowerCase();
+  
+    inputTimeout = setTimeout(() => {
+      schoolList.innerHTML = "";
+  
+      if (searchTerm) {
+        // Show loading indicator
+        const loadingIndicator = document.createElement("div");
+        loadingIndicator.textContent = "";
+        schoolList.appendChild(loadingIndicator);
+  
+        // Autosuggest
+        const suggestions = getSuggestions(searchTerm);
+        // Create a new autocomplete instance
+        const autocomplete = new Autocomplete({
+          element: searchInput,
+          data: suggestions,
+          onSelect: (suggestion) => {
+            // Update selectedSekolah
+            setSelectedSekolah(suggestion.data);
+  
+            // Update input value with the selected school name
+            searchInput.value = suggestion.data.namaSekolah;
+  
+            // Call handleSubmit to handle navigation
+            handleSubmit();
+          },
+        });
+  
+        // Highlight
+        const filteredSchools = getSekolah.filter((sekolah) =>
+          sekolah.namaSekolah.toLowerCase().includes(searchTerm)
+        );
+  
+        filteredSchools.forEach((sekolah) => {
+          const listItem = document.createElement("div");
+          listItem.classList.add("list-item");
+          listItem.textContent = sekolah.namaSekolah;
+  
+          // Update selectedSekolah and call handleSubmit on click
+          listItem.addEventListener("click", () => {
+            // Update selectedSekolah with the clicked school
+            setSelectedSekolah(sekolah);
+  
+            // Update input value with the clicked school name
+            searchInput.value = sekolah.namaSekolah;
+  
+            // Call handleSubmit to handle navigation
+            handleSubmit();
+          });
+  
+          schoolList.appendChild(listItem);
+        });
+      }
+    }, 500);
+  };
+  
+  const getSuggestions = (searchTerm) => {
+    const suggestions = [];
+    for (const sekolah of getSekolah) {
+      if (sekolah.namaSekolah.toLowerCase().startsWith(searchTerm)) {
+        suggestions.push({
+          data: sekolah,
+          value: sekolah.namaSekolah,
+        });
+      }
+    }
+    return suggestions;
+  };
   useEffect(() => {
     sekolah();
   }, []);
@@ -120,27 +196,20 @@ export default function LandingPage() {
               <div className="mr-4 flex-grow">
                 {" "}
                 {/* Menambahkan margin-right dan flex-grow untuk elemen select */}
-                <select
-                  id="sekolah"
-                  className="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  value={selectedSekolah ? selectedSekolah.id : ""}
-                  onChange={(e) =>
-                    setSelectedSekolah(
-                      getSekolah.find((s) => s.id === parseInt(e.target.value))
-                    )
-                  }
-                >
-                  <option value="" disabled>
-                    Pilih sekolah
-                  </option>
-                  {getSekolah.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.namaSekolah}
-                    </option>
-                  ))}
-                </select>
+                <input
+                  id="searchSekolah"
+                  type="text"
+                  className="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                  placeholder="Cari sekolah"
+                  onChange={handleSearch}
+                />
+                <div
+                  id="schoolList"
+                  className="text-white dark:text-white "
+                ></div>
               </div>
               <button
+                id="submitButton"
                 onClick={handleSubmit}
                 className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
               >

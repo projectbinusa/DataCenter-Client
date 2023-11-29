@@ -42,9 +42,6 @@ export default function InfoSekolah() {
   const [UserId, setUserId] = useState("");
   const navigate = useNavigate();
 
-
-  
- 
   const kelas = async () => {
     try {
       const kelasResponse = await axios.get(
@@ -113,18 +110,19 @@ export default function InfoSekolah() {
       console.error("Error fetching guru data:", error);
     }
   };
+
   const sekolah = async () => {
     try {
       if (!userId || userId === null || userId === undefined) {
         console.error("userId is null or undefined");
         return;
       }
-      setUserId(UserId);
+      setUserId(userId);
       const response = await axios.get(
         `http://localhost:8080/api/user/${userId}/sekolah`
       );
       const dataSekolah = response.data;
-
+  
       setNamaSekolah(dataSekolah.namaSekolah);
       setInformasiSekolah(dataSekolah.informasiSekolah);
       setEmailSekolah(dataSekolah.emailSekolah);
@@ -142,7 +140,31 @@ export default function InfoSekolah() {
       });
     }
   };
+  const renderImage =async () => {
+    if (image) {
+       const imageUrl = await axios.get(
+        `http://localhost:8080/api/sekolah/${sekolahId}/image`
+      );
+  
+       return (
+        <img
+          src={imageUrl}
+          alt="Logo Sekolah"
+          className="h-1/5 w-4/6 object-contain rounded-full"
+        />
+      );
+    } else {
+       return (
+        <img
+          src={logo}
+          alt="Logo Sekolah"
+          className="h-1/5 w-4/6 object-contain rounded-full"
+        />
+      );
+    }
+  };
   useEffect(() => {
+    renderImage();
     kelas();
     extra();
     gelar();
@@ -198,11 +220,11 @@ export default function InfoSekolah() {
                 </h2>
 
                 <div className="flex items-center justify-center">
-                  <span className="object-contain rounded-full h-1/5">
+                  <span className="object-contain rounded-full h-4/5">
                     <img
-                      src={image === null ? logo : image}
+                      src={renderImage}
                       alt="Logo Sekolah"
-                      className="h-1/5 w-4/6 object-contain rounded-full"
+                      className=" w-2/6 object-contain  "
                     />
                   </span>
                 </div>
