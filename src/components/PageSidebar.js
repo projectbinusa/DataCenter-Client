@@ -32,7 +32,7 @@ export default function PageSidebar() {
       }
     });
   };
- 
+
   return (
     <div>
       <nav className="fixed top-0 z-50 w-full bg-[#0b409c] border-b border-gray-200">
@@ -186,13 +186,13 @@ export default function PageSidebar() {
               </li>
               <li>
                 <button
-                  type="button" 
+                  type="button"
                   className="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:text-blue-600 hover:bg-[#dfecff]"
                   aria-controls="dropdown-example"
                   data-collapse-toggle="dropdown-example"
                 >
                   <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
-                    Siswa
+                    Murid
                   </span>
                   <svg
                     className="w-3 h-3"
@@ -231,7 +231,7 @@ export default function PageSidebar() {
               </li>
               <li>
                 <button
-                  type="button" 
+                  type="button"
                   className="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:text-blue-600 hover:bg-[#dfecff]"
                   aria-controls="dropdown-example"
                   data-collapse-toggle="dropdown-2"
@@ -283,13 +283,14 @@ export default function PageSidebar() {
                 </ul>
               </li>
               <li>
-           
-                  <a href="/info-sekolah" className="flex items-center p-2 rounded-lg text-white hover:text-blue-600 hover:bg-[#dfecff] group">
-                    <span className="flex-1 ms-3 whitespace-nowrap">
-                      Info Sekolah
-                    </span>
-                  </a>
-                 
+                <a
+                  href="/info-sekolah"
+                  className="flex items-center p-2 rounded-lg text-white hover:text-blue-600 hover:bg-[#dfecff] group"
+                >
+                  <span className="flex-1 ms-3 whitespace-nowrap">
+                    Info Sekolah
+                  </span>
+                </a>
               </li>
             </ul>
           </div>
