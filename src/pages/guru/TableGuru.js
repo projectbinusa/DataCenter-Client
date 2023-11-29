@@ -471,20 +471,16 @@ export default function TableGuru() {
       <div className="flex flex-col md:flex-row">
         <PageSidebar />
         <div className="p-4 sm:ml-64 mt-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Total Guru Card */}
             <div className="rounded-xl bg-white p-1 flex">
               <div className="rounded-xl p-4 h-[100px] flex items-center">
-                <div className="flex items-start">
-                  <div className="self-start">
-                    {" "}
-                    {/* Tambahkan class self-start untuk ikon */}
-                    {totalGuruIcon}
-                  </div>
-                </div>
+                <div style={{ color: "#0015ff" }}>{totalGuruIcon}</div>
                 <div className="ml-4">
                   <p className="text-lg text-black">Total Guru</p>
-                  <p className="text-xl font-bold text-black">{guru.length}</p>
+                  <p className="text-xl font-bold" style={{ color: "#0015ff" }}>
+                    {guru.length}
+                  </p>
                 </div>
               </div>
             </div>
@@ -492,10 +488,10 @@ export default function TableGuru() {
             {/* Rata-rata Umur Card */}
             <div className="rounded-xl bg-white p-1 flex">
               <div className="rounded-xl p-4 h-[100px] flex items-center">
-                {averageAgeIcon}
+                <div style={{ color: "#0015ff" }}>{averageAgeIcon}</div>
                 <div>
-                  <p className="text-lg text-black">Rata-rata Umur</p>
-                  <p className="text-lg font-bold text-black">
+                  <p className="text-lg text-black">Rata Rata Umur</p>
+                  <p className="text-lg font-bold" style={{ color: "#0015ff" }}>
                     {/* Calculate average age here */}
                     {guru.length > 0
                       ? (
