@@ -253,14 +253,14 @@ export default function Dashboard() {
     <FontAwesomeIcon
       icon={faChalkboardUser}
       className="text-4xl text-black-600 mr-4 "
-        style={{color: "#004bcc",}}
+      style={{ color: "#004bcc" }}
     />
   );
   const rataGuruIcon = (
     <FontAwesomeIcon
       icon={faUserFriends}
       className="text-4xl text-black-600 mr-4"
-        style={{color: "#004bcc",}}
+      style={{ color: "#004bcc" }}
     />
   );
 
@@ -268,21 +268,21 @@ export default function Dashboard() {
     <FontAwesomeIcon
       icon={faGraduationCap}
       className="text-4xl text-black-600 mr-4"
-        style={{color: "#004bcc",}}
+      style={{ color: "#004bcc" }}
     />
   );
   const rataMuridIcon = (
     <FontAwesomeIcon
       icon={faUsers}
       className="text-4xl text-black-600 mr-4"
-        style={{color: "#004bcc",}}
+      style={{ color: "#004bcc" }}
     />
   );
 
   return (
     <div>
       <PageSidebar />
-      <div className="flex my-20">
+      <div className="flex mt-20">
         <div className="flex justify-center w-[100%]">
           <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -296,7 +296,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm text-black">Total Guru</p>
+                    <p className="text-xl text-black">Total Guru</p>
                     <p className="text-xl font-bold text-black">
                       {guru.length}
                     </p>
@@ -313,7 +313,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm text-black">Total Murid</p>
+                    <p className="text-xl text-black">Total Murid</p>
                     <p className="text-xl font-bold text-black">
                       {siswa.length}
                     </p>
@@ -330,8 +330,8 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm text-black">Rata Rata Umur Guru</p>
-                    <p className="text-lg font-bold text-black">
+                    <p className="text-xl text-black">Umur Guru</p>
+                    <p className="text-xl font-bold text-black">
                       {/* Calculate average age here */}
                       {guru.length > 0
                         ? (
@@ -358,7 +358,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="ml-4">
-                    <p className="text-xs text-black">Rata Rata Umur Murid</p>
+                    <p className="text-xl text-black">Umur Murid</p>
                     <p className="text-xl font-bold text-black">
                       {/* Calculate average age here */}
                       {siswa.length > 0
@@ -496,13 +496,13 @@ export default function Dashboard() {
           </main>
         </div>
       </div>
-      <div className="flex my-20">
+      <div className="flex my-5">
         <div className="flex justify-center w-[100%]">
           <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
             <div className="p-5 bg-white">
               <div className="floath-left">
                 <div className="grid grid-cols-1 md:flex gap-1 mt-6">
-                  <span className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                  <span className="text-black w-56 font-bold uppercase text-xl px-6 py-3 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                     Table Guru
                   </span>
                 </div>
@@ -522,16 +522,13 @@ export default function Dashboard() {
                         Nama Guru
                       </th>
                       <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Tempat Lahir
-                      </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Tanggal Lahir
-                      </th>
-                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
                         Agama
                       </th>
                       <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
                         Gender
+                      </th>
+                      <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                        Gelar Pendidikan
                       </th>
                     </tr>
                   </thead>
@@ -544,12 +541,6 @@ export default function Dashboard() {
                           </td>
                           <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                             {val.namaGuru}
-                          </td>
-                          <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                            {val.tempatLahir}
-                          </td>
-                          <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                            {val.tanggalLahir}
                           </td>
                           <td className="whitespace-nowrap px-4 py-2">
                             <strong className="rounded bg-red-100 px-3 py-1.5 text-xs font-medium text-red-700">
@@ -564,6 +555,9 @@ export default function Dashboard() {
                               {val.gender}
                             </strong>
                           </td>
+                          <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                            {val.gelarPendidikan}
+                          </td>
                         </tr>
                       );
                     })}
@@ -574,14 +568,14 @@ export default function Dashboard() {
           </main>
         </div>
       </div>
-      <div className="flex my-20">
+      <div className="flex my-5">
         <div className="flex justify-center w-[100%]">
           <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
             <div className="p-5 bg-white">
               <div className="floath-left">
                 <div className="grid grid-cols-1 md:flex gap-1 mt-6">
-                  <span className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                    Table Siswa
+                  <span className="text-black w-56  font-bold uppercase text-xl px-6 py-3 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                    Table Murid
                   </span>
                 </div>
               </div>

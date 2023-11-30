@@ -478,7 +478,7 @@ export default function TableGuru() {
                 <div style={{ color: "#0015ff" }}>{totalGuruIcon}</div>
                 <div className="ml-4">
                   <p className="text-lg text-black">Total Guru</p>
-                  <p className="text-xl font-bold" style={{ color: "#0015ff" }}>
+                  <p className="text-xl font-bold" style={{ color: "black" }}>
                     {guru.length}
                   </p>
                 </div>
@@ -491,7 +491,7 @@ export default function TableGuru() {
                 <div style={{ color: "#0015ff" }}>{averageAgeIcon}</div>
                 <div>
                   <p className="text-lg text-black">Rata Rata Umur</p>
-                  <p className="text-lg font-bold" style={{ color: "#0015ff" }}>
+                  <p className="text-lg font-bold" style={{ color: "black" }}>
                     {/* Calculate average age here */}
                     {guru.length > 0
                       ? (

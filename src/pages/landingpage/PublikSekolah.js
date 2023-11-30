@@ -2,12 +2,8 @@ import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import axios from "axios";
 import AOS from "aos";
-import PageSidebar from "../../components/PageSidebar";
-import logo from "../../assets/school-icon.png";
 import { useParams, Link } from "react-router-dom";
-import PageNavbar from "../../components/PageNavbar";
 import Logo from "../../assets/logo.png";
-import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChalkboardUser,
@@ -486,7 +482,6 @@ export default function PublikSekolah() {
               >
                 Sign Up
               </a>
-        
             </div>
           </div>
         </nav>
