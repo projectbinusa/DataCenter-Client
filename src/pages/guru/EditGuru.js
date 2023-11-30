@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import NavComp from "../../components/NavComp";
 import Swal from "sweetalert2";
 import "../../style/edit.css";
 import PageSidebar from "../../components/PageSidebar";
@@ -95,7 +94,7 @@ export default function EditGuru() {
           showConfirmButton: false,
           timer: 1500,
         });
-        window.location.href="/table-guru";
+        window.location.href = "/table-guru";
       })
       .catch((error) => {
         alert("Terjadi kesalahan: " + error);
@@ -113,7 +112,7 @@ export default function EditGuru() {
       });
   };
   const batal = () => {
-    window.location.href="/table-guru";
+    window.location.href = "/table-guru";
   };
 
   useEffect(() => {
