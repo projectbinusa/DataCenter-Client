@@ -3,7 +3,8 @@ import axios from "axios";
 import AOS from "aos";
 import PageSidebar from "../../components/PageSidebar";
 import logo from "../../assets/school-icon.png";
-import dataCenter from "../../assets/dc-logo.png";
+import { getDatabase } from "firebase/database";
+import { initializeApp } from "firebase/app";
 import {
   Navigate,
   useNavigate,
@@ -140,8 +141,18 @@ export default function InfoSekolah() {
       });
     }
   };
+  const firebaseConfig = {
+    // ...
+     databaseURL: "https://datacenter-a00ad.firebaseio.com",
+  };
+  
+   const app = initializeApp(firebaseConfig);
+  
+  
+   const database = getDatabase(app);
+  
   const renderImage =async () => {
-    if (image) {
+    if (sekolahId) {
        const imageUrl = await axios.get(
         `http://localhost:8080/api/sekolah/${sekolahId}/image`
       );

@@ -51,7 +51,7 @@ export default function AddMurid() {
         timer: 1500,
       });
       setTimeout(() => {
-        navigate("/table");
+        window.location.href="/table";
       }, 1500);
     } catch (err) {
       console.log(err);
@@ -89,7 +89,7 @@ export default function AddMurid() {
       }); 
   };
   const batal = () => {
-    navigate("/table");
+    window.location.href="/table";
   };
   useEffect(() => {
     getAllKelas(); 

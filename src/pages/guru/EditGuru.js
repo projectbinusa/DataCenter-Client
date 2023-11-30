@@ -95,7 +95,7 @@ export default function EditGuru() {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/table-guru");
+        window.location.href="/table-guru";
       })
       .catch((error) => {
         alert("Terjadi kesalahan: " + error);
@@ -113,7 +113,7 @@ export default function EditGuru() {
       });
   };
   const batal = () => {
-    navigate("/table-guru");
+    window.location.href="/table-guru";
   };
 
   useEffect(() => {

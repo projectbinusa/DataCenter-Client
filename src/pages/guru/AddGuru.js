@@ -47,7 +47,7 @@ export default function TableGuru() {
         timer: 1500,
       });
       setTimeout(() => {
-        navigate("/table-guru");
+        window.location.href="/table-guru";
       }, 1500);
     } catch (err) {
       console.log(err);
@@ -73,7 +73,7 @@ export default function TableGuru() {
       });
   };
   const batal = () => {
-    navigate("/table-guru");
+   window.location.hfref="/table-guru";
   };
   useEffect(() => {
     getAll();
