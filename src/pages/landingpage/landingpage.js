@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Chart from "react-apexcharts";
 import axios from "axios";
-import AOS from "aos";
-import PageSidebar from "../../components/PageSidebar";
-import { Link } from "react-router-dom";
 import Logo from "../../assets/logo.png";
-import Autocomplete from "react-autocomplete";
 
 const api = "http://localhost:8080/api/sekolah";
 
@@ -47,37 +42,27 @@ export default function LandingPage() {
       schoolList.innerHTML = "";
   
       if (searchTerm) {
-         const loadingIndicator = document.createElement("div");
-        loadingIndicator.textContent = "";
+        const loadingIndicator = document.createElement("div");
+        loadingIndicator.textContent = "Loading..."; // Add loading indicator text
         schoolList.appendChild(loadingIndicator);
   
-         const suggestions = getSuggestions(searchTerm);
-         const autocomplete = new Autocomplete({
-          element: searchInput,
-          data: suggestions,
-          onSelect: (suggestion) => {
-             setSelectedSekolah(suggestion.data);
+        const suggestions = getSuggestions(searchTerm);
   
-             searchInput.value = suggestion.data.namaSekolah;
+        // Remove the loading indicator
+        schoolList.removeChild(loadingIndicator);
   
-             handleSubmit();
-          },
-        });
-  
-         const filteredSchools = getSekolah.filter((sekolah) =>
-          sekolah.namaSekolah.toLowerCase().includes(searchTerm)
-        );
-  
-        filteredSchools.forEach((sekolah) => {
+        suggestions.forEach((suggestion) => {
           const listItem = document.createElement("div");
           listItem.classList.add("list-item");
-          listItem.textContent = sekolah.namaSekolah;
+          listItem.textContent = suggestion.value;
   
-           listItem.addEventListener("click", () => {
-             setSelectedSekolah(sekolah);
+          listItem.addEventListener("click", () => {
+            setSelectedSekolah(suggestion.data);
   
-             searchInput.value = sekolah.namaSekolah;
-             handleSubmit();
+            searchInput.value = suggestion.value;
+  
+            // If needed, you can call handleSubmit here
+            // handleSubmit();
           });
   
           schoolList.appendChild(listItem);
@@ -85,7 +70,6 @@ export default function LandingPage() {
       }
     }, 500);
   };
-  
   const getSuggestions = (searchTerm) => {
     const suggestions = [];
     for (const sekolah of getSekolah) {

@@ -3,15 +3,10 @@ import axios from "axios";
 import AOS from "aos";
 import PageSidebar from "../../components/PageSidebar";
 import logo from "../../assets/school-icon.png";
-import { getDatabase } from "firebase/database";
-import { initializeApp } from "firebase/app";
-import {
-  Navigate,
-  useNavigate,
-  useParams,
-  Link,
-  NavLink,
-} from "react-router-dom";
+import firebase from 'firebase/app'; // Make sure to import only the required modules from firebase
+import 'firebase/storage'
+import { initializeApp } from 'firebase/app';
+import { getStorage } from 'firebase/storage';
 import "../../App.css";
 import Swal from "sweetalert2";
 
@@ -41,7 +36,7 @@ export default function InfoSekolah() {
   const [numKelas, setNumKelas] = useState("");
   const [visiMisi, setVisiMisi] = useState("");
   const [UserId, setUserId] = useState("");
-  const navigate = useNavigate();
+  
 
   const kelas = async () => {
     try {
@@ -141,34 +136,55 @@ export default function InfoSekolah() {
       });
     }
   };
-  const firebaseConfig = {
-    // ...
-     databaseURL: "https://datacenter-a00ad.firebaseio.com",
-  };
+  // const firebaseConfig = {
+  //   apiKey: "AIzaSyCIkF05Jf9_QmkR0rqpbG_xk539yqUjUlA",
+  //   authDomain: "datacenter-a00ad.firebaseapp.com",
+  //   databaseURL: "https://datacenter-a00ad-default-rtdb.firebaseio.com",
+  //   projectId: "datacenter-a00ad",
+  //   storageBucket: "datacenter-a00ad.appspot.com",
+  //   messagingSenderId: "1077270447140",
+  //   appId: "1:1077270447140:web:7bee0b586dacd4db7ac4b1",
+  //   measurementId: "G-WBXS79BMG1"
+  // };
+ 
+
+  const renderImage = async () => {
+    try {
+      if (sekolahId) {
+        // Fetch image from MySQL database
+        const mysqlImageUrl = await axios.get(
+          `http://localhost:8080/api/sekolah/${sekolahId}/image`
+        );
+        console.log(mysqlImageUrl.data);
   
-   const app = initializeApp(firebaseConfig);
-  
-  
-   const database = getDatabase(app);
-  
-  const renderImage =async () => {
-    if (sekolahId) {
-       const imageUrl = await axios.get(
-        `http://localhost:8080/api/sekolah/${sekolahId}/image`
-      );
-  
-       return (
-        <img
-          src={imageUrl}
-          alt="Logo Sekolah"
-          className="h-1/5 w-4/6 object-contain rounded-full"
-        />
-      );
-    } else {
-       return (
+        return (
+          <span className="rounded-full overflow-hidden">
+          <img
+            src={mysqlImageUrl.data}
+            alt="Logo Sekolah"
+            className="w-16 h-16 object-cover"
+          />
+        </span>
+          );
+      } else {
+     
+        return (
+          <span className="rounded-full overflow-hidden">
+          <img
+            src={logo}
+            alt="Logo Sekolah"
+            className="w-16 h-16 object-cover"
+          />
+        </span>
+        );
+      }
+    } catch (error) {
+      console.error('Error fetching image:', error);
+      // Handle error or return a placeholder image
+      return (
         <img
           src={logo}
-          alt="Logo Sekolah"
+          alt="Placeholder"
           className="h-1/5 w-4/6 object-contain rounded-full"
         />
       );
@@ -233,7 +249,7 @@ export default function InfoSekolah() {
                 <div className="flex items-center justify-center">
                   <span className="object-contain rounded-full h-4/5">
                     <img
-                      src={renderImage}
+                      src={image} 
                       alt="Logo Sekolah"
                       className=" w-2/6 object-contain  "
                     />

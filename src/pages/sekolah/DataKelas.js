@@ -2,9 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {useNavigate} from "react-router-dom";
-import Aos from "aos";
 import "../../style/table.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import PageSidebar from "../../components/PageSidebar";
 import Swal from "sweetalert2";

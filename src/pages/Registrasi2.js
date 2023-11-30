@@ -32,7 +32,7 @@ export default function Step2() {
       Swal.fire({
         icon: "success",
         title: "Sukses!",
-        text: "Success Cuy!",
+        text: "Success ",
       });
       localStorage.clear();
       navigate("/login");
