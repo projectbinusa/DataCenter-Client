@@ -73,7 +73,7 @@ export default function TableGuru() {
       });
   };
   const batal = () => {
-   window.location.hfref="/table-guru";
+   window.location.href="/table-guru";
   };
   useEffect(() => {
     getAll();
