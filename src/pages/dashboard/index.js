@@ -286,7 +286,7 @@ export default function Dashboard() {
         <div className="flex justify-center w-[100%]">
           <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="rounded-xl bg-white p-1 flex">
+              <div className="rounded-xl bg-white p-1 flex border border-blue-500 border-2">
                 <div className="rounded-xl p-4 h-[120px] flex items-center">
                   <div className="flex items-start">
                     <div className="self-start">
@@ -303,7 +303,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div>
-              <div className="rounded-xl bg-white p-1 flex">
+              <div className="rounded-xl bg-white p-1 flex border border-blue-500 border-2">
                 <div className="rounded-xl p-4 h-[120px] flex items-center">
                   <div className="flex items-start">
                     <div className="self-start">
@@ -320,7 +320,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div>
-              <div className="rounded-xl bg-white p-1 flex">
+              <div className="rounded-xl bg-white p-1 flex border border-blue-500 border-2">
                 <div className="rounded-xl p-4 h-[120px] flex items-center">
                   <div className="flex items-start">
                     <div className="self-start">
@@ -348,7 +348,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div>
-              <div className="rounded-xl bg-white p-1 flex">
+              <div className="rounded-xl bg-white p-1 flex border border-blue-500 border-2">
                 <div className="rounded-xl p-4 h-[120px] flex items-center">
                   <div className="flex items-start">
                     <div className="self-start">

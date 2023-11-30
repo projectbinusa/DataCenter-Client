@@ -473,7 +473,7 @@ export default function TableGuru() {
         <div className="p-4 sm:ml-64 mt-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Total Guru Card */}
-            <div className="rounded-xl bg-white p-1 flex">
+            <div className="rounded-xl bg-white p-1 flex border border-blue-500 border-2">
               <div className="rounded-xl p-4 h-[100px] flex items-center">
                 <div style={{ color: "#0015ff" }}>{totalGuruIcon}</div>
                 <div className="ml-4">
@@ -486,7 +486,7 @@ export default function TableGuru() {
             </div>
 
             {/* Rata-rata Umur Card */}
-            <div className="rounded-xl bg-white p-1 flex">
+            <div className="rounded-xl bg-white p-1 flex border border-blue-500 border-2">
               <div className="rounded-xl p-4 h-[100px] flex items-center">
                 <div style={{ color: "#0015ff" }}>{averageAgeIcon}</div>
                 <div>
