@@ -497,7 +497,11 @@ export default function PublikSekolah() {
                         </h2>
                       </div>
                       <div>
-                        <img src={image} alt="Logo Sekolah" className="w-2/5 text-white" />
+                        <img
+                          src={image}
+                          alt="Logo Sekolah"
+                          className="w-2/5 text-white"
+                        />
                       </div>
                     </div>
                     <div className="text-white p-5 md:p-3">
@@ -587,11 +591,11 @@ export default function PublikSekolah() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-3">
-                  <div className="min-h-[700px] max-h-[700px]">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="min-h-[600px] max-h-[600px]">
                     {" "}
                     <div data-aos="fade-right">
-                      <div className="rounded-2xl p-4 shadow-xl w-full h-[40%]">
+                      <div className="rounded-2xl p-4 shadow-xl w-full sm:h-[50%] md:h-[50%] lg:h-[30%]">
                         <div className="rounded-xl bg-gray-300 p-1">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             {guru.length === 0 ? (
@@ -618,7 +622,7 @@ export default function PublikSekolah() {
                       </div>
                     </div>
                     <div data-aos="fade-right">
-                      <div className="rounded-2xl p-4 shadow-xl w-full h-[40%]">
+                      <div className="rounded-2xl p-4 shadow-xl w-full sm:h-[50%] md:h-[50%] lg:h-[30%]">
                         <div className="rounded-xl bg-gray-300 p-1 h-[270px]">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             {guru.length === 0 ? (
@@ -645,10 +649,10 @@ export default function PublikSekolah() {
                       </div>
                     </div>
                   </div>
-                  <div className="min-h-[400px] max-h-[400px]">
+                  <div className="min-h-[600px] max-h-[600px]">
                     {" "}
                     <div data-aos="fade-right">
-                      <div className="rounded-2xl p-4 shadow-xl w-full h-[40%]">
+                      <div className="rounded-2xl p-4 shadow-xl w-full sm:h-[50%] md:h-[50%] lg:h-[30%]">
                         <div className="rounded-xl bg-gray-300 p-1">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             <Chart
@@ -671,7 +675,7 @@ export default function PublikSekolah() {
                       </div>
                     </div>
                     <div data-aos="fade-right">
-                      <div className="rounded-2xl p-4 shadow-xl w-full h-[40%]">
+                      <div className="rounded-2xl p-4 shadow-xl w-full sm:h-[50%] md:h-[50%] lg:h-[30%]">
                         <div className="rounded-xl bg-gray-300 p-1">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             <Chart
@@ -694,9 +698,9 @@ export default function PublikSekolah() {
                       </div>
                     </div>
                   </div>
-                  <div className="min-h-[700px] max-h-[700px]">
+                  <div className="min-h-[500px] max-h-[500px]">
                     <div data-aos="fade-left">
-                      <div className="rounded-2xl p-4 shadow-xl w-full ">
+                      <div className="rounded-2xl p-4 shadow-xl w-full sm:h-[50%] md:h-[50%] lg:h-[30%]">
                         <div className="rounded-xl bg-gray-300 p-1 ">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             {guru.length === 0 ? (
@@ -724,7 +728,7 @@ export default function PublikSekolah() {
                     </div>
 
                     <div data-aos="fade-left">
-                      <div className="rounded-2xl p-4 shadow-xl w-full ">
+                      <div className="rounded-2xl p-4 shadow-xl w-full sm:h-[50%] md:h-[50%] lg:h-[30%]">
                         <div className="rounded-xl bg-gray-300 p-1 ">
                           <div className="m-5 overflow-hidden overflow-x-auto">
                             {siswa.length === 0 ? (
@@ -752,7 +756,7 @@ export default function PublikSekolah() {
                     </div>
                   </div>
                 </div>
-                <div className="text-white p-5 md:p-3">
+                <div className="text-white p-5 md:p-3 mt-20">
                   <i style={{ fontSize: "1.5em" }} className="p-2 md:p-1">
                     Contact
                   </i>
