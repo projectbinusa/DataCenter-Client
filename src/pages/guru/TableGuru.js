@@ -20,7 +20,7 @@ export default function TableGuru() {
 
   const [state, setState] = useState({
     options: {
-      labels: ["Wanita", "Pria"],
+      labels: ["Perempuan", "Laki-Laki"],
       colors: ["lightpink", "lightblue"],
     },
     series: [],

@@ -22,7 +22,7 @@ export default function Dashboard() {
   };
   const [state, setState] = useState({
     options: {
-      labels: ["Wanita", "Pria"],
+      labels: ["Perempuan", "Laki-Laki"],
       colors: ["lightpink", "lightblue"],
     },
     series: [],
@@ -30,7 +30,7 @@ export default function Dashboard() {
 
   const [statee, setStatee] = useState({
     options: {
-      labels: ["Wanita", "Pria"],
+      labels: ["Perempuan", "Laki-Laki"],
       colors: ["lightpink", "lightblue"],
     },
     series: [],

@@ -20,16 +20,16 @@ import {
 export default function Table() {
   const [siswa, setSiswa] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
-  const [namaMurid, setNamaMurid] = useState("");
-  const [tempatLahir, setTempatLahir] = useState("");
-  const [tanggalLahir, setTanggalLahir] = useState("");
-  const [gender, setGender] = useState("");
+  const [namaMurid] = useState("");
+  const [tempatLahir] = useState("");
+  const [tanggalLahir] = useState("");
+  const [gender] = useState("");
   const [excel, setExcel] = useState("");
-  const [agama, setAgama] = useState();
+  const [agama] = useState();
   const [modal, setModal] = useState(false);
   const [state, setState] = useState({
     options: {
-      labels: ["Perempuan", "Laki-laki"],
+      labels: ["Perempuan", "Laki-Laki"],
       colors: ["lightpink", "lightblue"],
     },
     series: [],
@@ -61,12 +61,13 @@ export default function Table() {
     options: {
       labels: ["Olahraga", "Seni", "Kebahasaan", "IT", "Olimpiade", "Renang", "Tari"],
       colors: [
+        "#fffb03",
         "#00ff00",
         "#b50595",
         "#9c9c9c",
         "#ff1500",
         "#0015ff",
-        "#fffb03",
+        
       ],
     },
     series: [0, 0, 0, 0, 0, 0, 0],
@@ -516,20 +517,20 @@ export default function Table() {
           <div className="rounded-xl bg-white p-4 h-[150px] text-center flex items-center shadow-md border border-blue-500 border-2">
             <FontAwesomeIcon
               icon={faUserFriends}
-              className="text-4xl text-green-600 mr-4"
+              className="text-4xl text-blue-600 mr-4"
             />
             <div className="text-left">
               <p className="font-bold mb-1 text-gray-800">
                 Total Murid per Kelas:
               </p>
               <div>
-                <p className="text-green-700">
+                <p className="text-blue-700">
                   Kelas X: {calculateTotalStudentsByClass().studentsByClass.X}
                 </p>
-                <p className="text-green-700">
+                <p className="text-blue-700">
                   Kelas XI: {calculateTotalStudentsByClass().studentsByClass.XI}
                 </p>
-                <p className="text-green-700">
+                <p className="text-blue-700">
                   Kelas XII:{" "}
                   {calculateTotalStudentsByClass().studentsByClass.XII}
                 </p>
@@ -541,11 +542,11 @@ export default function Table() {
           <div className="rounded-xl bg-white p-4 h-[150px] text-center flex items-center shadow-md border border-blue-500 border-2">
             <FontAwesomeIcon
               icon={faUserGraduate}
-              className="text-4xl text-purple-600 mr-4"
+              className="text-4xl text-blue-600 mr-4"
             />
             <div className="text-left">
               <p className="font-bold mb-1 text-gray-800">Rata-Rata Umur:</p>
-              <h1 className="text-3xl font-bold text-purple-700">
+              <h1 className="text-3xl font-bold text-blue-700">
                 {calculateAverageAge()} Tahun
               </h1>
             </div>
@@ -556,7 +557,7 @@ export default function Table() {
             {/* Diagram Gender */}
             <div className="text-center md:flex-1">
               <div data-aos="fade-right">
-                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[450px] h-[330px]">
+                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[330px]">
                   <div className="rounded-xl bg-white p-1  h-[320px]">
                     <div className="m-5 overflow-hidden overflow-x-auto">
                       {siswa.length === 0 ? (
@@ -584,7 +585,7 @@ export default function Table() {
             {/* Diagram Age */}
             <div className="text-center md:flex-1">
               <div data-aos="fade-right">
-                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[450px] h-[330px]">
+                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[330px]">
                   <div className="rounded-xl bg-white p-1  h-[320px]">
                     <div className="m-5 overflow-hidden overflow-x-auto">
                       {siswa.length === 0 ? (
@@ -615,7 +616,7 @@ export default function Table() {
             {/* Diagram Gelar */}
             <div className="text-center md:flex-1">
               <div data-aos="fade-left">
-                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[450px] h-[360px]">
+                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
                   <div className="rounded-xl bg-white p-1 h-[350px]">
                     <div className="m-5 overflow-hidden overflow-x-auto">
                       {siswa.length === 0 ? (
@@ -646,7 +647,7 @@ export default function Table() {
             {/* Diagram Agama */}
             <div className="text-center md:flex-1">
               <div data-aos="fade-left">
-                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[450px] h-[360px]">
+                <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
                   <div className="rounded-xl bg-white p-1 h-[350px]">
                     <div className="m-5 overflow-hidden overflow-x-auto">
                       {siswa.length === 0 ? (
@@ -708,10 +709,9 @@ export default function Table() {
           {/* tombol import export dan add end */}
 
           {/* tabel siswa start */}
-          <div className="p-5">
-            <div className="">
+          <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 p-5">
               <table
-                className="min-w-full divide-gray-200 text-center p-3"
+                className="min-w-full divide-gray-200 text-center p-5"
                 id="example"
                 data-aos="zoom-in"
               >
@@ -934,7 +934,6 @@ export default function Table() {
           ) : null}
           {/* modal import dan download format data end */}
         </div>
-      </div>
     </>
   );
 }
