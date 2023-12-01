@@ -101,7 +101,7 @@ export default function LandingPage() {
                 THE DATA CENTER
               </span>
             </a>
-    
+
             <div className="flex items-center lg:order-2">
               <a
                 href="/login"
@@ -114,7 +114,8 @@ export default function LandingPage() {
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               >
                 Sign Up
-              </a>            </div>
+              </a>{" "}
+            </div>
           </div>
         </nav>
       </header>
@@ -388,7 +389,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 gap-4 mt-8">
             <img
               className="w-full rounded-lg"
-              src="https://www.thefastmode.com/media/k2/items/src/01897cc24a02a6df2bd96998045e58ea.jpg?t=20220531_012745"
+              src="https://img.freepik.com/free-vector/technology-isometric-api-illustration_23-2149375823.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1697500800&semt=ais"
               alt="Data Center 1"
             />
             <img

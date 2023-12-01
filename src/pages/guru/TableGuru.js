@@ -470,7 +470,7 @@ export default function TableGuru() {
     <>
       <div className="flex flex-col md:flex-row">
         <PageSidebar />
-        <div className="p-12 sm:ml-64 mt-16">
+        <div className="px-44 py-10 sm:ml-64 mt-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Total Guru Card */}
             <div className="rounded-xl bg-white p-1 flex border border-blue-500 border-2">
