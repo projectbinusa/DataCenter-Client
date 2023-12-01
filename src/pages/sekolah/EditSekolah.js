@@ -176,10 +176,7 @@ export default function EditSekolah() {
             </center>
             <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
               <div className="relative">
-                <label
-                  htmlFor="image"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
-                >
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark">
                   Logo Sekolah
                 </label>
                 <input
@@ -197,10 +194,7 @@ export default function EditSekolah() {
             </div>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div className="relative mt-3">
-                <label
-                  for="name"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
-                >
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark">
                   Nama Sekolah
                 </label>
                 <input
@@ -215,10 +209,7 @@ export default function EditSekolah() {
               </div>
 
               <div className="relative">
-                <label
-                  for="alamatSekolah"
-                  className="block mb-3  text-sm font-medium text-gray-900 dark:text-dark"
-                >
+                <label className="block mb-3  text-sm font-medium text-gray-900 dark:text-dark">
                   <p className="p-1">Alamat Sekolah</p>
                 </label>
                 <input
@@ -234,10 +225,7 @@ export default function EditSekolah() {
             </div>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div className="relative mt-3">
-                <label
-                  for="name"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
-                >
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark">
                   Akreditasi Sekolah
                 </label>
                 <input
@@ -252,10 +240,7 @@ export default function EditSekolah() {
               </div>
 
               <div className="relative">
-                <label
-                  for="status"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
-                >
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark">
                   Status
                 </label>
                 <select
@@ -275,10 +260,7 @@ export default function EditSekolah() {
             </div>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div className="relative">
-                <label
-                  for="emailSekolah"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
-                >
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark">
                   Email Sekolah
                 </label>
                 <input
@@ -292,10 +274,7 @@ export default function EditSekolah() {
                 />
               </div>
               <div className="relative">
-                <label
-                  for="nomerSekolah"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
-                >
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark">
                   Nomer Sekolah{" "}
                 </label>
                 <input
@@ -316,7 +295,6 @@ export default function EditSekolah() {
                   {" "}
                   <div className="mb-2 block">
                     <Label
-                      htmlFor="misiSekolah"
                       value="Misi Sekolah"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
                     />
@@ -324,11 +302,7 @@ export default function EditSekolah() {
                   <Textarea
                     id="misiSekolah"
                     placeholder=" "
-                    value={
-                      misi === null
-                        ? "Belum Mengisi Misi Sekolah"
-                        : misi
-                    }
+                    value={misi === null ? "Belum Mengisi Misi Sekolah" : misi}
                     onChange={(e) => MisiChange(e)}
                     className="overflow-y-auto relative block bg-white text-dark overflow-hidden rounded-md border border-gray-200  px-3 pt-3 shadow-sm dark:bg-white  dark:text-dark"
                     required
@@ -341,7 +315,6 @@ export default function EditSekolah() {
                   {" "}
                   <div className="mb-2 block">
                     <Label
-                      htmlFor="Visi"
                       value="Visi Sekolah"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
                     />
@@ -349,9 +322,7 @@ export default function EditSekolah() {
                   <Textarea
                     id="visi"
                     placeholder="Visi Sekolah"
-                    value={
-                      visi === null ? "Belum Mengisi Visi Sekolah " : visi
-                    }
+                    value={visi === null ? "Belum Mengisi Visi Sekolah " : visi}
                     onChange={(e) => VisiChange(e)}
                     className="overflow-y-auto relative block bg-white text-dark overflow-hidden rounded-md border border-gray-200  px-3 pt-3 shadow-sm dark:bg-white  dark:text-dark"
                     required
@@ -366,7 +337,6 @@ export default function EditSekolah() {
                   {" "}
                   <div className="mb-2 block">
                     <Label
-                      htmlFor="informasiSekolah"
                       value="Informasi Sekolah"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
                     />
@@ -386,7 +356,6 @@ export default function EditSekolah() {
                   />
                 </div>
               </div>
-              
             </div>
 
             <div className="flex justify-between p-5">
