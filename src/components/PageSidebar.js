@@ -108,7 +108,7 @@ export default function PageSidebar() {
                         </>
                       ) : (
                         <a
-                          class="hover:text-blue-600 hover:bg-[#dfecff] text-blue-900 bg-[#dfecff] hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2  focus:outline-none "
+                          className="hover:text-blue-600 hover:bg-[#dfecff] text-blue-900 bg-[#dfecff] hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2  focus:outline-none "
                           onClick={logout}
                         >
                           Logout
