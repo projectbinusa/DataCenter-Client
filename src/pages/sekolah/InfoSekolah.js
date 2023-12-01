@@ -3,22 +3,15 @@ import axios from "axios";
 import AOS from "aos";
 import PageSidebar from "../../components/PageSidebar";
 import logo from "../../assets/school-icon.png";
-import firebase from 'firebase/app'; // Make sure to import only the required modules from firebase
-import 'firebase/storage'
-import { initializeApp } from 'firebase/app';
-import { getStorage } from 'firebase/storage';
+import "firebase/storage";
 import "../../App.css";
 import Swal from "sweetalert2";
 
 AOS.init({ duration: 1750, once: true });
 
 export default function InfoSekolah() {
-  const toggleDropdown = () => {
-    setDropdownOpen(!isDropdownOpen);
-  };
-
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
-
+  // Bagian UseState
+ 
   const userId = localStorage.getItem("userId");
   const sekolahId = localStorage.getItem("sekolahId");
   const [namaSekolah, setNamaSekolah] = useState("");
@@ -34,10 +27,12 @@ export default function InfoSekolah() {
   const [numExtra, setNumExtra] = useState("");
   const [numGelar, setNumgelar] = useState("");
   const [numKelas, setNumKelas] = useState("");
-  const [visiMisi, setVisiMisi] = useState("");
+  const [visi, setVisi] = useState("");
+  const [misi, setMisi] = useState("");
   const [UserId, setUserId] = useState("");
-  
 
+
+// bagian crud
   const kelas = async () => {
     try {
       const kelasResponse = await axios.get(
@@ -49,6 +44,8 @@ export default function InfoSekolah() {
       console.error("Errorr  data :", error);
     }
   };
+
+
   const extra = async () => {
     try {
       const extrResponse = await axios.get(
@@ -60,6 +57,8 @@ export default function InfoSekolah() {
       console.error("Errorr  data :", error);
     }
   };
+
+
   const gelar = async () => {
     try {
       const gelarResponse = await axios.get(
@@ -71,6 +70,7 @@ export default function InfoSekolah() {
       console.error("Errorr  data :", error);
     }
   };
+
 
   const fetchStudentData = async () => {
     try {
@@ -89,6 +89,7 @@ export default function InfoSekolah() {
     }
   };
 
+
   const fetchGuruData = async () => {
     try {
       if (!sekolahId) {
@@ -106,6 +107,7 @@ export default function InfoSekolah() {
       console.error("Error fetching guru data:", error);
     }
   };
+  
 
   const sekolah = async () => {
     try {
@@ -118,7 +120,7 @@ export default function InfoSekolah() {
         `http://localhost:8080/api/user/${userId}/sekolah`
       );
       const dataSekolah = response.data;
-  
+
       setNamaSekolah(dataSekolah.namaSekolah);
       setInformasiSekolah(dataSekolah.informasiSekolah);
       setEmailSekolah(dataSekolah.emailSekolah);
@@ -126,7 +128,8 @@ export default function InfoSekolah() {
       setTeleponSekolah(dataSekolah.teleponSekolah);
       setStatus(dataSekolah.status);
       setAkreditasiSekolah(dataSekolah.akreditasiSekolah);
-      setVisiMisi(dataSekolah.visiMisi);
+      setVisi(dataSekolah.visi);
+      setMisi(dataSekolah.misi);
       setImage(dataSekolah.image);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -136,62 +139,10 @@ export default function InfoSekolah() {
       });
     }
   };
-  // const firebaseConfig = {
-  //   apiKey: "AIzaSyCIkF05Jf9_QmkR0rqpbG_xk539yqUjUlA",
-  //   authDomain: "datacenter-a00ad.firebaseapp.com",
-  //   databaseURL: "https://datacenter-a00ad-default-rtdb.firebaseio.com",
-  //   projectId: "datacenter-a00ad",
-  //   storageBucket: "datacenter-a00ad.appspot.com",
-  //   messagingSenderId: "1077270447140",
-  //   appId: "1:1077270447140:web:7bee0b586dacd4db7ac4b1",
-  //   measurementId: "G-WBXS79BMG1"
-  // };
- 
 
-  const renderImage = async () => {
-    try {
-      if (sekolahId) {
-        // Fetch image from MySQL database
-        const mysqlImageUrl = await axios.get(
-          `http://localhost:8080/api/sekolah/${sekolahId}/image`
-        );
-        console.log(mysqlImageUrl.data);
   
-        return (
-          <span className="rounded-full overflow-hidden">
-          <img
-            src={mysqlImageUrl.data}
-            alt="Logo Sekolah"
-            className="w-16 h-16 object-cover"
-          />
-        </span>
-          );
-      } else {
-     
-        return (
-          <span className="rounded-full overflow-hidden">
-          <img
-            src={logo}
-            alt="Logo Sekolah"
-            className="w-16 h-16 object-cover"
-          />
-        </span>
-        );
-      }
-    } catch (error) {
-      console.error('Error fetching image:', error);
-      // Handle error or return a placeholder image
-      return (
-        <img
-          src={logo}
-          alt="Placeholder"
-          className="h-1/5 w-4/6 object-contain rounded-full"
-        />
-      );
-    }
-  };
+  // Render Crud
   useEffect(() => {
-    renderImage();
     kelas();
     extra();
     gelar();
@@ -205,21 +156,38 @@ export default function InfoSekolah() {
       <PageSidebar />
       <div className="p-4 sm:ml-64 mt-16">
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4">
-          <section className=" bg-gray-50   rounded-lg">
-            <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16">
-              <div className="max-w-screen-md mb-8 lg:mb-16">
-                <center>
-                  <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-dark">
-                    Visi Misi <i>{namaSekolah} </i>
-                  </h2>
-                </center>
+          <div className="grid grid-rows-2  lg:grid-rows-2 gap-4">
+            <section className=" bg-gray-50   rounded-lg">
+              <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16">
+                <div className="max-w-screen-md mb-8 lg:mb-16">
+                  <center>
+                    <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-dark">
+                      Visi <i>{namaSekolah} </i>
+                    </h2>
+                  </center>
 
-                <p className="text-gray-500 sm:text-xl dark:text-gray-500">
-                  {visiMisi !== null ? visiMisi : " Belum mengisi Visi Misi"}
-                </p>
+                  <p className="text-gray-500 sm:text-xl dark:text-gray-500">
+                    {visi !== null ? visi : " Belum mengisi Visi  "}
+                  </p>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+            <section className=" bg-gray-50   rounded-lg">
+              <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16">
+                <div className="max-w-screen-md mb-8 lg:mb-16">
+                  <center>
+                    <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-dark">
+                      Misi <i>{namaSekolah} </i>
+                    </h2>
+                  </center>
+
+                  <p className="text-gray-500 sm:text-xl dark:text-gray-500">
+                    {misi !== null ? misi : " Belum mengisi Misi  "}
+                  </p>
+                </div>
+              </div>
+            </section>
+          </div>
 
           <div className="grid grid-cols-3 gap-4 md:grid-cols-1   gap-3">
             <section className="bg-gray-50 rounded-lg">
@@ -249,7 +217,7 @@ export default function InfoSekolah() {
                 <div className="flex items-center justify-center">
                   <span className="object-contain rounded-full h-4/5">
                     <img
-                      src={image} 
+                      src={image === null? logo :image}
                       alt="Logo Sekolah"
                       className=" w-2/6 object-contain  "
                     />

@@ -1,21 +1,18 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import NavComp from "../../components/NavComp";
+import {   useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import "../../style/edit.css";
 import PageSidebar from "../../components/PageSidebar";
 
 export default function UbahKelas() {
-  const extraId = localStorage.getItem("extraId");
   const [namaExtra, setNamaExtra] = useState("");
   const [status, setStatus] = useState("");
-  const navigate = useNavigate();
   const param = useParams();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/extra/ ` +param.id)
+      .get(`http://localhost:8080/api/extra/ ` + param.id)
       .then((response) => {
         const dataExtra = response.data;
         setNamaExtra(dataExtra.namaExtra);
@@ -51,8 +48,8 @@ export default function UbahKelas() {
         timer: 1500,
       });
 
-      window.location.href = "/extra"; 
-       } catch (error) {
+      window.location.href = "/extra";
+    } catch (error) {
       console.error("Terjadi kesalahan:", error);
 
       Swal.fire({
@@ -64,7 +61,7 @@ export default function UbahKelas() {
   };
 
   const batal = () => {
-    navigate("/extra");
+    window.location.href = "/extra";
   };
 
   return (
@@ -77,42 +74,37 @@ export default function UbahKelas() {
             onSubmit={submitActionHandler}
           >
             <p className="text-center text-3xl font-medium mb-7">Edit Extra</p>
-           
 
-            <div class="grid md:grid-cols-2 md:gap-6">
-            <div className="relative">
-              <label htmlFor="namaExtra">Nama Extra</label>
-              <input
-                id="namaExtra"
-                type="text"
-                className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
-                placeholder="  Nama  Extra "
-                value={namaExtra}
-                onChange={nameChangeHandler}
-              
-              />
-            </div>
+            <div className="grid md:grid-cols-2 md:gap-6">
+              <div className="relative">
+                <label htmlFor="namaExtra">Nama Extra</label>
+                <input
+                  id="namaExtra"
+                  type="text"
+                  className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
+                  placeholder="  Nama  Extra "
+                  value={namaExtra}
+                  onChange={nameChangeHandler}
+                />
+              </div>
               <div className="relative">
                 <label htmlFor="status">Status</label>
                 <select
-                   name="status"
+                  name="status"
                   id="status"
                   className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
                   value={status}
-                    onChange={statusChangeHandler}
-                  >
-                    <option value="" disabled>
-                      Status  
-                    </option>
-                    
-                    <option value="Aktif">Aktif</option>
-                    <option value="Non Aktif">Non aktif</option>
-                  </select>
+                  onChange={statusChangeHandler}
+                >
+                  <option value="" disabled>
+                    Status
+                  </option>
+
+                  <option value="Aktif">Aktif</option>
+                  <option value="Non Aktif">Non aktif</option>
+                </select>
               </div>
             </div>
-          
-
-      
 
             <div className="flex justify-between p-5">
               <button

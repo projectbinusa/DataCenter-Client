@@ -1,7 +1,5 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import NavComp from "../../components/NavComp";
 import Swal from "sweetalert2";
 import "../../style/edit.css";
 import PageSidebar from "../../components/PageSidebar";
@@ -9,10 +7,8 @@ import PageSidebar from "../../components/PageSidebar";
 export default function UbahKelas() {
   const kelasId = localStorage.getItem("kelasId");
   const [namaKelas, setNamaKelas] = useState("");
-
   const [status, setStatus] = useState("");
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -46,21 +42,19 @@ export default function UbahKelas() {
         status: status,
       })
       .then(() => {
-        // Show a success message using Sweetalert
-        Swal.fire({
+         Swal.fire({
           position: "center",
           icon: "success",
           title: "Edit Success!!",
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
-          // Redirect to the data-kelas page after Sweetalert is closed
+          // Redirect 
           window.location.href = "/data-kelas";
         });
       })
       .catch((error) => {
-        // Handle errors by displaying an alert message
-        alert("Terjadi kesalahan: " + error);
+         alert("Terjadi kesalahan: " + error);
       })
      
   };
@@ -82,7 +76,7 @@ export default function UbahKelas() {
                 Edit Kelas
               </p>
 
-              <div class="grid md:grid-cols-2 md:gap-6">
+              <div className="grid md:grid-cols-2 md:gap-6">
                 <div className="relative">
                   <label htmlFor="namaKelas">Nama Kelas</label>
                   <input

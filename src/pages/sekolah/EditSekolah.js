@@ -13,7 +13,8 @@ export default function EditSekolah() {
   const [alamatSekolah, setAlamatSekolah] = useState("");
   const [teleponSekolah, setTeleponSekolah] = useState("");
   const [akreditasiSekolah, setAkreditasiSekolah] = useState("");
-  const [visiMisi, setVisiMisi] = useState("");
+  const [misi, setMisi] = useState("");
+  const [visi, setVisi] = useState("");
   const [status, setStatus] = useState("");
   const [image, setImage] = useState("");
 
@@ -29,7 +30,7 @@ export default function EditSekolah() {
         setTeleponSekolah(dataSekolah.teleponSekolah);
         setStatus(dataSekolah.status);
         setAkreditasiSekolah(dataSekolah.akreditasiSekolah);
-        setVisiMisi(dataSekolah.visiMisi);
+        setMisi(dataSekolah.misi);
         setImage(dataSekolah.image);
       })
       .catch((error) => {
@@ -61,8 +62,11 @@ export default function EditSekolah() {
   const akreditasiCHange = (event) => {
     setAkreditasiSekolah(event.target.value);
   };
-  const VisimisiChange = (event) => {
-    setVisiMisi(event.target.value);
+  const MisiChange = (event) => {
+    setMisi(event.target.value);
+  };
+  const VisiChange = (event) => {
+    setVisi(event.target.value);
   };
   const handleImageChange = (event) => {
     const imageFile = event.target.files[0];
@@ -129,7 +133,8 @@ export default function EditSekolah() {
         status: status,
         informasiSekolah: informasiSekolah,
         akreditasiSekolah: akreditasiSekolah,
-        visiMisi: visiMisi,
+        misi: misi,
+        visi: visi,
       })
       .then(() => {
         Swal.fire({
@@ -157,6 +162,7 @@ export default function EditSekolah() {
   return (
     <div>
       <PageSidebar />
+      {/* isi */}
       <div className="p-4 sm:ml-64 mt-12">
         <div className="mx-auto max-w-screen-xl">
           <form
@@ -193,14 +199,14 @@ export default function EditSekolah() {
               <div className="relative mt-3">
                 <label
                   for="name"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
                 >
                   Nama Sekolah
                 </label>
                 <input
                   type="text"
                   id="name"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   placeholder="Nama Sekolah"
                   value={namaSekolah}
                   onChange={(e) => nameChangeHandler(e)}
@@ -211,14 +217,14 @@ export default function EditSekolah() {
               <div className="relative">
                 <label
                   for="alamatSekolah"
-                  class="block mb-3  text-sm font-medium text-gray-900 dark:text-dark"
+                  className="block mb-3  text-sm font-medium text-gray-900 dark:text-dark"
                 >
                   <p className="p-1">Alamat Sekolah</p>
                 </label>
                 <input
                   type="text"
                   id="alamatSekolah"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   placeholder="Alamat Sekolah"
                   value={alamatSekolah}
                   onChange={(e) => alamatChangeHandler(e)}
@@ -230,14 +236,14 @@ export default function EditSekolah() {
               <div className="relative mt-3">
                 <label
                   for="name"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
                 >
                   Akreditasi Sekolah
                 </label>
                 <input
                   type="text"
                   id="name"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   placeholder="   Akreditasi Sekolah"
                   value={akreditasiSekolah}
                   onChange={(e) => akreditasiCHange(e)}
@@ -248,12 +254,12 @@ export default function EditSekolah() {
               <div className="relative">
                 <label
                   for="status"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
                 >
                   Status
                 </label>
                 <select
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   id="status"
                   name="status"
                   value={status}
@@ -271,14 +277,14 @@ export default function EditSekolah() {
               <div className="relative">
                 <label
                   for="emailSekolah"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
                 >
                   Email Sekolah
                 </label>
                 <input
                   type="text"
                   id="emailSekolah"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   placeholder="Email Sekolah"
                   value={emailSekolah}
                   onChange={(e) => emailChangeHandler(e)}
@@ -288,14 +294,14 @@ export default function EditSekolah() {
               <div className="relative">
                 <label
                   for="nomerSekolah"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
                 >
                   Nomer Sekolah{" "}
                 </label>
                 <input
                   type="number"
                   id="nomerSekolah"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   placeholder="Nomer Sekolah"
                   value={teleponSekolah}
                   onChange={(e) => teleponChangeHandler(e)}
@@ -310,9 +316,59 @@ export default function EditSekolah() {
                   {" "}
                   <div className="mb-2 block">
                     <Label
+                      htmlFor="misiSekolah"
+                      value="Misi Sekolah"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
+                    />
+                  </div>
+                  <Textarea
+                    id="misiSekolah"
+                    placeholder=" "
+                    value={
+                      misi === null
+                        ? "Belum Mengisi Misi Sekolah"
+                        : misi
+                    }
+                    onChange={(e) => MisiChange(e)}
+                    className="overflow-y-auto relative block bg-white text-dark overflow-hidden rounded-md border border-gray-200  px-3 pt-3 shadow-sm dark:bg-white  dark:text-dark"
+                    required
+                    rows={12}
+                  />
+                </div>
+              </div>
+              <div className="relative">
+                <div className="max-w-md mx-auto">
+                  {" "}
+                  <div className="mb-2 block">
+                    <Label
+                      htmlFor="Visi"
+                      value="Visi Sekolah"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
+                    />
+                  </div>
+                  <Textarea
+                    id="visi"
+                    placeholder="Visi Sekolah"
+                    value={
+                      visi === null ? "Belum Mengisi Visi Sekolah " : visi
+                    }
+                    onChange={(e) => VisiChange(e)}
+                    className="overflow-y-auto relative block bg-white text-dark overflow-hidden rounded-md border border-gray-200  px-3 pt-3 shadow-sm dark:bg-white  dark:text-dark"
+                    required
+                    rows={12}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 gap-1 sm:grid-cols-1 p-2">
+              <div className="relative">
+                <div className="max-w-md mx-auto">
+                  {" "}
+                  <div className="mb-2 block">
+                    <Label
                       htmlFor="informasiSekolah"
                       value="Informasi Sekolah"
-                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
                     />
                   </div>
                   <Textarea
@@ -330,29 +386,7 @@ export default function EditSekolah() {
                   />
                 </div>
               </div>
-              <div className="relative">
-                <div className="max-w-md mx-auto">
-                  {" "}
-                  <div className="mb-2 block">
-                    <Label
-                      htmlFor="visiMisi"
-                      value="Visi Misi"
-                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
-                    />
-                  </div>
-                  <Textarea
-                    id="visiMisi"
-                    placeholder="Visi Misi"
-                    value={
-                      visiMisi === null ? "Belum Mengisi Visi Misi" : visiMisi
-                    }
-                    onChange={(e) => VisimisiChange(e)}
-                    className="overflow-y-auto relative block bg-white text-dark overflow-hidden rounded-md border border-gray-200  px-3 pt-3 shadow-sm dark:bg-white  dark:text-dark"
-                    required
-                    rows={12}
-                  />
-                </div>
-              </div>
+              
             </div>
 
             <div className="flex justify-between p-5">
