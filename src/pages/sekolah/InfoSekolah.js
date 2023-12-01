@@ -161,8 +161,8 @@ export default function InfoSekolah() {
               <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16">
                 <div className="max-w-screen-md mb-8 lg:mb-16">
                   <center>
-                    <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-dark">
-                      Visi <i>{namaSekolah} </i>
+                    <h2 className="mb-4 text-2xl font-bold text-gray-700 dark:text-dark inline-block align-top">
+                      Visi  
                     </h2>
                   </center>
 
@@ -176,8 +176,8 @@ export default function InfoSekolah() {
               <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16">
                 <div className="max-w-screen-md mb-8 lg:mb-16">
                   <center>
-                    <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-dark">
-                      Misi <i>{namaSekolah} </i>
+                    <h2 className="mb-4 text-2xl font-bold text-gray-700 dark:text-dark inline-block align-top">
+                      Misi  
                     </h2>
                   </center>
 
@@ -189,17 +189,17 @@ export default function InfoSekolah() {
             </section>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 md:grid-cols-1   gap-3">
+          <div className="grid grid-template-columns: repeat(1, 1fr) gap-4 md:grid-cols-1   gap-3">
             <section className="bg-gray-50 rounded-lg">
               <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16">
                 <div className="max-w-screen-md mb-8 lg:mb-16">
                   <center>
-                    <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-dark">
-                      Informasi <i>{namaSekolah} </i>
+                    <h2 className="mb-4 text-2xl font-bold text-gray-700 dark:text-dark inline-block align-top">
+                      Informasi 
                     </h2>
                   </center>
 
-                  <p className="text-gray-500 sm:text-xl dark:text-gray-500">
+                  <p className="text-gray-500 sm:text-xl dark:text-gray-500 indent-6">
                     {informasiSekolah !== null
                       ? informasiSekolah
                       : " belum Mengisi Informasi"}
@@ -210,11 +210,11 @@ export default function InfoSekolah() {
 
             <section className="bg-gray-50 rounded-lg">
               <div className="py-8 px-8 mx-auto max-w-screen-lg sm:py-16">
-                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-dark">
+                <h2 className="mb-4 text-2xl font-bold text-gray-700 dark:text-dark inline-block align-top">
                   Logo Sekolah
                 </h2>
 
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center p-3 md:p-2">
                   <span className="object-contain rounded-full h-4/5">
                     <img
                       src={image === null? logo :image}
@@ -228,8 +228,8 @@ export default function InfoSekolah() {
 
             <section className="bg-gray-50 rounded-lg">
               <div className="py-4 px-4 mx-auto max-w-screen-lg sm:py-16">
-                <h2 className="mb-4 text-2xl font-bold text-gray-500 dark:text-dark">
-                  About {namaSekolah}
+                <h2 className="mb-4 text-2xl font-bold text-gray-700 dark:text-dark inline-block align-top">
+                  About   
                 </h2>
 
                 <div className="text-gray-500 dark:text-gray-500 p-5 md:p-3">
