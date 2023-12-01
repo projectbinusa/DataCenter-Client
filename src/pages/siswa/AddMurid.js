@@ -117,13 +117,13 @@ export default function AddMurid() {
             onSubmit={addMurid}
           >
             <p className="text-center text-3xl font-medium mb-7">Add Murid</p>
-            <div class="grid md:grid-cols-2 md:gap-6">
+            <div className="grid md:grid-cols-2 md:gap-6">
             <div className="relative">
               <label htmlFor="namaMurid">Nama Murid:</label>
               <input
                 id="namaMurid"
                 type="text"
-                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder="Masukan Nama Anda "
                 value={namaMurid}
                 onChange={(e) => setNamaMurid(e.target.value)}
@@ -132,7 +132,7 @@ export default function AddMurid() {
               <div className="relative">
                 <label htmlFor="extrakulikuler">Extrakulikuler:</label>
                 <select
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   value={extrakulikuler}
                   onChange={(e) => setExtrakulikuler(e.target.value)}
                   required
@@ -140,23 +140,25 @@ export default function AddMurid() {
                   <option value="" disabled>
                     Pilih Extrakulikuler
                   </option>
-                  {extra_option.map((val) => {
-                      return (
-                        <option value={val.namaExtra}>{val.namaExtra}</option>
-                      );
-                    })}
-                  
+                  {extra_option.map((val, index) => {
+                    return (
+                      <option key={index} value={val.namaExtra}>
+                        {val.namaExtra}
+                      </option>
+                    );
+                  })}
                 </select>
+
               </div>
               </div>
-            <div class="grid md:grid-cols-2 md:gap-6">
+            <div className="grid md:grid-cols-2 md:gap-6">
               <div className="relative">
                 <label htmlFor="tempatLahir">Tempat Lahir:</label>
                 <input
                   type="text"
                   name="tempatlahir"
                   id="tempatlahir"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   placeholder="Masukan Tempat Lahir Anda "
                   value={tempatLahir}
                   onChange={(e) => setTempatLahir(e.target.value)}
@@ -169,7 +171,7 @@ export default function AddMurid() {
                   type="date"
                   name="tanggallahir"
                   id="tanggallahir"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   onChange={(e) => {
                     setTanggalLahir(e.target.value);
                     const age = hitungUmur(e.target.value);
@@ -179,14 +181,14 @@ export default function AddMurid() {
                 />
               </div>
             </div>
-            <div class="grid md:grid-cols-2 md:gap-6">
+            <div className="grid md:grid-cols-2 md:gap-6">
               <div className="relative">
                 <label htmlFor="namaOrtu">Nama Ortu:</label>
                 <input
                   type="text"
                   name="namaortu"
                   id="namaortu"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   placeholder="Masukan Nama Ortu Anda "
                   value={namaOrtu}
                   onChange={(e) => setNamaOrtu(e.target.value)}
@@ -199,7 +201,7 @@ export default function AddMurid() {
                   type="number"
                   name="noteleponortu"
                   id="noteleponortu"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   placeholder="Masukan No Telepon Ortu Anda "
                   value={noTeleponOrtu}
                   onChange={(e) => setNoTeleponOrtu(e.target.value)}
@@ -207,11 +209,11 @@ export default function AddMurid() {
                 />
               </div>
             </div>
-            <div class="grid md:grid-cols-2 md:gap-6">
+            <div className="grid md:grid-cols-2 md:gap-6">
               <div className="relative">
                 <label htmlFor="agama">Agama:</label>
                 <select
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   value={agama}
                   onChange={(e) => setAgama(e.target.value)}
                   required
@@ -232,7 +234,7 @@ export default function AddMurid() {
               <div className="relative">
                 <label htmlFor="kelas">Kelas:</label>
                 <select
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   value={kelas}
                   onChange={(e) => setKelas(e.target.value)}
                   required
@@ -240,12 +242,15 @@ export default function AddMurid() {
                   <option value="" disabled>
                     Pilih Kelas
                   </option>
-                  {kelas_option.map((val) => {
-                      return (
-                        <option value={val.namaKelas}>{val.namaKelas}</option>
-                      );
-                    })}
+                  {kelas_option.map((val, index) => {
+                    return (
+                      <option key={index} value={val.namaKelas}>
+                        {val.namaKelas}
+                      </option>
+                    );
+                  })}
                 </select>
+
                 {/* Add label for Kelas if needed */}
               </div>
             </div>
