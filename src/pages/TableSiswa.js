@@ -497,7 +497,7 @@ export default function Table() {
   return (
     <>
       <PageSidebar />
-      <div className="p-4 sm:ml-64 flex-grow">
+      <div className="md:px-14 sm:ml-64 mt-24">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-14">
           {/* Total Murid */}
           <div className="rounded-xl bg-white p-4 h-[150px] text-center flex items-center shadow-md border border-blue-500 border-2">
@@ -674,10 +674,9 @@ export default function Table() {
             </div>
           </div>
 
-        <div className="border-2 rounded-xl shadow-md p-5 m-5 bg-white">
-          {/* tombol import export dan add start */}
-          <div className="grid justify-center">
-            <div className="grid grid-cols-1 md:flex gap-3 mt-6">
+          <div className="p-5 bg-white">
+            <div className="grid justify-center">
+              <div className="grid grid-cols-1 md:flex gap-3 mt-6">
               {siswa.length === 0 ? (
                 <></>
               ) : (
