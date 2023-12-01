@@ -31,6 +31,7 @@ export default function EditSekolah() {
         setStatus(dataSekolah.status);
         setAkreditasiSekolah(dataSekolah.akreditasiSekolah);
         setMisi(dataSekolah.misi);
+        setVisi(dataSekolah.visi);
         setImage(dataSekolah.image);
       })
       .catch((error) => {

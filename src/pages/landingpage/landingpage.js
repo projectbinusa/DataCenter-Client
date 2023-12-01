@@ -28,43 +28,43 @@ export default function LandingPage() {
       window.location.href = `/publik-sekolah/${selectedSekolah.id}`;
     }
   };
-  
+
   const searchInput = document.getElementById("searchSekolah");
   const schoolList = document.getElementById("schoolList");
   let inputTimeout;
-  
+
   const handleSearch = (e) => {
     clearTimeout(inputTimeout);
-  
+
     const searchTerm = e.target.value.toLowerCase();
-  
+
     inputTimeout = setTimeout(() => {
       schoolList.innerHTML = "";
-  
+
       if (searchTerm) {
         const loadingIndicator = document.createElement("div");
         loadingIndicator.textContent = "Loading..."; // Add loading indicator text
         schoolList.appendChild(loadingIndicator);
-  
+
         const suggestions = getSuggestions(searchTerm);
-  
+
         // Remove the loading indicator
         schoolList.removeChild(loadingIndicator);
-  
+
         suggestions.forEach((suggestion) => {
           const listItem = document.createElement("div");
           listItem.classList.add("list-item");
           listItem.textContent = suggestion.value;
-  
+
           listItem.addEventListener("click", () => {
             setSelectedSekolah(suggestion.data);
-  
+
             searchInput.value = suggestion.value;
-  
+
             // If needed, you can call handleSubmit here
             // handleSubmit();
           });
-  
+
           schoolList.appendChild(listItem);
         });
       }
@@ -109,12 +109,7 @@ export default function LandingPage() {
               >
                 Log in
               </a>
-              <a
-                href="/registrasi"
-              >
-                Sign Up
-              </a>
-              
+              <a href="/registrasi">Sign Up</a>
             </div>
           </div>
         </nav>
@@ -389,13 +384,13 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 gap-4 mt-8">
             <img
               className="w-full rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png"
-              alt="office content 1"
+              src="https://www.thefastmode.com/media/k2/items/src/01897cc24a02a6df2bd96998045e58ea.jpg?t=20220531_012745"
+              alt="Data Center 1"
             />
             <img
               className="mt-4 w-full lg:mt-10 rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png"
-              alt="office content 2"
+              src="https://img.freepik.com/vetores-premium/computacao-em-nuvem-isometrica_82984-199.jpg?size=626&ext=jpg"
+              alt="Data Center 2"
             />
           </div>
         </div>
