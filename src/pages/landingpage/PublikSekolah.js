@@ -26,7 +26,8 @@ export default function PublikSekolah() {
   const [visiMisi, setVisiMisi] = useState("");
   const [status, setStatus] = useState("");
   const [image, setImage] = useState("");
-
+  const [visi, setVisi] = useState("");
+  const [misi, setMisi] = useState("");
   const userId = localStorage.getItem("userId");
   const [UserId, setUserId] = useState("");
   const [guru, setGuru] = useState([]);
@@ -259,6 +260,8 @@ export default function PublikSekolah() {
       setVisiMisi(resData.visiMisi);
       setAlamatSekolah(resData.alamatSekolah);
       setImage(resData.image);
+      setVisi(resData.visi);
+      setMisi(resData.misi);
     } catch (error) {
       console.log(error);
     }
@@ -508,14 +511,17 @@ export default function PublikSekolah() {
                       <p className=" mb-5 font-bold text-2xl">
                         TERAKREDITASI {akreditasiSekolah}
                       </p>
-                      <h2 className=" text-2xl font-bold text-white">
-                        VISI MISI
-                      </h2>
+                      <h2 className=" text-2xl font-bold text-white">VISI</h2>
                       <p className="mb-5 text-xl text-gray-300">
-                        {visiMisi !== null
-                          ? visiMisi
-                          : " Belum mengisi Visi Misi"}
+                        {visi !== null ? visi : " Belum mengisi Visi  "}
                       </p>
+                      <h2 className=" text-2xl font-bold text-white">MISI</h2>
+                      <p className="mb-5 text-xl text-gray-300">
+                        {misi !== null ? misi : " Belum mengisi Misi  "}
+                      </p>
+                      <h3 className=" text-2xl font-bold text-white">
+                        Informasi
+                      </h3>
                       <p className="text-lg">{informasiSekolah}</p>
                     </div>
                   </div>
