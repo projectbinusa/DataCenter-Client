@@ -497,7 +497,7 @@ export default function PublikSekolah() {
                         </h2>
                       </div>
                       <div>
-                        <img src={image} alt="Logo Sekolah" className="w-2/5" />
+                        <img src={image} alt="Logo Sekolah" className="w-2/5 text-white" />
                       </div>
                     </div>
                     <div className="text-white p-5 md:p-3">
