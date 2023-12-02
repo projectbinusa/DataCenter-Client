@@ -210,7 +210,7 @@ export default function InfoSekolah() {
 
             <section className="bg-gray-50 rounded-lg">
               <div className="py-8 px-8 mx-auto max-w-screen-lg sm:py-16">
-                <h2 className="mb-4 text-2xl font-bold text-gray-700 dark:text-dark inline-block align-top">
+                <h2 className="mb-4 text-2xl font-bold text-gray-700 dark:text-dark inline-block align-top text-center">
                   Logo Sekolah
                 </h2>
 
