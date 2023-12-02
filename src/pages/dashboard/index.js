@@ -3,6 +3,9 @@ import Chart from "react-apexcharts";
 import axios from "axios";
 import AOS from "aos";
 import PageSidebar from "../../components/PageSidebar";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import $ from "jquery";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChalkboardUser,
@@ -10,6 +13,15 @@ import {
   faUserFriends,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
+
+AOS.init({ duration: 1750, once: true });
+
+$(document).ready(function () {
+  setTimeout(function () {
+    $("#guru").DataTable();
+    $("#murid").DataTable();
+  }, 1000);
+});
 
 export default function Dashboard() {
   const [guru, setGuru] = useState([]);
@@ -391,7 +403,7 @@ export default function Dashboard() {
                             options={state.options}
                             series={state.series}
                             type="donut"
-                            width="370"
+                            width="380"
                             className="text-left"
                           />
                         )}
@@ -449,7 +461,7 @@ export default function Dashboard() {
                             options={statee.options}
                             series={statee.series}
                             type="donut"
-                            width="370"
+                            width="380"
                             className="text-left"
                           />
                         )}
@@ -510,7 +522,7 @@ export default function Dashboard() {
               <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 p-5">
                 <table
                   className="min-w-full divide-gray-200 text-center p-5"
-                  id="example"
+                  id="guru"
                   data-aos="zoom-in"
                 >
                   <thead className="th-add">
@@ -581,8 +593,8 @@ export default function Dashboard() {
               </div>
               <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 p-5">
                 <table
-                  className="min-w-full divide-gray-200 text-center p-3"
-                  id="example"
+                  className="min-w-full divide-gray-200 text-center p-5"
+                  id="murid"
                   data-aos="zoom-in"
                 >
                   <thead className="th-add">
