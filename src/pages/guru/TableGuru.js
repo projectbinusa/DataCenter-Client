@@ -691,7 +691,7 @@ export default function TableGuru() {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="">
+                <tbody className="text-left">
                   {guru.map((val, idx) => {
                     return (
                       <tr key={idx}>
