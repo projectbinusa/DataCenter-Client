@@ -544,7 +544,7 @@ export default function Dashboard() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="">
+                  <tbody className="text-left">
                     {guru.map((val, idx) => {
                       return (
                         <tr key={idx}>
@@ -616,7 +616,7 @@ export default function Dashboard() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="">
+                  <tbody className="text-left">
                     {siswa.map((val, idx) => {
                       return (
                         <tr key={idx}>
