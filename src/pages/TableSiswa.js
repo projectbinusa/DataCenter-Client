@@ -500,7 +500,7 @@ export default function Table() {
       <div className="md:px-14 sm:ml-64 mt-24">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-14">
           {/* Total Murid */}
-          <div className="rounded-xl bg-white p-4 h-[150px] text-center flex items-center shadow-md border border-blue-500 border-2">
+          <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
             <FontAwesomeIcon
               icon={faUsers}
               className="text-4xl text-blue-600 mr-4"
@@ -514,7 +514,7 @@ export default function Table() {
           </div>
 
           {/* Total Murid per Kelas */}
-          <div className="rounded-xl bg-white p-4 h-[150px] text-center flex items-center shadow-md border border-blue-500 border-2">
+          <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
             <FontAwesomeIcon
               icon={faUserFriends}
               className="text-4xl text-blue-600 mr-4"
@@ -539,7 +539,7 @@ export default function Table() {
           </div>
 
           {/* Rata-Rata Umur */}
-          <div className="rounded-xl bg-white p-4 h-[150px] text-center flex items-center shadow-md border border-blue-500 border-2">
+          <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
             <FontAwesomeIcon
               icon={faUserGraduate}
               className="text-4xl text-blue-600 mr-4"
