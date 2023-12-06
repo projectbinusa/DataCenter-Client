@@ -326,15 +326,6 @@ export default function Table() {
     backgroundColor: "lightpink",
   };
 
-  const calculateTotalStudentsByClass = () => {
-    const totalStudents = siswa.length;
-    const studentsByClass = {
-      X: siswa.filter((student) => student.kelas === "X").length,
-      XI: siswa.filter((student) => student.kelas === "XI").length,
-      XII: siswa.filter((student) => student.kelas === "XII").length,
-    };
-    return { totalStudents, studentsByClass };
-  };
 
   // Calculate average age
   const calculateAverageAge = () => {
@@ -347,6 +338,7 @@ export default function Table() {
     const averageAge = totalAges / (siswa.length || 1); // To avoid division by zero
     return Math.round(averageAge);
   };
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -498,7 +490,16 @@ export default function Table() {
 
     fetchData();
   }, []);
-
+  const calculateTotalStudentsByClass = () => {
+    // Assuming 'siswa' contains student data with 'kelas' as the class attribute
+    const classCounts = {};
+  
+    siswa.forEach((student) => {
+      classCounts[student.kelas] = (classCounts[student.kelas] || 0) + 1;
+    });
+  
+    return classCounts;
+  };
   return (
     <>
       <PageSidebar />
@@ -513,7 +514,7 @@ export default function Table() {
             <div className="text-left">
               <p className="font-bold mb-1 text-gray-800">Total Murid:</p>
               <h1 className="text-3xl font-bold text-blue-700">
-                {calculateTotalStudentsByClass().totalStudents} Murid
+              {siswa.length}
               </h1>
             </div>
           </div>
@@ -529,16 +530,11 @@ export default function Table() {
                 Total Murid per Kelas:
               </p>
               <div>
-                <p className="text-blue-700">
-                  Kelas X: {calculateTotalStudentsByClass().studentsByClass.X}
-                </p>
-                <p className="text-blue-700">
-                  Kelas XI: {calculateTotalStudentsByClass().studentsByClass.XI}
-                </p>
-                <p className="text-blue-700">
-                  Kelas XII:{" "}
-                  {calculateTotalStudentsByClass().studentsByClass.XII}
-                </p>
+                {Object.entries(calculateTotalStudentsByClass()).map(([kelas, total]) => (
+                  <p key={kelas} className="text-blue-700">
+                    Kelas {kelas}: {total} Murid
+                  </p>
+                ))}
               </div>
             </div>
           </div>
