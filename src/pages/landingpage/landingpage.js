@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Logo from "../../assets/logo.png";
-
+import "./landingpage.css";
 const api = "http://localhost:8080/api/sekolah";
 
 export default function LandingPage() {
@@ -43,7 +43,7 @@ export default function LandingPage() {
 
       if (searchTerm) {
         const loadingIndicator = document.createElement("div");
-        loadingIndicator.textContent = "Loading..."; // Add loading indicator text
+        loadingIndicator.textContent = "Loading...";
         schoolList.appendChild(loadingIndicator);
 
         const suggestions = getSuggestions(searchTerm);
@@ -66,10 +66,13 @@ export default function LandingPage() {
           });
 
           schoolList.appendChild(listItem);
+          const hr = document.createElement("hr");
+          schoolList.appendChild(hr);
         });
       }
     }, 500);
   };
+
   const getSuggestions = (searchTerm) => {
     const suggestions = [];
     for (const sekolah of getSekolah) {
@@ -82,6 +85,7 @@ export default function LandingPage() {
     }
     return suggestions;
   };
+
   useEffect(() => {
     sekolah();
   }, []);
@@ -129,12 +133,8 @@ export default function LandingPage() {
               Informasi Data Sekolah Yang ada Di Seluruh Indonesia.
             </p>
 
-            <div className="w-75 pt-4 flex items-center">
-              {" "}
-              {/* Menambahkan flex container */}
+            <div className="w-75 pt-4 flex flex-direction: column items-center">
               <div className="mr-4 flex-grow">
-                {" "}
-                {/* Menambahkan margin-right dan flex-grow untuk elemen select */}
                 <input
                   id="searchSekolah"
                   type="text"
@@ -142,15 +142,11 @@ export default function LandingPage() {
                   placeholder="Cari sekolah"
                   onChange={handleSearch}
                 />
-                <div
-                  id="schoolList"
-                  className="text-white dark:text-white "
-                ></div>
               </div>
               <button
                 id="submitButton"
                 onClick={handleSubmit}
-                className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+                className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 margin-bottom: 1rem"
               >
                 Mulai
                 <svg
@@ -163,10 +159,14 @@ export default function LandingPage() {
                     fillRule="evenodd"
                     d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
                     clipRule="evenodd"
-                  ></path>
+                  />
                 </svg>
               </button>
             </div>
+            <div
+              id="schoolList"
+              className="text-white dark:text-white  p-1 "
+            ></div>
           </div>
 
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">

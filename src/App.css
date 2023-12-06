@@ -53,16 +53,6 @@
 }
 
  
- 
-div#schoolList {
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
- 
-div#schoolList:hover {
-  color: rgb(236, 236, 236);
-background-color: rgb(57, 57, 238);
-}
- 
+
 
  
