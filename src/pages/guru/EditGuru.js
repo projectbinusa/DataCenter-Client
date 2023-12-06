@@ -16,6 +16,7 @@ export default function EditGuru() {
   const [gender, setGender] = useState("");
   const [gelarPendidikan, setGelarPendidikan] = useState("");
   const [statusKawin, setStatusKawin] = useState("");
+  const [image, setImage] = useState("");
   const [gelar_option, setGelarOption] = useState([]);
 
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ export default function EditGuru() {
         setNoTelepon(dataGuru.noTelepon);
         setGelarPendidikan(dataGuru.gelarPendidikan);
         setStatusKawin(dataGuru.statusKawin);
+        setImage(dataGuru.image);
       })
       .catch((error) => {
         alert("Terjadi kesalahan Sir! " + error);
@@ -69,6 +71,56 @@ export default function EditGuru() {
   };
   const statusChangeHandler = (event) => {
     setStatusKawin(event.target.value);
+  };
+  const handleImageChange = (event) => {
+    const imageFile = event.target.files[0];
+
+    if (!imageFile.type.match("image.*")) {
+      Swal.fire({
+        icon: "warning",
+        text: "Format gambar tidak didukung",
+      });
+      return;
+    }
+
+    if (imageFile.size > 1000000) {
+      Swal.fire({
+        icon: "warning",
+        text: "Ukuran gambar terlalu besar",
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    let timerInterval;
+
+    Swal.fire({
+      title: "Sedang Mengupload File",
+      icon: "Loading",
+      timer: 2000,
+      timerProgressBar: true,
+
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    });
+
+    axios
+      .put(`http://localhost:8080/api/guru/${param.id}/upload-image`, formData)
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          text: "Gambar berhasil diupload",
+        });
+        setImage(URL.createObjectURL(imageFile));
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "warning",
+          text: "Gagal mengupload gambar",
+        });
+      });
   };
 
   const submitActionHandler = async (event) => {
@@ -147,6 +199,22 @@ export default function EditGuru() {
                   value={namaGuru}
                   onChange={nameChangeHandler}
                   required
+                />
+              </div>
+              <div className="relative mt-3">
+                <label
+                  htmlFor="image"
+                  className="block mb-2 text-sm font-medium text-gray-900 "
+                >
+                  Foto Guru
+                </label>
+                <input
+                  type="file"
+                  id="image"
+                  placeholder="Foto Guru"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  style={{ width: "80%" }}
                 />
               </div>
 

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PageSidebar from "../../components/PageSidebar";
 import { useParams } from "react-router-dom";
-import defaultProfilePicture from "../../assets/User.png";
+// import defaultProfilePicture from "../../assets/User.png";
 
 export default function DetailGuru() {
   const param = useParams();
@@ -16,6 +16,7 @@ export default function DetailGuru() {
   const [gender, setGender] = useState("");
   const [gelarPendidikan, setGelarPendidikan] = useState("");
   const [statusKawin, setStatusKawin] = useState("");
+  const [image, setImage] = useState("");
 
   //   const [profilePicture, setProfilePicture] = useState(defaultProfilePicture);
 
@@ -49,6 +50,7 @@ export default function DetailGuru() {
         setNoTelepon(dataGuru.noTelepon);
         setGelarPendidikan(dataGuru.gelarPendidikan);
         setStatusKawin(dataGuru.statusKawin);
+        setImage(dataGuru.image);
       })
       .catch((error) => {
         alert("Terjadi kesalahan Sir! " + error);
@@ -71,7 +73,7 @@ export default function DetailGuru() {
           <div className="bg-white p-8 shadow-md rounded-md w-1/3 h-[300px]">
             <div className="flex items-center justify-center mb-6">
               <img
-                src={defaultProfilePicture}
+                src={image}
                 alt="Profile"
                 className="rounded-full w-40 h-40 object-cover"
               />

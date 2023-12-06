@@ -17,6 +17,7 @@ export default function TableGuru() {
   const [isChecked, setIsChecked] = useState([]);
   const [modal, setModal] = useState(false);
   const [excel, setExcel] = useState("");
+  const [image, setImage] = useState("");
 
   const [state, setState] = useState({
     options: {
@@ -674,6 +675,7 @@ export default function TableGuru() {
                     <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
                       Nama Guru
                     </th>
+
                     <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
                       Tempat Lahir
                     </th>
@@ -716,6 +718,7 @@ export default function TableGuru() {
                         <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                           {val.namaGuru}
                         </td>
+
                         <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                           {val.tempatLahir}
                         </td>

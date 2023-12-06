@@ -489,37 +489,46 @@ export default function PublikSekolah() {
       <div className="bg-gray-900 min-h-screen">
         <div className="p-4 md:mx-20 sm:ml-64 mt-16 ">
           <div data-aos="fade-up">
+            <div className="grid grid-cols-3 w-full bg-white rounded-t-lg py-3">
+              <div className="col-span-2">
+                <h2 className="mt-8 text-4xl font-extrabold text-black uppercase px-3">
+                  Ini Adalah Informasi Sekolah {namaSekolah} ({status}) (
+                  {akreditasiSekolah})
+                </h2>
+              </div>
+              <div>
+                <img
+                  src={image}
+                  alt="Logo Sekolah"
+                  className="w-2/5 text-white"
+                />
+              </div>
+            </div>
             <section className="bg-gray-800">
               <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
                 <div className=" mb-8 lg:mb-16">
                   <div className=" mb-8 lg:mb-16">
-                    <div className="grid grid-cols-3 w-full">
-                      <div className="col-span-2">
-                        <h2 className="mb-4 text-4xl font-extrabold text-white uppercase px-3">
-                          Ini Adalah Informasi Sekolah {namaSekolah} ({status})
-                        </h2>
-                      </div>
-                      <div>
-                        <img
-                          src={image}
-                          alt="Logo Sekolah"
-                          className="w-2/5 text-white"
-                        />
-                      </div>
-                    </div>
                     <div className="text-white p-5 md:p-3">
-                      <p className=" mb-5 font-bold text-2xl">
-                        TERAKREDITASI {akreditasiSekolah}
-                      </p>
-                      <h2 className=" text-2xl font-bold text-white">VISI</h2>
-                      <p className="mb-5 text-xl text-gray-300">
-                        {visi !== null ? visi : " Belum mengisi Visi  "}
-                      </p>
-                      <h2 className=" text-2xl font-bold text-white">MISI</h2>
-                      <p className="mb-5 text-xl text-gray-300">
-                        {misi !== null ? misi : " Belum mengisi Misi  "}
-                      </p>
-                      <h3 className=" text-2xl font-bold text-white">
+                      <div className="grid grid-cols-2 text-center">
+                        <div>
+                          <h2 className=" text-2xl font-bold text-white">
+                            VISI
+                          </h2>
+                          <p className="mb-5 text-xl text-gray-300">
+                            {visi !== null ? visi : " Belum mengisi Visi  "}
+                          </p>
+                        </div>
+                        <div>
+                          {" "}
+                          <h2 className=" text-2xl font-bold text-white">
+                            MISI
+                          </h2>
+                          <p className="mb-5 text-xl text-gray-300">
+                            {misi !== null ? misi : " Belum mengisi Misi  "}
+                          </p>
+                        </div>
+                      </div>
+                      <h3 className="mt-8 text-2xl font-bold text-white">
                         Informasi
                       </h3>
                       <p className="text-lg">{informasiSekolah}</p>
