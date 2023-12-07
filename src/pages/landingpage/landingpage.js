@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Logo from "../../assets/logo.png";
 import "./landingpage.css";
+import Swal from "sweetalert2";
 const api = "http://localhost:8080/api/sekolah";
 
 export default function LandingPage() {
@@ -21,50 +22,68 @@ export default function LandingPage() {
     }
   };
 
-  console.log(getSekolah);
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = (selectedSekolah  ) => {
     if (selectedSekolah) {
-      window.location.href = `/publik-sekolah/${selectedSekolah.id}`;
+      const sekolahId = selectedSekolah.id;
+      window.location.href = `/publik-sekolah/${sekolahId}`;
+    } else {
+      const searchTerm = searchInput.value.toLowerCase();
+      const matchingSchools = getSekolah.filter(sekolah => sekolah.namaSekolah.toLowerCase().includes(searchTerm));
+  
+      if (matchingSchools.length) {
+        const matchingSchool = matchingSchools[0];
+        window.location.href = `/publik-sekolah/${matchingSchool.id}`;
+      } else {
+        Swal.fire({
+          icon: "warning",
+          text: "Sekolah Tidak Ditemukan",
+        });
+      }
     }
   };
-
+  
   const searchInput = document.getElementById("searchSekolah");
   const schoolList = document.getElementById("schoolList");
   let inputTimeout;
-
+  
   const handleSearch = (e) => {
     clearTimeout(inputTimeout);
-
+  
     const searchTerm = e.target.value.toLowerCase();
-
+  
     inputTimeout = setTimeout(() => {
-      schoolList.innerHTML = "";
-
+      if (schoolList) {
+        schoolList.innerHTML = "";
+      }
+  
       if (searchTerm) {
         const loadingIndicator = document.createElement("div");
         loadingIndicator.textContent = "Loading...";
         schoolList.appendChild(loadingIndicator);
-
+  
         const suggestions = getSuggestions(searchTerm);
-
-        // Remove the loading indicator
+  
         schoolList.removeChild(loadingIndicator);
-
+   
+  
         suggestions.forEach((suggestion) => {
           const listItem = document.createElement("div");
           listItem.classList.add("list-item");
           listItem.textContent = suggestion.value;
-
+  
           listItem.addEventListener("click", () => {
-            setSelectedSekolah(suggestion.data);
-
             searchInput.value = suggestion.value;
-
-            // If needed, you can call handleSubmit here
-            // handleSubmit();
+            handleSubmit(suggestion.data);
+            handleSearch(e);
+            listItem.classList.add("hover");
           });
-
+  
+          listItem.addEventListener("mouseleave", () => {
+            listItem.classList.remove("hover");
+          });
+  
           schoolList.appendChild(listItem);
           const hr = document.createElement("hr");
           schoolList.appendChild(hr);
@@ -72,7 +91,7 @@ export default function LandingPage() {
       }
     }, 500);
   };
-
+  
   const getSuggestions = (searchTerm) => {
     const suggestions = [];
     for (const sekolah of getSekolah) {
@@ -85,7 +104,9 @@ export default function LandingPage() {
     }
     return suggestions;
   };
-
+  
+  
+  
   useEffect(() => {
     sekolah();
   }, []);
@@ -111,13 +132,13 @@ export default function LandingPage() {
                 href="/login"
                 className=" text-white focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
               >
-                Log in
+               Masuk
               </a>
               <a
                 href="/registrasi"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               >
-                Sign Up
+             Daftar
               </a>{" "}
             </div>
           </div>
@@ -143,12 +164,12 @@ export default function LandingPage() {
                   onChange={handleSearch}
                 />
               </div>
-              <button
+              {/* <button
                 id="submitButton"
                 onClick={handleSubmit}
                 className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 margin-bottom: 1rem"
               >
-                Mulai
+                Cari 
                 <svg
                   className="w-5 h-5 ml-2 -mr-1"
                   fill="currentColor"
@@ -161,7 +182,7 @@ export default function LandingPage() {
                     clipRule="evenodd"
                   />
                 </svg>
-              </button>
+              </button> */}
             </div>
             <div
               id="schoolList"

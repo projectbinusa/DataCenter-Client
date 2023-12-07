@@ -1,14 +1,19 @@
 .list-item {
   list-style-type: none;
 }
-
+.list-item:hover {
+  background-color: rgb(57, 57, 238);
+  cursor: pointer;
+}
+.list-item.focused {
+  background-color: #f2f7ff;
+  outline: 1px solid #000;
+}
+.list-item.active {
+  background-color: #000;
+  color: rgb(57, 57, 238);
+}
 div#schoolList {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
-
-div#schoolList:hover {
-  color: rgb(236, 236, 236);
-  background-color: rgb(57, 57, 238);
-}
- 

@@ -1,14 +1,15 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "../../style/edit.css";
 import PageSidebar from "../../components/PageSidebar";
+import { useParams } from "react-router-dom";
 
 export default function UbahKelas() {
-  const kelasId = localStorage.getItem("kelasId");
+  const params = useParams();
+  const kelasId = params.id; 
   const [namaKelas, setNamaKelas] = useState("");
   const [status, setStatus] = useState("");
-
 
   useEffect(() => {
     axios
@@ -16,7 +17,6 @@ export default function UbahKelas() {
       .then((response) => {
         const dataKelas = response.data;
         setNamaKelas(dataKelas.namaKelas);
-
         setStatus(dataKelas.status);
       })
       .catch((error) => {
@@ -34,30 +34,27 @@ export default function UbahKelas() {
 
   const submitActionHandler = async (event) => {
     event.preventDefault();
-   
-  
+
     await axios
       .put(`http://localhost:8080/api/kelas/${kelasId}`, {
         namaKelas: namaKelas,
         status: status,
       })
       .then(() => {
-         Swal.fire({
+        Swal.fire({
           position: "center",
           icon: "success",
           title: "Edit Success!!",
           showConfirmButton: false,
           timer: 1500,
-        }).then(() => {
-          // Redirect 
-          window.location.href = "/data-kelas";
         });
+        window.location.href = "/data-kelas";
       })
       .catch((error) => {
-         alert("Terjadi kesalahan: " + error);
-      })
-     
+        alert("Terjadi kesalahan: " + error);
+      });
   };
+
   const batal = () => {
     window.location.href = "/data-kelas";
   };
@@ -83,7 +80,7 @@ export default function UbahKelas() {
                     id="namaKelas"
                     type="text"
                     className="w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1"
-                    placeholder="  Nama  Kelas "
+                    placeholder="  Nama Kelas "
                     value={namaKelas}
                     onChange={nameChangeHandler}
                   />

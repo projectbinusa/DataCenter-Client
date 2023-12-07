@@ -3,7 +3,6 @@ import "./App.css";
 import { initFlowbite } from "flowbite";
 import Login from "./pages/Login";
 import Registrasi from "./pages/Registrasi";
-import Home from "./pages/Home";
 import Table from "./pages/TableSiswa";
 import EditSiswa from "./pages/EditSiswa";
 import SekolahById from "./pages/SekolahById";
@@ -39,8 +38,7 @@ import TambahExtra from "./pages/sekolah/TambahExtra";
 import TambahGelar from "./pages/sekolah/TambahGelar";
 import UbahExtra from "./pages/sekolah/UbahExtra";
 import UpdateGelar from "./pages/sekolah/UpdateGelar";
-// import DetailGuruSekolah from "./pages/landingpage/DetailGuruSekolah";
-// import DetailMuridSekolah from "./pages/landingpage/DetailMuridSekolah";
+import VerRegistrasi from "./pages/VerRegistrasi";
 
 // import PrivateBack from "./router/PrivateBack";
 
@@ -110,6 +108,7 @@ function App() {
               </PrivateRoute>
             }
           />
+        
 
           <Route
             path="/sekolah/:id"
@@ -134,6 +133,14 @@ function App() {
             element={
               <PrivateRoute>
                 <EditSiswaByAdmin />
+              </PrivateRoute>
+            }
+          />
+            <Route
+            path="/ver-registrasi"
+            element={
+              <PrivateRoute>
+                  <VerRegistrasi />
               </PrivateRoute>
             }
           />
@@ -279,7 +286,7 @@ function App() {
             }
           />
           <Route
-            path="/ubah-kelas"
+            path="/ubah-kelas/:id"
             element={
               <PrivateRoute>
                 <PrivateHome>
@@ -330,7 +337,7 @@ function App() {
             }
           />
           <Route
-            path="/ubah-gelar"
+            path="/update-gelar/:id"
             element={
               <PrivateRoute>
                 <PrivateHome>

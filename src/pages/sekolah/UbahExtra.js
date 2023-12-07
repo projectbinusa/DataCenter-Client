@@ -39,7 +39,6 @@ export default function UbahKelas() {
         status: status,
       });
 
-      console.log("Edit success!");
       Swal.fire({
         position: "center",
         icon: "success",

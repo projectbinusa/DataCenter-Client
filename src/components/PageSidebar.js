@@ -18,18 +18,17 @@ export default function PageSidebar() {
 
   const logout = () => {
     Swal.fire({
-      title: "Logout",
-      text: "Apakah Anda yakin ingin logout?",
+      title: "Keluar",
+      text: "Apakah Anda yakin ingin keluar?",
       icon: "question",
       showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "Cancel",
+      confirmButtonText: "Ya",
+      cancelButtonText: "Batal",
     }).then((result) => {
       if (result.isConfirmed) {
         handleLogout();
       } else {
-        Swal.fire("Cancelled", "Logout has been cancelled", "info");
-      }
+       }
     });
   };
 
@@ -79,13 +78,13 @@ export default function PageSidebar() {
                         alt="Login"
                         className="w-6 h-6 mr-2" // Adjust the width and height accordingly
                       />
-                      Login
+                      Masuk
                     </a>
                     <a
                       className="hidden rounded-md nav-reg px-5 py-2.5 text-sm font-medium transition sm:block"
                       href="/registrasi"
                     >
-                      Register
+                      Daftar
                     </a>
                   </>
                 ) : (
@@ -97,13 +96,13 @@ export default function PageSidebar() {
                             className="hover:text-blue-600 hover:bg-[#dfecff] text-blue-900 bg-[#dfecff] hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2  focus:outline-none "
                             href="/login"
                           >
-                            Login
+                            Masuk
                           </a>
                           <a
                             className="hidden rounded-md nav-reg px-5 py-2.5 text-sm font-medium transition  sm:block"
                             href="/registrasi"
                           >
-                            Register
+                            Daftar
                           </a>
                         </>
                       ) : (
@@ -111,7 +110,7 @@ export default function PageSidebar() {
                           className="hover:text-blue-600 hover:bg-[#dfecff] text-blue-900 bg-[#dfecff] hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2  focus:outline-none "
                           onClick={logout}
                         >
-                          Logout
+                          Keluar
                         </a>
                       )}
                     </div>

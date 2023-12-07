@@ -102,7 +102,7 @@ export default function Dashboard() {
     <div>
       <div className="flex">
         <Sidebar />
-        <div className="flex justify-center w-[100%]">
+        <div className="flex justify-center w-[100%] mt-20">
           <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
             <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
               <div className="col-span-2">
@@ -193,58 +193,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="pt-5 grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
-              <div
-                className="pie rounded-2xl p-1 shadow-xl"
-                data-aos="fade-right"
-              >
-                <div className="rounded-xl items-center bg-white p-1">
-                  <div className="pie rounded-xl px-2 md:p-1">
-                    <p className="text-white text-2xl">
-                      Data Gender Seluruh Siswa
-                    </p>
-                  </div>
-                  <div className="m-5 overflow-hidden overflow-x-auto">
-                    {siswa.length === 0 ? (
-                      <div>belum ada data</div>
-                    ) : (
-                      <Chart
-                        options={state.options}
-                        series={state.series}
-                        type="pie"
-                        width="380"
-                        className="text-left"
-                      />
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div
-                className="pie rounded-2xl p-1 shadow-xl"
-                data-aos="fade-left"
-              >
-                <div className="rounded-xl bg-white p-1">
-                  <div className="pie rounded-xl px-2 md:p-1">
-                    <p className="text-white text-2xl">
-                      Data Agama Seluruh Siswa
-                    </p>
-                  </div>
-                  <div className="m-5 overflow-hidden overflow-x-auto">
-                    {siswa.length === 0 ? (
-                      <div>belum ada data</div>
-                    ) : (
-                      <Chart
-                        options={religi.options}
-                        series={religi.series}
-                        type="pie"
-                        width="380"
-                        className="text-left"
-                      />
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
+            
           </main>
         </div>
       </div>

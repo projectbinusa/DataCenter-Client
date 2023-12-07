@@ -3,9 +3,11 @@ import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "../../style/edit.css";
 import PageSidebar from "../../components/PageSidebar";
+import { useParams } from "react-router-dom";
 
 export default function UpdateGelar() {
-  const gelarPendidikanId = localStorage.getItem("gelarPendidikanId");
+  const params = useParams();
+  const gelarPendidikanId = params.id;   
   const [namaGelar, seNamaGelar] = useState("");
   const [status, setStatus] = useState("");
 
@@ -72,7 +74,7 @@ export default function UpdateGelar() {
               onSubmit={submitActionHandler}
             >
               <p className="text-center text-3xl font-medium mb-7">
-                Edit Extra
+                Edit Gelar
               </p>
 
               <div className="grid md:grid-cols-2 md:gap-6">

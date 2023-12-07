@@ -56,22 +56,14 @@ export default function TableSekolahAdmin() {
   return (
     <div>
       <div className="flex">
-        {/* sidebar start */}
+     
         <div>
           <Sidebar />
         </div>
-        {/* sidebar end */}
-
-        {/* content start */}
-        <div className="flex justify-center">
+     
+        <div className="flex justify-center mt-20">
           <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
-            <div className="bg-[#10316b] rounded-lg mb-7 p-1">
-              <div className="border-2 border-white rounded-lg px-16">
-                <div className="text-md md:text-4xl text-white font-bold md:font-semibold my-7">
-                  Data Sekolah Menengah Pertama di Wilayah Semarang
-                </div>
-              </div>
-            </div>
+           
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-7">
               {sekolah.map((smp) => (

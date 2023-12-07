@@ -4,13 +4,26 @@ import logo from "../assets/dc-logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+// import emailjs from "@emailjs/browser";
 
 export default function Registrasi() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-
+  // const sendEmail = (e) => {
+  //   try {
+  //     e.preventDefult();
+  //     emailjs.sendForm(
+  //       "service_ymonnwd",
+  //       " template_hqfq5vn ",
+  //       e.target,
+  //       "w_wAsC7AAmpHTHoz2"
+  //     );
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   const register = async (e) => {
     e.preventDefault();
 
@@ -50,7 +63,9 @@ export default function Registrasi() {
             <div className="rounded-lg shadow-lg lg:col-span-3 lg:p-12 body-reg p-10">
               <div className="flex justify-center items-center mx-10 md:mx-24 mb-7">
                 <div>
-                  <div className="text-xl md:text-2xl font-semibold">Buat Akun Baru</div>
+                  <div className="text-xl md:text-2xl font-semibold">
+                    Buat Akun Baru
+                  </div>
                 </div>
               </div>
 
@@ -133,7 +148,7 @@ export default function Registrasi() {
                     <label
                       htmlFor="UserPassword"
                       className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-                    >
+                     >
                       <input
                         type="password"
                         id="UserPassword"
