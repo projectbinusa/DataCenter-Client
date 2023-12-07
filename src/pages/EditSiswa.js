@@ -186,13 +186,18 @@ export default function EditGuru() {
                   >
                 <option value="" disabled>
                     Pilih Extrakulikuler
-                  </option>
-                  {extra_option.map((val) => {
+                    </option>
+                  {extra_option.map((val, index) => {
+                    if (val.status === "Aktif") {
                       return (
-                        <option value={val.namaExtra}>{val.namaExtra}</option>
-                      );
-                    })}
-                    </select>
+                        <option key={index} value={val.namaExtra}>
+                          {val.namaExtra}
+                        </option>
+                        );
+                      }
+                    return null;
+                  })}
+                </select>
               </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -269,13 +274,18 @@ export default function EditGuru() {
                   >
                     <option value="" disabled>
                     Pilih Kelas
-                  </option>
-                  {kelas_option.map((val) => {
+                    </option>
+                  {kelas_option.map((val, index) => {
+                    if (val.status === "Aktif") {
                       return (
-                        <option value={val.namaKelas}>{val.namaKelas}</option>
-                      );
-                    })}
-                  </select>
+                        <option key={index} value={val.namaKelas}>
+                          {val.namaKelas}
+                        </option>
+                        );
+                      }
+                    return null;
+                  })}
+                </select>
                 </div>
               </div>
 

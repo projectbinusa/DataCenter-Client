@@ -82,7 +82,7 @@ export default function Login() {
                 onSubmit={login}
               >
                 <div className="pb-3">
-                  <p className="text-3xl font-bold pb-2 text-center">Selamat Datang!</p>
+                  <p className="text-3xl font-bold pb-2 text-center">Login Admin</p>
                   <p className="text-lg text-center" style={{ color: '#718096' }}>Masukkan email dan kata sandi Anda</p>
                 </div>
   
@@ -106,7 +106,7 @@ export default function Login() {
                     <input
                       autoComplete="off"
                       type={passwordType}
-                      className="w-full rounded-lg border-gray-200 py-4 px-3 text-sm shadow-sm pr-12" // Added 'pr-12' for padding-right to accommodate the eye icon
+                      className="w-full rounded-lg border-gray-200 py-4 px-3 text-sm shadow-sm pr-12"
                       placeholder="Kata Sandi"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}

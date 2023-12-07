@@ -139,15 +139,19 @@ export default function AddMurid() {
                 >
                   <option value="" disabled>
                     Pilih Extrakulikuler
-                  </option>
+                    </option>
                   {extra_option.map((val, index) => {
-                    return (
-                      <option key={index} value={val.namaExtra}>
-                        {val.namaExtra}
-                      </option>
-                    );
+                    if (val.status === "Aktif") {
+                      return (
+                        <option key={index} value={val.namaExtra}>
+                          {val.namaExtra}
+                        </option>
+                        );
+                      }
+                    return null;
                   })}
                 </select>
+
 
               </div>
               </div>
@@ -243,11 +247,14 @@ export default function AddMurid() {
                     Pilih Kelas
                   </option>
                   {kelas_option.map((val, index) => {
-                    return (
-                      <option key={index} value={val.namaKelas}>
-                        {val.namaKelas}
-                      </option>
-                    );
+                    if (val.status === "Aktif") {
+                      return (
+                        <option key={index} value={val.namaKelas}>
+                          {val.namaKelas}
+                        </option>
+                        );
+                      }
+                    return null;
                   })}
                 </select>
 
