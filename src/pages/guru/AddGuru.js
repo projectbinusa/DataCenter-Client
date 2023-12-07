@@ -184,11 +184,15 @@ export default function TableGuru() {
                       Gelar Pendidikan
                     </option>
                     {gelar_option.map((val, i) => {
-                      return (
-                        <option key={i} value={val.namaGelar}>
-                          {val.namaGelar}
-                        </option>
-                      );
+                      // Tambahkan kondisi untuk memeriksa status aktif atau non-aktif
+                      if (val.status === "Aktif") {
+                        return (
+                          <option key={i} value={val.namaGelar}>
+                            {val.namaGelar}
+                          </option>
+                        );
+                      }
+                      return null; // Tidak menambahkan opsi jika status non-aktif
                     })}
                   </select>
                 </div>

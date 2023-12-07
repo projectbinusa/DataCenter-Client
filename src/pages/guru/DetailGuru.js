@@ -74,7 +74,7 @@ export default function DetailGuru() {
             <div className="flex items-center justify-center mb-6">
               <img
                 src={image}
-                alt="Profile"
+                alt=" "
                 className="rounded-full w-40 h-40 object-cover"
               />
             </div>

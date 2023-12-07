@@ -489,21 +489,22 @@ export default function PublikSekolah() {
       <div className="bg-gray-900 min-h-screen">
         <div className="p-4 md:mx-20 sm:ml-64 mt-16 ">
           <div data-aos="fade-up">
-            <div className="grid grid-cols-3 w-full bg-white rounded-t-lg py-3">
-              <div className="col-span-2">
-                <h2 className="mt-8 text-4xl font-extrabold text-black uppercase px-3">
+            <div className="grid md:grid-cols-3 grid-cols-2 w-full bg-white rounded-t-lg py-3">
+              <div className="col-span-2 md:order-first order-last">
+                <h2 className="mt-8 md:text-4xl text-2xl font-extrabold text-black uppercase px-3">
                   Ini Adalah Informasi Sekolah {namaSekolah} ({status}) (
                   {akreditasiSekolah})
                 </h2>
               </div>
-              <div>
+              <div className="col-span-2 md:col-span-1">
                 <img
                   src={image}
                   alt="Logo Sekolah"
-                  className="w-2/5 text-white"
+                  className="md:w-[200px] text-white mx-auto w-[200px]"
                 />
               </div>
             </div>
+
             <section className="bg-gray-800">
               <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
                 <div className=" mb-8 lg:mb-16">
