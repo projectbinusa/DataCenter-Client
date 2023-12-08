@@ -331,7 +331,7 @@ export default function SekolahById() {
           <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
             <div className="bg-[#10316b] rounded-lg mb-7 p-1">
               <div className="border-2 border-white rounded-lg px-16">
-                <div className="text-md md:text-4xl text-white font-bold md:font-semibold my-7">
+                <div className="text-md md:text-4xl mt-10 text-white font-bold md:font-semibold my-7">
                   Data Siswa Sekolah {namaSekolah.namaSekolah}
                 </div>
               </div>
@@ -339,70 +339,80 @@ export default function SekolahById() {
             <div>
               {/* diagram pie start*/}
               <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-5 my-10">
-                {/* diagram gender start */}
-                <div className="pie rounded-2xl p-1 shadow-xl w-[350px] md:w-[450px]">
-                  <div className="rounded-xl bg-white p-1">
-                    <div className="pie rounded-xl p-3">
-                      <p className="text-white text-2xl">Gender</p>
-                    </div>
-                    <div className="m-5 overflow-hidden overflow-x-auto">
-                      {siswa.length === 0 ? (
-                        <div>belum ada data</div>
-                      ) : (
-                        <Chart
-                          options={state.options}
-                          series={state.series}
-                          type="pie"
-                          width="380"
-                          className="text-left"
-                        />
-                      )}
-                    </div>
-                  </div>
-                </div>
-                {/* diagram gender end */}
-
-                {/* diagram agama start */}
-                <div className="pie rounded-2xl p-1 shadow-xl w-[350px] md:w-[450px]">
-                  <div className="rounded-xl bg-white p-1">
-                    <div className="pie rounded-xl px-2 md:p-1">
-                      <p className="text-white text-2xl">Agama</p>
-                    </div>
-                    <div className="m-5 overflow-hidden overflow-x-auto">
-                      {siswa.length === 0 ? (
-                        <div>belum ada data</div>
-                      ) : (
-                        <Chart
-                          options={religi.options}
-                          series={religi.series}
-                          type="pie"
-                          width="380"
-                          className="text-left"
-                        />
-                      )}
-                    </div>
-                  </div>
-                </div>
-                {/* diagram agama end */}
-              </div>
-              {/* diagram pie end */}
-
-              <div className="">
-                {/* tombol import export dan add start */}
-                <div className="grid justify-center">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 my-6">
+                 {/* Diagram Gender */}
+          <div className="text-center md:flex-1">
+            <div data-aos="fade-right">
+              <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
+                <div className="rounded-xl bg-white p-1  h-[350px]">
+                  <div className="m-5 overflow-hidden overflow-x-auto">
                     {siswa.length === 0 ? (
-                      <></>
+                      <div>belum ada data</div>
                     ) : (
-                      <button
-                        className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button"
-                        onClick={download}
-                      >
-                        Download Data
-                      </button>
+                      <Chart
+                        options={state.options}
+                        series={state.series}
+                        type="donut"
+                        width="400"
+                        className="text-left"
+                      />
                     )}
-                    <button
+                    <div className=" rounded-xl text-left p-1">
+                      <p className="text-black text-md font-bold">Gender</p>
+                      <p className="text-black text-xs ">
+                        Menampilkan presentase gender murid
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+                {/* Diagram Agama */}
+          <div className="text-center md:flex-1">
+            <div data-aos="fade-left">
+              <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
+                <div className="rounded-xl bg-white p-1 h-[350px]">
+                  <div className="m-5 overflow-hidden overflow-x-auto">
+                    {siswa.length === 0 ? (
+                      <div>belum ada data</div>
+                    ) : (
+                      <Chart
+                        options={religi.options}
+                        series={[{ data: religi.series }]}
+                        type="bar"
+                        width="400"
+                        className="text-left"
+                      />
+                    )}
+                    <div className=" rounded-xl text-left p-1">
+                      <p className="text-black text-md font-bold">Agama</p>
+                      <p className="text-black text-xs ">
+                        Menampilkan total agama murid
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+              <div className="p-5 bg-white">
+          <div className="grid justify-center">
+            <div className="grid grid-cols-1 md:flex gap-3 mt-6">
+              {siswa.length === 0 ? (
+                <></>
+              ) : (
+                <button
+                  className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={download}
+                >
+                  Download Data
+                </button>
+              )}
+                <button
                       className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="button"
                       onClick={() => setShowModal(true)}
@@ -410,163 +420,154 @@ export default function SekolahById() {
                       Tambah Data Siswa
                     </button>
 
-                    <button
-                      className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={() => setModal(true)}
-                    >
-                      Import Data
-                    </button>
-                  </div>
-                </div>
-                {/* tombol import export dan add end */}
+              <button
+                className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+                onClick={() => setModal(true)}
+              >
+                Import Data
+              </button>
+            </div>
+          </div>
+          {/* tombol import export dan add end */}
 
-                {/* tabel siswa start */}
                 <div className="p-5 pt-1">
-                  <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 p-5">
-                    <table
-                      className="min-w-full divide-gray-200 text-center p-5"
-                      id="example"
-                    >
-                      <thead className="th-add">
-                        <tr>
-                          <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                            Pilih
-                          </th>
-                          <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                            ID
-                          </th>
-                          <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                            Nama Siswa
-                          </th>
-                          <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                            Tempat Lahir
-                          </th>
-                          <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                            Tanggal Lahir
-                          </th>
-                          <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                            Agama
-                          </th>
-                          <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                            Gender
-                          </th>
-                          <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                            Aksi
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="">
-                        {siswa.map((val, idx) => {
-                          return (
-                            <tr key={idx}>
-                              <td className="inset-y-0 left-0 bg-white px-4 py-2">
-                                <label className="sr-only" htmlFor="Row1">
-                                  checkbox
-                                </label>
-
-                                <input
-                                  className="h-5 w-5 rounded border-gray-200"
-                                  type="checkbox"
-                                  id="Row1"
-                                  value={val.id}
-                                  checked={val.isChecked}
-                                  onChange={(e) => handlecheckbox(e)}
-                                />
-                              </td>
-                              <td className="border-blue-300 left-0 py-2">
-                                {idx + 1}
-                              </td>
-                              <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                {val.namaSiswa}
-                              </td>
-                              <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                {val.tempatLahir}
-                              </td>
-                              <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                {val.tanggalLahir}
-                              </td>
-                              <td className="whitespace-nowrap px-4 py-2">
-                                <strong className="rounded bg-red-100 px-3 py-1.5 text-xs font-medium text-red-700">
-                                  {val.agama}
-                                </strong>
-                              </td>
-                              <td className="whitespace-nowrap px-4 py-2">
-                                <strong
-                                  className="rounded px-3 py-1.5 text-xs font-medium"
-                                  style={
-                                    val.gender === "Laki-Laki" ? male : female
-                                  }
-                                >
-                                  {val.gender}
-                                </strong>
-                              </td>
-                              <td className="whitespace-nowrap text-ceter py-2">
-                                <div className="flex items-center -space-x-4 hover:space-x-1">
-                                  <a href={"/edit-siswa-sekolah/" + val.id}>
-                                    <button
-                                      className="z-20 block rounded-full border-2 border-white bg-blue-100 p-4 text-blue-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-blue-50"
-                                      type="button"
-                                    >
-                                      <svg
-                                        className="h-4 w-4"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                      >
-                                        <path
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                          strokeWidth="2"
-                                          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                                        />
-                                      </svg>
-                                    </button>
-                                  </a>
+                <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 p-5">
+                  <table className="min-w-full divide-gray-200 text-center p-5" id="example" data-aos="zoom-in">
+                    <thead className="th-add">
+                      <tr>
+                        <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                          Pilih
+                        </th>
+                        <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                          No
+                        </th>
+                        <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                          Nama Murid
+                        </th>
+                        <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                          Agama
+                        </th>
+                        <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                          Gender
+                        </th>
+                        <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                          Kelas
+                        </th>
+                        <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-left">
+                      {siswa.map((val, idx) => {
+                        return (
+                          <tr key={idx}>
+                            <td className="inset-y-0 left-0 bg-white px-4 py-2">
+                              <label className="sr-only" htmlFor={`Row${idx + 1}`}>
+                                checkbox
+                              </label>
+                              <input
+                                className="h-5 w-5 rounded border-gray-200"
+                                type="checkbox"
+                                id={`Row${idx + 1}`}
+                                value={val.id}
+                                checked={val.isChecked}
+                                onChange={(e) => handlecheckbox(e)}
+                              />
+                            </td>
+                            <td className="border-blue-300 left-0 py-2">{idx + 1}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                              {val.namaMurid}
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2">
+                              <strong className="rounded bg-red-100 px-3 py-1.5 text-xs font-medium text-red-700">
+                                {val.agama}
+                              </strong>
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2">
+                              <strong
+                                className="rounded px-3 py-1.5 text-xs font-medium"
+                                style={val.gender === "Laki-Laki" ? male : female}
+                              >
+                                {val.gender}
+                              </strong>
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                              {val.kelas}
+                            </td>
+                            <td className="whitespace-nowrap text-ceter py-2">
+                              <div className="flex items-center -space-x-4 hover:space-x-1">
+                                <a href={"/detail-murid/" + val.id}>
                                   <button
-                                    className="z-30 block rounded-full border-2 border-white bg-red-100 p-4 text-red-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-red-50"
+                                    className="z-20 block rounded-full border-2 border-white bg-blue-100 p-4 text-blue-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-blue-50"
                                     type="button"
-                                    onClick={() => deleteSiswa(val.id)}
                                   >
                                     <svg
-                                      className="h-4 w-4"
                                       xmlns="http://www.w3.org/2000/svg"
                                       fill="none"
                                       viewBox="0 0 24 24"
                                       stroke="currentColor"
+                                      className="h-6 w-6"
                                     >
                                       <path
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth="2"
-                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                      />
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M2 12s3 7.5 10 7.5 10-7.5 10-7.5-3-7.5-10-7.5S2 12 2 12z"
                                       />
                                     </svg>
                                   </button>
-                                </div>
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                    {siswa.length !== 0 ? (
-                      <div className="grid justify-center md:justify-start">
-                        <button
-                          className="text-red-700 bg-red-100 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
-                          type="button"
-                          onClick={alldelete}
-                        >
-                          Hapus yang dipilih
-                        </button>
-                      </div>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
+                                </a>
+                                <button
+                                  className="z-30 block rounded-full border-2 border-white bg-red-100 p-4 text-red-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-red-50"
+                                  type="button"
+                                  onClick={() => deleteSiswa(val.id)}
+                                >
+                                  <svg
+                                    className="h-4 w-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth="2"
+                                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                    />
+                                  </svg>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                  {siswa.length !== 0 ? (
+                    <div className="grid justify-center md:justify-start">
+                      <button
+                        className="text-red-700 bg-red-100 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                        type="button"
+                        onClick={alldelete}
+                      >
+                        Hapus yang dipilih
+                      </button>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 </div>
-                {/* tabel siswa end */}
+              </div>
+
 
                 {/* modal tambah siswa start */}
                 {showModal ? (
@@ -668,81 +669,6 @@ export default function SekolahById() {
                                   </option>
                                   <option defaultValue="Non">Non</option>
                                 </select>{" "}
-                              </div>
-                              <div className="grid grid-cols-2 gap-8">
-                                <div className="relative">
-                                  <input
-                                    autoComplete="off"
-                                    className="group peer hidden"
-                                    type="radio"
-                                    name="shippingOption"
-                                    id="next_day_alt"
-                                    value="Laki-Laki"
-                                    onChange={(e) => setGender(e.target.value)}
-                                  />
-                                  <label
-                                    className="block cursor-pointer rounded-lg bg-blue border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                                    htmlFor="next_day_alt"
-                                  >
-                                    <span> Laki-Laki </span>
-                                  </label>
-                                  <svg
-                                    className="absolute top-4 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                </div>
-                                <div className="relative">
-                                  <input
-                                    autoComplete="off"
-                                    className="group peer hidden"
-                                    type="radio"
-                                    name="shippingOption"
-                                    id="perempuan"
-                                    value="Perempuan"
-                                    onChange={(e) => setGender(e.target.value)}
-                                  />
-                                  <label
-                                    className="block cursor-pointer rounded-lg bg-blue border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                                    htmlFor="perempuan"
-                                  >
-                                    <span> Perempuan </span>
-                                  </label>
-                                  <svg
-                                    className="absolute top-4 right-4 h-5 w-5 text-blue-600 opacity-0 peer-checked:opacity-100"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                </div>
-                              </div>
-                              <div className="flex items-center gap-5 justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                                <button
-                                  className="text-white bg-red-700 font-bold uppercase px-6 py-3 rounded-md text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                  type="button"
-                                  onClick={() => setShowModal(false)}
-                                >
-                                  Batal
-                                </button>
-                                <button
-                                  className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                  type="submit"
-                                >
-                                  Tambahkan
-                                </button>
                               </div>
                             </form>
                           </div>
