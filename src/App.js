@@ -39,6 +39,8 @@ import TambahGelar from "./pages/sekolah/TambahGelar";
 import UbahExtra from "./pages/sekolah/UbahExtra";
 import UpdateGelar from "./pages/sekolah/UpdateGelar";
 import VerRegistrasi from "./pages/VerRegistrasi";
+import GuruById from "./pages/GuruById";
+import EditGuruByAdmin from "./pages/EditGuruByAdmin";
 
 // import PrivateBack from "./router/PrivateBack";
 
@@ -108,13 +110,21 @@ function App() {
               </PrivateRoute>
             }
           />
-        
 
           <Route
             path="/sekolah/:id"
             element={
               <PrivateRoute>
                 <SekolahById />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/guru/:id"
+            element={
+              <PrivateRoute>
+                <GuruById />
               </PrivateRoute>
             }
           />
@@ -136,11 +146,19 @@ function App() {
               </PrivateRoute>
             }
           />
-            <Route
+          <Route
+            path="/edit-guru-sekolah/:id"
+            element={
+              <PrivateRoute>
+                <EditGuruByAdmin />
+              </PrivateRoute>
+            }
+          />
+          <Route
             path="/ver-registrasi"
             element={
               <PrivateRoute>
-                  <VerRegistrasi />
+                <VerRegistrasi />
               </PrivateRoute>
             }
           />
