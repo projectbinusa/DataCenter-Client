@@ -6,22 +6,76 @@ import "../style/table.css";
 import $ from "jquery";
 import Swal from "sweetalert2";
 import Sidebar from "../components/Sidebar";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUsers,
+  faUserGraduate,
+  faUserFriends,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function SekolahById() {
   const param = useParams();
   const [namaSekolah, setNamaSekolah] = useState([]);
   const [siswa, setSiswa] = useState([]);
-  const [modal, setModal] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [namaSiswa, setNamaSiswa] = useState("");
-  const [tempatLahir, setTempatLahir] = useState("");
-  const [tanggalLahir, setTanggalLahir] = useState("");
-  const [agama, setAgama] = useState("");
-  const [gender, setGender] = useState("");
+  const [isChecked, setIsChecked] = useState([]);
+  const [namaSiswa] = useState("");
+  const [tempatLahir] = useState("");
+  const [tanggalLahir] = useState("");
   const [excel, setExcel] = useState("");
-  const [isChecked, setIsChecked] = useState("");
+  const [agama] = useState("");
+  const [gender] = useState("");
+  const [modal, setModal] = useState(false);
+  const [state, setState] = useState({
+    options: {
+      labels: ["Perempuan", "Laki-Laki"],
+      colors: ["lightpink", "lightblue"],
+    },
+    series: [],
+  });
 
-  const navigate = useNavigate();
+  $(document).ready(function () {
+    setTimeout(function () {
+      $("#example").DataTable();
+    }, 1000);
+  });
+
+  const [religi, setReligi] = useState({
+    options: {
+      labels: ["Islam", "Kristen", "Katholik", "Hindu", "Buddha", "Khonghucu"],
+      colors: [
+        "#00ff00",
+        "#b50595",
+        "#9c9c9c",
+        "#ff1500",
+        "#0015ff",
+        "#fffb03",
+      ],
+    },
+    series: [0, 0, 0, 0, 0, 0, 0],
+  });
+  const [extra, setExtra] = useState({
+    options: {
+      labels: [
+        "Olahraga",
+        "Seni",
+        "Kebahasaan",
+        "IT",
+        "Olimpiade",
+        "Renang",
+        "Tari",
+      ],
+      colors: [
+        "#fffb03",
+        "#00ff00",
+        "#b50595",
+        "#9c9c9c",
+        "#ff1500",
+        "#0015ff",
+      ],
+    },
+    series: [0, 0, 0, 0, 0, 0, 0],
+  });
 
   const addSiswa = async (e) => {
     e.preventDefault();
@@ -94,29 +148,6 @@ export default function SekolahById() {
     }, 1000);
   });
 
-  const [state, setState] = useState({
-    options: {
-      labels: ["Perempuan", "Laki-laki"],
-      colors: ["lightpink", "lightblue"],
-    },
-    series: [0, 0],
-  });
-
-  const [religi, setReligi] = useState({
-    options: {
-      labels: [
-        "Islam",
-        "Kristen",
-        "Katholik",
-        "Hindu",
-        "Buddha",
-        "Konghuchu",
-        "None",
-      ],
-    },
-    series: [0, 0, 0, 0, 0, 0, 0],
-  });
-
   const data = async () => {
     try {
       const response = await axios.get(
@@ -134,31 +165,6 @@ export default function SekolahById() {
       console.log(error);
     }
   };
-
-  const dta = async () => {
-    try {
-      const respon = await axios.get(
-        "http://localhost:8080/api/sekolah/" + param.id + "/siswa"
-      );
-      setSiswa(respon.data);
-      const islam = respon.data.filter((r) => r.agama === "Islam").length;
-      const kristen = respon.data.filter((r) => r.agama === "Kristen").length;
-      const katholik = respon.data.filter((r) => r.agama === "Katholik").length;
-      const hindu = respon.data.filter((r) => r.agama === "Hindu").length;
-      const budha = respon.data.filter((r) => r.agama === "Buddha").length;
-      const khonghucu = respon.data.filter(
-        (r) => r.agama === "Konghuchu"
-      ).length;
-      const none = respon.data.filter((r) => r.agama === "Non").length;
-      setReligi({
-        ...religi,
-        series: [islam, kristen, katholik, hindu, budha, khonghucu, none],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const getAllUserData = () => {
     axios
       .get("http://localhost:8080/api/sekolah/" + param.id + "/siswa/")
@@ -311,7 +317,6 @@ export default function SekolahById() {
 
   useEffect(() => {
     data();
-    dta();
     getAllUserData();
     getNamaSekolah();
   }, []);
@@ -322,13 +327,176 @@ export default function SekolahById() {
   const female = {
     backgroundColor: "lightpink",
   };
+// Calculate average age
+const calculateAverageAge = () => {
+  const today = new Date();
+  const totalAges = siswa.reduce((acc, student) => {
+    const birthDate = new Date(student.tanggalLahir);
+    const age = today.getFullYear() - birthDate.getFullYear();
+    return acc + age;
+  }, 0);
+  const averageAge = totalAges / (siswa.length || 1); // To avoid division by zero
+  return Math.round(averageAge);
+};
 
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+     const response = await axios.get(
+        "http://localhost:8080/api/sekolah/" + param.id + "/siswa"
+      );
+      setSiswa(response.data);
+
+      // Menghitung jumlah siswa berdasarkan agama
+      const agamaCounts = {
+        Islam: 0,
+        Kristen: 0,
+        Katholik: 0,
+        Hindu: 0,
+        Buddha: 0,
+        Khonghucu: 0,
+      };
+
+      response.data.forEach((student) => {
+        // Asumsikan 'agama' adalah atribut yang menyimpan agama siswa dalam respons dari API
+        agamaCounts[student.agama]++;
+      });
+
+      // Mendapatkan labels yang memiliki jumlah siswa lebih dari 0
+      const labelsWithCount = Object.keys(agamaCounts).filter(
+        (agama) => agamaCounts[agama] > 0
+      );
+
+      // Update state dengan labels yang memiliki data
+      setReligi({
+        ...religi,
+        options: {
+          labels: labelsWithCount,
+        },
+        series: labelsWithCount.map((agama) => agamaCounts[agama]),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  fetchData();
+}, []);
+const [kelas, setKelas] = useState({
+  options: {
+    plotOptions: {
+      bar: {
+        borderRadius: 10,
+      },
+    },
+    labels: [],
+    colors: [
+      "#0099cc",
+      "#0015ff",
+      "#0056ff",
+      "#0087ff",
+      "#00b8ff",
+      "#00eaff",
+      "#66ffcc",
+    ],
+  },
+  series: [],
+});
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const kelasResponse = await axios.get(
+        "http://localhost:8080/api/kelas/" + param.id + "/kelas"
+      );
+      const kelasData = kelasResponse.data;
+
+      const muridResponse = await axios.get(
+        "http://localhost:8080/api/sekolah/" + param.id + "/siswa"
+      );
+      const muridData = muridResponse.data;
+
+      const kelasCounts = {};
+      muridData.forEach((r) => {
+        kelasCounts[r.kelas] = 0;
+      });
+
+      muridData.forEach((r) => {
+        kelasCounts[r.kelas]++;
+      });
+
+      const labelsWithCount = Object.keys(kelasCounts).filter(
+        (kelas) => kelasCounts[kelas] > 0
+      );
+
+      setKelas({
+        ...kelas,
+        options: {
+          ...kelas.options,
+          labels: labelsWithCount,
+        },
+        series: labelsWithCount.map((kelas) => kelasCounts[kelas]),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  fetchData();
+}, []);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const muridResponse = await axios.get(
+        "http://localhost:8080/api/sekolah/" + param.id + "/siswa"
+      );
+      const muridData = muridResponse.data;
+
+      const extrakulikulerCounts = {};
+
+      muridData.forEach((student) => {
+        extrakulikulerCounts[student.extrakulikuler] = 0;
+      });
+
+      muridData.forEach((student) => {
+        extrakulikulerCounts[student.extrakulikuler]++;
+      });
+
+      const labelsWithCount = Object.keys(extrakulikulerCounts).filter(
+        (extrakulikuler) => extrakulikulerCounts[extrakulikuler] > 0
+      );
+
+      setExtra({
+        ...extra,
+        options: {
+          ...extra.options,
+          labels: labelsWithCount,
+        },
+        series: labelsWithCount.map(
+          (extrakulikuler) => extrakulikulerCounts[extrakulikuler]
+        ),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  fetchData();
+}, []);
+const calculateTotalStudentsByClass = () => {
+  // Assuming 'siswa' contains student data with 'kelas' as the class attribute
+  const classCounts = {};
+
+  siswa.forEach((student) => {
+    classCounts[student.kelas] = (classCounts[student.kelas] || 0) + 1;
+  });
+
+  return classCounts;
+};
   return (
     <div>
       <div className="flex">
         <Sidebar />
-        <div className="flex justify-center">
-          <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
+        <div className="md:px-14 sm:ml-64 mt-24">
             <div className="bg-[#10316b] rounded-lg mb-7 p-1">
               <div className="border-2 border-white rounded-lg px-16">
                 <div className="text-md md:text-4xl mt-10 text-white font-bold md:font-semibold my-7">
@@ -336,14 +504,62 @@ export default function SekolahById() {
                 </div>
               </div>
             </div>
-            <div>
-              {/* diagram pie start*/}
-              <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-5 my-10">
-                 {/* Diagram Gender */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-14">
+          {/* Total Murid */}
+          <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
+            <FontAwesomeIcon
+              icon={faUsers}
+              className="text-4xl text-blue-600 mr-4"
+            />
+            <div className="text-left">
+              <p className="font-bold mb-1 text-gray-800">Total Murid:</p>
+              <h1 className="text-3xl font-bold text-blue-700">
+              {siswa.length}
+              </h1>
+            </div>
+          </div>
+
+          {/* Total Murid per Kelas */}
+          <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
+            <FontAwesomeIcon
+              icon={faUserFriends}
+              className="text-4xl text-blue-600 mr-4"
+            />
+            <div className="text-left">
+              <p className="font-bold mb-1 text-gray-800">
+                Total Murid per Kelas:
+              </p>
+              <div>
+                {Object.entries(calculateTotalStudentsByClass()).map(([kelas, total]) => (
+                  <p key={kelas} className="text-blue-700">
+                    Kelas {kelas}: {total} Murid
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Rata-Rata Umur */}
+          <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
+            <FontAwesomeIcon
+              icon={faUserGraduate}
+              className="text-4xl text-blue-600 mr-4"
+            />
+            <div className="text-left">
+              <p className="font-bold mb-1 text-gray-800">Rata-Rata Umur:</p>
+              <h1 className="text-3xl font-bold text-blue-700">
+                {calculateAverageAge()} Tahun
+              </h1>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row justify-center gap-5 mt-5 mb-5">
+          {/* Diagram Gender */}
           <div className="text-center md:flex-1">
             <div data-aos="fade-right">
-              <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
-                <div className="rounded-xl bg-white p-1  h-[350px]">
+              <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[330px]">
+                <div className="rounded-xl bg-white p-1  h-[320px]">
                   <div className="m-5 overflow-hidden overflow-x-auto">
                     {siswa.length === 0 ? (
                       <div>belum ada data</div>
@@ -352,7 +568,7 @@ export default function SekolahById() {
                         options={state.options}
                         series={state.series}
                         type="donut"
-                        width="400"
+                        width="355"
                         className="text-left"
                       />
                     )}
@@ -367,8 +583,69 @@ export default function SekolahById() {
               </div>
             </div>
           </div>
+          {/* Diagram Age */}
+          <div className="text-center md:flex-1">
+            <div data-aos="fade-right">
+              <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[330px]">
+                <div className="rounded-xl bg-white p-1  h-[320px]">
+                  <div className="m-5 overflow-hidden overflow-x-auto">
+                    {siswa.length === 0 ? (
+                      <div>belum ada data</div>
+                    ) : (
+                      <Chart
+                        options={kelas.options}
+                        series={kelas.series}
+                        type="donut"
+                        width="312"
+                        className="text-left"
+                      />
+                    )}
+                    <div className=" rounded-xl text-left p-1">
+                      <p className="text-black text-md font-bold">Kelas</p>
+                      <p className="text-black text-xs ">
+                        Menampilkan presentase Kelas murid
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                {/* Diagram Agama */}
+        <div className="flex flex-col md:flex-row justify-center gap-5 my-5">
+          {/* Diagram Gelar */}
+          <div className="text-center md:flex-1">
+            <div data-aos="fade-left">
+              <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
+                <div className="rounded-xl bg-white p-1 h-[350px]">
+                  <div className="m-5 overflow-hidden overflow-x-auto">
+                    {siswa.length === 0 ? (
+                      <div>belum ada data</div>
+                    ) : (
+                      <Chart
+                        options={extra.options}
+                        series={[{ data: extra.series }]}
+                        type="bar"
+                        width="400"
+                        className="text-left"
+                      />
+                    )}
+                    <div className=" rounded-xl text-left p-1">
+                      <p className="text-black text-md font-bold">
+                        Extrakulikuler
+                      </p>
+                      <p className="text-black text-xs ">
+                        Menampilkan total extrakulikuler murid
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Diagram Agama */}
           <div className="text-center md:flex-1">
             <div data-aos="fade-left">
               <div className="rounded-2xl p-1 shadow-xl w-full md:w-[490px] h-[360px]">
@@ -412,14 +689,13 @@ export default function SekolahById() {
                   Download Data
                 </button>
               )}
-                <button
-                      className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={() => setShowModal(true)}
-                    >
-                      Tambah Data Siswa
-                    </button>
-
+ <Link
+                className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+                to={"/add-murid"}
+              >
+                Tambah Data Siswa
+              </Link>
               <button
                 className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
@@ -568,119 +844,6 @@ export default function SekolahById() {
                 </div>
               </div>
 
-
-                {/* modal tambah siswa start */}
-                {showModal ? (
-                  <>
-                    <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                      <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                        {/*content*/}
-                        <div className="border-1 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                          {/*header*/}
-                          <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                            <h3 className="text-3xl font-semibold">
-                              Tambah Siswa
-                            </h3>
-                            <button
-                              className="p-1 ml-auto bg-transparent border-0 opacity-5 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                              onClick={() => setShowModal(false)}
-                            >
-                              <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
-                                ×
-                              </span>
-                            </button>
-                          </div>
-                          {/*body*/}
-                          <div className="relative p-6 flex-auto">
-                            <form
-                              action=""
-                              className="space-y-4"
-                              onSubmit={addSiswa}
-                            >
-                              <div>
-                                <label className="sr-only" htmlFor="name">
-                                  Nama
-                                </label>
-                                <input
-                                  autoComplete="off"
-                                  className="w-full rounded-lg border p-3 text-sm"
-                                  placeholder="Nama Siswa"
-                                  type="text"
-                                  id="name"
-                                  value={namaSiswa}
-                                  onChange={(e) => setNamaSiswa(e.target.value)}
-                                  required
-                                />
-                              </div>
-                              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                <div>
-                                  <label className="sr-only">
-                                    Tempat Lahir
-                                  </label>
-                                  <input
-                                    autoComplete="off"
-                                    className="w-full rounded-lg border p-3 text-sm"
-                                    placeholder="Tempat Lahir"
-                                    type="text"
-                                    required
-                                    value={tempatLahir}
-                                    onChange={(e) =>
-                                      setTempatLahir(e.target.value)
-                                    }
-                                  />
-                                </div>
-                                <div>
-                                  <label className="sr-only" htmlFor="phone">
-                                    Tanggal Lahir
-                                  </label>
-                                  <input
-                                    autoComplete="off"
-                                    className="w-full rounded-lg border p-3 text-sm"
-                                    type="date"
-                                    value={tanggalLahir}
-                                    onChange={(e) =>
-                                      setTanggalLahir(e.target.value)
-                                    }
-                                    required
-                                  />
-                                </div>
-                              </div>
-                              <div>
-                                <select
-                                  className="relative w-full rounded-lg border p-2.5 text-sm focus:z-10"
-                                  aria-label="agama"
-                                  onChange={(e) => setAgama(e.target.value)}
-                                  defaultValue="Agama"
-                                >
-                                  <option value="Agama" disabled>
-                                    Agama
-                                  </option>
-                                  <option defaultValue="Islam">Islam</option>
-                                  <option defaultValue="Kristen">
-                                    Kristen
-                                  </option>
-                                  <option defaultValue="Katholik">
-                                    Katholik
-                                  </option>
-                                  <option defaultValue="Hindu">Hindu</option>
-                                  <option defaultValue="Buddha">Buddha</option>
-                                  <option defaultValue="Khonghucu">
-                                    Khonghucu
-                                  </option>
-                                  <option defaultValue="Non">Non</option>
-                                </select>{" "}
-                              </div>
-                            </form>
-                          </div>
-                          {/*footer*/}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-                  </>
-                ) : null}
-                {/* modal tambah siswa end */}
-
                 {/* modal import dan download format data start */}
                 {modal ? (
             <>
@@ -765,9 +928,7 @@ export default function SekolahById() {
                 {/* modal import dan download format data end */}
               </div>
             </div>
-          </main>
-        </div>
-      </div>
-    </div>
+            </div>
+            </div>
   );
 }
