@@ -90,6 +90,7 @@ export default function VerRegistrasi() {
                   </thead>
                   <tbody className="">
                     {email.map((val, idx) => {
+                      if (val.role === 'admin') {
                       return (
                         <tr key={idx}>
                           <td className="border-blue-300 left-0 py-2">
@@ -146,7 +147,12 @@ export default function VerRegistrasi() {
                           </td>
                         </tr>
                       );
-                    })}
+                      
+                    }else {
+                      // If the role is not 'admin', return null or an empty fragment
+                      return null;
+                    }
+                  })}
                   </tbody>
                 </table>
               </div>
