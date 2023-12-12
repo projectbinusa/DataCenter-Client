@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PageSidebar from "../../components/PageSidebar";
 import { useParams } from "react-router-dom";
-// import defaultProfilePicture from "../../assets/User.png";
+import NoProfile from "../../assets/User.png";
 
 export default function DetailGuru() {
   const param = useParams();
@@ -67,53 +67,50 @@ export default function DetailGuru() {
   return (
     <>
       <PageSidebar />
-      <div className="mx-auto min-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 min-h-screen max-h-screen mt-16 p-4 sm:ml-64">
-        <div className="mx-auto max-w-3xl flex items-center space-x-4">
-          {/* Left Card - Foto Profil */}
-          <div className="bg-white p-8 shadow-md rounded-md w-1/3 h-[300px]">
+      <div className="mx-auto min-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 min-h-screen max-h-screen mt-16 p-4 sm:ml-64  ">
+      <h1 className="text-center  text-lg py-5">
+          Detail Guru
+        </h1>
+        <div className="grid md:grid-cols-2 gap-3">
+          <section className="bg-white p-8 shadow-md rounded-md mb-4 md:mb-0">
             <div className="flex items-center justify-center mb-6">
               <img
-                src={image}
-                alt=" "
+                src={image === null ? NoProfile : image}
+                alt="Foto Profil"
                 className="rounded-full w-40 h-40 object-cover"
               />
             </div>
-            <div className=" text-center pb-2">
+            <div className="text-center pb-2">
               <p className="mt-1 text-md font-bold text-gray-900">{namaGuru}</p>
             </div>
-
-            <div className=" text-center pb-2">
-              {tanggalLahir && (
+            {tanggalLahir && (
+              <div className="text-center pb-2">
                 <p className="mt-1 text-md font-bold text-gray-900">
                   {tempatLahir}, {formatTanggal(tanggalLahir)}
                 </p>
-              )}
-            </div>
-          </div>
-          {/* Right Card - Detail Guru */}
-          <div className="bg-white p-8 shadow-md rounded-md w-2/3">
-            <div className="flex items-center border-b border-gray-200 pb-2">
+              </div>
+            )}
+          </section>
+          <section className="bg-white p-8 shadow-md rounded-md">
+            <div className="flex flex-col mb-4">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Agama
               </label>
               <p className="flex-1 text-md font-bold text-gray-900">{agama}</p>
             </div>
-
-            <div className="flex items-center border-b border-gray-200 pb-2">
+            <div className="flex flex-col mb-4">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Umur
               </label>
               <p className="flex-1 text-md font-bold text-gray-900">{umur}</p>
             </div>
-
-            <div className="flex items-center border-b border-gray-200 pb-2">
+            <div className="flex flex-col mb-4">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Gender
               </label>
               <p className="flex-1 text-md font-bold text-gray-900">{gender}</p>
             </div>
-
-            <div className="flex items-center border-b border-gray-200 pb-2">
+            <div className="flex flex-col mb-4">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 No Telepon
               </label>
@@ -121,8 +118,7 @@ export default function DetailGuru() {
                 {noTelepon}
               </p>
             </div>
-
-            <div className="flex items-center border-b border-gray-200 pb-2">
+            <div className="flex flex-col mb-4">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Gelar Pendidikan
               </label>
@@ -130,8 +126,7 @@ export default function DetailGuru() {
                 {gelarPendidikan}
               </p>
             </div>
-
-            <div className="flex items-center">
+            <div className="flex flex-col">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Status Kawin
               </label>
@@ -149,7 +144,7 @@ export default function DetailGuru() {
                 </button>
               </a>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </>

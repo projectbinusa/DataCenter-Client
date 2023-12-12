@@ -48,10 +48,13 @@ export default function DetailMurid() {
   return (
     <>
       <PageSidebar />
-      <div className="mx-auto min-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 min-h-screen max-h-screen mt-16 p-4 sm:ml-64">
-        <div className="mx-auto max-w-3xl flex items-center space-x-4">
-          {/* Left Card - Foto Profil */}
-          <div className="bg-white p-8 shadow-md rounded-md w-1/3 h-[317px]">
+
+      <div className="mx-auto min-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 min-h-screen max-h-screen mt-16 p-4 sm:ml-64  ">
+      <h1 className="text-center  text-lg py-5">
+          Detail Siswa
+        </h1>
+        <div className="grid md:grid-cols-2 gap-3">
+          <section className="bg-white p-8 shadow-md rounded-md mb-4 md:mb-0">
             <div className="flex items-center justify-center mb-6">
               <img
                 src={defaultProfilePicture}
@@ -70,15 +73,16 @@ export default function DetailMurid() {
                 {tempatLahir}, {formatTanggal(tanggalLahir)}
               </p>
             </div>
-          </div>
+          </section>
           {/* Right Card - Detail Murid */}
-          <div className="bg-white p-8 shadow-md rounded-md w-2/3">
-            <div className="flex items-center border-b border-gray-200 pb-2">
+          <section className="bg-white p-8 shadow-md rounded-md">
+          <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
-                Agama
+                Agama 
               </label>
               <p className="mt-1 text-md font-bold text-gray-900">{agama}</p>
             </div>
+
 
             <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
@@ -87,32 +91,34 @@ export default function DetailMurid() {
               <p className="mt-1 text-md font-bold text-gray-900">{gender}</p>
             </div>
 
-           <div className="flex items-center border-b border-gray-200 pb-2">
+            <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Umur
               </label>
               <p className="mt-1 text-md font-bold text-gray-900">{umur}</p>
             </div>
-           <div className="flex items-center border-b border-gray-200 pb-2">
+            <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Kelas
               </label>
               <p className="mt-1 text-md font-bold text-gray-900">{kelas}</p>
             </div>
-           <div className="flex items-center border-b border-gray-200 pb-2">
+            <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Extrakulikuler
               </label>
-              <p className="mt-1 text-md font-bold text-gray-900">{extrakulikuler}</p>
+              <p className="mt-1 text-md font-bold text-gray-900">
+                {extrakulikuler}
+              </p>
             </div>
-           <div className="flex items-center border-b border-gray-200 pb-2">
+            <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 Nama Ortu
               </label>
               <p className="mt-1 text-md font-bold text-gray-900">{namaOrtu}</p>
             </div>
 
-           <div className="flex items-center border-b border-gray-200 pb-2">
+            <div className="flex items-center border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
                 No Telepon Ortu
               </label>
@@ -131,7 +137,7 @@ export default function DetailMurid() {
                 </button>
               </a>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </>

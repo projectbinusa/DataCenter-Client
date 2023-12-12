@@ -2,8 +2,9 @@ import React, { useEffect, useRef } from "react";
 import axios from "axios";
 import { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import Swal from "sweetalert2";
 import emailjs from "@emailjs/browser";
+import Swal from "sweetalert2";
+import { data } from "autoprefixer";
 
 export default function VerRegistrasi() {
   const [email, setEmail] = useState([]);
@@ -12,10 +13,64 @@ export default function VerRegistrasi() {
 
   const getAll = async () => {
     await axios.get(`http://localhost:8080/api/users`).then((res) => {
-      setEmail(res.data);
+        setEmail(res.data);
+    });
+
+ 
+};
+const Terima = (id) => {
+    // Membuat request ke endpoint API
+    axios.post(`http://localhost:8080/users/status/terima/${id}`).then((res) => {
+    Swal.fire({
+      icon:"success",
+      title:"Menerima users"
+    })
+    });
+  };
+const non_aktif = (id) => {
+    // Membuat request ke endpoint API
+    axios.post(`http://localhost:8080/users/status/non-aktif/${id}`).then((res) => {
+    Swal.fire({
+      icon:"success",
+      title:"Non Aktif users"
+    })
     });
   };
 
+
+  const deleteUser = async (id) => {
+    await Swal.fire({
+      title: "Anda yakin?",
+      text: "Yakin ingin menghapus data users ini ? Pastikan sudah memberikan pemberitahuan melalui email",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`http://localhost:8080/api/users/${id}`);
+          await Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Berhasil Menghapus!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          window.location.reload();
+        } catch (error) {
+          console.error(error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Terjadi kesalahan saat menghapus data",
+          });
+        }
+      }
+    });
+  };
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs
@@ -27,12 +82,31 @@ export default function VerRegistrasi() {
       )
       .then(
         (result) => {
-          console.log(result.text);
-          console.log("send");
+        if (result) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Berhasil Dikirim",
+            showConfirmButton: false,
+            timer: 1500,
+
+          })
+          window.location.href =  "/ver-registrasi";
+          
+        } 
         },
         (error) => {
-          console.log(error.text);
-          console.log("eror");
+          if (error) {
+            Swal.fire({
+              position: "center",
+              icon: "warning",
+              title: "Gagal Dikirim",
+              showConfirmButton: false,
+              timer: 1500,
+  
+            })
+            
+          } 
         }
       );
   };
@@ -49,7 +123,7 @@ export default function VerRegistrasi() {
           <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
             <div className="p-5 bg-white">
               <div className="flex justify-between">
-                <div className="grid grid-cols-1 md:flex gap-3 mt-6">
+                <div className="grid grid-cols-1 md:flex gap-3 py-5  mt-6">
                   <span className="floath-left text-white w-auto add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                     Verifikasi Sekolah
                   </span>
@@ -61,7 +135,7 @@ export default function VerRegistrasi() {
                   >
                     Kirim Pemberitahuan
                   </button>
-                </div>
+                </div >
               </div>
               <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 p-5">
                 <table
@@ -97,7 +171,7 @@ export default function VerRegistrasi() {
                             {idx + 1}
                           </td>
                           <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                            {val.email}
+                            {val.schoolName}
                           </td>
                           <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                             {val.email}
@@ -117,7 +191,7 @@ export default function VerRegistrasi() {
                             val.status === "Diterima" ? (
                               <button
                                 className="text-white bg-gray-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
-                                // onClick={() => handleStatusChange("Diterima")}
+                                onClick={() => non_aktif(val.id)}
                               >
                                 Non Aktifkan
                               </button>
@@ -125,21 +199,21 @@ export default function VerRegistrasi() {
                               <>
                                 <button
                                   className="text-white bg-green-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
-                                  // onClick={() => handleStatusChange("Diterima")}
+                                  onClick={() => Terima(val.id)}
                                 >
                                   Terima
                                 </button>
                                 <button
                                   className="text-white bg-red-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
-                                  // onClick={() => handleStatusChange("Ditolak")}
+                                  onClick={() => deleteUser(val.id)}
                                 >
-                                  Tolak
+                                  Hapus
                                 </button>
                               </>
                             ) : (
                               <button
                                 className="text-white bg-purple-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
-                                // onClick={() => handleStatusChange("Diterima")}
+                                onClick={() => Terima(val.id)}
                               >
                                 Aktifkan
                               </button>

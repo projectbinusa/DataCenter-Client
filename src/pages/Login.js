@@ -32,7 +32,7 @@ export default function Login() {
         localStorage.setItem("kelasId", data.id);
         localStorage.setItem("gelarPendidikanId", data.id);
         localStorage.setItem("extraId", data.id);
-        if (status == "Diterima") {
+        if (status === "Diterima") {
           Swal.fire({
             icon: "success",
             title: "Berhasil masuk",
@@ -40,10 +40,10 @@ export default function Login() {
           navigate("/dash");
         } else {
           Swal.fire({
-            icon: "warning",
-            title: "Gagal",
-            text: "Akun Anda Belum Di konfirmasi",
-          });
+            icon: "success",
+            title: "Berhasil masuk",
+           });
+          navigate("/dash");
         }
       } else if (data.role === "super admin") {
         localStorage.setItem("token", data.token);
@@ -64,7 +64,7 @@ export default function Login() {
       Swal.fire({
         position: "center",
         icon: "warning",
-        title: "Email atau Password yang Anda masukan salah.",
+        title: "Email atau Password yang Anda masukan salah atau belum dikonfirmasi .",
         showConfirmButton: false,
         timer: 1500,
       });
