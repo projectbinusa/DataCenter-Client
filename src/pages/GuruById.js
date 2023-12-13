@@ -431,13 +431,14 @@ export default function GuruById() {
                         Download Data
                       </button>
                     )}
-                    <button
-                      className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={() => setShowModal(true)}
-                    >
-                      Tambah Data Guru
-                    </button>
+                    <a href={"/tambah-guru-sekolah/" + param.id}>
+                      <button
+                        className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                      >
+                        Tambah Data Guru
+                      </button>
+                    </a>
 
                     <button
                       className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
