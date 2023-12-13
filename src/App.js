@@ -41,6 +41,7 @@ import UpdateGelar from "./pages/sekolah/UpdateGelar";
 import VerRegistrasi from "./pages/VerRegistrasi";
 import GuruById from "./pages/GuruById";
 import EditGuruByAdmin from "./pages/EditGuruByAdmin";
+import TambahGuruByAdmin from "./pages/TambahGuruByAdmin";
 
 // import PrivateBack from "./router/PrivateBack";
 
@@ -151,6 +152,14 @@ function App() {
             element={
               <PrivateRoute>
                 <EditGuruByAdmin />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/tambah-guru-sekolah/:id"
+            element={
+              <PrivateRoute>
+                <TambahGuruByAdmin />
               </PrivateRoute>
             }
           />

@@ -68,9 +68,7 @@ export default function DetailGuru() {
     <>
       <PageSidebar />
       <div className="mx-auto min-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 min-h-screen max-h-screen mt-16 p-4 sm:ml-64  ">
-      <h1 className="text-center  text-lg py-5">
-          Detail Guru
-        </h1>
+        <h1 className="text-center  text-lg py-5">Detail Guru</h1>
         <div className="grid md:grid-cols-2 gap-3">
           <section className="bg-white p-8 shadow-md rounded-md mb-4 md:mb-0">
             <div className="flex items-center justify-center mb-6">
@@ -92,49 +90,55 @@ export default function DetailGuru() {
             )}
           </section>
           <section className="bg-white p-8 shadow-md rounded-md">
-            <div className="flex flex-col mb-4">
-              <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
+            <div className="grid grid-cols-5 mb-2">
+              <label className="block text-sm font-medium text-gray-700 pr-2 col-span-2">
                 Agama
               </label>
-              <p className="flex-1 text-md font-bold text-gray-900">{agama}</p>
+              <p className="col-span-3 text-md font-bold text-gray-900">
+                {agama}
+              </p>
             </div>
-            <div className="flex flex-col mb-4">
-              <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
+            <div className="grid grid-cols-5 mb-2">
+              <label className="block text-sm font-medium text-gray-700 pr-2 col-span-2">
                 Umur
               </label>
-              <p className="flex-1 text-md font-bold text-gray-900">{umur}</p>
+              <p className="col-span-3 text-md font-bold text-gray-900">
+                {umur}
+              </p>
             </div>
-            <div className="flex flex-col mb-4">
-              <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
+            <div className="grid grid-cols-5 mb-2">
+              <label className="block text-sm font-medium text-gray-700 pr-2 col-span-2">
                 Gender
               </label>
-              <p className="flex-1 text-md font-bold text-gray-900">{gender}</p>
+              <p className="col-span-3 text-md font-bold text-gray-900">
+                {gender}
+              </p>
             </div>
-            <div className="flex flex-col mb-4">
-              <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
+            <div className="grid grid-cols-5 mb-2">
+              <label className="block text-sm font-medium text-gray-700 pr-2 col-span-2">
                 No Telepon
               </label>
-              <p className="flex-1 text-md font-bold text-gray-900">
+              <p className="col-span-3 text-md font-bold text-gray-900">
                 {noTelepon}
               </p>
             </div>
-            <div className="flex flex-col mb-4">
-              <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
+            <div className="grid grid-cols-5 mb-2">
+              <label className="block text-sm font-medium text-gray-700 pr-2 col-span-2">
                 Gelar Pendidikan
               </label>
-              <p className="flex-1 text-md font-bold text-gray-900">
+              <p className="col-span-3 text-md font-bold text-gray-900">
                 {gelarPendidikan}
               </p>
             </div>
-            <div className="flex flex-col">
-              <label className="block text-sm font-medium text-gray-700 pr-2 w-1/3">
+            <div className="grid grid-cols-5">
+              <label className="block text-sm font-medium text-gray-700 pr-2 col-span-2">
                 Status Kawin
               </label>
-              <p className="flex-1 text-md font-bold text-gray-900">
+              <p className="col-span-3 text-md font-bold text-gray-900">
                 {statusKawin}
               </p>
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-end mt-7">
               <a href={`/edit-guru/${param.id}`}>
                 <button
                   className="z-20 block rounded-full border-2 border-white bg-blue-100 p-2 text-blue-700 text-sm transition-all hover:scale-110 focus:outline-none focus:ring active:bg-blue-50"
