@@ -64,7 +64,7 @@ export default function Login() {
       Swal.fire({
         position: "center",
         icon: "warning",
-        title: "Email atau Password yang Anda masukan salah atau belum dikonfirmasi .",
+        title: "Email atau Password yang Anda masukan salah atau belum dikonfirmasi ",
         showConfirmButton: false,
         timer: 1500,
       });

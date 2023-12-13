@@ -7,36 +7,54 @@ import Swal from "sweetalert2";
 import { data } from "autoprefixer";
 
 export default function VerRegistrasi() {
-  const [email, setEmail] = useState([]);
+  const [users, setUsers] = useState([]);
   const [modal, setModal] = useState(false);
   const form = useRef();
-
+  
   const getAll = async () => {
     await axios.get(`http://localhost:8080/api/users`).then((res) => {
-        setEmail(res.data);
+        setUsers(res.data);
     });
 
  
 };
-const Terima = (id) => {
-    // Membuat request ke endpoint API
-    axios.post(`http://localhost:8080/users/status/terima/${id}`).then((res) => {
-    Swal.fire({
-      icon:"success",
-      title:"Menerima users"
-    })
+const Terima = async (id) => {
+  try {
+    await axios.put(`http://localhost:8080/api/users/status/terima/${id}`, {
+      status: "Diterima",
     });
-  };
-const non_aktif = (id) => {
-    // Membuat request ke endpoint API
-    axios.post(`http://localhost:8080/users/status/non-aktif/${id}`).then((res) => {
     Swal.fire({
-      icon:"success",
-      title:"Non Aktif users"
-    })
+      icon: "success",
+      title: "Menerima users",
     });
-  };
+    window.location.reload();
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: error.response ? error.response.data.message : "Kesalahan",
+    });
+  }
+};
 
+const non_aktif = async (id) => {
+  try {
+    await axios.put(`http://localhost:8080/api/users/status/non-aktif/${id}`, {
+      status: null,
+    });
+    Swal.fire({
+      icon: "success",
+      title: "Non Aktif users",
+    });
+    window.location.reload();
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: error.response ? error.response.data.message : "Kesalahan",
+    });
+  }
+};
 
   const deleteUser = async (id) => {
     await Swal.fire({
@@ -71,6 +89,7 @@ const non_aktif = (id) => {
       }
     });
   };
+  
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs
@@ -163,7 +182,7 @@ const non_aktif = (id) => {
                     </tr>
                   </thead>
                   <tbody className="">
-                    {email.map((val, idx) => {
+                    {users.map((val, idx) => {
                       if (val.role === 'admin') {
                       return (
                         <tr key={idx}>
@@ -171,7 +190,7 @@ const non_aktif = (id) => {
                             {idx + 1}
                           </td>
                           <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                            {val.schoolName}
+                            {val.namaSekolah}
                           </td>
                           <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                             {val.email}
