@@ -15,62 +15,11 @@ export default function Dashboard() {
   const [siswa, setSiswa] = useState([]);
   const [sekolah, setSekolah] = useState([]);
   const [guru, setGuru] = useState([]);
-  const [state, setState] = useState({
-    options: {
-      labels: ["Perempuan", "Laki-laki"],
-      colors: ["lightpink", "lightblue"],
-    },
-    series: [0, 0],
-  });
 
-  AOS.init({ duration: 1750, once: true });
-
-  const [religi, setReligi] = useState({
-    options: {
-      labels: [
-        "Islam",
-        "Kristen",
-        "Katholik",
-        "Hindu",
-        "Buddha",
-        "Khonghucu",
-        "Non",
-      ],
-      colors: [
-        "#00ff00",
-        "#b50595",
-        "#9c9c9c",
-        "#ff1500",
-        "#0015ff",
-        "#fffb03",
-        "#000000",
-      ],
-    },
-    series: [0, 0, 0, 0, 0, 0, 0],
-  });
-
-  const allSiswa = async () => {
+  const allSiswaPertahun = async () => {
     try {
       const { data } = await axios.get("http://localhost:8080/api/siswa/");
       setSiswa(data);
-      const totalPerempuan = data.filter(
-        (x) => x.gender === "Perempuan"
-      ).length;
-      setState({
-        ...state,
-        series: [totalPerempuan, data.length - totalPerempuan],
-      });
-      const islam = data.filter((r) => r.agama === "Islam").length;
-      const kristen = data.filter((r) => r.agama === "Kristen").length;
-      const katholik = data.filter((r) => r.agama === "Katholik").length;
-      const hindu = data.filter((r) => r.agama === "Hindu").length;
-      const buddha = data.filter((r) => r.agama === "Buddha").length;
-      const khonghucu = data.filter((r) => r.agama === "Khonghucu").length;
-      const non = data.filter((r) => r.agama === "Non").length;
-      setReligi({
-        ...religi,
-        series: [islam, kristen, katholik, hindu, buddha, khonghucu, non],
-      });
       const now = new Date();
       const values = [];
       const years = [];
@@ -92,6 +41,7 @@ export default function Dashboard() {
       console.log(error);
     }
   };
+
   const allGuru = async () => {
     try {
       const response = await axios.get("http://localhost:8080/api/guru/");
@@ -107,7 +57,7 @@ export default function Dashboard() {
   });
 
   useEffect(() => {
-    allSiswa();
+    allSiswaPertahun();
     allSekolah();
     allGuru();
   }, []);
@@ -148,11 +98,6 @@ export default function Dashboard() {
                     <p className="mt-1 text-lg text-gray-700 text-left">
                       {siswa.length} Siswa
                     </p>
-                    {/* <a href="/table-siswa-admin">
-                        <div className="mt-4 p-2 inline-block border-blue-500 font-medium text-blue-600 hover:border rounded-lg rounded-blue-500">
-                          Lihat Lebih Detail
-                        </div>
-                      </a> */}
                   </div>
                 </div>
               </div>
@@ -170,11 +115,6 @@ export default function Dashboard() {
                     <p className="mt-1 text-lg text-gray-700 text-left">
                       {sekolah.length} Sekolah
                     </p>
-                    {/* <a href="/table-sekolah-admin">
-                        <div className="mt-4 p-2 inline-block border-blue-500 font-medium text-blue-600 hover:border rounded-lg rounded-blue-500">
-                          Lihat Lebih Detail
-                        </div>
-                      </a> */}
                   </div>
                 </div>
               </div>
@@ -192,11 +132,6 @@ export default function Dashboard() {
                     <p className="mt-1 text-lg text-gray-700 text-left">
                       {guru.length} Guru
                     </p>
-                    {/* <a href="/table-sekolah-admin">
-                        <div className="mt-4 p-2 inline-block border-blue-500 font-medium text-blue-600 hover:border rounded-lg rounded-blue-500">
-                          Lihat Lebih Detail
-                        </div>
-                      </a> */}
                   </div>
                 </div>
               </div>

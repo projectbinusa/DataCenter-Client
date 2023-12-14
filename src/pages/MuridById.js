@@ -7,13 +7,13 @@ import $ from "jquery";
 import Swal from "sweetalert2";
 import Sidebar from "../components/Sidebar";
 
-export default function GuruById() {
+export default function MuridById() {
   const param = useParams();
   const [namaSekolah, setNamaSekolah] = useState([]);
-  const [guru, setGuru] = useState([]);
+  const [siswa, setSiswa] = useState([]);
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [namaGuru, setNamaGuru] = useState("");
+  const [namaMurid, setNamaMurid] = useState("");
   const [tempatLahir, setTempatLahir] = useState("");
   const [tanggalLahir, setTanggalLahir] = useState("");
   const [agama, setAgama] = useState("");
@@ -23,7 +23,7 @@ export default function GuruById() {
 
   const navigate = useNavigate();
 
-  const addGuru = async (e) => {
+  const addSiswa = async (e) => {
     e.preventDefault();
     e.persist();
 
@@ -37,13 +37,16 @@ export default function GuruById() {
         confirmButtonText: "tambahkan",
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.post(`http://localhost:8080/api/guru/${param.id}/add-guru`, {
-            namaGuru: namaGuru,
-            tanggalLahir: tanggalLahir,
-            tempatLahir: tempatLahir,
-            agama: agama,
-            gender: gender,
-          });
+          axios.post(
+            `http://localhost:8080/api/sekolah/${param.id}/add-siswa`,
+            {
+              namaMurid: namaMurid,
+              tanggalLahir: tanggalLahir,
+              tempatLahir: tempatLahir,
+              agama: agama,
+              gender: gender,
+            }
+          );
           Swal.fire({
             position: "center",
             icon: "success",
@@ -59,10 +62,10 @@ export default function GuruById() {
     }
   };
 
-  const deleteGuru = async (id) => {
+  const deleteSiswa = async (id) => {
     await Swal.fire({
       title: "Anda yakin?",
-      text: "Yakin ingin menghapus data guru ini?",
+      text: "Yakin ingin menghapus data siswa ini?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -71,7 +74,7 @@ export default function GuruById() {
       cancelButtonText: "Batal",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete("http://localhost:8080/api/guru/" + id).then(() => {
+        axios.delete("http://localhost:8080/api/siswa/" + id).then(() => {
           Swal.fire({
             position: "center",
             icon: "success",
@@ -127,9 +130,9 @@ export default function GuruById() {
   const data = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/guru/" + param.id + "/guru"
+        "http://localhost:8080/api/sekolah/" + param.id + "/siswa"
       );
-      setGuru(response.data);
+      setSiswa(response.data);
       const totalPerempuan = response.data.filter(
         (x) => x.gender === "Perempuan"
       ).length;
@@ -145,9 +148,9 @@ export default function GuruById() {
   const dta = async () => {
     try {
       const respon = await axios.get(
-        "http://localhost:8080/api/guru/" + param.id + "/guru"
+        "http://localhost:8080/api/sekolah/" + param.id + "/siswa"
       );
-      setGuru(respon.data);
+      setSiswa(respon.data);
       const islam = respon.data.filter((r) => r.agama === "Islam").length;
       const kristen = respon.data.filter((r) => r.agama === "Kristen").length;
       const katholik = respon.data.filter((r) => r.agama === "Katholik").length;
@@ -166,11 +169,11 @@ export default function GuruById() {
     }
   };
 
-  const getAllUserData = () => {
+  const getAllMurid = () => {
     axios
-      .get("http://localhost:8080/api/guru/" + param.id + "/guru/")
+      .get("http://localhost:8080/api/sekolah/" + param.id + "/siswa/")
       .then((response) => {
-        setGuru(response.data);
+        setSiswa(response.data);
       })
       .catch((error) => {
         alert("Terjadi kesalahan " + error);
@@ -200,7 +203,7 @@ export default function GuruById() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios({
-          url: "http://localhost:8080/api/excel-guru/download-guru/" + param.id,
+          url: "http://localhost:8080/api/excel/download/" + param.id,
           method: "GET",
           responseType: "blob",
         }).then((response) => {
@@ -208,7 +211,7 @@ export default function GuruById() {
           var fileLink = document.createElement("a");
 
           fileLink.href = fileURL;
-          fileLink.setAttribute("download", "data-guru.xlsx");
+          fileLink.setAttribute("download", "data-murid.xlsx");
           document.body.appendChild(fileLink);
 
           fileLink.click();
@@ -231,7 +234,7 @@ export default function GuruById() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios({
-          url: "http://localhost:8080/api/excel-guru/download-guru/",
+          url: "http://localhost:8080/api/excel/download/",
           method: "GET",
           responseType: "blob",
         }).then((response) => {
@@ -239,7 +242,7 @@ export default function GuruById() {
           var fileLink = document.createElement("a");
 
           fileLink.href = fileURL;
-          fileLink.setAttribute("download", "format-excel-guru.xlsx");
+          fileLink.setAttribute("download", "format-excel.xlsx");
           document.body.appendChild(fileLink);
 
           fileLink.click();
@@ -258,7 +261,7 @@ export default function GuruById() {
 
     await axios
       .post(
-        "http://localhost:8080/api/excel-guru/upload-guru/guru/" + param.id,
+        "http://localhost:8080/api/excel/upload/siswa/" + param.id,
         formData
       )
       .then(() => {
@@ -283,7 +286,7 @@ export default function GuruById() {
     if (isChecked.length !== 0) {
       await Swal.fire({
         title: "Anda yakin?",
-        text: "Yakin ingin menghapus data guru ini?",
+        text: "Yakin ingin menghapus data murid ini?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -294,7 +297,7 @@ export default function GuruById() {
         if (result.isConfirmed) {
           axios
             .delete(
-              `http://localhost:8080/api/guru?ids=` + isChecked.toString()
+              `http://localhost:8080/api/siswa?ids=` + isChecked.toString()
             )
             .then(() => {
               Swal.fire({
@@ -322,7 +325,7 @@ export default function GuruById() {
   useEffect(() => {
     data();
     dta();
-    getAllUserData();
+    getAllMurid();
     getNamaSekolah();
   }, []);
 
@@ -341,7 +344,7 @@ export default function GuruById() {
           <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
             <div className="bg-white pl-3 pr-1 py-4 rounded-xl shadow-xl">
               <div className="text-md md:text-4xl text-black font-extrabold md:font-extrabold my-3 text-center font-mono">
-                Data Guru Sekolah {namaSekolah.namaSekolah}
+                Data Murid Sekolah {namaSekolah.namaSekolah}
               </div>
               {/* diagram pie start*/}
               <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-5 ">
@@ -351,7 +354,7 @@ export default function GuruById() {
                     <div className="rounded-2xl p-1 shadow-2xl w-full md:w-[490px] h-[330px]">
                       <div className="rounded-xl bg-white p-1  h-[320px]">
                         <div className="m-5 overflow-hidden overflow-x-auto">
-                          {guru.length === 0 ? (
+                          {siswa.length === 0 ? (
                             <div>belum ada data</div>
                           ) : (
                             <Chart
@@ -367,7 +370,7 @@ export default function GuruById() {
                               Gender
                             </p>
                             <p className="text-black text-xs ">
-                              Menampilkan presentase gender guru
+                              Menampilkan presentase gender murid
                             </p>
                           </div>
                         </div>
@@ -383,7 +386,7 @@ export default function GuruById() {
                     <div className="rounded-2xl p-1 shadow-2xl w-full md:w-[490px] h-[330px]">
                       <div className="rounded-xl bg-white p-1 h-[320px]">
                         <div className="m-5 overflow-hidden overflow-x-auto">
-                          {guru.length === 0 ? (
+                          {siswa.length === 0 ? (
                             <div>belum ada data</div>
                           ) : (
                             <Chart
@@ -399,7 +402,7 @@ export default function GuruById() {
                               Agama
                             </p>
                             <p className="text-black text-xs ">
-                              Menampilkan total agama guru
+                              Menampilkan total agama murid
                             </p>
                           </div>
                         </div>
@@ -415,7 +418,7 @@ export default function GuruById() {
                 {/* tombol import export dan add start */}
                 <div className="grid justify-center">
                   <div className="grid grid-cols-1 md:flex gap-3 mt-6">
-                    {guru.length === 0 ? (
+                    {siswa.length === 0 ? (
                       <></>
                     ) : (
                       <button
@@ -426,12 +429,12 @@ export default function GuruById() {
                         Download Data
                       </button>
                     )}
-                    <a href={"/tambah-guru-sekolah/" + param.id}>
+                    <a href={"/tambah-siswa-sekolah/" + param.id}>
                       <button
                         className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
                       >
-                        Tambah Data Guru
+                        Tambah Data Murid
                       </button>
                     </a>
 
@@ -459,16 +462,10 @@ export default function GuruById() {
                             Pilih
                           </th>
                           <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                            ID
+                            No
                           </th>
                           <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                            Nama Guru
-                          </th>
-                          <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                            Tempat Lahir
-                          </th>
-                          <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                            Tanggal Lahir
+                            Nama Murid
                           </th>
                           <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
                             Agama
@@ -477,19 +474,24 @@ export default function GuruById() {
                             Gender
                           </th>
                           <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                            Aksi
+                            Kelas
+                          </th>
+                          <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
+                            Action
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="">
-                        {guru.map((val, idx) => {
+                      <tbody className="text-left">
+                        {siswa.map((val, idx) => {
                           return (
                             <tr key={idx}>
                               <td className="inset-y-0 left-0 bg-white px-4 py-2">
-                                <label className="sr-only" htmlFor="Row1">
+                                <label
+                                  className="sr-only"
+                                  htmlFor={`Row${idx + 1}`}
+                                >
                                   checkbox
                                 </label>
-
                                 <input
                                   className="h-5 w-5 rounded border-gray-200"
                                   type="checkbox"
@@ -503,13 +505,7 @@ export default function GuruById() {
                                 {idx + 1}
                               </td>
                               <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                {val.namaGuru}
-                              </td>
-                              <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                {val.tempatLahir}
-                              </td>
-                              <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                {val.tanggalLahir}
+                                {val.namaMurid}
                               </td>
                               <td className="whitespace-nowrap px-4 py-2">
                                 <strong className="rounded bg-red-100 px-3 py-1.5 text-xs font-medium text-red-700">
@@ -526,9 +522,12 @@ export default function GuruById() {
                                   {val.gender}
                                 </strong>
                               </td>
+                              <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                                {val.kelas}
+                              </td>
                               <td className="whitespace-nowrap text-ceter py-2">
                                 <div className="flex items-center -space-x-4 hover:space-x-1">
-                                  <a href={"/edit-guru-sekolah/" + val.id}>
+                                  <a href={"/edit-siswa-sekolah/" + val.id}>
                                     <button
                                       className="z-20 block rounded-full border-2 border-white bg-blue-100 p-4 text-blue-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-blue-50"
                                       type="button"
@@ -552,7 +551,7 @@ export default function GuruById() {
                                   <button
                                     className="z-30 block rounded-full border-2 border-white bg-red-100 p-4 text-red-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-red-50"
                                     type="button"
-                                    onClick={() => deleteGuru(val.id)}
+                                    onClick={() => deleteSiswa(val.id)}
                                   >
                                     <svg
                                       className="h-4 w-4"
@@ -576,7 +575,7 @@ export default function GuruById() {
                         })}
                       </tbody>
                     </table>
-                    {guru.length !== 0 ? (
+                    {siswa.length !== 0 ? (
                       <div className="grid justify-center md:justify-start">
                         <button
                           className="text-red-700 bg-red-100 active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
@@ -591,9 +590,9 @@ export default function GuruById() {
                     )}
                   </div>
                 </div>
-                {/* tabel guru end */}
+                {/* tabel murid end */}
 
-                {/* modal tambah guru start */}
+                {/* modal tambah murid start */}
                 {showModal ? (
                   <>
                     <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -603,7 +602,7 @@ export default function GuruById() {
                           {/*header*/}
                           <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                             <h3 className="text-3xl font-semibold">
-                              Tambah guru
+                              Tambah murid
                             </h3>
                             <button
                               className="p-1 ml-auto bg-transparent border-0 opacity-5 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -619,7 +618,7 @@ export default function GuruById() {
                             <form
                               action=""
                               className="space-y-4"
-                              onSubmit={addGuru}
+                              onSubmit={addSiswa}
                             >
                               <div>
                                 <label className="sr-only" htmlFor="name">
@@ -628,11 +627,11 @@ export default function GuruById() {
                                 <input
                                   autoComplete="off"
                                   className="w-full rounded-lg border p-3 text-sm"
-                                  placeholder="Nama guru"
+                                  placeholder="Nama murid"
                                   type="text"
                                   id="name"
-                                  value={namaGuru}
-                                  onChange={(e) => setNamaGuru(e.target.value)}
+                                  value={namaMurid}
+                                  onChange={(e) => setNamaMurid(e.target.value)}
                                   required
                                 />
                               </div>
@@ -827,7 +826,7 @@ export default function GuruById() {
                                   blank
                                 </p>
                                 <p className="mb-5 text-lg font-medium">
-                                  jika sudah menginputkan data guru ke dalam
+                                  jika sudah menginputkan data murid ke dalam
                                   file yang sudah anda download tadi,
                                   selanjutnya bisa anda importkan dengan menekan
                                   tombol dibawah:

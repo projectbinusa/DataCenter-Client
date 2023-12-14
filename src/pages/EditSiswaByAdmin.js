@@ -5,8 +5,7 @@ import Swal from "sweetalert2";
 import "../style/edit.css";
 import Sidebar from "../components/Sidebar";
 
-
-export default function EditGuru() {
+export default function EditSiswa() {
   const param = useParams();
   const [namaMurid, setNamaMurid] = useState("");
   const [extrakulikuler, setExtrakulikuler] = useState("");
@@ -18,7 +17,7 @@ export default function EditGuru() {
   const [gender, setGender] = useState("");
   const [namaOrtu, setNamaOrtu] = useState("");
   const [kelas, setKelas] = useState("");
-  const [kelas_option, setKelasOption] = useState([]); 
+  const [kelas_option, setKelasOption] = useState([]);
   const [extra_option, setExtraOption] = useState([]);
 
   const navigate = useNavigate();
@@ -106,34 +105,26 @@ export default function EditGuru() {
         alert("Terjadi kesalahan: " + error);
       });
   };
-  const getAllKelas = async () => { 
-    await axios 
-      .get( 
-        "http://localhost:8080/api/kelas/" + 
-        param.id  + 
-          "/kelas" 
-      ) 
-      .then((res) => { 
-        setKelasOption(res.data); 
-      }); 
-  }; 
- 
-  const getAllExtra = async () => { 
-    await axios 
-      .get( 
-        "http://localhost:8080/api/extra/" + 
-        param.id + 
-          "/extra" 
-      ) 
-      .then((res) => { 
-        setExtraOption(res.data); 
-      }); 
+  const getAllKelas = async () => {
+    await axios
+      .get("http://localhost:8080/api/kelas/" + param.id + "/kelas")
+      .then((res) => {
+        setKelasOption(res.data);
+      });
+  };
+
+  const getAllExtra = async () => {
+    await axios
+      .get("http://localhost:8080/api/extra/" + param.id + "/extra")
+      .then((res) => {
+        setExtraOption(res.data);
+      });
   };
   const batal = () => {
     window.location.href = "/table-siswa";
   };
   useEffect(() => {
-    getAllKelas(); 
+    getAllKelas();
     getAllExtra();
   }, []);
   // Fungsi untuk menghitung umur dari tanggal lahir
@@ -167,26 +158,26 @@ export default function EditGuru() {
                 Edit Murid
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="relative">
-                <label htmlFor="namaMurid">Nama Murid:</label>
-                <input
-                  id="namaMurid"
-                  type="text"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                  value={namaMurid}
-                  onChange={nameChangeHandler}
-                />
-              </div>
-              <div className="relative">
-                <label htmlFor="extrakulikuler">Extrakulikuler:</label>
-                <select
+                <div className="relative">
+                  <label htmlFor="namaMurid">Nama Murid:</label>
+                  <input
+                    id="namaMurid"
+                    type="text"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    value={namaMurid}
+                    onChange={nameChangeHandler}
+                  />
+                </div>
+                <div className="relative">
+                  <label htmlFor="extrakulikuler">Extrakulikuler:</label>
+                  <select
                     id="agama"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     value={extrakulikuler}
                     onChange={extraChangeHandler}
                   >
-                <option value="" disabled>
-                    Pilih Extrakulikuler
+                    <option value="" disabled>
+                      Pilih Extrakulikuler
                     </option>
                     {extra_option.map((val, i) => {
                       // Tambahkan kondisi untuk memeriksa status aktif atau non-aktif
@@ -200,7 +191,7 @@ export default function EditGuru() {
                       return null; // Tidak menambahkan opsi jika status non-aktif
                     })}
                   </select>
-              </div>
+                </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="relative">
@@ -275,19 +266,19 @@ export default function EditGuru() {
                     onChange={kelasChangeHandler}
                   >
                     <option value="" disabled>
-                    Pilih Kelas
+                      Pilih Kelas
                     </option>
-                  {kelas_option.map((val, index) => {
-                    if (val.status === "Aktif") {
-                      return (
-                        <option key={index} value={val.namaKelas}>
-                          {val.namaKelas}
-                        </option>
+                    {kelas_option.map((val, index) => {
+                      if (val.status === "Aktif") {
+                        return (
+                          <option key={index} value={val.namaKelas}>
+                            {val.namaKelas}
+                          </option>
                         );
                       }
-                    return null;
-                  })}
-                </select>
+                      return null;
+                    })}
+                  </select>
                 </div>
               </div>
 
