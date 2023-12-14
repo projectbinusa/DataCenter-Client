@@ -10,51 +10,54 @@ export default function VerRegistrasi() {
   const [users, setUsers] = useState([]);
   const [modal, setModal] = useState(false);
   const form = useRef();
-  
+  const [searchTerm, setSearchTerm] = useState("");
+
   const getAll = async () => {
     await axios.get(`http://localhost:8080/api/users`).then((res) => {
-        setUsers(res.data);
+      setUsers(res.data);
     });
+  };
+  const Terima = async (id) => {
+    try {
+      await axios.put(`http://localhost:8080/api/users/status/terima/${id}`, {
+        status: "Diterima",
+      });
+      Swal.fire({
+        icon: "success",
+        title: "Menerima users",
+        
+      });
+      window.location.reload();
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.response ? error.response.data.message : "Kesalahan",
+      });
+    }
+  };
 
- 
-};
-const Terima = async (id) => {
-  try {
-    await axios.put(`http://localhost:8080/api/users/status/terima/${id}`, {
-      status: "Diterima",
-    });
-    Swal.fire({
-      icon: "success",
-      title: "Menerima users",
-    });
-    window.location.reload();
-  } catch (error) {
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: error.response ? error.response.data.message : "Kesalahan",
-    });
-  }
-};
-
-const non_aktif = async (id) => {
-  try {
-    await axios.put(`http://localhost:8080/api/users/status/non-aktif/${id}`, {
-      status: null,
-    });
-    Swal.fire({
-      icon: "success",
-      title: "Non Aktif users",
-    });
-    window.location.reload();
-  } catch (error) {
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: error.response ? error.response.data.message : "Kesalahan",
-    });
-  }
-};
+  const non_aktif = async (id) => {
+    try {
+      await axios.put(
+        `http://localhost:8080/api/users/status/non-aktif/${id}`,
+        {
+          status: null,
+        }
+      );
+      Swal.fire({
+        icon: "success",
+        title: "Non Aktif users",
+      });
+      window.location.reload();
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.response ? error.response.data.message : "Kesalahan",
+      });
+    }
+  };
 
   const deleteUser = async (id) => {
     await Swal.fire({
@@ -89,7 +92,7 @@ const non_aktif = async (id) => {
       }
     });
   };
-  
+
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs
@@ -101,18 +104,16 @@ const non_aktif = async (id) => {
       )
       .then(
         (result) => {
-        if (result) {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Berhasil Dikirim",
-            showConfirmButton: false,
-            timer: 1500,
-
-          })
-          window.location.href =  "/ver-registrasi";
-          
-        } 
+          if (result) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Berhasil Dikirim",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            window.location.href = "/ver-registrasi";
+          }
         },
         (error) => {
           if (error) {
@@ -122,39 +123,54 @@ const non_aktif = async (id) => {
               title: "Gagal Dikirim",
               showConfirmButton: false,
               timer: 1500,
-  
-            })
-            
-          } 
+            });
+          }
         }
       );
   };
 
+  const cariSekolah = () => {
+    const filteredUsers = users.filter((user) =>
+      user.namaSekolah.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setUsers(filteredUsers);
+  };
+
   useEffect(() => {
     getAll();
+    cariSekolah();
   }, []);
 
   return (
     <>
       <Sidebar />
-      <div className="flex my-20">
+      <div className="container flex my-20">
         <div className="flex justify-center w-[100%]">
           <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
             <div className="p-5 bg-white">
-              <div className="flex justify-between">
-                <div className="grid grid-cols-1 md:flex gap-3 py-5  mt-6">
-                  <span className="floath-left text-white w-auto add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+              <div className="grid flex justify-between md:grid-cols-1  overflow-hidden overflow-x-auto  ">
+                <div className="grid grid-cols-1 ">
+                  <span className="text-center text-white w-auto add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                     Verifikasi Sekolah
                   </span>
                 </div>
-                <div>
+
+                <div className="flex justify-between my-5 md:">
                   <button
                     onClick={() => setModal(true)}
-                    className="text-white  bg-blue-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                    className="text-white  bg-blue-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150 md:text-left"
                   >
                     Kirim Pemberitahuan
                   </button>
-                </div >
+                  <label className="flex justify-around">
+                    <input
+                      type="text"
+                      className="text-dark rounded-lg mx-2   active:bg-slate-300   text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                      placeholder="Cari nama sekolah"
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </label>
+                </div>
               </div>
               <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 p-5">
                 <table
@@ -183,75 +199,82 @@ const non_aktif = async (id) => {
                   </thead>
                   <tbody className="">
                     {users.map((val, idx) => {
-                      if (val.role === 'admin') {
-                      return (
-                        <tr key={idx}>
-                          <td className="border-blue-300 left-0 py-2">
-                            {idx + 1}
-                          </td>
-                          <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                            {val.namaSekolah}
-                          </td>
-                          <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                            {val.email}
-                          </td>
-                          <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                            {val.status !== null &&
-                            val.status === "Diterima" ? (
-                              <>Diterima</>
-                            ) : val.status === null ? (
-                              <>Belum Diterima</>
-                            ) : (
-                              <>NonAktif</>
-                            )}
-                          </td>
-                          <td className="whitespace-nowrap text-ceter py-2">
-                            {val.status !== null &&
-                            val.status === "Diterima" ? (
-                              <button
-                                className="text-white bg-gray-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
-                                onClick={() => non_aktif(val.id)}
-                              >
-                                Non Aktifkan
-                              </button>
-                            ) : val.status === null ? (
-                              <>
+                      {
+                        users.length === 0 && (
+                          <p className="text-center mt-5">
+                            Tidak ditemukan sekolah dengan nama "{searchTerm}"
+                          </p>
+                        );
+                      }
+                      if (val.role === "admin") {
+                        return (
+                          <tr key={idx}>
+                            <td className="border-blue-300 left-0 py-2">
+                              {idx + 1}
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                              {val.namaSekolah}
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                              {val.email}
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                              {val.status !== null &&
+                              val.status === "Diterima" ? (
+                                <>Diterima</>
+                              ) : val.status === null ? (
+                                <>Belum Diterima</>
+                              ) : (
+                                <>NonAktif</>
+                              )}
+                            </td>
+                            <td className="whitespace-nowrap text-ceter py-2">
+                              {val.status !== null &&
+                              val.status === "Diterima" ? (
                                 <button
-                                  className="text-white bg-green-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                                  className="text-white bg-gray-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                                  onClick={() => non_aktif(val.id)}
+                                >
+                                  Non Aktifkan
+                                </button>
+                              ) : val.status === null ? (
+                                <>
+                                  <button
+                                    className="text-white bg-green-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                                    onClick={() => Terima(val.id)}
+                                  >
+                                    Terima
+                                  </button>
+                                  <button
+                                    className="text-white bg-red-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                                    onClick={() => deleteUser(val.id)}
+                                  >
+                                    Hapus
+                                  </button>
+                                </>
+                              ) : (
+                                <button
+                                  className="text-white bg-purple-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
                                   onClick={() => Terima(val.id)}
                                 >
-                                  Terima
+                                  Aktifkan
                                 </button>
-                                <button
-                                  className="text-white bg-red-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
-                                  onClick={() => deleteUser(val.id)}
-                                >
-                                  Hapus
-                                </button>
-                              </>
-                            ) : (
-                              <button
-                                className="text-white bg-purple-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
-                                onClick={() => Terima(val.id)}
-                              >
-                                Aktifkan
-                              </button>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                      
-                    }else {
-                      // If the role is not 'admin', return null or an empty fragment
-                      return null;
-                    }
-                  })}
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      } else {
+                        // If the role is not 'admin', return null or an empty fragment
+                        return null;
+                      }
+                    })}
                   </tbody>
                 </table>
               </div>
             </div>
           </main>
         </div>
+
         {modal ? (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
