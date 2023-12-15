@@ -44,6 +44,7 @@ import MuridById from "./pages/MuridById";
 import EditGuruByAdmin from "./pages/EditGuruByAdmin";
 import TambahGuruByAdmin from "./pages/TambahGuruByAdmin";
 import TambahSiswaByAdmin from "./pages/TambahSiswaByAdmin";
+import SaranLaporan from "./pages/landingpage/SaranLaporan";
 
 // import PrivateBack from "./router/PrivateBack";
 
@@ -71,6 +72,14 @@ function App() {
             element={
               <PrivateHome>
                 <PublikSekolah />
+              </PrivateHome>
+            }
+          />
+          <Route
+            path="/saran"
+            element={
+              <PrivateHome>
+                <SaranLaporan />
               </PrivateHome>
             }
           />
