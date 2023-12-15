@@ -4,19 +4,28 @@ import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import emailjs from "@emailjs/browser";
 import Swal from "sweetalert2";
-import { data } from "autoprefixer";
+import ReactPaginate from "react-paginate";
+import "../App.css";
 
 export default function VerRegistrasi() {
   const [users, setUsers] = useState([]);
   const [modal, setModal] = useState(false);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const form = useRef();
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 10;
 
   const getAll = async () => {
-    await axios.get(`http://localhost:8080/api/users`).then((res) => {
-      setUsers(res.data);
-    });
+    try {
+      const response = await axios.get(`http://localhost:8080/api/users`);
+      setUsers(response.data);
+      setFilteredUsers(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
+
   const Terima = async (id) => {
     try {
       await axios.put(`http://localhost:8080/api/users/status/terima/${id}`, {
@@ -25,7 +34,6 @@ export default function VerRegistrasi() {
       Swal.fire({
         icon: "success",
         title: "Menerima users",
-        
       });
       window.location.reload();
     } catch (error) {
@@ -62,7 +70,7 @@ export default function VerRegistrasi() {
   const deleteUser = async (id) => {
     await Swal.fire({
       title: "Anda yakin?",
-      text: "Yakin ingin menghapus data users ini ? Pastikan sudah memberikan pemberitahuan melalui email",
+      text: "Yakin ingin menghapus data users ini? Pastikan sudah memberikan pemberitahuan melalui email",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -129,17 +137,30 @@ export default function VerRegistrasi() {
       );
   };
 
-  const cariSekolah = () => {
-    const filteredUsers = users.filter((user) =>
-      user.namaSekolah.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setUsers(filteredUsers);
+  const cariSekolah = (term) => {
+    if (term.trim() === "") {
+      setFilteredUsers(users);
+    } else {
+      const filteredResults = users.filter(
+        (user) =>
+          user.namaSekolah &&
+          user.namaSekolah.toLowerCase().includes(term.toLowerCase())
+      );
+      setFilteredUsers(filteredResults);
+    }
+  };
+
+  const handlePageClick = (data) => {
+    const selectedPage = data.selected;
+    setCurrentPage(selectedPage);
   };
 
   useEffect(() => {
     getAll();
-    cariSekolah();
   }, []);
+
+  const offset = currentPage * itemsPerPage;
+  const paginatedUsers = filteredUsers.slice(offset, offset + itemsPerPage);
 
   return (
     <>
@@ -167,7 +188,11 @@ export default function VerRegistrasi() {
                       type="text"
                       className="text-dark rounded-lg mx-2   active:bg-slate-300   text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
                       placeholder="Cari nama sekolah"
-                      onChange={(e) => setSearchTerm(e.target.value)}
+                      value={searchTerm}
+                      onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                        cariSekolah(e.target.value);
+                      }}
                     />
                   </label>
                 </div>
@@ -198,19 +223,12 @@ export default function VerRegistrasi() {
                     </tr>
                   </thead>
                   <tbody className="">
-                    {users.map((val, idx) => {
-                      {
-                        users.length === 0 && (
-                          <p className="text-center mt-5">
-                            Tidak ditemukan sekolah dengan nama "{searchTerm}"
-                          </p>
-                        );
-                      }
+                    {paginatedUsers.map((val, idx) => {
                       if (val.role === "admin") {
                         return (
                           <tr key={idx}>
                             <td className="border-blue-300 left-0 py-2">
-                              {idx + 1}
+                              {offset + idx + 1}
                             </td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                               {val.namaSekolah}
@@ -264,13 +282,40 @@ export default function VerRegistrasi() {
                           </tr>
                         );
                       } else {
-                        // If the role is not 'admin', return null or an empty fragment
                         return null;
                       }
                     })}
                   </tbody>
                 </table>
               </div>
+              <ReactPaginate
+                className="flex justify-between mb-5"
+                previousLabel={
+                  <button
+                    className="text-white bg-red-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                    aria-label="Previous"
+                  >
+                    Previous
+                  </button>
+                }
+                nextLabel={
+                  <button
+                    className="text-white bg-blue-400 rounded-lg mx-2 active:bg-slate-300 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none my-5 md:my-2 ease-linear transition-all duration-150"
+                    aria-label="Next"
+                  >
+                    Next
+                  </button>
+                }
+                breakLabel={<span className="pagination-ellipsis">...</span>}
+                pageCount={Math.ceil(filteredUsers.length / itemsPerPage)}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination"}
+                activeClassName={"active"}
+                pageClassName={"pagination-item"}
+                pageLinkClassName={"pagination-link"}
+              />
             </div>
           </main>
         </div>
@@ -352,4 +397,16 @@ export default function VerRegistrasi() {
       </div>
     </>
   );
+}
+
+function debounce(func, delay) {
+  let timeoutId;
+  return function (...args) {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
 }
