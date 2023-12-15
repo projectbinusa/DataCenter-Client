@@ -24,7 +24,7 @@ export default function EditSiswa() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/siswa/" + param.id)
+      .get("http://localhost:8080/api/siswa/" + param.id_siswa)
       .then((response) => {
         const dataSiswa = response.data;
         setNamaMurid(dataSiswa.namaMurid);
@@ -79,7 +79,7 @@ export default function EditSiswa() {
     event.preventDefault();
 
     await axios
-      .put("http://localhost:8080/api/siswa/" + param.id, {
+      .put("http://localhost:8080/api/siswa/" + param.id_siswa, {
         namaMurid: namaMurid,
         extrakulikuler: extrakulikuler,
         tempatLahir: tempatLahir,
@@ -99,7 +99,7 @@ export default function EditSiswa() {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/table");
+        navigate("/murid/" + param.id_sekolah);
       })
       .catch((error) => {
         alert("Terjadi kesalahan: " + error);
@@ -107,7 +107,7 @@ export default function EditSiswa() {
   };
   const getAllKelas = async () => {
     await axios
-      .get("http://localhost:8080/api/kelas/" + param.id + "/kelas")
+      .get("http://localhost:8080/api/kelas/" + param.id_sekolah + "/kelas")
       .then((res) => {
         setKelasOption(res.data);
       });
@@ -115,13 +115,13 @@ export default function EditSiswa() {
 
   const getAllExtra = async () => {
     await axios
-      .get("http://localhost:8080/api/extra/" + param.id + "/extra")
+      .get("http://localhost:8080/api/extra/" + param.id_sekolah + "/extra")
       .then((res) => {
         setExtraOption(res.data);
       });
   };
   const batal = () => {
-    window.location.href = "/table-siswa";
+    window.location.href = "/siswa/" + param.id_sekolah;
   };
   useEffect(() => {
     getAllKelas();

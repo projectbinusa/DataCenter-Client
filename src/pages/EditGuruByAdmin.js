@@ -23,7 +23,7 @@ export default function EditGuru() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/guru/" + param.id)
+      .get("http://localhost:8080/api/guru/" + param.id_guru)
       .then((response) => {
         const dataGuru = response.data;
         setNamaGuru(dataGuru.namaGuru);
@@ -107,7 +107,10 @@ export default function EditGuru() {
     });
 
     axios
-      .put(`http://localhost:8080/api/guru/${param.id}/upload-image`, formData)
+      .put(
+        `http://localhost:8080/api/guru/${param.id_guru}/upload-image`,
+        formData
+      )
       .then(() => {
         Swal.fire({
           icon: "success",
@@ -127,7 +130,7 @@ export default function EditGuru() {
     event.preventDefault();
 
     await axios
-      .put("http://localhost:8080/api/guru/" + param.id, {
+      .put("http://localhost:8080/api/guru/" + param.id_guru, {
         namaGuru: namaGuru,
         tempatLahir: tempatLahir,
         tanggalLahir: tanggalLahir,
@@ -146,7 +149,7 @@ export default function EditGuru() {
           showConfirmButton: false,
           timer: 1500,
         });
-        window.location.href = "/table-guru";
+        window.location.href = "/guru/" + param.id_sekolah;
       })
       .catch((error) => {
         alert("Terjadi kesalahan: " + error);
@@ -156,7 +159,7 @@ export default function EditGuru() {
     await axios
       .get(
         "http://localhost:8080/api/gelarPendidikan/" +
-          param.id +
+          param.id_sekolah +
           "/gelarPendidikan"
       )
       .then((res) => {
@@ -164,7 +167,7 @@ export default function EditGuru() {
       });
   };
   const batal = () => {
-    window.location.href = "/table-guru";
+    window.location.href = "/guru" + param.id_sekolah;
   };
 
   useEffect(() => {
@@ -288,7 +291,6 @@ export default function EditGuru() {
                     name="gelarPendidikan"
                     value={gelarPendidikan}
                     onChange={gelarChangeHandler}
-                    required
                   >
                     <option value="" disabled>
                       Gelar Pendidikan
@@ -302,7 +304,7 @@ export default function EditGuru() {
                           </option>
                         );
                       }
-                      return null; // Tidak menambahkan opsi jika status non-aktif
+                      return null;
                     })}
                   </select>
                 </div>
