@@ -213,7 +213,7 @@ export default function GuruById() {
 
           fileLink.click();
         });
-        Swal.fire("Download!", "Your file has been download.", "success");
+        Swal.fire("Download!", "File berhasil di download.", "success");
       }
     });
   };
@@ -528,7 +528,14 @@ export default function GuruById() {
                               </td>
                               <td className="whitespace-nowrap text-ceter py-2">
                                 <div className="flex items-center -space-x-4 hover:space-x-1">
-                                  <a href={"/edit-guru-sekolah/" + val.id}>
+                                  <a
+                                    href={
+                                      "/edit-guru-sekolah/" +
+                                      val.id +
+                                      "/" +
+                                      param.id
+                                    }
+                                  >
                                     <button
                                       className="z-20 block rounded-full border-2 border-white bg-blue-100 p-4 text-blue-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-blue-50"
                                       type="button"

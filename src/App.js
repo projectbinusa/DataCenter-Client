@@ -160,7 +160,7 @@ function App() {
           />
 
           <Route
-            path="/edit-guru-sekolah/:id"
+            path="/edit-guru-sekolah/:id_guru/:id_sekolah"
             element={
               <PrivateRoute>
                 <EditGuruByAdmin />
@@ -169,7 +169,7 @@ function App() {
           />
 
           <Route
-            path="/edit-siswa-sekolah/:id"
+            path="/edit-siswa-sekolah/:id_siswa/:id_sekolah"
             element={
               <PrivateRoute>
                 <EditSiswaByAdmin />
