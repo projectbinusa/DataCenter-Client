@@ -83,14 +83,13 @@ export default function TableGuru() {
     <>
       <div>
         <PageSidebar />
-        <div className="mx-auto min-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 min-h-screen max-h-screen p-4 sm:ml-64">
-          <div className="mx-auto max-w-3xl">
-            <form
-              action=""
-              className="mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
+        <div className="p-4 sm:ml-64 mt-14">
+        <div className="mx-auto max-w-screen-xl">
+          <form
+            className="mt-10 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
               onSubmit={addGuru}
             >
-              <p className="text-3xl font-medium mb-7">Add Guru</p>
+              <p className="text-center text-3xl font-medium mb-7">Add Guru</p>
 
               <div className="relative mt-3">
                 <label
@@ -103,7 +102,7 @@ export default function TableGuru() {
                   type="text"
                   id="name"
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                  placeholder="Nama"
+                  placeholder="Masukan Nama Guru"
                   value={nama_guru}
                   onChange={(e) => setNamaGuru(e.target.value)}
                   required
@@ -122,7 +121,7 @@ export default function TableGuru() {
                     type="text"
                     id="tempatlahir"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                    placeholder="Tempat Lahir"
+                    placeholder="Masukan Tempat Lahir"
                     value={tempat_lahir}
                     onChange={(e) => setTempatLahir(e.target.value)}
                     required
@@ -159,7 +158,7 @@ export default function TableGuru() {
                     type="text"
                     id="notelepon"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                    placeholder="No Telepon"
+                    placeholder="Masukan No Telepon"
                     value={no_telepon}
                     onChange={(e) => setNoTelepon(e.target.value)}
                     required

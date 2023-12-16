@@ -175,14 +175,13 @@ export default function EditGuru() {
     <>
       <div>
         <PageSidebar />
-        <div className="mx-auto min-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 min-h-screen max-h-screen p-4 sm:ml-64">
-          <div className="mx-auto max-w-3xl">
+        <div className="p-4 sm:ml-64 mt-14">
+          <div className="mx-auto max-w-screen-xl">
             <form
-              action=""
-              className="mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
+              className="mt-10 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
               onSubmit={submitActionHandler}
             >
-              <p className="text-3xl font-medium mb-7">Edit Guru</p>
+              <p className="text-center text-3xl font-medium mb-7">Edit Guru</p>
 
               <div className="relative mt-3">
                 <label

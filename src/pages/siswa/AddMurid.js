@@ -124,7 +124,7 @@ export default function AddMurid() {
                 id="namaMurid"
                 type="text"
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                placeholder="Masukan Nama Anda "
+                placeholder="Masukan Nama "
                 value={namaMurid}
                 onChange={(e) => setNamaMurid(e.target.value)}
               />
@@ -163,7 +163,7 @@ export default function AddMurid() {
                   name="tempatlahir"
                   id="tempatlahir"
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                  placeholder="Masukan Tempat Lahir Anda "
+                  placeholder="Masukan Tempat Lahir "
                   value={tempatLahir}
                   onChange={(e) => setTempatLahir(e.target.value)}
                   required
@@ -193,7 +193,7 @@ export default function AddMurid() {
                   name="namaortu"
                   id="namaortu"
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                  placeholder="Masukan Nama Ortu Anda "
+                  placeholder="Masukan Nama Ortu "
                   value={namaOrtu}
                   onChange={(e) => setNamaOrtu(e.target.value)}
                   required
@@ -206,7 +206,7 @@ export default function AddMurid() {
                   name="noteleponortu"
                   id="noteleponortu"
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                  placeholder="Masukan No Telepon Ortu Anda "
+                  placeholder="Masukan No Telepon Ortu "
                   value={noTeleponOrtu}
                   onChange={(e) => setNoTeleponOrtu(e.target.value)}
                   required

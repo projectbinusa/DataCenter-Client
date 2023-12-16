@@ -67,8 +67,10 @@ export default function DetailGuru() {
   return (
     <>
       <PageSidebar />
-      <div className="mx-auto min-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 min-h-screen max-h-screen mt-16 p-4 sm:ml-64  ">
-        <h1 className="text-center  text-lg py-5">Detail Guru</h1>
+      <div className="mx-auto min-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 min-h-screen max-h-screen mt-16 p-4 sm:ml-64">
+        <h1 className="text-center text-3xl font-semibold text-gray-900 mb-8">
+          Informasi Detail Guru
+        </h1>
         <div className="grid md:grid-cols-2 gap-3">
           <section className="bg-white p-8 shadow-md rounded-md mb-4 md:mb-0">
             <div className="flex items-center justify-center mb-6">
