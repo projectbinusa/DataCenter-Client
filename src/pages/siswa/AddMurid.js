@@ -135,7 +135,7 @@ export default function AddMurid() {
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   value={extrakulikuler}
                   onChange={(e) => setExtrakulikuler(e.target.value)}
-                  required
+                   
                 >
                   <option value="" disabled>
                     Pilih Extrakulikuler
@@ -241,7 +241,7 @@ export default function AddMurid() {
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   value={kelas}
                   onChange={(e) => setKelas(e.target.value)}
-                  required
+                   
                 >
                   <option value="" disabled>
                     Pilih Kelas
@@ -340,7 +340,7 @@ export default function AddMurid() {
                 type="submit"
                 className="block w-24 rounded-lg text-black outline outline-[#0b409c] py-3 text-sm font-medium"
               >
-                Submit
+                Simpan
               </button>
             </div>
           </form>

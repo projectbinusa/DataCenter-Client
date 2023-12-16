@@ -177,7 +177,6 @@ export default function TableGuru() {
                     id="gelarPendidikan"
                     value={gelar_pendidikan}
                     onChange={(e) => setGelarPendidikan(e.target.value)}
-                    required
                   >
                     <option value="" disabled>
                       Gelar Pendidikan

@@ -108,12 +108,16 @@ export default function DataKelas() {
         <div className="flex justify-center w-[100%]">
           <main className="s-content w-[390px] md:w-[1125px] px-5 md:px-10 py-5">
             <div className="p-5 bg-white">
-              <div className="grid justify-center">
-                <div className="grid grid-cols-1 md:flex gap-3 mt-6">
-                  <a href="/tambah-gelar"
-                    className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                   >
-                    Tambah Data Gelar
+            <div className="grid justify-center mb-5">
+                <h3 className="text-4xl  "> Data Gelar  </h3>
+              </div>
+              <div className="grid justify-end mb-5 w-auto">
+                <div className="grid grid-cols-1 md:flex gap-3 mt-6 ">
+                  <a
+                    href="/tambah-kelas"
+                    className="text-center text-white w-auto add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  >
+                    Tambah
                   </a>
                 </div>
               </div>
@@ -138,7 +142,7 @@ export default function DataKelas() {
                         Status
                       </th>
                       <th className="whitespace-nowrap px-4 py-2 text-center font-medium">
-                        Action
+                        Aksi
                       </th>
                     </tr>
                   </thead>
