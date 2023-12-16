@@ -14,6 +14,9 @@ export default function SekolahById() {
   const [namaSekolah, setNamaSekolah] = useState([]);
   const [siswa, setSiswa] = useState([]);
   const [guru, setGuru] = useState([]);
+  const [kelass, setKelass] = useState([]);
+  const [extraa, setExtraa] = useState([]);
+  const [gelarr, setGelarr] = useState([]);
   const [namaSiswa] = useState("");
   const [tempatLahir] = useState("");
   const [tanggalLahir] = useState("");
@@ -270,6 +273,32 @@ export default function SekolahById() {
       });
   };
 
+  const getAllKelas = async () => {
+    await axios
+      .get(`http://localhost:8080/api/kelas/${param.id}/kelas`)
+      .then((res) => {
+        setKelass(res.data);
+      });
+  };
+
+  const getAllExtra = async () => {
+    await axios
+      .get(`http://localhost:8080/api/extra/${param.id}/extra`)
+      .then((res) => {
+        setExtraa(res.data);
+      });
+  };
+
+  const getAllGelar = async () => {
+    await axios
+      .get(
+        `http://localhost:8080/api/gelarPendidikan/${param.id}/gelarPendidikan`
+      )
+      .then((res) => {
+        setGelarr(res.data);
+      });
+  };
+
   const getNamaSekolah = async () => {
     try {
       const res = await axios.get(
@@ -286,6 +315,9 @@ export default function SekolahById() {
     genderGuru();
     getAllMurid();
     getAllGuru();
+    getAllKelas();
+    getAllExtra();
+    getAllGelar();
     getNamaSekolah();
   }, []);
 
@@ -488,7 +520,7 @@ export default function SekolahById() {
             <div className="text-md md:text-4xl text-black font-extrabold md:font-extrabold my-3 text-center font-mono">
               Data Sekolah {namaSekolah.namaSekolah}
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-14">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-14">
               {/* Total Murid */}
               <a href={"/murid/" + param.id}>
                 <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
@@ -520,9 +552,74 @@ export default function SekolahById() {
                   </div>
                 </div>
               </a>
+
+              {/* Total Kelas */}
+              <a href={"/kelas/" + param.id}>
+                <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
+                  <FontAwesomeIcon
+                    icon={faUserFriends}
+                    className="text-4xl text-blue-600 mr-4"
+                  />
+                  <div className="text-left">
+                    <p className="font-bold mb-1 text-gray-800">Total Kelas</p>
+                    <h1 className="text-3xl font-bold text-blue-700">
+                      {kelass.length}
+                    </h1>
+                  </div>
+                </div>
+              </a>
             </div>
 
-            <div className="flex flex-col md:flex-row justify-center gap-5 mt-5 mb-5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10">
+              {/* Total Extra */}
+              <a href={"/extra/" + param.id}>
+                <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
+                  <FontAwesomeIcon
+                    icon={faUserFriends}
+                    className="text-4xl text-blue-600 mr-4"
+                  />
+                  <div className="text-left">
+                    <p className="font-bold mb-1 text-gray-800">Total Extra</p>
+                    <h1 className="text-3xl font-bold text-blue-700">
+                      {extraa.length}
+                    </h1>
+                  </div>
+                </div>
+              </a>
+
+              {/* Total Gelar */}
+              <a href={"/gelar/" + param.id}>
+                <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
+                  <FontAwesomeIcon
+                    icon={faUserFriends}
+                    className="text-4xl text-blue-600 mr-4"
+                  />
+                  <div className="text-left">
+                    <p className="font-bold mb-1 text-gray-800">Total Gelar</p>
+                    <h1 className="text-3xl font-bold text-blue-700">
+                      {gelarr.length}
+                    </h1>
+                  </div>
+                </div>
+              </a>
+
+              {/* Info Sekolah */}
+              <a href={"/info-sekolah/" + param.id}>
+                <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
+                  <FontAwesomeIcon
+                    icon={faUserFriends}
+                    className="text-4xl text-blue-600 mr-4"
+                  />
+                  <div className="text-left">
+                    <p className="font-bold mb-1 text-xl text-gray-800">
+                      Info Sekolah
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div className="flex flex-col md:flex-row justify-center gap-5 mt-10 mb-5">
               {/* Diagram Gender */}
               <div className="text-center md:flex-1">
                 <div data-aos="fade-right">

@@ -79,7 +79,7 @@ export default function AddMurid() {
       });
   };
   const batal = () => {
-    window.location.href = "/table" + param.id;
+    window.location.href = "/table/" + param.id;
   };
   useEffect(() => {
     getAllKelas();

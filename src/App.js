@@ -14,7 +14,6 @@ import PrivateHome from "./router/PrivateHome";
 import Dashboard from "./pages/Dashboard";
 import TableSekolahAdmin from "./pages/TableSekolahAdmin";
 import TableSiswaAdmin from "./pages/TableSiswaAdmin";
-import EditSiswaByAdmin from "./pages/EditSiswaByAdmin";
 import EditSiswaAdmin from "./pages/EditSiswaAdmin";
 import IndexDash from "./pages/dashboard/index";
 import { useEffect } from "react";
@@ -41,9 +40,20 @@ import UpdateGelar from "./pages/sekolah/UpdateGelar";
 import VerRegistrasi from "./pages/VerRegistrasi";
 import GuruById from "./pages/GuruById";
 import MuridById from "./pages/MuridById";
+import KelasById from "./pages/KelasById";
+import ExtraById from "./pages/ExtraById";
+import GelarById from "./pages/GelarById";
+import InfoSekolahById from "./pages/InfoSekolahById";
 import EditGuruByAdmin from "./pages/EditGuruByAdmin";
+import EditKelasByAdmin from "./pages/EditKelasByAdmin";
+import EditSiswaByAdmin from "./pages/EditSiswaByAdmin";
+import EditExtraByAdmin from "./pages/EditExtraByAdmin";
+import EditGelarByAdmin from "./pages/EditGelarByAdmin";
 import TambahGuruByAdmin from "./pages/TambahGuruByAdmin";
 import TambahSiswaByAdmin from "./pages/TambahSiswaByAdmin";
+import TambahKelasByAdmin from "./pages/TambahKelasByAdmin";
+import TambahExtraByAdmin from "./pages/TambahExtraByAdmin";
+import TambahGelarByAdmin from "./pages/TambahGelarByAdmin";
 import SaranLaporan from "./pages/landingpage/SaranLaporan";
 
 // import PrivateBack from "./router/PrivateBack";
@@ -151,6 +161,42 @@ function App() {
           />
 
           <Route
+            path="/kelas/:id"
+            element={
+              <PrivateRoute>
+                <KelasById />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/extra/:id"
+            element={
+              <PrivateRoute>
+                <ExtraById />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/gelar/:id"
+            element={
+              <PrivateRoute>
+                <GelarById />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/info-sekolah/:id"
+            element={
+              <PrivateRoute>
+                <InfoSekolahById />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
             path="/table-sekolah-admin"
             element={
               <PrivateRoute>
@@ -169,6 +215,33 @@ function App() {
           />
 
           <Route
+            path="/tambah-kelas-sekolah/:id"
+            element={
+              <PrivateRoute>
+                <TambahKelasByAdmin />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/tambah-extra-sekolah/:id"
+            element={
+              <PrivateRoute>
+                <TambahExtraByAdmin />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/tambah-gelar-sekolah/:id"
+            element={
+              <PrivateRoute>
+                <TambahGelarByAdmin />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
             path="/edit-guru-sekolah/:id_guru/:id_sekolah"
             element={
               <PrivateRoute>
@@ -182,6 +255,31 @@ function App() {
             element={
               <PrivateRoute>
                 <EditSiswaByAdmin />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/edit-kelas-sekolah/:id_kelas/:id_sekolah"
+            element={
+              <PrivateRoute>
+                <EditKelasByAdmin />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/edit-extra-sekolah/:id_extra/:id_sekolah"
+            element={
+              <PrivateRoute>
+                <EditExtraByAdmin />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/edit-gelar-sekolah/:id_gelar/:id_sekolah"
+            element={
+              <PrivateRoute>
+                <EditGelarByAdmin />
               </PrivateRoute>
             }
           />
