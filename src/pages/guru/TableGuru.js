@@ -11,6 +11,7 @@ import $ from "jquery";
 import PageSidebar from "../../components/PageSidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faUserFriends } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 export default function TableGuru() {
   const [guru, setGuru] = useState([]);
@@ -471,8 +472,8 @@ export default function TableGuru() {
     <>
       <div className="flex flex-col md:flex-row">
         <PageSidebar />
-        <div className=" md:px-14 sm:ml-64 mt-24  ">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className=" md:px-12 mx-8 sm:mx-64 mt-24  ">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
             {/* Total Guru Card */}
             <div className="rounded-xl bg-white p-1 flex border border-blue-500 border-2">
               <div className="rounded-xl p-4 h-[100px] flex items-center">
@@ -649,6 +650,13 @@ export default function TableGuru() {
                     Download Data
                   </button>
                 )}
+                 <Link
+                className="text-white w-auto add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+                to={"/add-guru"}
+              >
+                Tambah Data Guru
+              </Link>
                 
                 <button
                   className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

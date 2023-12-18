@@ -503,7 +503,7 @@ export default function Table() {
   return (
     <>
       <PageSidebar />
-      <div className="md:px-14 sm:ml-64 mt-24">
+      <div className="md:px-14 mx-8 sm:ml-64 mt-24">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-14">
           {/* Total Murid */}
           <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
@@ -682,7 +682,7 @@ export default function Table() {
                 <></>
               ) : (
                 <button
-                  className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  className="text-white w-auto add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                   type="button"
                   onClick={download}
                 >
@@ -690,7 +690,7 @@ export default function Table() {
                 </button>
               )}
               <Link
-                className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className="text-white w-auto add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
                 to={"/add-murid"}
               >
@@ -698,7 +698,7 @@ export default function Table() {
               </Link>
 
               <button
-                className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className="text-white w-auto add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
                 onClick={() => setModal(true)}
               >

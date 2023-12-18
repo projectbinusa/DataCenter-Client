@@ -37,13 +37,13 @@ export default function Login() {
             icon: "success",
             title: "Berhasil masuk",
            });
-          navigate("/dash");
+          window.location.href ="/dash";
         } else {
           Swal.fire({
             icon: "success",
             title: "Berhasil masuk",
            });
-          navigate("/dash");
+          window.location.href ="/dash";
         }
       } else if (data.role === "super admin") {
         localStorage.setItem("token", data.token);
@@ -57,7 +57,7 @@ export default function Login() {
           icon: "success",
           title: "Berhasil masuk",
          });
-        navigate("/dashboard");
+        window.location.href ="/dashboard";
       
       }
     } catch (error) {
