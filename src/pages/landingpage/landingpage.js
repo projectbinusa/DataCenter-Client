@@ -453,7 +453,7 @@ export default function LandingPage() {
                   </p>
                 </div>
                 <div className="text-white p-5 md:p-3">
-                <a href="./Saran" className="flex items-center ml-40">
+                <Link to="/saran" className="flex items-center responsive-button">
                 <button
                   className="z-20 block rounded-full border-2 border-white bg-blue-100 p-4 text-blue-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-blue-50"
                   type="button"
@@ -476,7 +476,7 @@ export default function LandingPage() {
                 <span className="self-center ml-3 text-sm font-semibold whitespace-nowrap text-white">
                   Masukan Saran dan Laporan
                 </span>
-              </a>
+                </Link>
                 </div>
         </div>
       </section>

@@ -17,3 +17,19 @@ div#schoolList {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
+@media screen and (min-width: 768px) {
+  .responsive-button {
+    /* Ganti properti CSS sesuai kebutuhan */
+    font-size: 16px;
+    padding: 12px 24px;
+  }
+}
+
+/* Untuk tampilan mobile */
+@media screen and (max-width: 767px) {
+  .responsive-button {
+    /* Ganti properti CSS sesuai kebutuhan */
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}

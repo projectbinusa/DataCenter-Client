@@ -97,89 +97,79 @@ export default function SaranLaporan() {
             <div className="py-8 px-4 mx-auto max-w-screen-xl">
               <div className=" mb-8 lg:mb-16">
                 <div className="p-1">
-                <form
-                      ref={form}
-                      onSubmit={sendEmail}
-                      className="space-y-4 p-3"
-                    >
-                  <div className="relative">
-                    <label htmlFor="tempatLahir">Kirim Ke</label>
-                    <input
-                      id="email_admin"
-                      type="email"
-                      name="email_from"
-                      className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="datacenter950@gmail.com"
-                      disabled
-                    />
-                  </div>
-                    <div className="relative mt-3">
-                      <label
-                        htmlFor="name"
-                        className="block mb-2 text-sm font-medium text-white "
-                      >
+                  <form
+                    ref={form}
+                    onSubmit={sendEmail}
+                    className="space-y-4 p-3"
+                  >
+                    {/* Adjusted form without the label for emailForm */}
+                    <div className="relative hidden">
+                      {/* Changed input type to "hidden" */}
+                      <input
+                        id="email_admin"
+                        type="hidden"
+                        name="email_from"
+                        value="datacenter950@gmail.com"
+                      />
+                    </div>
+                    {/* Adjust the input fields layout based on screen size */}
+                    <div className="relative mt-3 sm:mt-0">
+                      <label htmlFor="name" className="block mb-2 text-sm font-medium text-white">
                         Nama
                       </label>
                       <input
                         autoComplete="off"
                         type="text"
                         name="user_name"
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        placeholder="Masukan Nama Anda"
-
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Masukkan Nama Anda"
                       />
                     </div>
-                    <div className="relative mt-3">
-                      <label
-                        htmlFor="name"
-                        className="block mb-2 text-sm font-medium text-white "
-                      >
+                    <div className="relative mt-3 sm:mt-0">
+                      <label htmlFor="name" className="block mb-2 text-sm font-medium text-white">
                         Email
                       </label>
                       <input
                         autoComplete="off"
                         type="email"
                         name="email_user"
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        placeholder="Masukan Email Anda"
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Masukkan Email Anda"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
-                  
-                  <div className="relative mt-10">
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-white "
-                    >
-                      Saran atau Laporan
-                    </label>
-                    {" "}
-                    <Textarea
-                     name="message"
-                      placeholder="Masukan Saran atau Laporan"
-                      onChange={(e) => setlaporan(e)}
-                      className="overflow-y-auto relative block bg-white text-dark overflow-hidden rounded-md border border-gray-200  px-3 pt-3 shadow-sm dark:bg-white  dark:text-dark"
-                      required
-                      rows={6}
-                    />
-                  </div>
+                    {/* ... (existing form inputs) */}
+                    <div className="relative mt-10">
+                      <label htmlFor="name" className="block text-sm font-medium text-white">
+                        Saran atau Laporan
+                      </label>
+                      <Textarea
+                        name="message"
+                        placeholder="Masukkan Saran atau Laporan"
+                        onChange={(e) => setlaporan(e.target.value)}
+                        className="overflow-y-auto relative block bg-white text-dark overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm dark:bg-white dark:text-dark w-full"
+                        required
+                        rows={4}
+                      />
 
-                  <div className="flex justify-between p-5">
-                    <button
-                      type="button"
-                      onClick={batal}
-                      className="block w-24 rounded-lg text-white outline outline-[#555555] py-3 text-sm font-medium"
-                    >
-                      Batal
-                    </button>
-                    <button
-                      type="submit"
-                      className="block w-24 rounded-lg text-white outline outline-[#33cc33] py-3 text-sm font-medium"
-                    >
-                      Kirim
-                    </button>
-                  </div>
+                      <div className="flex flex-col sm:flex-row items-center sm:justify-between p-5">
+                        <button
+                          type="button"
+                          onClick={batal}
+                          className="bg-red-500 hover:bg-red-600 text-white rounded-lg outline-none focus:outline-none py-2 px-4 text-lg font-medium mb-2 sm:mb-0 w-full sm:w-auto"
+                        >
+                          Batal
+                        </button>
+                        <button
+                          type="submit"
+                          className="bg-green-500 hover:bg-green-600 text-white rounded-lg outline-none focus:outline-none py-2 px-4 text-lg font-medium w-full sm:w-auto"
+                        >
+                          Kirim
+                        </button>
+                      </div>
+
+                    </div>
                   </form>
                 </div>
               </div>
