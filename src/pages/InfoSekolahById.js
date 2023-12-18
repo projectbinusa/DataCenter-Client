@@ -5,12 +5,13 @@ import logo from "../assets/school-icon.png";
 import "firebase/storage";
 import "../App.css";
 import Swal from "sweetalert2";
-import { useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import { useParams } from "react-router-dom";
 
 AOS.init({ duration: 1750, once: true });
 
 export default function InfoSekolah() {
+  // Bagian UseState
   const param = useParams();
   const sekolahId = param.id;
   const [namaSekolah, setNamaSekolah] = useState("");
@@ -21,91 +22,14 @@ export default function InfoSekolah() {
   const [status, setStatus] = useState("");
   const [image, setImage] = useState("");
   const [akreditasiSekolah, setAkreditasiSekolah] = useState("");
-  const [numSiswa, setNumSiswa] = useState("");
-  const [numGuru, setNumGuru] = useState("");
-  const [numExtra, setNumExtra] = useState("");
-  const [numGelar, setNumgelar] = useState("");
-  const [numKelas, setNumKelas] = useState("");
   const [visi, setVisi] = useState("");
   const [misi, setMisi] = useState("");
   const [UserId, setUserId] = useState("");
 
-  // bagian crud
-  const kelas = async () => {
-    try {
-      const kelasResponse = await axios.get(
-        `http://localhost:8080/api/kelas/${sekolahId}/kelas`
-      );
-      const dataKelas = kelasResponse.data;
-      setNumKelas(dataKelas.length);
-    } catch (error) {
-      console.error("Errorr  data :", error);
-    }
-  };
-
-  const extra = async () => {
-    try {
-      const extrResponse = await axios.get(
-        `http://localhost:8080/api/extra/${sekolahId}/extra`
-      );
-      const datExtra = extrResponse.data;
-      setNumExtra(datExtra.length);
-    } catch (error) {
-      console.error("Errorr  data :", error);
-    }
-  };
-
-  const gelar = async () => {
-    try {
-      const gelarResponse = await axios.get(
-        `http://localhost:8080/api/gelarPendidikan/${sekolahId}/gelarPendidikan`
-      );
-      const dataGelar = gelarResponse.data;
-      setNumgelar(dataGelar.length);
-    } catch (error) {
-      console.error("Errorr  data :", error);
-    }
-  };
-
-  const fetchStudentData = async () => {
-    try {
-      if (!sekolahId) {
-        console.error("Error: sekolahId is undefined");
-        return;
-      }
-
-      const studentResponse = await axios.get(
-        `http://localhost:8080/api/sekolah/${sekolahId}/siswa`
-      );
-      const dataSiswa = studentResponse.data;
-      setNumSiswa(dataSiswa.length);
-    } catch (error) {
-      console.error("Error fetching student data:", error);
-    }
-  };
-
-  const fetchGuruData = async () => {
-    try {
-      if (!sekolahId) {
-        console.error("Error: sekolahId is undefined");
-        return;
-      }
-
-      const guruResponse = await axios.get(
-        `http://localhost:8080/api/guru/${sekolahId}/guru`
-      );
-      const dataGuru = guruResponse.data;
-
-      setNumGuru(dataGuru.length);
-    } catch (error) {
-      console.error("Error fetching guru data:", error);
-    }
-  };
-
   const sekolah = async () => {
     try {
       if (!sekolahId || sekolahId === null || sekolahId === undefined) {
-        console.error("userId is null or undefined");
+        console.error("sekolahId is null or undefined");
         return;
       }
       setUserId(sekolahId);
@@ -135,12 +59,7 @@ export default function InfoSekolah() {
 
   // Render Crud
   useEffect(() => {
-    kelas();
-    extra();
-    gelar();
     sekolah();
-    fetchStudentData();
-    fetchGuruData();
   }, []);
 
   return (
@@ -273,10 +192,18 @@ export default function InfoSekolah() {
                   </p>
                 </div>
               </div>
+              <div className="flex float-right justify-between px-5 py-2.5">
+                <a
+                  className="bottom-0 right-4 my-4 md:my-2 ml-4 md:ml-2 bg-blue-700 text-white px-4 py-2 rounded-md "
+                  href={`/edit-sekolah/${UserId}/${sekolahId}`}
+                >
+                  Ubah Profile
+                </a>
+              </div>
             </section>
           </div>
         </div>
-      </div>
+      </div>{" "}
     </div>
   );
 }

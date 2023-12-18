@@ -49,6 +49,7 @@ import EditKelasByAdmin from "./pages/EditKelasByAdmin";
 import EditSiswaByAdmin from "./pages/EditSiswaByAdmin";
 import EditExtraByAdmin from "./pages/EditExtraByAdmin";
 import EditGelarByAdmin from "./pages/EditGelarByAdmin";
+import EditSekolahByAdmin from "./pages/EditSekolahByAdmin";
 import TambahGuruByAdmin from "./pages/TambahGuruByAdmin";
 import TambahSiswaByAdmin from "./pages/TambahSiswaByAdmin";
 import TambahKelasByAdmin from "./pages/TambahKelasByAdmin";
@@ -280,6 +281,14 @@ function App() {
             element={
               <PrivateRoute>
                 <EditGelarByAdmin />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/edit-sekolah/:id_user/:id_sekolah"
+            element={
+              <PrivateRoute>
+                <EditSekolahByAdmin />
               </PrivateRoute>
             }
           />

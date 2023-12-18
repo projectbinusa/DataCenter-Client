@@ -116,7 +116,7 @@ export default function UbahKelas() {
                   type="submit"
                   className="block w-24 rounded-lg text-black outline outline-[#0b409c] py-3 text-sm font-medium"
                 >
-                  Submit
+                  Simpan
                 </button>
               </div>
             </form>

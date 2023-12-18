@@ -136,7 +136,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              <div className="col-span-3">
+              <div className="col-span-1 md:col-span-3">
                 <div
                   className="pie rounded-2xl p-1 shadow-xl"
                   data-aos="fade-right"

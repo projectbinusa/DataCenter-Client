@@ -7,7 +7,14 @@ import $ from "jquery";
 import Swal from "sweetalert2";
 import Sidebar from "../components/Sidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsers, faUserFriends } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUsers,
+  faUserFriends,
+  faDoorClosed,
+  faE,
+  faGraduationCap,
+  faSchool,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function SekolahById() {
   const param = useParams();
@@ -557,7 +564,7 @@ export default function SekolahById() {
               <a href={"/kelas/" + param.id}>
                 <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
                   <FontAwesomeIcon
-                    icon={faUserFriends}
+                    icon={faDoorClosed}
                     className="text-4xl text-blue-600 mr-4"
                   />
                   <div className="text-left">
@@ -575,7 +582,7 @@ export default function SekolahById() {
               <a href={"/extra/" + param.id}>
                 <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
                   <FontAwesomeIcon
-                    icon={faUserFriends}
+                    icon={faE}
                     className="text-4xl text-blue-600 mr-4"
                   />
                   <div className="text-left">
@@ -591,7 +598,7 @@ export default function SekolahById() {
               <a href={"/gelar/" + param.id}>
                 <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
                   <FontAwesomeIcon
-                    icon={faUserFriends}
+                    icon={faGraduationCap}
                     className="text-4xl text-blue-600 mr-4"
                   />
                   <div className="text-left">
@@ -607,7 +614,7 @@ export default function SekolahById() {
               <a href={"/info-sekolah/" + param.id}>
                 <div className="rounded-xl bg-white p-4 h-[120px] text-center flex items-center shadow-md border border-blue-500 border-2">
                   <FontAwesomeIcon
-                    icon={faUserFriends}
+                    icon={faSchool}
                     className="text-4xl text-blue-600 mr-4"
                   />
                   <div className="text-left">

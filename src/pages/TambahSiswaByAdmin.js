@@ -108,7 +108,9 @@ export default function AddMurid() {
               className="mt-10 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
               onSubmit={addMurid}
             >
-              <p className="text-center text-3xl font-medium mb-7">Add Murid</p>
+              <p className="text-center text-3xl font-medium mb-7">
+                Tambah Murid
+              </p>
               <div className="grid md:grid-cols-2 md:gap-6">
                 <div className="relative">
                   <label htmlFor="namaMurid">Nama Murid:</label>

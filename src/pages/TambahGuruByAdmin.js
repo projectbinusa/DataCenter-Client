@@ -89,7 +89,9 @@ export default function TableGuru() {
               className="mt-6 mb-0 space-y-4 rounded-lg p-8 shadow-2xl form-add"
               onSubmit={addGuru}
             >
-              <p className="text-3xl font-medium mb-7">Add Guru</p>
+              <p className="text-center text-3xl font-medium mb-7">
+                Tambah Guru
+              </p>
 
               <div className="relative mt-3">
                 <label
