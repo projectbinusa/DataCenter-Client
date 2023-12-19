@@ -18,7 +18,6 @@ export default function TableGuru() {
   const [isChecked, setIsChecked] = useState([]);
   const [modal, setModal] = useState(false);
   const [excel, setExcel] = useState("");
-  const [image, setImage] = useState("");
 
   const [state, setState] = useState({
     options: {

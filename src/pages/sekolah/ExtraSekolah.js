@@ -1,17 +1,12 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Aos from "aos";
 import "../../style/table.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import PageSidebar from "../../components/PageSidebar";
 import Swal from "sweetalert2";
 
 export default function DataKelas() {
-  const userId = localStorage.getItem("userId");
   const sekolahId = localStorage.getItem("sekolahId");
-  const kelasId = localStorage.getItem("kelasId");
   const [extra, setExtra] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
 

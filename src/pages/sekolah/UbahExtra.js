@@ -21,7 +21,7 @@ export default function UbahKelas() {
       .catch((error) => {
         alert("Terjadi kesalahan Sir! " + error);
       });
-  }, []);
+  }, [param]);
 
   const nameChangeHandler = (event) => {
     setNamaExtra(event.target.value);

@@ -21,9 +21,13 @@ export default function UpdateGelar() {
         setStatus(dataGelar.status);
       })
       .catch((error) => {
-        alert("Terjadi kesalahan Sir! " + error);
+      Swal.fire({
+        icon:"warning",
+        title:"Kesalahan" + error ,
+        position:"center",
+      })
       });
-  }, []);
+  }, [gelarPendidikanId]);
 
   
   // nampung value inputan

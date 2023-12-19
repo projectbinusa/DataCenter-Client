@@ -22,7 +22,7 @@ export default function UbahKelas() {
       .catch((error) => {
         alert("Terjadi kesalahan Sir! " + error);
       });
-  }, []);
+  }, [kelasId]);
 
   const nameChangeHandler = (event) => {
     setNamaKelas(event.target.value);

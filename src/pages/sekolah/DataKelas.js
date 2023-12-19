@@ -2,14 +2,11 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../style/table.css";
-
 import PageSidebar from "../../components/PageSidebar";
 import Swal from "sweetalert2";
 
 export default function DataKelas() {
-  const userId = localStorage.getItem("userId");
   const sekolahId = localStorage.getItem("sekolahId");
-  const kelasId = localStorage.getItem("kelasId");
   const [kelas, setKelas] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
 

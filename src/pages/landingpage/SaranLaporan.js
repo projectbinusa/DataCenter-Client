@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import Swal from "sweetalert2";
 import Logo from "../../assets/logo.png";
-import { Label, Textarea } from "flowbite-react";
+import {  Textarea } from "flowbite-react";
 
 export default function SaranLaporan() {
   const [email, setEmail] = useState("");
