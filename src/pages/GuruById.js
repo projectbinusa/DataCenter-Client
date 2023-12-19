@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Chart from "react-apexcharts";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import "../style/table.css";
 import $ from "jquery";
 import Swal from "sweetalert2";
@@ -21,7 +21,6 @@ export default function GuruById() {
   const [excel, setExcel] = useState("");
   const [isChecked, setIsChecked] = useState("");
 
-  const navigate = useNavigate();
 
   const addGuru = async (e) => {
     e.preventDefault();

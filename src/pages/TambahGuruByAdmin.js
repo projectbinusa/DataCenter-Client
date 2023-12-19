@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Sidebar from "../components/Sidebar";
 
 export default function TableGuru() {
   const param = useParams();
-  const navigate = useNavigate();
   const [nama_guru, setNamaGuru] = useState("");
   const [tempat_lahir, setTempatLahir] = useState("");
   const [tanggal_lahir, setTanggalLahir] = useState("");

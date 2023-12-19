@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import "../style/edit.css";
 import PageSidebar from "../components/PageSidebar";
@@ -20,7 +20,6 @@ export default function EditGuru() {
   const [kelas_option, setKelasOption] = useState([]);
   const [extra_option, setExtraOption] = useState([]);
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -99,10 +98,15 @@ export default function EditGuru() {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/table");
+        window.location.href ="/table";
       })
       .catch((error) => {
-        alert("Terjadi kesalahan: " + error);
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "Kesalahan" + error,
+       
+        });
       });
   };
   const getAllKelas = async () => {
@@ -129,7 +133,7 @@ export default function EditGuru() {
       });
   };
   const batal = () => {
-    navigate("/table");
+    window.location.href = "/table";
   };
   useEffect(() => {
     getAllKelas();

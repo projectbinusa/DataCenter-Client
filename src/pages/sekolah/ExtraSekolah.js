@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Aos from "aos";
 import "../../style/table.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +14,6 @@ export default function DataKelas() {
   const kelasId = localStorage.getItem("kelasId");
   const [extra, setExtra] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
-  const navigate = useNavigate();
 
   const getAll = async () => {
     await axios

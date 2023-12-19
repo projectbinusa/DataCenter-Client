@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import NavComp from "../components/NavComp";
 import Swal from "sweetalert2";
 import "../style/edit.css";
@@ -13,7 +13,6 @@ export default function EditSiswa() {
   const [gender, setGender] = useState("");
   const [agama, setAgama] = useState("");
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -69,7 +68,7 @@ export default function EditSiswa() {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/table-siswa-admin");
+        window.location.href = "/table-siswa-admin";
       })
       .catch((error) => {
         alert("Terjadi kesalahan: " + error);
@@ -77,7 +76,7 @@ export default function EditSiswa() {
   };
 
   const batal = () => {
-    navigate("/table-siswa-admin");
+    window.location.href= "/table-siswa-admin";
   };
 
   return (

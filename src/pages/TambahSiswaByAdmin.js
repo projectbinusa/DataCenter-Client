@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Sidebar from "../components/Sidebar";
 
 export default function AddMurid() {
   const param = useParams();
-  const navigate = useNavigate();
   const [namaMurid, setNamaMurid] = useState("");
   const [extrakulikuler, setExtrakulikuler] = useState("");
   const [tempatLahir, setTempatLahir] = useState("");

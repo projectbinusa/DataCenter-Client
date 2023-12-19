@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import "../../style/edit.css";
 import PageSidebar from "../../components/PageSidebar";
@@ -19,7 +19,6 @@ export default function EditGuru() {
   const [image, setImage] = useState("");
   const [gelar_option, setGelarOption] = useState([]);
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -38,7 +37,11 @@ export default function EditGuru() {
         setImage(dataGuru.image);
       })
       .catch((error) => {
-        alert("Terjadi kesalahan Sir! " + error);
+        Swal.fire({
+          icon:"warning",
+          position:"center",
+          title:"Kesalahan" + error, 
+        })
       });
   }, []);
 

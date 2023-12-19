@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PageSidebar from "../../components/PageSidebar";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 export default function TableGuru() {
-  const navigate = useNavigate();
   const [nama_guru, setNamaGuru] = useState("");
   const [tempat_lahir, setTempatLahir] = useState("");
   const [tanggal_lahir, setTanggalLahir] = useState("");

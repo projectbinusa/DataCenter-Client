@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../style/login.css";
 import logo from "../assets/dc-logo.png";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -10,7 +9,6 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();
 
   const login = async (e) => {
     e.preventDefault();

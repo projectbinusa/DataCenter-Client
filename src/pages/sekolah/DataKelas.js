@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../../style/table.css";
 
 import PageSidebar from "../../components/PageSidebar";
@@ -13,7 +12,6 @@ export default function DataKelas() {
   const kelasId = localStorage.getItem("kelasId");
   const [kelas, setKelas] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
-  const navigate = useNavigate();
 
   const getAll = async () => {
     await axios

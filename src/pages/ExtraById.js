@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import "../style/table.css";
 import Swal from "sweetalert2";
 import Sidebar from "../components/Sidebar";
@@ -10,7 +10,6 @@ export default function DataKelas() {
   const param = useParams();
   const [extra, setExtra] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
-  const navigate = useNavigate();
 
   const getAll = async () => {
     await axios

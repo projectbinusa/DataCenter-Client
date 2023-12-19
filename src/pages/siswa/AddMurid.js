@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import PageSidebar from "../../components/PageSidebar";
 import "../../style/edit.css";
 
 export default function AddMurid() {
-  const navigate = useNavigate();
   const [namaMurid, setNamaMurid] = useState("");
   const [extrakulikuler, setExtrakulikuler] = useState("");
   const [tempatLahir, setTempatLahir] = useState("");
