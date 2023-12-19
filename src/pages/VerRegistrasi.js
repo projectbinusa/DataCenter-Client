@@ -350,7 +350,7 @@ export default function VerRegistrasi() {
                       <div>
                         <div className="grid md:grid-cols-1 md:gap-6">
                           <div className="relative">
-                            <label htmlFor="tempatLahir">Kirim Ke</label>
+                            <label>Kirim Ke</label>
                             <input
                               type="email"
                               name="email_from"
@@ -360,7 +360,7 @@ export default function VerRegistrasi() {
                             />
                           </div>
                           <div className="relative">
-                            <label htmlFor="tanggalLahir">Isi Pesan</label>
+                            <label>Isi Pesan</label>
                             <input
                               type="textarea"
                               name="message"

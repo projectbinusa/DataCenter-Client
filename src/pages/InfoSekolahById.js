@@ -65,7 +65,7 @@ export default function InfoSekolah() {
   return (
     <div>
       <Sidebar />
-      <div className="p-4 sm:ml-64 mt-16">
+      <div className="p-4 md:mx-8 sm:ml-64 mx-8 mt-16">
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="grid grid-rows-2  lg:grid-rows-2 gap-4">
             <section className=" bg-gray-50   rounded-lg">

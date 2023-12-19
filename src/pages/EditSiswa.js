@@ -17,7 +17,7 @@ export default function EditGuru() {
   const [gender, setGender] = useState("");
   const [namaOrtu, setNamaOrtu] = useState("");
   const [kelas, setKelas] = useState("");
-  const [kelas_option, setKelasOption] = useState([]); 
+  const [kelas_option, setKelasOption] = useState([]);
   const [extra_option, setExtraOption] = useState([]);
 
   const navigate = useNavigate();
@@ -105,34 +105,34 @@ export default function EditGuru() {
         alert("Terjadi kesalahan: " + error);
       });
   };
-  const getAllKelas = async () => { 
-    await axios 
-      .get( 
-        "http://localhost:8080/api/kelas/" + 
-          localStorage.getItem("sekolahId") + 
-          "/kelas" 
-      ) 
-      .then((res) => { 
-        setKelasOption(res.data); 
-      }); 
-  }; 
- 
-  const getAllExtra = async () => { 
-    await axios 
-      .get( 
-        "http://localhost:8080/api/extra/" + 
-          localStorage.getItem("sekolahId") + 
-          "/extra" 
-      ) 
-      .then((res) => { 
-        setExtraOption(res.data); 
-      }); 
+  const getAllKelas = async () => {
+    await axios
+      .get(
+        "http://localhost:8080/api/kelas/" +
+          localStorage.getItem("sekolahId") +
+          "/kelas"
+      )
+      .then((res) => {
+        setKelasOption(res.data);
+      });
+  };
+
+  const getAllExtra = async () => {
+    await axios
+      .get(
+        "http://localhost:8080/api/extra/" +
+          localStorage.getItem("sekolahId") +
+          "/extra"
+      )
+      .then((res) => {
+        setExtraOption(res.data);
+      });
   };
   const batal = () => {
     navigate("/table");
   };
   useEffect(() => {
-    getAllKelas(); 
+    getAllKelas();
     getAllExtra();
   }, []);
   // Fungsi untuk menghitung umur dari tanggal lahir
@@ -166,43 +166,43 @@ export default function EditGuru() {
                 Edit Murid
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="relative">
-                <label htmlFor="namaMurid">Nama Murid:</label>
-                <input
-                  id="namaMurid"
-                  type="text"
-                  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                  value={namaMurid}
-                  onChange={nameChangeHandler}
-                />
-              </div>
-              <div className="relative">
-                <label htmlFor="extrakulikuler">Extrakulikuler:</label>
-                <select
+                <div className="relative">
+                  <label>Nama Murid:</label>
+                  <input
+                    id="namaMurid"
+                    type="text"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    value={namaMurid}
+                    onChange={nameChangeHandler}
+                  />
+                </div>
+                <div className="relative">
+                  <label>Extrakulikuler:</label>
+                  <select
                     id="agama"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     value={extrakulikuler}
                     onChange={extraChangeHandler}
                   >
-                <option value="" disabled>
-                    Pilih Extrakulikuler
+                    <option value="" disabled>
+                      Pilih Extrakulikuler
                     </option>
-                  {extra_option.map((val, index) => {
-                    if (val.status === "Aktif") {
-                      return (
-                        <option key={index} value={val.namaExtra}>
-                          {val.namaExtra}
-                        </option>
+                    {extra_option.map((val, index) => {
+                      if (val.status === "Aktif") {
+                        return (
+                          <option key={index} value={val.namaExtra}>
+                            {val.namaExtra}
+                          </option>
                         );
                       }
-                    return null;
-                  })}
-                </select>
-              </div>
+                      return null;
+                    })}
+                  </select>
+                </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="relative">
-                  <label htmlFor="tempatLahir">Tempat Lahir:</label>
+                  <label>Tempat Lahir:</label>
                   <input
                     id="tempatLahir"
                     type="text"
@@ -213,7 +213,7 @@ export default function EditGuru() {
                 </div>
 
                 <div className="relative">
-                  <label htmlFor="tanggalLahir">Tanggal Lahir:</label>
+                  <label>Tanggal Lahir:</label>
                   <input
                     id="tanggalLahir"
                     type="date"
@@ -224,7 +224,7 @@ export default function EditGuru() {
                 </div>
 
                 <div className="relative">
-                  <label htmlFor="namaOrtu">Nama Ortu:</label>
+                  <label>Nama Ortu:</label>
                   <input
                     id="namaOrtu"
                     type="text"
@@ -234,7 +234,7 @@ export default function EditGuru() {
                   />
                 </div>
                 <div className="relative">
-                  <label htmlFor="noTeleponOrtu">No Telepon Ortu:</label>
+                  <label>No Telepon Ortu:</label>
                   <input
                     id="noTeleponOrtu"
                     type="text"
@@ -245,7 +245,7 @@ export default function EditGuru() {
                 </div>
 
                 <div className="relative">
-                  <label htmlFor="agama">Agama:</label>
+                  <label>Agama:</label>
                   <select
                     id="agama"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
@@ -265,7 +265,7 @@ export default function EditGuru() {
                 </div>
 
                 <div className="relative">
-                  <label htmlFor="kelas">Kelas:</label>
+                  <label>Kelas:</label>
                   <select
                     id="kelas"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
@@ -273,19 +273,19 @@ export default function EditGuru() {
                     onChange={kelasChangeHandler}
                   >
                     <option value="" disabled>
-                    Pilih Kelas
+                      Pilih Kelas
                     </option>
-                  {kelas_option.map((val, index) => {
-                    if (val.status === "Aktif") {
-                      return (
-                        <option key={index} value={val.namaKelas}>
-                          {val.namaKelas}
-                        </option>
+                    {kelas_option.map((val, index) => {
+                      if (val.status === "Aktif") {
+                        return (
+                          <option key={index} value={val.namaKelas}>
+                            {val.namaKelas}
+                          </option>
                         );
                       }
-                    return null;
-                  })}
-                </select>
+                      return null;
+                    })}
+                  </select>
                 </div>
               </div>
 
@@ -301,10 +301,7 @@ export default function EditGuru() {
                     onChange={genderChangeHandler}
                   />
 
-                  <label
-                    className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                    htmlFor="Laki"
-                  >
+                  <label className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500">
                     <span> Laki-Laki </span>
                   </label>
 
@@ -333,10 +330,7 @@ export default function EditGuru() {
                     onChange={genderChangeHandler}
                   />
 
-                  <label
-                    className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                    htmlFor="Perempuan"
-                  >
+                  <label className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500">
                     <span> Perempuan </span>
                   </label>
 

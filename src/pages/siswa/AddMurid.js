@@ -119,7 +119,7 @@ export default function AddMurid() {
             <p className="text-center text-3xl font-medium mb-7">Add Murid</p>
             <div className="grid md:grid-cols-2 md:gap-6">
             <div className="relative">
-              <label htmlFor="namaMurid">Nama Murid:</label>
+              <label>Nama Murid:</label>
               <input
                 id="namaMurid"
                 type="text"
@@ -130,7 +130,7 @@ export default function AddMurid() {
               />
             </div>
               <div className="relative">
-                <label htmlFor="extrakulikuler">Extrakulikuler:</label>
+                <label >Extrakulikuler:</label>
                 <select
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   value={extrakulikuler}
@@ -157,7 +157,7 @@ export default function AddMurid() {
               </div>
             <div className="grid md:grid-cols-2 md:gap-6">
               <div className="relative">
-                <label htmlFor="tempatLahir">Tempat Lahir:</label>
+                <label >Tempat Lahir:</label>
                 <input
                   type="text"
                   name="tempatlahir"
@@ -170,7 +170,7 @@ export default function AddMurid() {
                 />
               </div>
               <div className="relative">
-                <label htmlFor="tanggalLahir">Tanggal Lahir:</label>
+                <label >Tanggal Lahir:</label>
                 <input
                   type="date"
                   name="tanggallahir"
@@ -187,7 +187,7 @@ export default function AddMurid() {
             </div>
             <div className="grid md:grid-cols-2 md:gap-6">
               <div className="relative">
-                <label htmlFor="namaOrtu">Nama Ortu:</label>
+                <label>Nama Ortu:</label>
                 <input
                   type="text"
                   name="namaortu"
@@ -200,7 +200,7 @@ export default function AddMurid() {
                 />
               </div>
               <div className="relative">
-                <label htmlFor="noTeleponOrtu">No Telepon Ortu:</label>
+                <label >No Telepon Ortu:</label>
                 <input
                   type="number"
                   name="noteleponortu"
@@ -215,7 +215,7 @@ export default function AddMurid() {
             </div>
             <div className="grid md:grid-cols-2 md:gap-6">
               <div className="relative">
-                <label htmlFor="agama">Agama:</label>
+                <label>Agama:</label>
                 <select
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   value={agama}
@@ -236,7 +236,7 @@ export default function AddMurid() {
               </div>
 
               <div className="relative">
-                <label htmlFor="kelas">Kelas:</label>
+                <label>Kelas:</label>
                 <select
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   value={kelas}
@@ -275,7 +275,6 @@ export default function AddMurid() {
                   required
                 />
                 <label
-                  htmlFor="laki-laki"
                   className="relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
                 >
                   <span> Laki-Laki </span>
@@ -306,7 +305,6 @@ export default function AddMurid() {
                   required
                 />
                 <label
-                  htmlFor="perempuan"
                   className="relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
                 >
                   <span> Perempuan </span>

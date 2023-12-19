@@ -486,7 +486,7 @@ export default function GuruById() {
                           return (
                             <tr key={idx}>
                               <td className="inset-y-0 left-0 bg-white px-4 py-2">
-                                <label className="sr-only" htmlFor="Row1">
+                                <label className="sr-only" >
                                   checkbox
                                 </label>
 
@@ -629,7 +629,7 @@ export default function GuruById() {
                               onSubmit={addGuru}
                             >
                               <div>
-                                <label className="sr-only" htmlFor="name">
+                                <label className="sr-only" >
                                   Nama
                                 </label>
                                 <input
@@ -661,7 +661,7 @@ export default function GuruById() {
                                   />
                                 </div>
                                 <div>
-                                  <label className="sr-only" htmlFor="phone">
+                                  <label className="sr-only">
                                     Tanggal Lahir
                                   </label>
                                   <input
@@ -714,7 +714,6 @@ export default function GuruById() {
                                   />
                                   <label
                                     className="block cursor-pointer rounded-lg bg-blue border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                                    htmlFor="next_day_alt"
                                   >
                                     <span> Laki-Laki </span>
                                   </label>
@@ -743,7 +742,6 @@ export default function GuruById() {
                                   />
                                   <label
                                     className="block cursor-pointer rounded-lg bg-blue border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                                    htmlFor="perempuan"
                                   >
                                     <span> Perempuan </span>
                                   </label>

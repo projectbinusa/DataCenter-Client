@@ -189,7 +189,7 @@ export default function EditGuru() {
 
               <div className="relative mt-3">
                 <label
-                  htmlFor="name"
+                  
                   className="block mb-2 text-sm font-medium text-gray-900 "
                 >
                   Nama
@@ -206,7 +206,7 @@ export default function EditGuru() {
               </div>
               <div className="relative mt-3">
                 <label
-                  htmlFor="image"
+               
                   className="block mb-2 text-sm font-medium text-gray-900 "
                 >
                   Foto Guru
@@ -224,8 +224,7 @@ export default function EditGuru() {
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="relative">
                   <label
-                    htmlFor="tempatlahir"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
+                 className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Tempat Lahir
                   </label>
@@ -242,7 +241,6 @@ export default function EditGuru() {
 
                 <div className="relative">
                   <label
-                    htmlFor="tanggallahir"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Tanggal Lahir
@@ -262,7 +260,6 @@ export default function EditGuru() {
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="relative">
                   <label
-                    htmlFor="notelepon"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     No Telepon
@@ -280,7 +277,6 @@ export default function EditGuru() {
 
                 <div className="relative">
                   <label
-                    htmlFor="gelarPendidikan"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Gelar Pendidikan
@@ -313,7 +309,6 @@ export default function EditGuru() {
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="relative">
                   <label
-                    htmlFor="statusKawin"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Status Kawin
@@ -336,7 +331,6 @@ export default function EditGuru() {
 
                 <div className="relative">
                   <label
-                    htmlFor="agama"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Agama
@@ -365,7 +359,6 @@ export default function EditGuru() {
 
               <div className="grid grid-cols-2 gap-5 text-center">
                 <label
-                  htmlFor="gender"
                   className="block mb-2 text-sm font-medium text-gray-900  text-left col-span-2"
                 >
                   Gender
@@ -383,7 +376,7 @@ export default function EditGuru() {
 
                   <label
                     className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                    htmlFor="Laki"
+                    
                   >
                     <span> Laki-Laki </span>
                   </label>
@@ -415,7 +408,6 @@ export default function EditGuru() {
 
                   <label
                     className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                    htmlFor="Perempuan"
                   >
                     <span> Perempuan </span>
                   </label>

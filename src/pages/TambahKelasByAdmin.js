@@ -67,7 +67,7 @@ export default function TambahKelas() {
 
             <div className="grid md:grid-cols-2 md:gap-6">
               <div className="relative">
-                <label htmlFor="namaMurid">Nama Kelas</label>
+                <label >Nama Kelas</label>
                 <input
                   id="namaKelas"
                   type="text"
@@ -78,7 +78,7 @@ export default function TambahKelas() {
                 />
               </div>
               <div className="relative">
-                <label htmlFor="status">Status</label>
+                <label>Status</label>
                 <select
                   name="status"
                   id="status"

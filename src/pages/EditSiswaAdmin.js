@@ -77,8 +77,8 @@ export default function EditSiswa() {
   };
 
   const batal = () => {
-    navigate("/table-siswa-admin")
-  }
+    navigate("/table-siswa-admin");
+  };
 
   return (
     <div>
@@ -95,10 +95,7 @@ export default function EditSiswa() {
             <p className="text-3xl font-medium mb-7">Edit Siswa</p>
 
             <div className="relative mt-3">
-              <label
-                htmlFor="nama"
-                className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-              >
+              <label className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                 <input
                   autoComplete="off"
                   type="text"
@@ -117,10 +114,7 @@ export default function EditSiswa() {
 
             <div className="grid grid-cols-1 gap-5 text-center sm:grid-cols-2">
               <div className="relative mt-3">
-                <label
-                  htmlFor="tempatLahir"
-                  className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-                >
+                <label className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                   <input
                     autoComplete="off"
                     type="text"
@@ -137,10 +131,7 @@ export default function EditSiswa() {
                 </label>
               </div>
               <div className="relative mt-3">
-                <label
-                  htmlFor="tanggalLahir"
-                  className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-                >
+                <label className="relative block bg-white overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                   <input
                     autoComplete="off"
                     type="text"
@@ -159,9 +150,7 @@ export default function EditSiswa() {
             </div>
 
             <div className="relative mt-3">
-              <label className="sr-only" htmlFor="agama">
-                Agama
-              </label>
+              <label className="sr-only">Agama</label>
 
               <select
                 className="relative w-full border-gray-200 p-3 text-sm focus:z-10 block bg-white overflow-hidden rounded-md border  shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
@@ -192,10 +181,7 @@ export default function EditSiswa() {
                   onChange={genderChangeHandler}
                 />
 
-                <label
-                  className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                  htmlFor="Laki"
-                >
+                <label className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500">
                   <span> Laki-Laki </span>
                 </label>
 
@@ -224,10 +210,7 @@ export default function EditSiswa() {
                   onChange={genderChangeHandler}
                 />
 
-                <label
-                  className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                  htmlFor="Perempuan"
-                >
+                <label className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500">
                   <span> Perempuan </span>
                 </label>
 
@@ -248,7 +231,8 @@ export default function EditSiswa() {
 
             <div className="flex justify-between">
               <button
-                type="button" onClick={batal}
+                type="button"
+                onClick={batal}
                 className="block w-24 rounded-lg text-black outline outline-red-500 py-3 text-sm font-medium"
               >
                 Batal

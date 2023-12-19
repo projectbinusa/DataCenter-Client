@@ -708,7 +708,7 @@ export default function TableGuru() {
                     return (
                       <tr key={idx}>
                         <td className="inset-y-0 left-0 bg-white px-4 py-2">
-                          <label className="sr-only" htmlFor="Row1">
+                          <label className="sr-only">
                             checkbox
                           </label>
 

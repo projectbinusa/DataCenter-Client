@@ -75,7 +75,7 @@ export default function UbahKelas() {
 
               <div className="grid md:grid-cols-2 md:gap-6">
                 <div className="relative">
-                  <label htmlFor="namaKelas">Nama Kelas</label>
+                  <label>Nama Kelas</label>
                   <input
                     id="namaKelas"
                     type="text"
@@ -86,7 +86,7 @@ export default function UbahKelas() {
                   />
                 </div>
                 <div className="relative">
-                  <label htmlFor="status">Status</label>
+                  <label>Status</label>
                   <select
                     name="status"
                     id="status"

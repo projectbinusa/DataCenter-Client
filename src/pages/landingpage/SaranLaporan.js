@@ -114,7 +114,7 @@ export default function SaranLaporan() {
                     </div>
                     {/* Adjust the input fields layout based on screen size */}
                     <div className="relative mt-3 sm:mt-0">
-                      <label htmlFor="name" className="block mb-2 text-sm font-medium text-white">
+                      <label className="block mb-2 text-sm font-medium text-white">
                         Nama
                       </label>
                       <input
@@ -126,7 +126,7 @@ export default function SaranLaporan() {
                       />
                     </div>
                     <div className="relative mt-3 sm:mt-0">
-                      <label htmlFor="name" className="block mb-2 text-sm font-medium text-white">
+                      <label className="block mb-2 text-sm font-medium text-white">
                         Email
                       </label>
                       <input
@@ -141,7 +141,7 @@ export default function SaranLaporan() {
                     </div>
                     {/* ... (existing form inputs) */}
                     <div className="relative mt-10">
-                      <label htmlFor="name" className="block text-sm font-medium text-white">
+                      <label className="block text-sm font-medium text-white">
                         Saran atau Laporan
                       </label>
                       <Textarea

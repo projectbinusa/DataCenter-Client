@@ -115,7 +115,6 @@ export default function Registrasi() {
                 <form action="" className="p-5" onSubmit={register}>
                   <div className="mb-5">
                     <label
-                      htmlFor="UserEmail"
                       className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
                     >
                       <input
@@ -136,7 +135,6 @@ export default function Registrasi() {
                   </div>
                   <div className="mb-5">
                     <label
-                      htmlFor="UserPassword"
                       className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
                      >
                       <input
@@ -157,7 +155,6 @@ export default function Registrasi() {
                   </div>
                   <div className="mb-5">
                     <label
-                      htmlFor="namSekolah"
                       className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
                      >
                       <input

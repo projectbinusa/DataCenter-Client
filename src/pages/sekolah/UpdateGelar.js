@@ -79,7 +79,7 @@ export default function UpdateGelar() {
 
               <div className="grid md:grid-cols-2 md:gap-6">
                 <div className="relative">
-                  <label htmlFor="namaGelar">Nama Gelar</label>
+                  <label>Nama Gelar</label>
                   <input
                     id="namaGelar"
                     type="text"
@@ -90,7 +90,7 @@ export default function UpdateGelar() {
                   />
                 </div>
                 <div className="relative">
-                  <label htmlFor="status">Status</label>
+                  <label>Status</label>
                   <select
                     name="status"
                     id="status"
