@@ -113,7 +113,7 @@ export default function LandingPage() {
             <div>
               <img
                 src={Logo}
-                className="mr-3 h-6 sm:h-9"
+                className="mx-34 h-6 sm:h-9"
                 alt="The Data Center"
               />
               <span className="self-center text-sm font-semibold whitespace-nowrap text-white">
