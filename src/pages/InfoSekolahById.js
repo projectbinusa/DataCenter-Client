@@ -14,8 +14,6 @@ export default function InfoSekolah() {
   // Bagian UseState
   const param = useParams();
   const sekolahId = param.id;
-  const [namaSekolah, setNamaSekolah] = useState("");
-  const [alamatSekolah, setAlamatSekolah] = useState("");
   const [teleponSekolah, setTeleponSekolah] = useState("");
   const [emailSekolah, setEmailSekolah] = useState("");
   const [informasiSekolah, setInformasiSekolah] = useState("");
@@ -26,41 +24,37 @@ export default function InfoSekolah() {
   const [misi, setMisi] = useState("");
   const [UserId, setUserId] = useState("");
 
-  const sekolah = async () => {
-    try {
-      if (!sekolahId || sekolahId === null || sekolahId === undefined) {
-        console.error("sekolahId is null or undefined");
-        return;
-      }
-      setUserId(sekolahId);
-      const response = await axios.get(
-        `http://localhost:8080/api/user/${sekolahId}/sekolah`
-      );
-      const dataSekolah = response.data;
-
-      setNamaSekolah(dataSekolah.namaSekolah);
-      setInformasiSekolah(dataSekolah.informasiSekolah);
-      setEmailSekolah(dataSekolah.emailSekolah);
-      setAlamatSekolah(dataSekolah.alamatSekolah);
-      setTeleponSekolah(dataSekolah.teleponSekolah);
-      setStatus(dataSekolah.status);
-      setAkreditasiSekolah(dataSekolah.akreditasiSekolah);
-      setVisi(dataSekolah.visi);
-      setMisi(dataSekolah.misi);
-      setImage(dataSekolah.image);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      Swal.fire({
-        icon: "warning",
-        text: "Gagal Mengambil Data",
-      });
-    }
-  };
-
   // Render Crud
   useEffect(() => {
+    const sekolah = async () => {
+      try {
+        if (!sekolahId || sekolahId === null || sekolahId === undefined) {
+          console.error("sekolahId is null or undefined");
+          return;
+        }
+        setUserId(sekolahId);
+        const response = await axios.get(
+          `http://localhost:8080/api/user/${sekolahId}/sekolah`
+        );
+        const dataSekolah = response.data;
+        setInformasiSekolah(dataSekolah.informasiSekolah);
+        setEmailSekolah(dataSekolah.emailSekolah);
+        setTeleponSekolah(dataSekolah.teleponSekolah);
+        setStatus(dataSekolah.status);
+        setAkreditasiSekolah(dataSekolah.akreditasiSekolah);
+        setVisi(dataSekolah.visi);
+        setMisi(dataSekolah.misi);
+        setImage(dataSekolah.image);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        Swal.fire({
+          icon: "warning",
+          text: "Gagal Mengambil Data",
+        });
+      }
+    };
     sekolah();
-  }, []);
+  }, [sekolahId]);
 
   return (
     <div>

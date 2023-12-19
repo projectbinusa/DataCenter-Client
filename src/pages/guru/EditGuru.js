@@ -16,7 +16,7 @@ export default function EditGuru() {
   const [gender, setGender] = useState("");
   const [gelarPendidikan, setGelarPendidikan] = useState("");
   const [statusKawin, setStatusKawin] = useState("");
-  const [image, setImage] = useState("");
+  const [setImage] = "";
   const [gelar_option, setGelarOption] = useState([]);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function EditGuru() {
           title: "Kesalahan" + error,
         });
       });
-  }, []);
+  }, [param.id]);
 
   const nameChangeHandler = (event) => {
     setNamaGuru(event.target.value);
@@ -61,9 +61,6 @@ export default function EditGuru() {
   };
   const agamaChangeHandler = (event) => {
     setAgama(event.target.value);
-  };
-  const umurChangeHandler = (event) => {
-    setUmur(event.target.value);
   };
   const noChangeHandler = (event) => {
     setNoTelepon(event.target.value);

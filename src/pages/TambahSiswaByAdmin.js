@@ -62,28 +62,32 @@ export default function AddMurid() {
       });
     }
   };
-  const getAllKelas = async () => {
-    await axios
-      .get("http://localhost:8080/api/kelas/" + param.id + "/kelas")
-      .then((res) => {
-        setKelasOption(res.data);
-      });
-  };
 
-  const getAllExtra = async () => {
-    await axios
-      .get("http://localhost:8080/api/extra/" + param.id + "/extra")
-      .then((res) => {
-        setExtraOption(res.data);
-      });
-  };
   const batal = () => {
     window.location.href = "/table/" + param.id;
   };
   useEffect(() => {
+    const getAllKelas = async () => {
+      await axios
+        .get("http://localhost:8080/api/kelas/" + param.id + "/kelas")
+        .then((res) => {
+          setKelasOption(res.data);
+        });
+    };
     getAllKelas();
+  }, [param.id]);
+
+  useEffect(() => {
+    const getAllExtra = async () => {
+      await axios
+        .get("http://localhost:8080/api/extra/" + param.id + "/extra")
+        .then((res) => {
+          setExtraOption(res.data);
+        });
+    };
     getAllExtra();
-  }, []);
+  }, [param.id]);
+
   const hitungUmur = (tanggalLahir) => {
     const today = new Date();
     const birthDate = new Date(tanggalLahir);

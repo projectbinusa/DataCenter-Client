@@ -10,7 +10,6 @@ export default function TableGuru() {
   const [tempat_lahir, setTempatLahir] = useState("");
   const [tanggal_lahir, setTanggalLahir] = useState("");
   const [agama, setAgama] = useState("");
-  const [umur, setUmur] = useState("");
   const [no_telepon, setNoTelepon] = useState("");
   const [gender, setGender] = useState("");
   const [gelar_pendidikan, setGelarPendidikan] = useState("");
@@ -25,7 +24,6 @@ export default function TableGuru() {
       tempatLahir: tempat_lahir,
       tanggalLahir: tanggal_lahir,
       agama: agama,
-      umur: umur,
       noTelepon: no_telepon,
       gender: gender,
       gelarPendidikan: gelar_pendidikan,
@@ -59,23 +57,24 @@ export default function TableGuru() {
       });
     }
   };
-  const getAll = async () => {
-    await axios
-      .get(
-        "http://localhost:8080/api/gelarPendidikan/" +
-          param.id +
-          "/gelarPendidikan"
-      )
-      .then((res) => {
-        setGelarOption(res.data);
-      });
-  };
+
   const batal = () => {
     window.location.href = "/guru/" + param.id;
   };
   useEffect(() => {
+    const getAll = async () => {
+      await axios
+        .get(
+          "http://localhost:8080/api/gelarPendidikan/" +
+            param.id +
+            "/gelarPendidikan"
+        )
+        .then((res) => {
+          setGelarOption(res.data);
+        });
+    };
     getAll();
-  }, []);
+  }, [param.id]);
 
   return (
     <>

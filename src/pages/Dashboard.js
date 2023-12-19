@@ -3,7 +3,6 @@ import Sidebar from "../components/Sidebar";
 import "../style/dash.css";
 import Chart from "react-apexcharts";
 import axios from "axios";
-import AOS from "aos";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChalkboardUser,

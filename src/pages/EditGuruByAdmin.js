@@ -16,7 +16,7 @@ export default function EditGuru() {
   const [gender, setGender] = useState("");
   const [gelarPendidikan, setGelarPendidikan] = useState("");
   const [statusKawin, setStatusKawin] = useState("");
-  const [image, setImage] = useState("");
+  const [setImage] = "";
   const [gelar_option, setGelarOption] = useState([]);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function EditGuru() {
       .catch((error) => {
         alert("Terjadi kesalahan Sir! " + error);
       });
-  }, []);
+  }, [param.id_guru]);
 
   const nameChangeHandler = (event) => {
     setNamaGuru(event.target.value);
@@ -57,9 +57,6 @@ export default function EditGuru() {
   };
   const agamaChangeHandler = (event) => {
     setAgama(event.target.value);
-  };
-  const umurChangeHandler = (event) => {
-    setUmur(event.target.value);
   };
   const noChangeHandler = (event) => {
     setNoTelepon(event.target.value);
@@ -153,24 +150,25 @@ export default function EditGuru() {
         alert("Terjadi kesalahan: " + error);
       });
   };
-  const getAll = async () => {
-    await axios
-      .get(
-        "http://localhost:8080/api/gelarPendidikan/" +
-          param.id_sekolah +
-          "/gelarPendidikan"
-      )
-      .then((res) => {
-        setGelarOption(res.data);
-      });
-  };
+
   const batal = () => {
     window.location.href = "/guru" + param.id_sekolah;
   };
 
   useEffect(() => {
+    const getAll = async () => {
+      await axios
+        .get(
+          "http://localhost:8080/api/gelarPendidikan/" +
+            param.id_sekolah +
+            "/gelarPendidikan"
+        )
+        .then((res) => {
+          setGelarOption(res.data);
+        });
+    };
     getAll();
-  }, []);
+  }, [param.id_sekolah]);
 
   return (
     <>

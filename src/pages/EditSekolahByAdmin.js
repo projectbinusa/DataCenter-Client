@@ -16,7 +16,7 @@ export default function EditSekolah() {
   const [misi, setMisi] = useState("");
   const [visi, setVisi] = useState("");
   const [status, setStatus] = useState("");
-  const [image, setImage] = useState("");
+  const [setImage] = "";
 
   useEffect(() => {
     axios

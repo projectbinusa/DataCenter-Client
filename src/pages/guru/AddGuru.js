@@ -8,7 +8,6 @@ export default function TableGuru() {
   const [tempat_lahir, setTempatLahir] = useState("");
   const [tanggal_lahir, setTanggalLahir] = useState("");
   const [agama, setAgama] = useState("");
-  const [umur, setUmur] = useState("");
   const [no_telepon, setNoTelepon] = useState("");
   const [gender, setGender] = useState("");
   const [gelar_pendidikan, setGelarPendidikan] = useState("");
@@ -23,7 +22,6 @@ export default function TableGuru() {
       tempatLahir: tempat_lahir,
       tanggalLahir: tanggal_lahir,
       agama: agama,
-      umur: umur,
       noTelepon: no_telepon,
       gender: gender,
       gelarPendidikan: gelar_pendidikan,

@@ -11,16 +11,6 @@ export default function DataKelas() {
   const [gelar, setGelar] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
 
-  const getAll = async () => {
-    await axios
-      .get(
-        `http://localhost:8080/api/gelarPendidikan/${param.id}/gelarPendidikan`
-      )
-      .then((res) => {
-        setGelar(res.data);
-      });
-  };
-
   const de = async (id) => {
     await Swal.fire({
       title: "Anda yakin?",
@@ -99,8 +89,17 @@ export default function DataKelas() {
   };
 
   useEffect(() => {
+    const getAll = async () => {
+      await axios
+        .get(
+          `http://localhost:8080/api/gelarPendidikan/${param.id}/gelarPendidikan`
+        )
+        .then((res) => {
+          setGelar(res.data);
+        });
+    };
     getAll();
-  }, []);
+  }, [param.id]);
 
   return (
     <>

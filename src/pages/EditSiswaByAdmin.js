@@ -39,16 +39,13 @@ export default function EditSiswa() {
       .catch((error) => {
         alert("Terjadi kesalahan Sir! " + error);
       });
-  }, []);
+  }, [param.id_siswa]);
 
   const nameChangeHandler = (event) => {
     setNamaMurid(event.target.value);
   };
   const extraChangeHandler = (event) => {
     setExtrakulikuler(event.target.value);
-  };
-  const umurChangeHandler = (event) => {
-    setUmur(event.target.value);
   };
   const tempatChangeHandler = (event) => {
     setTempatLahir(event.target.value);
@@ -106,28 +103,30 @@ export default function EditSiswa() {
         });
       });
   };
-  const getAllKelas = async () => {
-    await axios
-      .get("http://localhost:8080/api/kelas/" + param.id_sekolah + "/kelas")
-      .then((res) => {
-        setKelasOption(res.data);
-      });
-  };
 
-  const getAllExtra = async () => {
-    await axios
-      .get("http://localhost:8080/api/extra/" + param.id_sekolah + "/extra")
-      .then((res) => {
-        setExtraOption(res.data);
-      });
-  };
   const batal = () => {
     window.location.href = "/siswa/" + param.id_sekolah;
   };
   useEffect(() => {
+    const getAllKelas = async () => {
+      await axios
+        .get("http://localhost:8080/api/kelas/" + param.id_sekolah + "/kelas")
+        .then((res) => {
+          setKelasOption(res.data);
+        });
+    };
     getAllKelas();
+  }, [param.id_sekolah]);
+  useEffect(() => {
+    const getAllExtra = async () => {
+      await axios
+        .get("http://localhost:8080/api/extra/" + param.id_sekolah + "/extra")
+        .then((res) => {
+          setExtraOption(res.data);
+        });
+    };
     getAllExtra();
-  }, []);
+  }, [param.id_sekolah]);
   // Fungsi untuk menghitung umur dari tanggal lahir
   const hitungUmur = (tanggalLahir) => {
     const dateOfBirth = new Date(tanggalLahir);

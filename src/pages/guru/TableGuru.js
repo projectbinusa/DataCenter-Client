@@ -90,70 +90,6 @@ export default function TableGuru() {
     series: [0, 0, 0, 0, 0, 0, 0, 0],
   });
 
-  const dataa = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8080/api/guru/" +
-          localStorage.getItem("sekolahId") +
-          "/guru"
-      );
-      setGuru(response.data);
-
-      // Calculate age ranges
-      const now = new Date();
-      const ageRanges = [20, 25, 30, 35, 40, 45, 50, 55, 60];
-      const ageCounts = Array(ageRanges.length).fill(0);
-
-      response.data.forEach((guru) => {
-        const birthDate = new Date(guru.tanggalLahir);
-        const age = now.getFullYear() - birthDate.getFullYear();
-
-        // Check if birthday has occurred this year
-        const isBirthdayPassed =
-          now.getMonth() > birthDate.getMonth() ||
-          (now.getMonth() === birthDate.getMonth() &&
-            now.getDate() >= birthDate.getDate());
-
-        // Adjust age based on the current month and day
-        const adjustedAge = isBirthdayPassed ? age : age - 1;
-
-        for (let i = 0; i < ageRanges.length - 1; i++) {
-          if (adjustedAge >= ageRanges[i] && adjustedAge < ageRanges[i + 1]) {
-            ageCounts[i]++;
-            break;
-          }
-        }
-      });
-
-      setAgeData({
-        ...ageData,
-        series: ageCounts,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const data = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8080/api/guru/" +
-          localStorage.getItem("sekolahId") +
-          "/guru"
-      );
-      setGuru(response.data);
-      const totalPerempuan = response.data.filter(
-        (x) => x.gender === "Perempuan"
-      ).length;
-      setState({
-        ...state,
-        series: [totalPerempuan, response.data.length - totalPerempuan],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -199,7 +135,7 @@ export default function TableGuru() {
     };
 
     fetchData();
-  }, [localStorage.getItem("sekolahId")]);
+  }, [religi, setReligi]);
 
   const [gelar, setGelar] = useState({
     options: {
@@ -225,13 +161,6 @@ export default function TableGuru() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const gelarResponse = await axios.get(
-          `http://localhost:8080/api/gelarPendidikan/${localStorage.getItem(
-            "sekolahId"
-          )}/gelarPendidikan`
-        );
-        const gelarData = gelarResponse.data;
-
         const guruResponse = await axios.get(
           `http://localhost:8080/api/guru/${localStorage.getItem(
             "sekolahId"
@@ -269,18 +198,6 @@ export default function TableGuru() {
 
     fetchData();
   }, [gelar]);
-
-  const getAll = async () => {
-    await axios
-      .get(
-        "http://localhost:8080/api/guru/" +
-          localStorage.getItem("sekolahId") +
-          "/guru"
-      )
-      .then((res) => {
-        setGuru(res.data);
-      });
-  };
 
   const deleteGuru = async (id) => {
     await Swal.fire({
@@ -444,10 +361,89 @@ export default function TableGuru() {
   };
 
   useEffect(() => {
+    const getAll = async () => {
+      await axios
+        .get(
+          "http://localhost:8080/api/guru/" +
+            localStorage.getItem("sekolahId") +
+            "/guru"
+        )
+        .then((res) => {
+          setGuru(res.data);
+        });
+    };
     getAll();
-    data();
-    dataa();
   }, []);
+
+  useEffect(() => {
+    const data = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/guru/" +
+            localStorage.getItem("sekolahId") +
+            "/guru"
+        );
+        setGuru(response.data);
+        const totalPerempuan = response.data.filter(
+          (x) => x.gender === "Perempuan"
+        ).length;
+        setState({
+          ...state,
+          series: [totalPerempuan, response.data.length - totalPerempuan],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    data();
+  }, [state, setState]);
+
+  useEffect(() => {
+    const dataa = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/guru/" +
+            localStorage.getItem("sekolahId") +
+            "/guru"
+        );
+        setGuru(response.data);
+
+        // Calculate age ranges
+        const now = new Date();
+        const ageRanges = [20, 25, 30, 35, 40, 45, 50, 55, 60];
+        const ageCounts = Array(ageRanges.length).fill(0);
+
+        response.data.forEach((guru) => {
+          const birthDate = new Date(guru.tanggalLahir);
+          const age = now.getFullYear() - birthDate.getFullYear();
+
+          // Check if birthday has occurred this year
+          const isBirthdayPassed =
+            now.getMonth() > birthDate.getMonth() ||
+            (now.getMonth() === birthDate.getMonth() &&
+              now.getDate() >= birthDate.getDate());
+
+          // Adjust age based on the current month and day
+          const adjustedAge = isBirthdayPassed ? age : age - 1;
+
+          for (let i = 0; i < ageRanges.length - 1; i++) {
+            if (adjustedAge >= ageRanges[i] && adjustedAge < ageRanges[i + 1]) {
+              ageCounts[i]++;
+              break;
+            }
+          }
+        });
+
+        setAgeData({
+          ...ageData,
+          series: ageCounts,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    dataa();
+  }, [ageData, setAgeData]);
 
   const male = {
     backgroundColor: "lightblue",

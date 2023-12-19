@@ -22,7 +22,7 @@ export default function EditGelar() {
       .catch((error) => {
         alert("Terjadi kesalahan Sir! " + error);
       });
-  }, []);
+  }, [param.id_gelar]);
 
   // nampung value inputan
   const nameChangeHandler = (event) => {

@@ -122,70 +122,6 @@ export default function GuruById() {
     series: [0, 0, 0, 0, 0, 0, 0],
   });
 
-  const data = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8080/api/guru/" + param.id + "/guru"
-      );
-      setGuru(response.data);
-      const totalPerempuan = response.data.filter(
-        (x) => x.gender === "Perempuan"
-      ).length;
-      setState({
-        ...state,
-        series: [totalPerempuan, response.data.length - totalPerempuan],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const dta = async () => {
-    try {
-      const respon = await axios.get(
-        "http://localhost:8080/api/guru/" + param.id + "/guru"
-      );
-      setGuru(respon.data);
-      const islam = respon.data.filter((r) => r.agama === "Islam").length;
-      const kristen = respon.data.filter((r) => r.agama === "Kristen").length;
-      const katholik = respon.data.filter((r) => r.agama === "Katholik").length;
-      const hindu = respon.data.filter((r) => r.agama === "Hindu").length;
-      const budha = respon.data.filter((r) => r.agama === "Buddha").length;
-      const khonghucu = respon.data.filter(
-        (r) => r.agama === "Konghuchu"
-      ).length;
-      const none = respon.data.filter((r) => r.agama === "Non").length;
-      setReligi({
-        ...religi,
-        series: [islam, kristen, katholik, hindu, budha, khonghucu, none],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getAllUserData = () => {
-    axios
-      .get("http://localhost:8080/api/guru/" + param.id + "/guru/")
-      .then((response) => {
-        setGuru(response.data);
-      })
-      .catch((error) => {
-        alert("Terjadi kesalahan " + error);
-      });
-  };
-
-  const getNamaSekolah = async () => {
-    try {
-      const res = await axios.get(
-        "http://localhost:8080/api/sekolah/" + param.id
-      );
-      setNamaSekolah(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const download = async () => {
     await Swal.fire({
       title: "Anda yakin?",
@@ -318,11 +254,82 @@ export default function GuruById() {
   };
 
   useEffect(() => {
+    const data = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/guru/" + param.id + "/guru"
+        );
+        setGuru(response.data);
+        const totalPerempuan = response.data.filter(
+          (x) => x.gender === "Perempuan"
+        ).length;
+        setState({
+          ...state,
+          series: [totalPerempuan, response.data.length - totalPerempuan],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
     data();
+  });
+
+  useEffect(() => {
+    const dta = async () => {
+      try {
+        const respon = await axios.get(
+          "http://localhost:8080/api/guru/" + param.id + "/guru"
+        );
+        setGuru(respon.data);
+        const islam = respon.data.filter((r) => r.agama === "Islam").length;
+        const kristen = respon.data.filter((r) => r.agama === "Kristen").length;
+        const katholik = respon.data.filter(
+          (r) => r.agama === "Katholik"
+        ).length;
+        const hindu = respon.data.filter((r) => r.agama === "Hindu").length;
+        const budha = respon.data.filter((r) => r.agama === "Buddha").length;
+        const khonghucu = respon.data.filter(
+          (r) => r.agama === "Konghuchu"
+        ).length;
+        const none = respon.data.filter((r) => r.agama === "Non").length;
+        setReligi({
+          ...religi,
+          series: [islam, kristen, katholik, hindu, budha, khonghucu, none],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
     dta();
+  });
+
+  useEffect(() => {
+    const getAllUserData = () => {
+      axios
+        .get("http://localhost:8080/api/guru/" + param.id + "/guru/")
+        .then((response) => {
+          setGuru(response.data);
+        })
+        .catch((error) => {
+          alert("Terjadi kesalahan " + error);
+        });
+    };
     getAllUserData();
+  }, [param.id]);
+
+  useEffect(() => {
+    const getNamaSekolah = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8080/api/sekolah/" + param.id
+        );
+        setNamaSekolah(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getNamaSekolah();
-  }, []);
+  }, [param.id]);
 
   const male = {
     backgroundColor: "lightblue",

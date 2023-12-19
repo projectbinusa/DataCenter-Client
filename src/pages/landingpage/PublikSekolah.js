@@ -70,24 +70,6 @@ export default function PublikSekolah() {
     series: [0, 0, 0, 0, 0, 0, 0],
   });
 
-  const data = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8080/api/guru/" + param.id + "/guru"
-      );
-      setGuru(response.data);
-      const totalPerempuan = response.data.filter(
-        (x) => x.gender === "Perempuan"
-      ).length;
-      setState({
-        ...state,
-        series: [totalPerempuan, response.data.length - totalPerempuan],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -131,7 +113,8 @@ export default function PublikSekolah() {
     };
 
     fetchData();
-  }, [param.id]);
+  });
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -175,7 +158,7 @@ export default function PublikSekolah() {
     };
 
     fetchData();
-  }, []);
+  });
 
   const [gelar, setGelar] = useState({
     options: {
@@ -201,11 +184,6 @@ export default function PublikSekolah() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const gelarResponse = await axios.get(
-          `http://localhost:8080/api/gelarPendidikan/${param.id}/gelarPendidikan`
-        );
-        const gelarData = gelarResponse.data;
-
         const guruResponse = await axios.get(
           `http://localhost:8080/api/guru/${param.id}/guru`
         );
@@ -240,27 +218,7 @@ export default function PublikSekolah() {
     };
 
     fetchData();
-  }, []);
-
-  const getPublikSekolah = async () => {
-    try {
-      const response = await axios.get(`${api}/${param.id}`);
-
-      const resData = response.data;
-      setNamaSekolah(resData.namaSekolah);
-      setInformasiSekolah(resData.informasiSekolah);
-      setTeleponSekolah(resData.teleponSekolah);
-      setEmailSekolah(resData.emailSekolah);
-      setAkreditasiSekolah(resData.akreditasiSekolah);
-      setStatus(resData.status);
-      setAlamatSekolah(resData.alamatSekolah);
-      setImage(resData.image);
-      setVisi(resData.visi);
-      setMisi(resData.misi);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  });
 
   const [statee, setStatee] = useState({
     options: {
@@ -309,14 +267,10 @@ export default function PublikSekolah() {
     },
     series: [],
   });
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const kelasResponse = await axios.get(
-          `http://localhost:8080/api/kelas/${param.id}/kelas`
-        );
-        const kelasData = kelasResponse.data;
-
         const muridResponse = await axios.get(
           `http://localhost:8080/api/sekolah/${param.id}/siswa`
         );
@@ -347,88 +301,117 @@ export default function PublikSekolah() {
         console.log(error);
       }
     };
-
     fetchData();
-  }, []);
-
-  const gendersiswa = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8080/api/sekolah/" + param.id + "/siswa"
-      );
-      setSiswa(response.data);
-      const totalPerempuan = response.data.filter(
-        (x) => x.gender === "Perempuan"
-      ).length;
-      setStatee({
-        ...statee,
-        series: [totalPerempuan, response.data.length - totalPerempuan],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const kelass = async () => {
-    try {
-      const respon = await axios.get(
-        "http://localhost:8080/api/sekolah/" + param.id + "/siswa"
-      );
-      setSiswa(respon.data);
-      const X = respon.data.filter((r) => r.kelas === "X").length;
-      const XI = respon.data.filter((r) => r.kelas === "XI").length;
-      const XII = respon.data.filter((r) => r.kelas === "XII").length;
-      setKelas({
-        ...kelas,
-        series: [X, XI, XII],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getAllGuru = async () => {
-    await axios
-      .get("http://localhost:8080/api/guru/" + param.id + "/guru")
-      .then((res) => {
-        setGuru(res.data);
-      });
-  };
-
-  const getAllMurid = async () => {
-    await axios
-      .get("http://localhost:8080/api/sekolah/" + param.id + "/siswa")
-      .then((res) => {
-        setSiswa(res.data);
-      });
-  };
-
-  const getAllKelas = async () => {
-    await axios
-      .get("http://localhost:8080/api/kelas/" + param.id + "/kelas")
-      .then((res) => {
-        setKelasOption(res.data);
-      });
-  };
-
-  const getAllExtra = async () => {
-    await axios
-      .get("http://localhost:8080/api/extra/" + param.id + "/extra")
-      .then((res) => {
-        setExtraOption(res.data);
-      });
-  };
+  });
 
   useEffect(() => {
+    const data = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/guru/" + param.id + "/guru"
+        );
+        setGuru(response.data);
+        const totalPerempuan = response.data.filter(
+          (x) => x.gender === "Perempuan"
+        ).length;
+        setState({
+          ...state,
+          series: [totalPerempuan, response.data.length - totalPerempuan],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
     data();
-    kelass();
+  });
+
+  useEffect(() => {
+    const getPublikSekolah = async () => {
+      try {
+        const response = await axios.get(`${api}/${param.id}`);
+
+        const resData = response.data;
+        setNamaSekolah(resData.namaSekolah);
+        setInformasiSekolah(resData.informasiSekolah);
+        setTeleponSekolah(resData.teleponSekolah);
+        setEmailSekolah(resData.emailSekolah);
+        setAkreditasiSekolah(resData.akreditasiSekolah);
+        setStatus(resData.status);
+        setAlamatSekolah(resData.alamatSekolah);
+        setImage(resData.image);
+        setVisi(resData.visi);
+        setMisi(resData.misi);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getPublikSekolah();
+  });
+
+  useEffect(() => {
+    const gendersiswa = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/sekolah/" + param.id + "/siswa"
+        );
+        setSiswa(response.data);
+        const totalPerempuan = response.data.filter(
+          (x) => x.gender === "Perempuan"
+        ).length;
+        setStatee({
+          ...statee,
+          series: [totalPerempuan, response.data.length - totalPerempuan],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
     gendersiswa();
+  });
+
+  useEffect(() => {
+    const getAllGuru = async () => {
+      await axios
+        .get("http://localhost:8080/api/guru/" + param.id + "/guru")
+        .then((res) => {
+          setGuru(res.data);
+        });
+    };
     getAllGuru();
+  }, [param.id]);
+
+  useEffect(() => {
+    const getAllMurid = async () => {
+      await axios
+        .get("http://localhost:8080/api/sekolah/" + param.id + "/siswa")
+        .then((res) => {
+          setSiswa(res.data);
+        });
+    };
     getAllMurid();
+  }, [param.id]);
+
+  useEffect(() => {
+    const getAllKelas = async () => {
+      await axios
+        .get("http://localhost:8080/api/kelas/" + param.id + "/kelas")
+        .then((res) => {
+          setKelasOption(res.data);
+        });
+    };
     getAllKelas();
+  }, [param.id]);
+
+  useEffect(() => {
+    const getAllExtra = async () => {
+      await axios
+        .get("http://localhost:8080/api/extra/" + param.id + "/extra")
+        .then((res) => {
+          setExtraOption(res.data);
+        });
+    };
     getAllExtra();
-  }, []);
+  }, [param.id]);
 
   const totalGuruIcon = (
     <FontAwesomeIcon

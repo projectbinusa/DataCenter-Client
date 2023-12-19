@@ -8,7 +8,6 @@ import { useParams } from "react-router-dom";
 
 export default function TambahKelas() {
   const param = useParams();
-  const sekolahId = localStorage.getItem("sekolahId");
   const [nama_kelas, setNamaKelas] = useState("");
   const [status, setStatus] = useState("");
 

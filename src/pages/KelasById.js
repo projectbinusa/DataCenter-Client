@@ -11,14 +11,6 @@ export default function DataKelas() {
   const [kelas, setKelas] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
 
-  const getAll = async () => {
-    await axios
-      .get(`http://localhost:8080/api/kelas/${param.id}/kelas`)
-      .then((res) => {
-        setKelas(res.data);
-      });
-  };
-
   const de = async (id) => {
     await Swal.fire({
       title: "Anda yakin?",
@@ -94,8 +86,15 @@ export default function DataKelas() {
   };
 
   useEffect(() => {
+    const getAll = async () => {
+      await axios
+        .get(`http://localhost:8080/api/kelas/${param.id}/kelas`)
+        .then((res) => {
+          setKelas(res.data);
+        });
+    };
     getAll();
-  }, []);
+  }, [param.id]);
 
   return (
     <>

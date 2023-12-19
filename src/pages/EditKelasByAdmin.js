@@ -7,7 +7,6 @@ import Sidebar from "../components/Sidebar";
 
 export default function UbahKelas() {
   const param = useParams();
-  const kelasId = param.id;
   const [namaKelas, setNamaKelas] = useState("");
   const [status, setStatus] = useState("");
 
@@ -22,7 +21,7 @@ export default function UbahKelas() {
       .catch((error) => {
         alert("Terjadi kesalahan Sir! " + error);
       });
-  }, []);
+  }, [param.id_kelas]);
 
   const nameChangeHandler = (event) => {
     setNamaKelas(event.target.value);
