@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import "../../style/edit.css";
 import PageSidebar from "../../components/PageSidebar";
@@ -18,7 +18,6 @@ export default function EditGuru() {
   const [statusKawin, setStatusKawin] = useState("");
   const [image, setImage] = useState("");
   const [gelar_option, setGelarOption] = useState([]);
-
 
   useEffect(() => {
     axios
@@ -38,10 +37,10 @@ export default function EditGuru() {
       })
       .catch((error) => {
         Swal.fire({
-          icon:"warning",
-          position:"center",
-          title:"Kesalahan" + error, 
-        })
+          icon: "warning",
+          position: "center",
+          title: "Kesalahan" + error,
+        });
       });
   }, []);
 
@@ -187,9 +186,7 @@ export default function EditGuru() {
               <p className="text-center text-3xl font-medium mb-7">Edit Guru</p>
 
               <div className="relative mt-3">
-                <label
-                  className="block mb-2 text-sm font-medium text-gray-900 "
-                >
+                <label className="block mb-2 text-sm font-medium text-gray-900 ">
                   Nama
                 </label>
                 <input
@@ -203,9 +200,7 @@ export default function EditGuru() {
                 />
               </div>
               <div className="relative mt-3">
-                <label
-                  className="block mb-2 text-sm font-medium text-gray-900 "
-                >
+                <label className="block mb-2 text-sm font-medium text-gray-900 ">
                   Foto Guru
                 </label>
                 <input
@@ -220,9 +215,7 @@ export default function EditGuru() {
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="relative">
-                  <label
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Tempat Lahir
                   </label>
                   <input
@@ -237,9 +230,7 @@ export default function EditGuru() {
                 </div>
 
                 <div className="relative">
-                  <label
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Tanggal Lahir
                   </label>
                   <input
@@ -256,9 +247,7 @@ export default function EditGuru() {
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="relative">
-                  <label
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     No Telepon
                   </label>
                   <input
@@ -273,9 +262,7 @@ export default function EditGuru() {
                 </div>
 
                 <div className="relative">
-                  <label
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Gelar Pendidikan
                   </label>
                   <select
@@ -306,9 +293,7 @@ export default function EditGuru() {
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="relative">
-                  <label
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Status Kawin
                   </label>
                   <select
@@ -328,9 +313,7 @@ export default function EditGuru() {
                 </div>
 
                 <div className="relative">
-                  <label
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Agama
                   </label>
                   <select
@@ -356,9 +339,7 @@ export default function EditGuru() {
               </div>
 
               <div className="grid grid-cols-2 gap-5 text-center">
-                <label
-                  className="block mb-2 text-sm font-medium text-gray-900  text-left col-span-2"
-                >
+                <label className="block mb-2 text-sm font-medium text-gray-900  text-left col-span-2">
                   Gender
                 </label>
                 <div className="relative mt-[-20px]">
@@ -372,9 +353,7 @@ export default function EditGuru() {
                     onChange={genderChangeHandler}
                   />
 
-                  <label
-                    className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                  >
+                  <label className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500">
                     <span> Laki-Laki </span>
                   </label>
 
@@ -403,9 +382,7 @@ export default function EditGuru() {
                     onChange={genderChangeHandler}
                   />
 
-                  <label
-                    className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                  >
+                  <label className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500">
                     <span> Perempuan </span>
                   </label>
 

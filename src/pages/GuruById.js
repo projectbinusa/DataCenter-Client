@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Chart from "react-apexcharts";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "../style/table.css";
 import $ from "jquery";
 import Swal from "sweetalert2";
@@ -20,7 +20,6 @@ export default function GuruById() {
   const [gender, setGender] = useState("");
   const [excel, setExcel] = useState("");
   const [isChecked, setIsChecked] = useState("");
-
 
   const addGuru = async (e) => {
     e.preventDefault();
@@ -485,9 +484,7 @@ export default function GuruById() {
                           return (
                             <tr key={idx}>
                               <td className="inset-y-0 left-0 bg-white px-4 py-2">
-                                <label className="sr-only" >
-                                  checkbox
-                                </label>
+                                <label className="sr-only">checkbox</label>
 
                                 <input
                                   className="h-5 w-5 rounded border-gray-200"
@@ -628,9 +625,7 @@ export default function GuruById() {
                               onSubmit={addGuru}
                             >
                               <div>
-                                <label className="sr-only" >
-                                  Nama
-                                </label>
+                                <label className="sr-only">Nama</label>
                                 <input
                                   autoComplete="off"
                                   className="w-full rounded-lg border p-3 text-sm"
@@ -711,9 +706,7 @@ export default function GuruById() {
                                     value="Laki-Laki"
                                     onChange={(e) => setGender(e.target.value)}
                                   />
-                                  <label
-                                    className="block cursor-pointer rounded-lg bg-blue border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                                  >
+                                  <label className="block cursor-pointer rounded-lg bg-blue border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500">
                                     <span> Laki-Laki </span>
                                   </label>
                                   <svg
@@ -739,9 +732,7 @@ export default function GuruById() {
                                     value="Perempuan"
                                     onChange={(e) => setGender(e.target.value)}
                                   />
-                                  <label
-                                    className="block cursor-pointer rounded-lg bg-blue border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                                  >
+                                  <label className="block cursor-pointer rounded-lg bg-blue border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500">
                                     <span> Perempuan </span>
                                   </label>
                                   <svg

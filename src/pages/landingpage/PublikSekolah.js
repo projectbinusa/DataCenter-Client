@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import axios from "axios";
 import AOS from "aos";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChalkboardUser,
   faMedal,
   faSchool,
-  faUserFriends,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -23,13 +22,10 @@ export default function PublikSekolah() {
   const [alamatSekolah, setAlamatSekolah] = useState("");
   const [emailSekolah, setEmailSekolah] = useState("");
   const [akreditasiSekolah, setAkreditasiSekolah] = useState("");
-  const [visiMisi, setVisiMisi] = useState("");
   const [status, setStatus] = useState("");
   const [image, setImage] = useState("");
   const [visi, setVisi] = useState("");
   const [misi, setMisi] = useState("");
-  const userId = localStorage.getItem("userId");
-  const [UserId, setUserId] = useState("");
   const [guru, setGuru] = useState([]);
   const [siswa, setSiswa] = useState([]);
   const [kelas_option, setKelasOption] = useState([]);
@@ -135,7 +131,7 @@ export default function PublikSekolah() {
     };
 
     fetchData();
-  }, []);
+  }, [param.id]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -257,7 +253,6 @@ export default function PublikSekolah() {
       setEmailSekolah(resData.emailSekolah);
       setAkreditasiSekolah(resData.akreditasiSekolah);
       setStatus(resData.status);
-      setVisiMisi(resData.visiMisi);
       setAlamatSekolah(resData.alamatSekolah);
       setImage(resData.image);
       setVisi(resData.visi);

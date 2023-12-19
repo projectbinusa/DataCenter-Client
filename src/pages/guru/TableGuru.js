@@ -268,7 +268,7 @@ export default function TableGuru() {
     };
 
     fetchData();
-}, [gelar]);
+  }, [gelar]);
 
   const getAll = async () => {
     await axios
@@ -649,14 +649,14 @@ export default function TableGuru() {
                     Download Data
                   </button>
                 )}
-                 <Link
-                className="text-white w-auto add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-                to={"/add-guru"}
-              >
-                Tambah Data Guru
-              </Link>
-                
+                <Link
+                  className="text-white w-auto add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                  to={"/add-guru"}
+                >
+                  Tambah Data Guru
+                </Link>
+
                 <button
                   className="text-white w-56 add-siswa active:bg-slate-300 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                   type="button"
@@ -664,7 +664,6 @@ export default function TableGuru() {
                 >
                   Import Data
                 </button>
-                
               </div>
             </div>
             <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200 p-5">
@@ -707,9 +706,7 @@ export default function TableGuru() {
                     return (
                       <tr key={idx}>
                         <td className="inset-y-0 left-0 bg-white px-4 py-2">
-                          <label className="sr-only">
-                            checkbox
-                          </label>
+                          <label className="sr-only">checkbox</label>
 
                           <input
                             className="h-5 w-5 rounded border-gray-200"

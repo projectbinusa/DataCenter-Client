@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import "../style/edit.css";
 import Sidebar from "../components/Sidebar";
@@ -19,7 +19,6 @@ export default function EditSiswa() {
   const [kelas, setKelas] = useState("");
   const [kelas_option, setKelasOption] = useState([]);
   const [extra_option, setExtraOption] = useState([]);
-
 
   useEffect(() => {
     axios
@@ -98,13 +97,13 @@ export default function EditSiswa() {
           showConfirmButton: false,
           timer: 1500,
         });
-        window.location.href="/murid/" + param.id_sekolah;
+        window.location.href = "/murid/" + param.id_sekolah;
       })
       .catch((error) => {
         Swal.fire({
-          icon:"warning",
-          text:"Kesalahan" + error,
-        })
+          icon: "warning",
+          text: "Kesalahan" + error,
+        });
       });
   };
   const getAllKelas = async () => {

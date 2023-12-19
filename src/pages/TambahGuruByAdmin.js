@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Sidebar from "../components/Sidebar";
@@ -93,9 +93,7 @@ export default function TableGuru() {
               </p>
 
               <div className="relative mt-3">
-                <label
-                  className="block mb-2 text-sm font-medium text-gray-900 "
-                >
+                <label className="block mb-2 text-sm font-medium text-gray-900 ">
                   Nama
                 </label>
                 <input
@@ -111,9 +109,7 @@ export default function TableGuru() {
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="relative">
-                  <label
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Tempat Lahir
                   </label>
                   <input
@@ -127,9 +123,7 @@ export default function TableGuru() {
                   />
                 </div>
                 <div className="relative">
-                  <label
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Tanggal Lahir
                   </label>
                   <input
@@ -146,9 +140,7 @@ export default function TableGuru() {
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="relative">
-                  <label
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     No Telepon
                   </label>
                   <input
@@ -163,9 +155,7 @@ export default function TableGuru() {
                 </div>
 
                 <div className="relative">
-                  <label
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Gelar Pendidikan
                   </label>
                   <select
@@ -194,9 +184,7 @@ export default function TableGuru() {
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="relative">
-                  <label
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Status Kawin
                   </label>
                   <select
@@ -216,9 +204,7 @@ export default function TableGuru() {
                 </div>
 
                 <div className="relative">
-                  <label
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Agama
                   </label>
                   <select
@@ -243,9 +229,7 @@ export default function TableGuru() {
               </div>
 
               <div className="grid grid-cols-2 gap-5 text-center">
-                <label
-                  className="block mb-2 text-sm font-medium text-gray-900  text-left col-span-2"
-                >
+                <label className="block mb-2 text-sm font-medium text-gray-900  text-left col-span-2">
                   Gender
                 </label>
                 <div className="relative mt-[-20px]">
@@ -259,9 +243,7 @@ export default function TableGuru() {
                     onChange={(e) => setGender(e.target.value)}
                   />
 
-                  <label
-                    className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                  >
+                  <label className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500">
                     <span> Laki-Laki </span>
                   </label>
 
@@ -290,9 +272,7 @@ export default function TableGuru() {
                     onChange={(e) => setGender(e.target.value)}
                   />
 
-                  <label
-                    className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                  >
+                  <label className=" relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500">
                     <span> Perempuan </span>
                   </label>
 

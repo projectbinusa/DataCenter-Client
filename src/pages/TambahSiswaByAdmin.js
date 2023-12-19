@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Sidebar from "../components/Sidebar";
@@ -160,7 +160,7 @@ export default function AddMurid() {
                   />
                 </div>
                 <div className="relative">
-                  <label >Tanggal Lahir:</label>
+                  <label>Tanggal Lahir:</label>
                   <input
                     type="date"
                     name="tanggallahir"
@@ -263,9 +263,7 @@ export default function AddMurid() {
                     onChange={(e) => setGender(e.target.value)}
                     required
                   />
-                  <label
-                    className="relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                  >
+                  <label className="relative block bg-white overflow-hidden rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 cursor-pointer rounded-lg border p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500">
                     <span> Laki-Laki </span>
                   </label>
                   <svg
@@ -293,9 +291,7 @@ export default function AddMurid() {
                     onChange={(e) => setGender(e.target.value)}
                     required
                   />
-                  <label
-                    className="relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
-                  >
+                  <label className="relative block bg-white overflow-hidden rounded-md border border-gray-200 cursor-pointer rounded-lg p-3 text-sm font-medium shadow-sm transition-colors hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500">
                     <span> Perempuan </span>
                   </label>
 

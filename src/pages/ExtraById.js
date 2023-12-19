@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "../style/table.css";
 import Swal from "sweetalert2";
 import Sidebar from "../components/Sidebar";
@@ -147,9 +147,7 @@ export default function DataKelas() {
                       return (
                         <tr key={idx}>
                           <td className="inset-y-0 left-0 bg-white px-4 py-2">
-                            <label className="sr-only" >
-                              checkbox
-                            </label>
+                            <label className="sr-only">checkbox</label>
 
                             <input
                               className="h-5 w-5 rounded border-gray-200"

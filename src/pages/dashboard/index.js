@@ -151,7 +151,7 @@ export default function Dashboard() {
             "/siswa"
         );
         setSiswa(respon.data);
-        console.log('test siswa');
+        console.log("test siswa");
 
         const agamaCounts = {
           Islam: 0,
