@@ -1,15 +1,9 @@
-import React, { useEffect, useState } from "react";
-import logo from "../assets/dc-logo.png";
+import React from "react";
 import Swal from "sweetalert2";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function PageSidebar() {
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
-
   const navigate = useNavigate();
-  const userId = localStorage.getItem("userId");
-  const sekolahId = localStorage.getItem("sekolahId");
-
   const handleLogout = () => {
     localStorage.clear();
     // Navigasi ke halaman home setelah logout
@@ -28,7 +22,7 @@ export default function PageSidebar() {
       if (result.isConfirmed) {
         handleLogout();
       } else {
-       }
+      }
     });
   };
 
@@ -59,9 +53,7 @@ export default function PageSidebar() {
                   ></path>
                 </svg>
               </button>
-              <a href="" className="flex ms-5 md:me-24 text-white">
-                <h1>The Data Center</h1>
-              </a>
+                <h1 className="text-white">The Data Center</h1>
             </div>
             <div className="flex items-center gap-4 ml-auto">
               {" "}
@@ -93,7 +85,7 @@ export default function PageSidebar() {
                       {localStorage.getItem("token") === null ? (
                         <>
                           <a
-                            className="hover:text-blue-600 hover:bg-[#dfecff] text-blue-900 bg-[#dfecff] hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2  focus:outline-none "
+                            className="hover:text-blue-600 hover:bg-[#dfecff] text-blue-900 bg-[#dfecff] focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2  focus:outline-none "
                             href="/login"
                           >
                             Masuk
@@ -106,12 +98,12 @@ export default function PageSidebar() {
                           </a>
                         </>
                       ) : (
-                        <a
-                          className="hover:text-blue-600 hover:bg-[#dfecff] text-blue-900 bg-[#dfecff] hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2  focus:outline-none "
+                        <button
+                          className="hover:text-blue-600 hover:bg-[#dfecff] text-blue-900 bg-[#dfecff] focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2  focus:outline-none "
                           onClick={logout}
                         >
                           Keluar
-                        </a>
+                        </button>
                       )}
                     </div>
                   </>

@@ -10,6 +10,7 @@ export default function DataKelas() {
   const [kelas, setKelas] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getAll = async () => {
     await axios
       .get(`http://localhost:8080/api/kelas/${sekolahId}/kelas`)
@@ -94,7 +95,7 @@ export default function DataKelas() {
 
   useEffect(() => {
     getAll();
-  }, []);
+  }, [getAll]);
 
   return (
     <>
@@ -146,9 +147,7 @@ export default function DataKelas() {
                       return (
                         <tr key={idx}>
                           <td className="inset-y-0 left-0 bg-white px-4 py-2">
-                            <label className="sr-only">
-                              checkbox
-                            </label>
+                            <label className="sr-only">checkbox</label>
 
                             <input
                               className="h-5 w-5 rounded border-gray-200"

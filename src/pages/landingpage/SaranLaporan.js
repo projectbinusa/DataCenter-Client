@@ -151,6 +151,7 @@ export default function SaranLaporan() {
                         className="overflow-y-auto relative block bg-white text-dark overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm dark:bg-white dark:text-dark w-full"
                         required
                         rows={4}
+                        value={laporan}
                       />
 
                       <div className="flex flex-col sm:flex-row items-center sm:justify-between p-5">

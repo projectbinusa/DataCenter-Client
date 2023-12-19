@@ -10,6 +10,7 @@ export default function DataKelas() {
   const [extra, setExtra] = useState([]);
   const [isChecked, setIsChecked] = useState([]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getAll = async () => {
     await axios
       .get(`http://localhost:8080/api/extra/${sekolahId}/extra`)
@@ -94,7 +95,7 @@ export default function DataKelas() {
 
   useEffect(() => {
     getAll();
-  }, []);
+  }, [getAll]);
 
   return (
     <>

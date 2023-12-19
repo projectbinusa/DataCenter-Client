@@ -121,8 +121,7 @@ export default function Dashboard() {
     };
 
     fetchData();
-  }, []);
-
+  }, [localStorage.getItem("sekolahId")]);
   const [religiMurid, setReligiMurid] = useState({
     options: {
       plotOptions: {
@@ -152,6 +151,7 @@ export default function Dashboard() {
             "/siswa"
         );
         setSiswa(respon.data);
+        console.log('test siswa');
 
         const agamaCounts = {
           Islam: 0,
@@ -188,8 +188,7 @@ export default function Dashboard() {
     };
 
     fetchData();
-  }, []);
-
+  }, [localStorage.getItem("sekolahId")]);
   const genderGuru = async () => {
     try {
       const response = await axios.get(
@@ -298,7 +297,7 @@ export default function Dashboard() {
         <div className="flex justify-center w-[100%]">
           <main className="s-content w-[390px] md:w-[1125px]   md:px-10 mx-8 py-5">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="rounded-xl bg-white p-1 flex border border-blue-500 border-2">
+              <div className="rounded-xl bg-white p-1 flex border-blue-500 border-2">
                 <div className="rounded-xl p-4 h-[120px] flex items-center">
                   <div className="flex items-start">
                     <div className="self-start">
@@ -315,7 +314,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div>
-              <div className="rounded-xl bg-white p-1 flex border border-blue-500 border-2">
+              <div className="rounded-xl bg-white p-1 flex  border-blue-500 border-2">
                 <div className="rounded-xl p-4 h-[120px] flex items-center">
                   <div className="flex items-start">
                     <div className="self-start">
@@ -332,7 +331,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div>
-              <div className="rounded-xl bg-white p-1 flex border border-blue-500 border-2">
+              <div className="rounded-xl bg-white p-1 flex border-blue-500 border-2">
                 <div className="rounded-xl p-4 h-[120px] flex items-center">
                   <div className="flex items-start">
                     <div className="self-start">
@@ -360,7 +359,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div>
-              <div className="rounded-xl bg-white p-1 flex border border-blue-500 border-2">
+              <div className="rounded-xl bg-white p-1 flex border-blue-500 border-2">
                 <div className="rounded-xl p-4 h-[120px] flex items-center">
                   <div className="flex items-start">
                     <div className="self-start">

@@ -1,40 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from "../assets/dc-logo.png";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 
 export default function PageNavbar() {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.clear();
-    // Navigasi ke halaman home setelah logout
-    navigate("/");
-  };
-
-  const logout = () => {
-    Swal.fire({
-      title: "Logout",
-      text: "Apakah Anda yakin ingin logout?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "Cancel",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        handleLogout();
-      } else {
-        Swal.fire("Cancelled", "Logout has been cancelled", "info");
-      }
-    });
-  };
 
   return (
     <div>
       <header>
         <nav class=" border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
           <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-            <a href="" className="flex items-center">
+            <div className="flex items-center">
               <img
                 src={logo}
                 className="mr-3 h-6 sm:h-9"
@@ -43,9 +17,9 @@ export default function PageNavbar() {
               <span className="self-center text-sm font-semibold whitespace-nowrap text-white">
                 THE DATA CENTER
               </span>
-            </a>
+            </div>
 
-            <div className="flex justify-around   lg:flex justify-between md:flex lg:flex-col sm:flex-col-reverse">
+            <div className="flex lg:flex justify-between md:flex lg:flex-col sm:flex-col-reverse">
               <a
                 href="/login"
                 className="text-gray-800 text-dark hover:bg-white-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 lg:mr-0"

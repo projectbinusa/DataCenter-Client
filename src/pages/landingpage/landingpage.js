@@ -3,12 +3,12 @@ import axios from "axios";
 import Logo from "../../assets/logo.png";
 import "./landingpage.css";
 import Swal from "sweetalert2";
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 const api = "http://localhost:8080/api/sekolah";
 
 export default function LandingPage() {
   const [getSekolah, setGetSekolah] = useState([]);
- 
+
   const sekolah = async () => {
     try {
       const response = await axios.get(`${api}`);
@@ -19,14 +19,16 @@ export default function LandingPage() {
     }
   };
 
-  const handleSubmit = (selectedSekolah  ) => {
+  const handleSubmit = (selectedSekolah) => {
     if (selectedSekolah) {
       const sekolahId = selectedSekolah.id;
       window.location.href = `/publik-sekolah/${sekolahId}`;
     } else {
       const searchTerm = searchInput.value.toLowerCase();
-      const matchingSchools = getSekolah.filter(sekolah => sekolah.namaSekolah.toLowerCase().includes(searchTerm));
-  
+      const matchingSchools = getSekolah.filter((sekolah) =>
+        sekolah.namaSekolah.toLowerCase().includes(searchTerm)
+      );
+
       if (matchingSchools.length) {
         const matchingSchool = matchingSchools[0];
         window.location.href = `/publik-sekolah/${matchingSchool.id}`;
@@ -38,47 +40,46 @@ export default function LandingPage() {
       }
     }
   };
-  
+
   const searchInput = document.getElementById("searchSekolah");
   const schoolList = document.getElementById("schoolList");
   let inputTimeout;
-  
+
   const handleSearch = (e) => {
     clearTimeout(inputTimeout);
-  
+
     const searchTerm = e.target.value.toLowerCase();
-  
+
     inputTimeout = setTimeout(() => {
       if (schoolList) {
         schoolList.innerHTML = "";
       }
-  
+
       if (searchTerm) {
         const loadingIndicator = document.createElement("div");
         loadingIndicator.textContent = "Loading...";
         schoolList.appendChild(loadingIndicator);
-  
+
         const suggestions = getSuggestions(searchTerm);
-  
+
         schoolList.removeChild(loadingIndicator);
-   
-  
+
         suggestions.forEach((suggestion) => {
           const listItem = document.createElement("div");
           listItem.classList.add("list-item");
           listItem.textContent = suggestion.value;
-  
+
           listItem.addEventListener("click", () => {
             searchInput.value = suggestion.value;
             handleSubmit(suggestion.data);
             handleSearch(e);
             listItem.classList.add("hover");
           });
-  
+
           listItem.addEventListener("mouseleave", () => {
             listItem.classList.remove("hover");
           });
-  
+
           schoolList.appendChild(listItem);
           const hr = document.createElement("hr");
           schoolList.appendChild(hr);
@@ -86,7 +87,7 @@ export default function LandingPage() {
       }
     }, 500);
   };
-  
+
   const getSuggestions = (searchTerm) => {
     const suggestions = [];
     for (const sekolah of getSekolah) {
@@ -99,9 +100,7 @@ export default function LandingPage() {
     }
     return suggestions;
   };
-  
-  
-  
+
   useEffect(() => {
     sekolah();
   }, []);
@@ -111,7 +110,7 @@ export default function LandingPage() {
       <header>
         <nav className="border-gray-200 px-4 lg:px-6 py-2.5 bg-gray-800">
           <div className="flex items-center lg:order-2 md:flex justify-between flex-grow">
-            <a href="" className="flex items-center">
+            <div>
               <img
                 src={Logo}
                 className="mr-3 h-6 sm:h-9"
@@ -120,20 +119,20 @@ export default function LandingPage() {
               <span className="self-center text-sm font-semibold whitespace-nowrap text-white">
                 THE DATA CENTER
               </span>
-            </a>
+            </div>
 
             <div className="flex items-center lg:order-2">
               <a
                 href="/login"
                 className=" text-white focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
               >
-               Masuk
+                Masuk
               </a>
               <a
                 href="/registrasi"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               >
-             Daftar
+                Daftar
               </a>{" "}
             </div>
           </div>
@@ -159,7 +158,6 @@ export default function LandingPage() {
                   onChange={handleSearch}
                 />
               </div>
-            
             </div>
             <div
               id="schoolList"
@@ -176,7 +174,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="bg-gray-50 bg-gray-800">
+      <section className="bg-gray-800">
         <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
           <div className="max-w-screen-md mb-8 lg:mb-16">
             <h2 className="mb-4 text-4xl font-extrabold text-white-900 text-white">
@@ -397,70 +395,70 @@ export default function LandingPage() {
             />
           </div>
           <div className="text-white p-5 md:p-3">
-                  <i style={{ fontSize: "1.5em" }} className="p-2 md:p-1">
-                    Contact Us
-                  </i>
-                  <p style={{ fontSize: "1em" }} className="p-2 md:p-1">
-                    <svg
-                      className="w-4 h-4 inline-block mr-2"
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="16"
-                      width="16"
-                      viewBox="0 0 512 512"
-                    >
-                      <path
-                        fill="#ffffff"
-                        d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
-                      />
-                    </svg>
-                    Datacenter950@gmail.com
-                  </p>
-                  <p style={{ fontSize: "1em" }} className="p-2 md:p-1">
-                    <svg
-                      className="w-4 h-4 inline-block mr-2"
-                      fill="currentColor"
-                      viewBox="0 0 512 512"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z" />
-                    </svg>
-                    0895616646699
-                  </p>
-                </div>
-                <div className="text-white p-5 md:p-3">
-                <Link to="/saran" className="flex items-center responsive-button">
-                <button
-                  className="z-20 block rounded-full border-2 border-white bg-blue-100 p-4 text-blue-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-blue-50"
-                  type="button"
-                              >
-                  <svg
-                                  className="h-4 w-4"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                                  />
-                                </svg>
-                              </button>      
-                <span className="self-center ml-3 text-sm font-semibold whitespace-nowrap text-white">
-                  Masukan Saran dan Laporan
-                </span>
-                </Link>
-                </div>
+            <i style={{ fontSize: "1.5em" }} className="p-2 md:p-1">
+              Contact Us
+            </i>
+            <p style={{ fontSize: "1em" }} className="p-2 md:p-1">
+              <svg
+                className="w-4 h-4 inline-block mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+                height="16"
+                width="16"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  fill="#ffffff"
+                  d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
+                />
+              </svg>
+              Datacenter950@gmail.com
+            </p>
+            <p style={{ fontSize: "1em" }} className="p-2 md:p-1">
+              <svg
+                className="w-4 h-4 inline-block mr-2"
+                fill="currentColor"
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z" />
+              </svg>
+              0895616646699
+            </p>
+          </div>
+          <div className="text-white p-5 md:p-3">
+            <Link to="/saran" className="flex items-center responsive-button">
+              <button
+                className="z-20 block rounded-full border-2 border-white bg-blue-100 p-4 text-blue-700 transition-all hover:scale-110 focus:outline-none focus:ring active:bg-blue-50"
+                type="button"
+              >
+                <svg
+                  className="h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                  />
+                </svg>
+              </button>
+              <span className="self-center ml-3 text-sm font-semibold whitespace-nowrap text-white">
+                Masukan Saran dan Laporan
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
 
-      <footer className="p-4 bg-gray-50 sm:p-6 bg-gray-800">
+      <footer className="p-4 sm:p-6 bg-gray-800">
         <div className="mx-auto max-w-screen-xl">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
-              <a href="" className="flex items-center">
+              <div href="" className="flex items-center">
                 <img
                   src={Logo}
                   className="mr-3 h-6 sm:h-9"
@@ -469,24 +467,20 @@ export default function LandingPage() {
                 <span className="self-center text-sm font-semibold whitespace-nowrap text-white">
                   THE DATA CENTER
                 </span>
-              </a>
-            
+              </div>
             </div>
           </div>
           <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
           <div className="sm:flex sm:items-center sm:justify-between">
             <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
               © 2022{" "}
-              <a href="#" className="hover:underline">
+              <div href="#" className="hover:underline">
                 Your website
-              </a>
+              </div>
               . All Rights Reserved.
             </span>
             <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
-              <a
-                href=""
-                className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
-              >
+              <div className="text-gray-500 hover:text-gray-900 dark:hover:text-white">
                 <svg
                   className="w-5 h-5"
                   fill="currentColor"
@@ -499,8 +493,7 @@ export default function LandingPage() {
                     clipRule="evenodd"
                   />
                 </svg>
-              </a>
-           
+              </div>
             </div>
           </div>
         </div>

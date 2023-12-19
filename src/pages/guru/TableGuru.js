@@ -199,7 +199,7 @@ export default function TableGuru() {
     };
 
     fetchData();
-  }, []);
+  }, [localStorage.getItem("sekolahId")]);
 
   const [gelar, setGelar] = useState({
     options: {
@@ -268,7 +268,7 @@ export default function TableGuru() {
     };
 
     fetchData();
-  }, []);
+}, [gelar]);
 
   const getAll = async () => {
     await axios
