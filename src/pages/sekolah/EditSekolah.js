@@ -251,7 +251,7 @@ export default function EditSekolah() {
                   value={status}
                   onChange={(e) => statusChange(e)}
                 >
-                  <option value="" disabled>
+                  <option value="Status"  >
                     Status
                   </option>
                   <option value="Negeri">Negeri</option>
