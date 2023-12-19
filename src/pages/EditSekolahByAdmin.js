@@ -16,7 +16,7 @@ export default function EditSekolah() {
   const [misi, setMisi] = useState("");
   const [visi, setVisi] = useState("");
   const [status, setStatus] = useState("");
-  const [setImage] = "";
+  const [image, setImage] = useState("");
 
   useEffect(() => {
     axios
@@ -182,7 +182,7 @@ export default function EditSekolah() {
                 </label>
                 <input
                   type="file"
-                  id="image"
+                  id={image}
                   placeholder="Logo Sekolah"
                   accept="image/*"
                   onChange={handleImageChange}

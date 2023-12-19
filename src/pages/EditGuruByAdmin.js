@@ -16,7 +16,7 @@ export default function EditGuru() {
   const [gender, setGender] = useState("");
   const [gelarPendidikan, setGelarPendidikan] = useState("");
   const [statusKawin, setStatusKawin] = useState("");
-  const [setImage] = "";
+  const [image, setImage] = useState("");
   const [gelar_option, setGelarOption] = useState([]);
 
   useEffect(() => {
@@ -203,7 +203,7 @@ export default function EditGuru() {
                 </label>
                 <input
                   type="file"
-                  id="image"
+                  id={image}
                   placeholder="Foto Guru"
                   accept="image/*"
                   onChange={handleImageChange}
